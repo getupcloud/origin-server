@@ -15,7 +15,7 @@
 Summary:       The OpenShift Management Console
 Name:          openshift-origin-console
 Version:       1.5.19
-Release:       2%{?dist}
+Release:       5%{?dist}
 Group:         Network/Daemons
 License:       ASL 2.0
 URL:           http://openshift.redhat.com
@@ -172,6 +172,12 @@ _EOF
 /sbin/fixfiles -R %{?scl:%scl_prefix}mod_passenger restore
 /sbin/restorecon -R -v /var/run
 %changelog
+* Fri May 16 2014 Builder <getup@getupcloud.com> 1.5.19-5
+- rebuild
+
+* Fri May 16 2014 Builder <getup@getupcloud.com> 1.5.19-4
+- update assets
+
 * Mon Mar 03 2014 Builder <getup@getupcloud.com> 1.5.19-2
 - Merge branch 'getup-openshift-origin-release-3' of github.com:getupcloud
   /origin-server into getup-openshift-origin-release-3

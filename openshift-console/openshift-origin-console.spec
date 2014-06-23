@@ -16,7 +16,7 @@
 Summary:       The OpenShift Management Console
 Name:          openshift-origin-console
 Version:       1.15.1.3
-Release:       1%{?dist}
+Release:       2%{?dist}
 Group:         Network/Daemons
 License:       ASL 2.0
 URL:           http://www.openshift.com
@@ -250,6 +250,9 @@ _EOF
 /sbin/fixfiles -R %{?scl:%scl_prefix}mod_passenger restore
 /sbin/restorecon -R -v /var/run
 %changelog
+* Sat May 17 2014 Builder <getup@getupcloud.com> 1.15.1.3-2
+- build
+
 * Wed Dec 11 2013 Krishna Raman <kraman@gmail.com> 1.15.1.3-1
 - Bumping version numbers (release-3 build-3) (kraman@gmail.com)
 - BuildRequire systemd for mock/koji builds, that package provides the

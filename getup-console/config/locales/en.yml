@@ -57,6 +57,8 @@ en:
   Reference: 'Reference'
   Application: 'Application'
   Item: 'Item'
+  Start: 'Start'
+  End: 'End'
   Type: 'Type'
   Quantity: 'Quantity'
   Unit: 'Unit'
@@ -64,7 +66,10 @@ en:
   Total_cost: 'Total cost'
   Credits: 'Credits'
   Total_credit: 'Total credit'
+  Final_Total: 'Final Total'
   Free_gear: 'Free gear'
+  Free_gear_bonus: 'Free gear (bonus)'
+  Free_gear_credit: 'Free gear (recurring credit)'
   Back: 'Back'
   Restart: 'Restart'
   Shared: 'Shared'
@@ -118,6 +123,7 @@ en:
   Scaling: 'Scaling'
   Not_Scalable: 'Not Scalable'
   Disable_Scaling: 'Disable Scaling'
+  Services: 'Services'
 
 
 ## Signin

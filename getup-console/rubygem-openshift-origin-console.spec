@@ -10,7 +10,7 @@
 Summary:       OpenShift Origin Management Console
 Name:          rubygem-%{gem_name}
 Version: 1.7.6
-Release:       48%{?dist}
+Release:       62%{?dist}
 Group:         Development/Languages
 License:       ASL 2.0
 URL:           https://openshift.redhat.com
@@ -134,6 +134,76 @@ cp -a ./%{gem_dir}/* %{buildroot}%{gem_dir}/
 %{gem_dir}/doc/%{gem_name}-%{version}
 
 %changelog
+* Mon May 19 2014 Builder <getup@getupcloud.com> 1.7.6-62
+- Merge branch 'getup-openshift-origin-release-3' of github.com:getupcloud
+  /origin-server into getup-openshift-origin-release-3 (getup@getupcloud.com)
+- missing mesg (mateus.caruccio@getupcloud.com)
+
+* Mon May 19 2014 Builder <getup@getupcloud.com> 1.7.6-61
+- Merge branch 'getup-openshift-origin-release-3' of github.com:getupcloud
+  /origin-server into getup-openshift-origin-release-3 (getup@getupcloud.com)
+- fix locale (mateus.caruccio@getupcloud.com)
+
+* Mon May 19 2014 Builder <getup@getupcloud.com> 1.7.6-60
+- Merge branch 'getup-openshift-origin-release-3' of github.com:getupcloud
+  /origin-server into getup-openshift-origin-release-3 (getup@getupcloud.com)
+- fix en-us locale (mateus.caruccio@getupcloud.com)
+
+* Mon May 19 2014 Builder <getup@getupcloud.com> 1.7.6-59
+- rebuild
+
+* Mon May 19 2014 Builder <getup@getupcloud.com> 1.7.6-58
+- version bump
+
+* Mon May 19 2014 Builder <getup@getupcloud.com> 1.7.6-57
+- Merge branch 'getup-openshift-origin-release-3' of github.com:getupcloud
+  /origin-server into getup-openshift-origin-release-3 (getup@getupcloud.com)
+- Wrong translation interpolation (mateus.caruccio@getupcloud.com)
+
+* Sat May 17 2014 Builder <getup@getupcloud.com> 1.7.6-56
+- Merge branch 'getup-openshift-origin-release-3' of github.com:getupcloud
+  /origin-server into getup-openshift-origin-release-3 (getup@getupcloud.com)
+- update console paypal mesg (mateus.caruccio@getupcloud.com)
+
+* Sat May 17 2014 Builder <getup@getupcloud.com>
+- Merge branch 'getup-openshift-origin-release-3' of github.com:getupcloud
+  /origin-server into getup-openshift-origin-release-3 (getup@getupcloud.com)
+- update console paypal mesg (mateus.caruccio@getupcloud.com)
+
+* Sat May 17 2014 Builder <getup@getupcloud.com> 1.7.6-55
+- 
+
+* Sat May 17 2014 Builder <getup@getupcloud.com> 1.7.6-54
+- rebuild
+
+* Sat May 17 2014 Builder <getup@getupcloud.com> 1.7.6-53
+- 
+
+* Sat May 17 2014 Builder <getup@getupcloud.com> 1.7.6-52
+- Merge branch 'getup-openshift-origin-release-3' of github.com:getupcloud
+  /origin-server into getup-openshift-origin-release-3 (getup@getupcloud.com)
+- Console: show payment methods (mateus.caruccio@getupcloud.com)
+
+* Sat May 17 2014 Builder <getup@getupcloud.com> 1.7.6-51
+- rebuild
+
+* Fri May 16 2014 Builder <getup@getupcloud.com> 1.7.6-50
+- rebuild
+
+* Fri May 16 2014 Builder <getup@getupcloud.com> 1.7.6-49
+- Rename config USER_MANAGER_SUBSCRIPTION_CREATE_URL
+  (mateus.caruccio@getupcloud.com)
+- PayPal express checkout (mateus.caruccio@getupcloud.com)
+- Disable skeuocard (mateus.caruccio@getupcloud.com)
+- Translate scaling (mateus.caruccio@getupcloud.com)
+- Merge branch 'getup-openshift-origin-release-3' of github.com:getupcloud
+  /origin-server into getup-openshift-origin-release-3
+  (mateus.caruccio@getupcloud.com)
+- Merge branch 'getup-openshift-origin-release-3' of github.com:getupcloud
+  /origin-server into getup-openshift-origin-release-3 (getup@getupcloud.com)
+- fix typo (mateus.caruccio@getupcloud.com)
+- fix gear count message (mateus.caruccio@getupcloud.com)
+
 * Tue Apr 01 2014 Builder <getup@getupcloud.com> 1.7.6-48
 - Merge branch 'getup-openshift-origin-release-3' of github.com:getupcloud
   /origin-server into getup-openshift-origin-release-3 (getup@getupcloud.com)
