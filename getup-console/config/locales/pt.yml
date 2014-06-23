@@ -57,6 +57,8 @@ pt:
   Reference: 'Referência'
   Application: 'Aplicação'
   Item: 'Item'
+  Start: 'Início'
+  End: 'Fim'
   Type: 'Tipo'
   Quantity: 'Quantidade'
   Unit: 'Unidade'
@@ -64,7 +66,10 @@ pt:
   Total_cost: 'Custo total'
   Credits: 'Créditos'
   Total_credit: 'Crédito total'
+  Final_Total: 'Total Final'
   Free_gear: 'Gear grátis'
+  Free_gear_bonus: 'Gear grátis (bonus)'
+  Free_gear_credit: 'Gear grátis (crédito recorrente)'
   Back: 'Voltar'
   Restart: 'Reiniciar'
   Shared: 'Compartilhado'
@@ -117,6 +122,7 @@ pt:
   Scaling: 'Escalando'
   Not_Scalable: 'Não Escalável'
   Disable_Scaling: 'Desabilitar Escalabilidade'
+  Services: 'Serviços'
 
 ## Signin
   Dashboard_Auth: "BEM-VINDO AO DASHBOARD"

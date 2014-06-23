@@ -44,6 +44,10 @@ chkconfig jenkins off
 %doc %{cartridgedir}/LICENSE
 
 %changelog
+* Tue May 27 2014 Builder <getup@getupcloud.com> 1.16.1.1-2
+- bump version (spinolacastro@gmail.com)
+- include GIT_SSH env var into jenkins config.xml (spinolacastro@gmail.com)
+
 * Fri Dec 06 2013 Krishna Raman <kraman@gmail.com> 1.16.1.1-1
 - Bumping versions for OpenShift Origin Release 3 (kraman@gmail.com)
 
