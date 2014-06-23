@@ -1,7 +1,11 @@
 module Console::BillingHelper
   def item_price(item, prices)
     usage_type = item[:usage_type]
-    gear_size = item[:gear_size]
+    if usage_type == 'ADDTL_FS_GB'
+      gear_size = ''
+    else
+      gear_size = item[:gear_size] ? item[:gear_size] : 'small'
+    end
     gear_price(usage_type, gear_size, prices)
   end
 

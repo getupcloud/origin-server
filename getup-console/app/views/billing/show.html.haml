@@ -86,7 +86,7 @@
                     %td #{item[:usage_type]}
                   %td #{item[:quantity]}
                   %td #{item[:unit]}
-                  %td= @acronym + ' ' + item_price(item, @prices)[:value].to_s
+                  %td #{@acronym} #{item_price(item, @prices)[:value].to_s}
                   %td #{@acronym} #{number_with_precision(item[:amount].to_f, :precision => 2)}
               %tr
                 %td{:colspan => 4}
