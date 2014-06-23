@@ -38,7 +38,27 @@ class BillingController < ConsoleController
       else
         @prices       = user_manager_subscription_prices.content
       end
-      @price        = @prices.find(result[:invoice][:amount][:total][:currency])
+
+      # compat
+      @user[:billing_type] = 'Variable' unless @user.has_key? :billing_type
+      if @prices.kind_of?(Hash)
+        prices = []
+        @prices.each{ |currency, item|
+            if item.kind_of?(Hash)
+              item.each{ |item_name, value|
+                price = Hash[value]
+                price[:item] = item_name.to_s
+                price[:gear_size] = item_name == 'ADDTL_FS_GB' ? "" : "small"
+                price[:cart_name] = ""
+                prices << price
+              }
+            else
+                prices.concat(item)
+            end
+          @prices = prices
+        }
+      end
+
       @acronym      = @prices.select{|i| i if i[:item]=="GEAR_USAGE" and i[:currency]=='BRL' }.first[:acronym]
       @unit         = {'h' => I18n.t(:hour), 'd' => I18n.t(:day), 'm' => I18n.t(:month), 'y' => I18n.t(:year), 'g' => 'gigabyte'}
 
