@@ -57,6 +57,8 @@ module ActionDispatch::Routing
       end
 
       def openshift_account_resource_routes
+        get 'gears' => redirect('/console/account')
+
         resources :billing, :only => [:show, :index], :format => false
         resource :validate, :controller => :validate, :only => [:create] do
            get 'confirm'
