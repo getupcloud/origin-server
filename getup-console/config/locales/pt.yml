@@ -127,7 +127,7 @@ pt:
 ## Signin
   Dashboard_Auth: "BEM-VINDO AO DASHBOARD"
   Sign_in: "Entrar"
-  forgot_password: "Esqueçeu sua senha?"
+  forgot_password: "Esqueceu sua senha?"
   reset_password_title: "Redefinir a Senha"
   reset_password_caption: "Escolha uma nova senha"
   reset_password_flash: "Redefinição de senha requisitada."
