@@ -7,7 +7,7 @@ class BillingController < ConsoleController
       result  = user_manager_billing_history.content
       data = result[:data][0]
       @currency = data[:payment_data].nil? ? '' : data[:payment_data][:currency]
-      @history  = data[:history]
+      @history  = data[:history].sort_by{|h| h[:ref_date]}.reverse
   end
 
   def show

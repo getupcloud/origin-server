@@ -6,11 +6,11 @@ module Console::BillingHelper
     else
       gear_size = item[:gear_size] ? item[:gear_size] : 'small'
     end
-    gear_price(usage_type, gear_size, prices)
+    gear_price(usage_type, gear_size, prices, item[:currency] ? item[:currency] : 'BRL')
   end
 
-  def gear_price(usage_type, gear_size, prices)
-    prices.select{ |p| p if p[:item] == usage_type.to_s and p[:gear_size] == gear_size.to_s and p[:currency] == 'BRL' }.first
+  def gear_price(usage_type, gear_size, prices, currency='BRL')
+    prices.select{ |p| p if p[:item] == usage_type.to_s and p[:gear_size] == gear_size.to_s and p[:currency] == currency }.first
   end
 
   def has_service(services)

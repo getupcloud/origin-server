@@ -1,5 +1,6 @@
 class StorageController < ConsoleController
   include Console::UserManagerHelper
+  include Console::BillingHelper
 
   before_filter :user_information
   before_filter :application_information
@@ -8,10 +9,11 @@ class StorageController < ConsoleController
     prices = user_manager_subscription_prices.content
 
     if I18n.locale.to_s == 'pt'
-      @storage_price = "#{prices[:BRL][:ADDTL_FS_GB][:acronym]} #{prices[:BRL][:ADDTL_FS_GB][:value]}"
+      price = item_price({:usage_type => 'ADDTL_FS_GB'}, prices)
     else
-      @storage_price = "#{prices[:USD][:ADDTL_FS_GB][:acronym]} #{prices[:USD][:ADDTL_FS_GB][:value]}"
+      price = item_price({:usage_type => 'ADDTL_FS_GB', :currency => 'USD'}, prices)
     end
+    @storage_price = "#{price[:acronym]} #{price[:value]}"
   end
 
   def update
