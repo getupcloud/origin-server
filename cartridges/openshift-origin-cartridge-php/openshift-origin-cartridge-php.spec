@@ -3,7 +3,7 @@
 
 Name:          openshift-origin-cartridge-php
 Version: 1.19.8
-Release:       4%{?dist}
+Release:       5%{?dist}
 Summary:       Php cartridge
 Group:         Development/Languages
 License:       ASL 2.0
@@ -69,6 +69,7 @@ Requires:      php54-php-pecl-mongo
 Requires:      php54-php-pecl-imagick
 Requires:      php54-php-pecl-xdebug
 Requires:      php54-php-mcrypt
+Requires:      php54-php-pecl-memcached
 %endif
 
 #  RHEL-6 PHP 5.5 SCL
@@ -90,12 +91,13 @@ Requires:      php55-php-pecl-memcache
 Requires:      php55-php-pecl-mongo
 Requires:      php55-php-pecl-imagick
 Requires:      php55-php-pecl-xdebug
-Requires:      php55-php-pecl-oci8
 Requires:      php55-php-pgsql
 Requires:      php55-php-process
 Requires:      php55-php-soap
 Requires:      php55-php-xml
 Requires:      php55-php-xmlrpc
+Requires:      php55-php-pecl-jsonc
+Requires:      php55-php-pecl-memcached
 %endif
 
 BuildArch:     noarch
