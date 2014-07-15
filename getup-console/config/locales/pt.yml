@@ -177,7 +177,7 @@ pt:
   browse_by_tag: 'Navegue por tag...'
   invalid_cart_type: "O cartridge definido para este tipo é inválido. O %{source} pode estar incorreto."
   undef_cart_type: "Nenhum cartridge está definido para este tipo - todas as aplicações exigem pelo meno um cartridge web."
-  app_deleted: "A applicação '%{name}' foi deletada"
+  app_deleted: "A aplicação '%{name}' foi deletada"
   create_first_app: 'Crie sua primeira aplicação agora mesmo!'
   search_caption: "Não encontra o que procura? Experimente ampliar sua busca ou filtrar por outra tag."
   see_all_app_types: "Todos os tipos de aplicações"
