@@ -272,6 +272,10 @@ Requires:  php-pgsql
 Requires:  php54-php-mysqlnd
 Requires:  php54-php-pecl-mongo
 Requires:  php54-php-pgsql
+
+Requires:  php55-php-mysqlnd
+Requires:  php55-php-pecl-mongo
+Requires:  php55-php-pgsql
 %endif
 
 %description recommended-php
@@ -302,6 +306,7 @@ Requires:  php-pecl-xdebug
 Requires:  php-process
 Requires:  php-soap
 Requires:  php-xml
+Requires:  php-pecl-memcached
 %if 0%{?fedora}%{?rhel} <= 6
 Requires:  php54-php-bcmath
 Requires:  php54-php-devel
@@ -319,6 +324,25 @@ Requires:  php54-php-pecl-xdebug
 Requires:  php54-php-process
 Requires:  php54-php-soap
 Requires:  php54-php-xml
+Requires:  php54-php-pecl-memcached
+
+Requires:  php55-php-bcmath
+Requires:  php55-php-devel
+Requires:  php55-php-fpm
+Requires:  php55-php-gd
+Requires:  php55-php-intl
+Requires:  php55-php-ldap
+Requires:  php55-php-mbstring
+Requires:  php55-php-mcrypt
+Requires:  php55-php-pdo
+Requires:  php55-php-opcache
+Requires:  php55-php-pecl-imagick
+Requires:  php55-php-pecl-memcache
+Requires:  php55-php-pecl-xdebug
+Requires:  php55-php-process
+Requires:  php55-php-soap
+Requires:  php55-php-xml
+Requires:  php55-php-pecl-memcached
 %endif
 
 %description optional-php

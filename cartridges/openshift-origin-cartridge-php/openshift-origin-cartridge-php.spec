@@ -17,6 +17,9 @@ Requires:      php < 5.4
 Requires:      php54
 Requires:      php54-php
 Requires:      php54-php-pear
+Requires:      php55
+Requires:      php55-php
+Requires:      php55-php-pear
 %endif
 %if 0%{?fedora} >= 19
 Requires:      php >= 5.5

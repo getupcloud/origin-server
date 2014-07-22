@@ -12,11 +12,17 @@ Provides:
 Versions:
 - '5.4'
 - '5.3'
+- '5.5'
 Version-Overrides:
   '5.3':
     Display-Name: PHP 5.3
     Provides:
     - php-5.3
+    - php
+  '5.5':
+    Display-Name: PHP 5.5
+    Provides:
+    - php-5.5
     - php
 License: The PHP License, version 3.0
 License-Url: http://www.php.net/license/3_0.txt
