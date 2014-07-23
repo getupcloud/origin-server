@@ -30,6 +30,12 @@
   @media (max-width:480px) {
     h3 .font-icon {margin-left: 10px}
   }
+  .prices-block { float: left;width: 130px;}
+  .prices-block h5 { text-transform: none; }
+  .prices-block .prices .cost { float:right; }
+  .help-block .vertical-line { float:left; border-left: 1px solid #949494;height: 62px;margin-left: 10px;margin-top: 8px;}
+  .help-block .help-text { float: left;width: 346px;padding-left: 10px; }
+
 
 - advanced_path = application_type_path(@application_type.id, @application_type.to_params.merge(:advanced => true))
 - focus = params[:focus]
@@ -152,8 +158,20 @@
         = f.inline_errors_for :gear_profile
 
       .controls
-        %p.help-block
-          = I18n.t(:gears_explain, gear_size: gear_sizes.first.to_s)
+        .help-block
+          %span.prices-block
+            %h5=I18n.t(:gear_cost_per_hour)
+            .prices
+              %span.size= 'Small'.titleize
+              %span.cost R$ 0,122
+            .prices
+              %span.size= 'Small-BR'.titleize
+              %span.cost R$ 0,148
+            .prices
+              %span.size= 'Medium'.titleize
+              %span.cost R$ 0,305
+          %span.vertical-line
+          %span.help-text= I18n.t(:gears_explain, gear_size: gear_sizes.first.to_s)
           - if gear_sizes.length > 1
             = I18n.t(:larger_gear)
 

@@ -213,6 +213,7 @@ pt:
   git_repo_caption_2: "Iremos criar um repositório git na nuvem, preaparado com um conjunto razoável de padrões."
   gears_explain: "Gears são os 'containers' que executam seu código. Para a maioria das aplicações,
                o gear '%{gear_size}' possui uma quantidade de recursos suficientes."
+  gear_cost_per_hour: "Custo por hora/gear"
   cartridges_explain: "Aplicações são compostas de cartridges - cada um expõem um serviço
                      ou funcionalidade para seu código. Todas as aplicações devem ter um cartridge web."
   scale_explain_1: 'Requisições web são automaticamente roteadas para seus gears web.'
