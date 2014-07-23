@@ -540,6 +540,9 @@ an OpenShift cartrige.
 %files optional-ruby
 
 %changelog
+* Wed Jul 23 2014 Builder <getup@getupcloud.com> 1.26.2-1
+- bump version (getup@getupcloud.com)
+
 * Wed Jul 23 2014 Builder <getup@getupcloud.com> 1.25.2-2
 - bump version (getup@getupcloud.com)
 - php-5.5 (spinolacastro@gmail.com)
