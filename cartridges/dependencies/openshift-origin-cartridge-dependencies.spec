@@ -540,6 +540,10 @@ an OpenShift cartrige.
 %files optional-ruby
 
 %changelog
+* Wed Jul 23 2014 Builder <getup@getupcloud.com> 1.25.2-2
+- bump version (getup@getupcloud.com)
+- php-5.5 (spinolacastro@gmail.com)
+
 * Thu Jun 05 2014 Adam Miller <admiller@redhat.com> 1.25.2-1
 - Bug 1103772 - Add svn client to support Redmine (jhonce@redhat.com)
 
