@@ -171,9 +171,10 @@
               %span.size= 'Medium'.titleize
               %span.cost R$ 0,305
           %span.vertical-line
-          %span.help-text= I18n.t(:gears_explain, gear_size: gear_sizes.first.to_s)
-          - if gear_sizes.length > 1
-            = I18n.t(:larger_gear)
+          %span.help-text
+            = I18n.t(:gears_explain, gear_size: gear_sizes.first.to_s)
+            - if gear_sizes.length > 1
+              = I18n.t(:larger_gear)
 
     = control_group(e.has_key?(:cartridges), :important => true) do
       %h3.control-label Cartridges
