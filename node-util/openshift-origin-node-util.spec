@@ -149,6 +149,12 @@ cp -p init.d/openshift-gears %{buildroot}%{_initddir}/
 %endif
 
 %changelog
+* Thu Jul 31 2014 Builder <getup@getupcloud.com> 1.18.0.3-1
+- Fix [Bug 1123935] remove invalid rescue (spinolacastro@gmail.com)
+- Bump version (spinolacastro@gmail.com)
+- Fix [Bug 1123935] node-proxy writes an invalid timestamp to logs when node is
+  in UTC TZ (spinolacastro@gmail.com)
+
 * Wed Dec 11 2013 Krishna Raman <kraman@gmail.com> 1.18.0.2-1
 - Bumping version numbers (release-3 build-2) (kraman@gmail.com)
 - <oo-accept-node> fix context check for systemctl (lmeyer@redhat.com)
