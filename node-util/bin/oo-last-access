@@ -94,34 +94,30 @@ class LastAccessUpdater
     awk_cmd = %Q[{ if ( #{ignore_cond} ) h[$2]=$5" "$6 } END{ for ( i in h ) { printf("%s=%s\\n",i,h[i]) } }]
     # Pack separate log files one at a time so we can enforce the rule
     # that most recent timestamp wins.
-    begin
-      @log_files.each do |log_file|
-        IO::popen(['/bin/awk', awk_cmd, log_file]) do |output|
-          output.each do |line|
-            parts = line.split("=")
-            timestamp = parts[1].delete("[").delete("]").strip
-            t_array = timestamp.split(' ')
-            if t_array.length==2 and t_array[1][0]!='+' and t_array[1][0]!='-'
-              timestamp = t_array[0] + " +" + t_array[1]
-            end
-            hostname = parts[0].strip
-            # puts "#{hostname}-->#{timestamp}"
-            # Virtual host is same as app dns
-            gear_uuid = @all_apps_info[hostname]
-            if gear_uuid
-              # This structure of operations is optimized for getting an
-              # extremely large number of gear_uuids only once and just a few
-              # twice.
-              if not (@last_access_data.has_key?(gear_uuid) and
-                      ( DateTime.strptime(timestamp, "%d/%b/%Y:%H:%M:%S %Z") <= DateTime.strptime(@last_access_data[gear_uuid], "%d/%b/%Y:%H:%M:%S %Z")))
-                @last_access_data[gear_uuid] = timestamp
-              end
+    @log_files.each do |log_file|
+      IO::popen(['/bin/awk', awk_cmd, log_file]) do |output|
+        output.each do |line|
+          parts = line.split("=")
+          timestamp = parts[1].delete("[").delete("]").strip
+          t_array = timestamp.split(' ')
+          if t_array.length==2 and t_array[1][0]!='+' and t_array[1][0]!='-'
+            timestamp = t_array[0] + " +" + t_array[1]
+          end
+          hostname = parts[0].strip
+          # puts "#{hostname}-->#{timestamp}"
+          # Virtual host is same as app dns
+          gear_uuid = @all_apps_info[hostname]
+          if gear_uuid
+            # This structure of operations is optimized for getting an
+            # extremely large number of gear_uuids only once and just a few
+            # twice.
+            if not (@last_access_data.has_key?(gear_uuid) and
+                    ( DateTime.strptime(timestamp, "%d/%b/%Y:%H:%M:%S %Z") <= DateTime.strptime(@last_access_data[gear_uuid], "%d/%b/%Y:%H:%M:%S %Z")))
+              @last_access_data[gear_uuid] = timestamp
             end
           end
         end
       end
-    rescue Exception => e
-      puts "EXCEPTION: #{e}"
     end
   end
 
