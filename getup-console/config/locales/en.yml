@@ -215,6 +215,7 @@ en:
   git_repo_caption_2: "We'll create a Git code repository in the cloud, and populate it with a set of reasonable defaults."
   gears_explain: "Gears are the application containers running your code. For most applications,
                the '%{gear_size}' gear size provides plenty of resources."
+  gear_cost_per_hour: "Cost per hour/gear"
   cartridges_explain: "Applications are composed of cartridges - each of which exposes a service or 
           capability to your code.  All applications must have a web cartridge."
   scale_explain_1: 'OpenShift automatically routes web requests to your web gear.'
