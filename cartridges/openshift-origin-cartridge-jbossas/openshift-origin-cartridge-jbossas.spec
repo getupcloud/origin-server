@@ -5,7 +5,7 @@
 Summary:       Provides JBossAS7 support
 Name:          openshift-origin-cartridge-jbossas
 Version: 1.18.0.1
-Release:       1%{?dist}
+Release:       2%{?dist}
 Group:         Development/Languages
 License:       ASL 2.0
 URL:           http://www.openshift.com
@@ -104,6 +104,9 @@ fi
 
 
 %changelog
+* Tue Aug 12 2014 Builder <getup@getupcloud.com> 1.18.0.1-2
+- Translate welcome pages to pt-br (mateus.caruccio@getupcloud.com)
+
 * Fri Dec 06 2013 Krishna Raman <kraman@gmail.com> 1.18.0.1-1
 - Bumping versions for OpenShift Origin Release 3 (kraman@gmail.com)
 - Fix for bug 1034596 remove links that point to openshift.redhat.com
