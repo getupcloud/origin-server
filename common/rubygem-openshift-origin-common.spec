@@ -9,7 +9,7 @@
 
 Summary:       Cloud Development Common
 Name:          rubygem-%{gem_name}
-Version: 1.25.2
+Version: 1.25.2.2
 Release:       1%{?dist}
 Group:         Development/Languages
 License:       ASL 2.0
@@ -46,6 +46,7 @@ BuildRequires: %{?scl:%scl_prefix}ruby(abi) >= %{rubyabi}
 %endif
 BuildRequires: %{?scl:%scl_prefix}rubygems
 BuildRequires: %{?scl:%scl_prefix}rubygems-devel
+BuildRequires: %{?scl:%scl_prefix}rubygem-rails
 # For the prereq_domain_resolves check in oo-diagnostics:
 Requires:      bind-utils
 BuildArch:     noarch
@@ -124,6 +125,13 @@ rm -rf %{buildroot}%{gem_instdir}/.yardoc*
 %doc %{gem_docdir}
 
 %changelog
+* Thu Jul 10 2014 Adam Miller <admiller@redhat.com> 1.25.2.2-1
+- add rails as a BuildRequires for the rpm build, the gemspec now requires it
+  (admiller@redhat.com)
+
+* Thu Jul 10 2014 Adam Miller <admiller@redhat.com> 1.25.2.1-1
+- 
+
 * Thu Jun 12 2014 Adam Miller <admiller@redhat.com> 1.25.2-1
 - add conditional inclusion of rails-observers which is it's own gem in rails4
   (admiller@redhat.com)
