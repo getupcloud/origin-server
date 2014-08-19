@@ -1,0 +1,5 @@
+LoadModule vhost_alias_module modules/mod_vhost_alias.so
+<IfModule mod_vhost_alias.c>
+UseCanonicalName Off
+VirtualDocumentRoot <%= "#{ENV['OPENSHIFT_REPO_DIR']}/php/%0" %>
+</IfModule>

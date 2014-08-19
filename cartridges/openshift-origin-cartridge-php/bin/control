@@ -18,10 +18,21 @@ function pre_start_httpd_config {
     write_server_status ${HTTPD_CFG_DIR}/server-status.conf
     write_httpd_passenv $HTTPD_PASSENV_FILE
     select_php_document_root ${OPENSHIFT_REPO_DIR}
+    ensure_multisite
     oo-erb ${ERB_HTTPD_CFG_DIR}openshift.conf.erb > ${HTTPD_CFG_DIR}/openshift.conf
     oo-erb ${OPENSHIFT_PHP_DIR}conf/performance.conf.erb.hidden > $HTTPD_CFG_DIR/performance.conf
     enable_modules
     ensure_valid_httpd_process "$HTTPD_PID_FILE" "$HTTPD_CFG_FILE"
+}
+
+function ensure_multisite() {
+  if [ -f ${OPENSHIFT_REPO_DIR}.openshift/markers/multisite ]; then
+    echo "Enabling multisite module"
+    oo-erb ${HTTPD_CFG_DIR}/multisite.conf.erb.hidden > ${HTTPD_CFG_DIR}/multisite.conf
+  else
+    echo > ${HTTPD_CFG_DIR}/multisite.conf
+  fi
+  return $? 
 }
 
 function start() {
