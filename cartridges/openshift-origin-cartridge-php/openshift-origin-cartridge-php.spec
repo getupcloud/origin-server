@@ -59,6 +59,13 @@ PHP cartridge for openshift. (Cartridge Format V2)
 
 
 %changelog
+* Thu Sep 25 2014 Builder <getup@getupcloud.com> 1.26.9.1-3
+- bump version (getup@getupcloud.com)
+- Merge branch 'getup-openshift-origin-release-4' of github.com:getupcloud
+  /origin-server into getup-openshift-origin-release-4
+  (spinolacastro@gmail.com)
+- fix memcached and apc modules issue (spinolacastro@gmail.com)
+
 * Tue Aug 19 2014 Builder <getup@getupcloud.com> 1.26.9.1-2
 - bump version (getup@getupcloud.com)
 - php multisite (spinolacastro@gmail.com)
