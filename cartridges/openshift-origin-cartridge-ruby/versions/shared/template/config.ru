@@ -19,8 +19,7 @@ map '/' do
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Welcome to OpenShift</title>
-
+  <title>Getup Cloud - Bem vindo a bordo</title>
 
 <style>
 
@@ -207,7 +206,7 @@ pre {
   padding: 13.333px 20px;
   margin: 0 0 20px;
   font-size: 13px;
-  line-height: 1.4;
+line-height: 1.4;
   background-color: #fff;
   border-left: 2px solid rgba(120,120,120,0.35);
   white-space: pre;
@@ -225,66 +224,65 @@ pre {
 
 <section class='container'>
           <hgroup>
-            <h1>Welcome to your Ruby application on OpenShift</h1>
+            <h1>Esta é sua aplicação Ruby na Getup Cloud OpenShift</h1>
           </hgroup>
 
 
         <div class="row">
           <section class='col-xs-12 col-sm-6 col-md-6'>
             <section>
-              <h2>Deploying code changes</h2>
-                <p>OpenShift uses the <a href="http://git-scm.com/">Git version control system</a> for your source code, and grants you access to it via the Secure Shell (SSH) protocol. In order to upload and download code to your application you need to give us your <a href="https://www.openshift.com/developers/remote-access">public SSH key</a>. You can upload it within the web console or install the <a href="https://www.openshift.com/developers/rhc-client-tools-install">RHC command line tool</a> and run <code>rhc setup</code> to generate and upload your key automatically.</p>
+              <h2>Modificações no código</h2>
+                <p>A Plataforma Openshift utiliza o <a href="http://git-scm.com/">Git</a> para versionamento e controle do seu código. Para fazer upload ou download do código da sua aplicação é necessário cadastrar a <a href="https://getup.zendesk.com/entries/23649786">chave pública</a>. Você pode enviar a chave através do Dashboard Web ou<a href="https://getup.zendesk.com/entries/23056511"> instalando o RHC</a> (Command line tool) e rodando <code>rhc setup --server broker.getupcloud.com</code> para gerar e subir sua chave.</p>
+                
+                <h3>Trabalhando no seu repositório local</h3>
+                <p>Se você criou a aplicação usando o RHC (linha de comando), o RHC irá automaticamente fazer o download do repositório da aplicação na Getup para sua máquina local (no Git chamamos essa operação de clonar).</p>
 
-                <h3>Working in your local Git repository</h3>
-                <p>If you created your application from the command line and uploaded your SSH key, rhc will automatically download a copy of that source code repository (Git calls this 'cloning') to your local system.</p>
-
-                <p>If you created the application from the web console, you'll need to manually clone the repository to your local system. Copy the application's source code Git URL and then run:</p>
+                <p>Se você criou a aplicação usando o Dashboard Web, você terá que clonar manualmente o repositório para sua máquina local antes de adicionar seu código. Copie a URL Git da aplicação e rode:</p>
 
 <pre>$ git clone &lt;git_url&gt; &lt;directory_to_create&gt;
 
-# Within your project directory
-# Commit your changes and push to OpenShift
+# No seu diretório do projeto
+# Faça Commit das modificações e Push para enviar para Getup
 
-$ git commit -a -m 'Some commit message'
+$ git commit -a -m 'mensagem para identificar o commit'
 $ git push</pre>
+
+
                   <ul>
-                    <li><a href="https://www.openshift.com/developers/deploying-and-building-applications">Learn more about deploying and building your application</a></li>
-                    <li>See the README file in your local application Git repository for more information on the options for deploying applications.</li>
+                    <li><a href="https://getup.zendesk.com/entries/38835698">Para saber mais dê uma olhada em nosso tutorial primeiros passos</a></li>
+                    <li>Não deixe de olhar o arquivo README no seu repositório local para mais informações e opções para publicar aplicações.</li>
                   </ul>
-
             </section>
-
+            
+            
           </section>
           <section class="col-xs-12 col-sm-6 col-md-6">
 
-                <h2>Managing your application</h2>
+                <h2>Gerenciando sua aplicação</h2>
 
-                <h3>Web Console</h3>
-                <p>You can use the OpenShift web console to enable additional capabilities via cartridges, add collaborator access authorizations, designate custom domain aliases, and manage domain memberships.</p>
+                <h3>Dashboard Web</h3>
+                <p>Você pode utilizar o Dashboard para adicionar novas funcionalidades e tecnologias através dos cartuchos, dar acesso a um colaborador ou gerenciar domínios.</p>
 
-                <h3>Command Line Tools</h3>
-                <p>Installing the <a href="https://www.openshift.com/developers/rhc-client-tools-install">OpenShift RHC client tools</a> allows you complete control of your cloud environment. Read more on how to manage your application from the command line in our <a href="https://www.openshift.com/user-guide">User Guide</a>.
-                </p>
+                <h3>Console de comando (RHC)</h3>
+                <p><a href="https://getup.zendesk.com/entries/23056511">Instalar o RHC</a> permitirá que você tenha controle completo do seu ambiente de nuvem. Saiba mais sobre o RHC em nosso <a href="https://getup.zendesk.com/entries/26727613">Guia rápido</a>.</p>
 
-                <h2>Development Resources</h2>
+                <h2>Documentação e ajuda</h2>
                   <ul>
-                    <li><a href="https://www.openshift.com/developers">Developer Center</a></li>
-                    <li><a href="https://www.openshift.com/user-guide">User Guide</a></li>
-                    <li><a href="https://www.openshift.com/support">OpenShift Support</a></li>
-                    <li><a href="http://stackoverflow.com/questions/tagged/openshift">Stack Overflow questions for OpenShift</a></li>
-                    <li><a href="http://webchat.freenode.net/?randomnick=1&channels=openshift&uio=d4">IRC channel at #openshift on freenode.net</a></li>
-                    <li><a href="http://git-scm.com/documentation">Git documentation</a></li>
+                    <li><a href="https://getup.zendesk.com/home">Base de conhecimento</a></li>
+                    <li><a href="https://getup.zendesk.com/entries/38835698">Primeiros passos</a></li>
+                    <li><a href="http://getupcloud.com/blog">Blog Getup</a></li>
+                    <li><a href="http://git-scm.com/documentation">Documentação Git</a></li>
                   </ul>
 
 
           </section>
         </div>
 
+        
         <footer>
-          <div class="logo"><a href="https://www.openshift.com/"></a></div>
+          <div class="logo"><a href="https://getupcloud.com/"></a></div>
         </footer>
 </section>
-
 
 </body>
 </html>
