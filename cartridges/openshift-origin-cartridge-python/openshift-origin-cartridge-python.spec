@@ -3,7 +3,7 @@
 
 Name:          openshift-origin-cartridge-python
 Version: 1.26.2.1
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Python cartridge
 Group:         Development/Languages
 License:       ASL 2.0

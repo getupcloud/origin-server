@@ -8,7 +8,7 @@
 
 Name:          openshift-origin-cartridge-ruby
 Version: 1.26.3.1
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Ruby cartridge
 Group:         Development/Languages
 License:       ASL 2.0

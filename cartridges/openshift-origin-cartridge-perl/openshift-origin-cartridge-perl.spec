@@ -3,7 +3,7 @@
 
 Name:          openshift-origin-cartridge-perl
 Version: 1.25.2.1
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Perl cartridge
 Group:         Development/Languages
 License:       ASL 2.0
