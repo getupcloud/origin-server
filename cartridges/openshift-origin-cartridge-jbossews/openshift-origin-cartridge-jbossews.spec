@@ -79,6 +79,10 @@ alternatives --set jbossews-2.0 /usr/share/tomcat7
 %doc %{cartridgedir}/LICENSE
 
 %changelog
+* Fri Sep 26 2014 Builder <getup@getupcloud.com> 1.25.3.1-2
+- bump version (getup@getupcloud.com)
+- Translate welcome pages to pt-br (spinolacastro@gmail.com)
+
 * Thu Jul 10 2014 Adam Miller <admiller@redhat.com> 1.25.3.1-1
 - 
 
