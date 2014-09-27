@@ -110,6 +110,10 @@ fi
 
 
 %changelog
+* Fri Sep 26 2014 Builder <getup@getupcloud.com> 1.26.1.1-2
+- bump version (getup@getupcloud.com)
+- Translate welcome pages to pt-br (spinolacastro@gmail.com)
+
 * Thu Jul 10 2014 Adam Miller <admiller@redhat.com> 1.26.1.1-1
 - 
 
