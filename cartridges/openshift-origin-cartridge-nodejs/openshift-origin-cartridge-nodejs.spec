@@ -74,6 +74,10 @@ find versions/ -name .gitkeep -delete
 %doc %{cartridgedir}/LICENSE
 
 %changelog
+* Fri Sep 26 2014 Builder <getup@getupcloud.com> 1.27.4.1-2
+- bump version (getup@getupcloud.com)
+- Translate welcome pages to pt-br (spinolacastro@gmail.com)
+
 * Thu Jul 10 2014 Adam Miller <admiller@redhat.com> 1.27.4.1-1
 - 
 
