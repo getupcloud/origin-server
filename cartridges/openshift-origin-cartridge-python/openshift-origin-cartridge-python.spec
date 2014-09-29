@@ -2,7 +2,7 @@
 
 Name:          openshift-origin-cartridge-python
 Version: 1.18.0.3
-Release:       1%{?dist}
+Release:       5%{?dist}
 Summary:       Python cartridge
 Group:         Development/Languages
 License:       ASL 2.0
@@ -117,6 +117,18 @@ Python cartridge for OpenShift. (Cartridge Format V2)
 %doc %{cartridgedir}/LICENSE
 
 %changelog
+* Tue Aug 12 2014 Builder <getup@getupcloud.com> 1.18.0.3-5
+- python cart is utf-8 (mateus.caruccio@getupcloud.com)
+
+* Tue Aug 12 2014 Builder <getup@getupcloud.com> 1.18.0.3-4
+- 
+
+* Tue Aug 12 2014 Builder <getup@getupcloud.com>
+- 
+
+* Tue Aug 12 2014 Builder <getup@getupcloud.com> 1.18.0.3-2
+- Translate welcome pages to pt-br (mateus.caruccio@getupcloud.com)
+
 * Thu Dec 12 2013 Krishna Raman <kraman@gmail.com> 1.18.0.3-1
 - Bumping version numbers (release-3 build-4) (kraman@gmail.com)
 - fix libdir (admiller@redhat.com)

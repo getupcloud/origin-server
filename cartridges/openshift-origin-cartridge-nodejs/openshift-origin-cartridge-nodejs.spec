@@ -10,7 +10,7 @@
 Summary:       Provides Node.js support
 Name:          openshift-origin-cartridge-nodejs
 Version: 1.22.3
-Release:       1%{?dist}
+Release:       2%{?dist}
 Group:         Development/Languages
 License:       ASL 2.0
 URL:           http://www.openshift.com
@@ -81,6 +81,9 @@ find versions/ -name .gitkeep -delete
 %doc %{cartridgedir}/LICENSE
 
 %changelog
+* Tue Aug 12 2014 Builder <getup@getupcloud.com> 1.22.3-2
+- Translate welcome pages to pt-br (mateus.caruccio@getupcloud.com)
+
 * Sat Mar 08 2014 Builder <getup@getupcloud.com> 1.22.3-1
 - fix nodejs bugs from stage (spinolacastro@gmail.com)
 

@@ -2,7 +2,7 @@
 
 Name:          openshift-origin-cartridge-perl
 Version: 1.17.0.3
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Perl cartridge
 Group:         Development/Languages
 License:       ASL 2.0
@@ -72,6 +72,9 @@ rm %{buildroot}%{cartridgedir}/metadata/manifest.yml.*
 
 
 %changelog
+* Tue Aug 12 2014 Builder <getup@getupcloud.com> 1.17.0.3-2
+- Translate welcome pages to pt-br (mateus.caruccio@getupcloud.com)
+
 * Thu Dec 12 2013 Krishna Raman <kraman@gmail.com> 1.17.0.3-1
 - Bumping version numbers (release-3 build-4) (kraman@gmail.com)
 - fix libdir (admiller@redhat.com)
