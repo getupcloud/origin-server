@@ -167,7 +167,7 @@ module OpenShift
 
           # Specific constraints within the gear's limit
           f.puts %Q[qdisc add dev #{@tc_if} parent 1:#{netclass} handle #{netclass}: htb default 0]
-          f.puts %Q[class add dev #{@tc_if} parent #{netclass}: classid #{netclass}:2 htb rate 512kbit ceil 1mbit quantum #{@tc_min_quantum}]
+          f.puts %Q[class add dev #{@tc_if} parent #{netclass}: classid #{netclass}:2 htb rate 128kbit ceil 256kbit quantum #{@tc_min_quantum}]
           #f.puts %Q[class add dev #{@tc_if} parent #{netclass}: classid #{netclass}:3 htb rate  12kbit ceil  24kbit quantum #{@tc_min_quantum}]
           f.puts %Q[filter add dev #{@tc_if} parent #{netclass}: protocol ip prio 10 u32 match ip dport 587 0xffff flowid #{netclass}:2]
           f.puts %Q[filter add dev #{@tc_if} parent #{netclass}: protocol ip prio 10 u32 match ip dport  25 0xffff flowid #{netclass}:2]
