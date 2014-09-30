@@ -11,6 +11,8 @@ Source0:       http://mirror.openshift.com/pub/openshift-origin/source/%{name}/%
 Requires:      bc
 Requires:      rubygem(openshift-origin-node)
 Requires:      openshift-origin-node-util
+Requires:      tomcat6
+Requires:      tomcat7
 Requires:      java-1.7.0-openjdk
 Requires:      java-1.7.0-openjdk-devel
 %if 0%{?rhel}
