@@ -1,5 +1,35 @@
 module Console::ModelHelper
 
+  ##
+  # Evaluate if the region is selectable by the user
+  #
+  # @param  (Array)  regions     A list of Regions
+  # @return true if a user is able to select a region
+  #         for an application. false otherwise
+  def allow_region_selection?(regions)
+    !regions.blank? && regions.any?{|r|r.allow_selection}
+  end
+
+  ##
+  # Retrieve the assigned region from a list of GearGroups
+  #
+  # @param  (Array)  gear_groups   A list of gear groups
+  # @return (String)               Formatted region or nil
+  def assigned_region(gear_groups)
+    gear_groups.first.gears.first.region unless gear_groups.blank?
+  end
+
+  ##
+  # Retrieve the first region marked as the default
+  #
+  # @param  (Array)  regions     A list of Regions
+  #
+  def default_region(regions)
+    defaulted_regions = regions.select{|r|r.default}
+    return nil if defaulted_regions.empty?
+    return defaulted_regions.first.name
+  end
+
   def other_cartridges_link(has_suggestions, application)
     if has_suggestions
       link_to "Or, see the entire list of cartridges you can add", application_cartridge_types_path(application)
@@ -78,10 +108,13 @@ module Console::ModelHelper
     "There are not enough free gears available to create a new application. You will either need to scale down or delete existing applications to free up resources."
   end
 
-  def new_application_gear_sizes(writeable_domains, user_capabilities)
+  def new_application_gear_sizes(writeable_domains, user_capabilities, application_type=nil)
     gear_sizes = user_capabilities.allowed_gear_sizes
     if writeable_domains.present?
       gear_sizes = writeable_domains.map(&:capabilities).map(&:allowed_gear_sizes).flatten.uniq
+    end
+    if application_type && application_type.valid_gear_sizes?
+      gear_sizes &= application_type.valid_gear_sizes 
     end
     gear_sizes
   end
@@ -92,6 +125,9 @@ module Console::ModelHelper
       gear_estimate = gear_estimate_for_scaled_app({'1' => [cartridge_type]})
       increasing = (gear_estimate.begin > 0 || gear_estimate.end > 0)
       gear_sizes = capabilities.allowed_gear_sizes if increasing
+      if cartridge_type.valid_gear_sizes?
+        gear_sizes &= cartridge_type.valid_gear_sizes 
+      end
     end
     gear_sizes
   end
@@ -120,6 +156,16 @@ module Console::ModelHelper
         [d.name, d.name]
       end
     end
+  end
+
+  def cartridges_for_select(cartridges, selected=nil)
+    options_for_select(cartridges.sort.map do |c|
+      if c.valid_gear_sizes?
+        [c.display_name, c.name, 'data-gear-sizes' => c.valid_gear_sizes.join(',')]
+      else
+        [c.display_name, c.name]
+      end
+    end, selected)
   end
 
   def web_cartridge_scale_title(cartridge)
@@ -254,25 +300,20 @@ module Console::ModelHelper
     end
   end
 
-  def in_groups_by_tag(ary, tags)
-    groups = {}
-    other = ary.reject do |t|
-      tags.any? do |tag|
-        (groups[tag] ||= []) << t if t.tags.include?(tag)
+  def in_groups_by_tag(types, tags)
+    categorized = []
+    uncategorized = types
+
+    tags.each do |tag|
+      matches, uncategorized = uncategorized.partition {|type| type.tags.include?(tag)}
+      if matches.length > 1
+        categorized << [tag, matches]
+      else
+        uncategorized.concat matches
       end
     end
-    groups = tags.map do |tag|
-      types = groups[tag]
-      if types
-        if types.length < 2
-          other.concat(types)
-          nil
-        else
-          [tag, types]
-        end
-      end
-    end.compact
-    [groups, other]
+
+    [categorized, uncategorized]
   end
 
   def common_tags_for(ary)

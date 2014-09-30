@@ -63,7 +63,7 @@ module OpenShift
         carts = []
         CartridgeRepository.instance.latest_versions do |cartridge|
           begin
-            print "Loading #{cartridge.name}-#{cartridge.version}..." if oo_debug
+            print "Loading (#{cartridge.cartridge_vendor}, #{cartridge.name}, #{cartridge.version}, #{cartridge.cartridge_version})..." if oo_debug
 
             # Deep copy is necessary here because OpenShift::Cartridge makes destructive changes
             # to the hash passed to from_descriptor
@@ -103,16 +103,17 @@ module OpenShift
         output
       end
 
-      def self.get_quota(uuid)
+      def self.get_quota(uuid, resolve=true)
         begin
-          Etc.getpwnam(uuid)
+          Etc.getpwnam(uuid) if resolve
         rescue ArgumentError
           raise NodeCommandException.new(
                     Utils::Sdk.translate_out_for_client("Unable to obtain quota user #{uuid} does not exist",
                                                         :error))
         end
 
-        stdout, _, _ = Utils.oo_spawn("quota --always-resolve -w #{uuid}")
+        resolve_opt      = resolve ? "--always-resolve" : ""
+        stdout, _, _ = Utils.oo_spawn("quota -p #{resolve_opt} -w #{uuid}")
         results      = stdout.split("\n").grep(%r(^.*/dev/))
         if results.empty?
           raise NodeCommandException.new(
@@ -124,7 +125,7 @@ module OpenShift
 
         {device:      results[0],
          blocks_used: results[1].to_i, blocks_quota: results[2].to_i, blocks_limit: results[3].to_i,
-         inodes_used: results[4].to_i, inodes_quota: results[5].to_i, inodes_limit: results[6].to_i
+         inodes_used: results[5].to_i, inodes_quota: results[6].to_i, inodes_limit: results[7].to_i
         }
       end
 
@@ -162,11 +163,11 @@ module OpenShift
         return []
       end
 
-      def self.set_quota(uuid, blocksmax, inodemax)
+      def self.set_quota(uuid, blocksmax, inodemax, resolve=true)
         current_quota, current_inodes, cur_quota = 0, 0, nil
 
         begin
-          cur_quota = get_quota(uuid)
+          cur_quota = get_quota(uuid, resolve)
         rescue NodeCommandException
           # keep defaults
         end
@@ -191,7 +192,8 @@ module OpenShift
         end
 
         mountpoint      = self.get_gear_mountpoint
-        cmd             = "setquota --always-resolve -u #{uuid} 0 #{blocksmax} 0 #{inodemax} -a #{mountpoint}"
+        resolve_opt      = resolve ? "--always-resolve" : ""
+        cmd             = "setquota #{resolve_opt} -u #{uuid} 0 #{blocksmax} 0 #{inodemax} -a #{mountpoint}"
         _, stderr, rc = Utils.oo_spawn(cmd)
         raise NodeCommandException.new "Error: #{stderr} executing command #{cmd}" unless rc == 0
       end
@@ -203,11 +205,12 @@ module OpenShift
         self.set_quota(uuid, blocksmax.to_i, inodemax.to_i)
       end
 
-      def self.remove_quota(uuid)
+      def self.remove_quota(uuid, resolve=true)
         begin
-          self.set_quota(uuid, 0, 0)
+          self.set_quota(uuid, 0, 0, resolve)
         rescue NodeCommandException
-          # If the user no longer exists than it has no quota
+          # If the user no longer exists than it has no quota.
+          # NB: there are other exceptions too, such as if the gear is still using space on the disk somehow.
         end
       end
 

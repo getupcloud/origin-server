@@ -1,14 +1,10 @@
 #!/bin/bash -e
 
-source $OPENSHIFT_CARTRIDGE_SDK_BASH
-source ${OPENSHIFT_PHP_DIR}usr/lib/php_context
 source ${OPENSHIFT_PHP_DIR}usr/lib/php_config
 
 HTTPD_CFG_FILE=$OPENSHIFT_PHP_DIR/configuration/etc/conf/httpd_nolog.conf
 HTTPD_CFG_DIR=$OPENSHIFT_PHP_DIR/configuration/etc/conf.d
 ERB_HTTPD_CFG_DIR=$OPENSHIFT_PHP_DIR/usr/shared/etc/conf.d/
-ERB_PHPRC=$OPENSHIFT_PHP_DIR/usr/shared/etc/php.ini.erb
-ERB_PHP_INI_SCAN_DIR=$OPENSHIFT_PHP_DIR/usr/${OPENSHIFT_PHP_VERSION}/etc/php.d
 HTTPD_PASSENV_FILE=$HTTPD_CFG_DIR/passenv.conf
 HTTPD_PID_FILE=$OPENSHIFT_PHP_DIR/run/httpd.pid
 
@@ -19,13 +15,12 @@ for dir in /etc/openshift/cart.conf.d/httpd{,/php} ; do
 done
 
 function pre_start_httpd_config {
+    write_server_status ${HTTPD_CFG_DIR}/server-status.conf
     write_httpd_passenv $HTTPD_PASSENV_FILE
     select_php_document_root ${OPENSHIFT_REPO_DIR}
     oo-erb ${ERB_HTTPD_CFG_DIR}openshift.conf.erb > ${HTTPD_CFG_DIR}/openshift.conf
     oo-erb ${OPENSHIFT_PHP_DIR}conf/performance.conf.erb.hidden > $HTTPD_CFG_DIR/performance.conf
-    oo-erb ${ERB_PHPRC} > ${PHPRC}
-    oo-erb ${ERB_PHP_INI_SCAN_DIR}/apc.ini.erb > ${PHP_INI_SCAN_DIR}/apc.ini
-    oo-erb ${ERB_PHP_INI_SCAN_DIR}/xdebug.ini.erb > ${PHP_INI_SCAN_DIR}/xdebug.ini
+    enable_modules
     ensure_valid_httpd_process "$HTTPD_PID_FILE" "$HTTPD_CFG_FILE"
 }
 
@@ -115,12 +110,21 @@ function build() {
     fi
     if [ -f ${OPENSHIFT_REPO_DIR}${pear_file} ]; then
         echo "Checking ${pear_file} for PEAR dependency..."
+        local show_cleanbuild_msg=0
+
         for f in $(cat ${OPENSHIFT_REPO_DIR}${pear_file}); do
             echo -e "Checking PEAR: $f\n"
-            if ! php_context "pear info '$f' &>/dev/null"; then
-                php_context "pear install --alldeps '$f'"
+
+            if php_context "pear info '$f' &>/dev/null"; then # package is already installed
+
+                local current_version=$(pear info "$f" | awk '$0$1 ~/Release Version/ {print $3;}')
+                local desired_version=$(echo "$f" | sed -nre 's/^[^0-9]*(([0-9]+\.)*[0-9]+).*/\1/p')
+
+                if [ "$current_version" != "$desired_version" ]; then
+                    php_context "pear upgrade --alldeps '$f'" || show_cleanbuild_msg=1
+                fi
             else
-                php_context "pear upgrade --alldeps '$f'" || :
+                php_context "pear install --alldeps '$f'"
             fi
             echo
             # Remove gear-specific absolute paths from the generated PEAR
@@ -128,6 +132,45 @@ function build() {
             find ${OPENSHIFT_PHP_DIR}phplib/pear/pear/ -type f \( ! -regex '.*/\..*' \) \
               -exec sed -i "s|${OPENSHIFT_HOMEDIR}|~/|g" {} \;
         done
+
+        if [ $show_cleanbuild_msg -eq 1 ]; then
+            echo -e "Tip: Use the .openshift/markers/force_clean_build marker file to do a clean build.\n"
+            exit 1
+        fi
+    fi
+
+    # Composer
+    if [ -f ${OPENSHIFT_REPO_DIR}.openshift/markers/use_composer ]; then
+        local composer_lock_msg="\nPlease, consider committing the composer.lock file into your repository:\n"
+        composer_lock_msg+=" $ rhc scp ${OPENSHIFT_APP_NAME} download ./ app-root/repo/composer.lock\n"
+        composer_lock_msg+=" $ git add composer.lock && git commit -am'Lock specific set of Composer dependencies'\n"
+        if [ "$APPLICATION_ENV" != "development" ]; then
+            # Production
+            echo -n "Checking composer.json for Composer dependency... "
+            if [ -f ${OPENSHIFT_REPO_DIR}composer.json ]; then
+                echo
+                composer install --no-interaction --no-ansi --no-scripts --optimize-autoloader --working-dir=${OPENSHIFT_REPO_DIR} || \
+                echo -e "\nSkipping Composer errors..\n\n  Please, fix the errors either locally or in development mode.\n"
+                if [ ! -f ${OPENSHIFT_REPO_DIR}composer.lock ]; then
+                    echo -e $composer_lock_msg
+                fi
+            else
+                echo "File not found."
+            fi
+        else
+            # Development
+            if [ -f ${OPENSHIFT_REPO_DIR}composer.lock ]; then
+                echo "Ignoring composer.lock file (development mode)"
+            fi
+            echo -n "Checking composer.json for Composer dependency... "
+            if [ -f ${OPENSHIFT_REPO_DIR}composer.json ]; then
+                echo
+                composer update --no-interaction --no-ansi --no-scripts --optimize-autoloader --working-dir=${OPENSHIFT_REPO_DIR}
+                echo -e $composer_lock_msg
+            else
+                echo "File not found."
+            fi
+        fi
     fi
 }
 

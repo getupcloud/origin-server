@@ -8,24 +8,28 @@ module OpenShift
   class ActiveMQPlugin < OpenShift::RoutingService
     def initialize
       Rails.logger.debug("Listening for routing events")
-      @topic = Rails.application.config.routing_activemq[:topic]
+      @dest = Rails.application.config.routing_activemq[:destination]
       if Rails.application.config.routing_activemq[:debug]
         @conn = Class.new(Object) do
-          def publish(topic, msg)
-            Rails.logger.debug("Topic #{topic} gets message:\n#{msg}")
+          def publish(dest, msg)
+            Rails.logger.debug("Destination #{dest} gets message:\n#{msg}")
           end
         end.new
       else
-        @conn = Stomp::Connection.open Rails.application.config.routing_activemq[:username],
-                                       Rails.application.config.routing_activemq[:password],
-                                       Rails.application.config.routing_activemq[:host],
-                                       Rails.application.config.routing_activemq[:port],
-                                       true
+        @conn = Stomp::Connection.open({
+          :hosts => Rails.application.config.routing_activemq[:hosts].map do |host|
+            host.merge({
+              :login => Rails.application.config.routing_activemq[:username],
+              :passcode => Rails.application.config.routing_activemq[:password],
+            })
+          end,
+          :reliable => true,
+        })
       end
     end
 
     def send_msg(msg)
-      @conn.publish @topic, msg
+      @conn.publish @dest, msg
     end
 
     def notify_ssl_cert_add(app, fqdn, ssl_cert, pvt_key, passphrase)

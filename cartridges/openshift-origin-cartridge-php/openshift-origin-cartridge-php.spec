@@ -3,7 +3,7 @@
 %global httpdconfdir /etc/openshift/cart.conf.d/httpd/php
 
 Name:          openshift-origin-cartridge-php
-Version: 1.25.1
+Version: 1.29.1
 Release:       1%{?dist}
 Summary:       Php cartridge
 Group:         Development/Languages
@@ -56,6 +56,74 @@ PHP cartridge for openshift. (Cartridge Format V2)
 
 
 %changelog
+* Thu Aug 21 2014 Adam Miller <admiller@redhat.com> 1.29.1-1
+- bump_minor_versions for sprint 50 (admiller@redhat.com)
+
+* Wed Aug 20 2014 Adam Miller <admiller@redhat.com> 1.28.2-1
+- Bump cartridge versions for Sprint 49 (maszulik@redhat.com)
+
+* Fri Aug 08 2014 Adam Miller <admiller@redhat.com> 1.28.1-1
+- bump_minor_versions for sprint 49 (admiller@redhat.com)
+- BZ1047469 - PHP cart pear downgrade enhancement: exit when it's failed
+  (bvarga@redhat.com)
+- BZ1047469 - PHP cart: fixes pear package upgrade and downgrade messages
+  (bvarga@redhat.com)
+
+* Wed Jul 30 2014 Adam Miller <admiller@redhat.com> 1.27.3-1
+- bump cart versions for sprint 48 (bparees@redhat.com)
+
+* Tue Jul 29 2014 Adam Miller <admiller@redhat.com> 1.27.2-1
+- Bug 1094007 - PHP cart: update pear.php.net channel when install
+  (bvarga@redhat.com)
+
+* Thu Jun 26 2014 Adam Miller <admiller@redhat.com> 1.27.1-1
+- php migration hotfix (vvitek@redhat.com)
+- Bug 1112216 - Match specific php module filename (vvitek@redhat.com)
+- Fix php upgrade for 0.0.17 - bug 1111115 (vvitek@redhat.com)
+- bump_minor_versions for sprint 47 (admiller@redhat.com)
+
+* Thu Jun 19 2014 Adam Miller <admiller@redhat.com> 1.26.6-1
+- Merge pull request #5533 from pmorie/latest_versions (admiller@redhat.com)
+- Bump cartridge versions for 2.0.46 (pmorie@gmail.com)
+- Fix Composer - bug 1110268 (vvitek@redhat.com)
+- Merge pull request #5523 from jhadvig/status
+  (dmcphers+openshiftbot@redhat.com)
+- Making apache server-status optional with a marker (jhadvig@redhat.com)
+- Merge pull request #5525 from pmorie/upgrade
+  (dmcphers+openshiftbot@redhat.com)
+- Fix php upgrade for 0.0.17 (pmorie@gmail.com)
+
+* Wed Jun 18 2014 Adam Miller <admiller@redhat.com> 1.26.5-1
+- Dereference variable name in $modvar for comparison (jolamb@redhat.com)
+- Remove extra conditions from APC module (vvitek@redhat.com)
+- Fix PHP migration (vvitek@redhat.com)
+- Refactor enable_php_modules; remove extra ENV VARs (vvitek@redhat.com)
+- Bug 1108017: Load .ini modules on php setup (jhadvig@redhat.com)
+
+* Fri Jun 13 2014 Adam Miller <admiller@redhat.com> 1.26.4-1
+- Merge pull request #5500 from VojtechVitek/composer
+  (dmcphers+openshiftbot@redhat.com)
+- Add Composer, the PHP dependency manager (vvitek@redhat.com)
+
+* Wed Jun 11 2014 Adam Miller <admiller@redhat.com> 1.26.3-1
+- Merge pull request #5484 from VojtechVitek/bug_1104228
+  (dmcphers+openshiftbot@redhat.com)
+- Fix bug 1104228 - missing php-5.4 scl in PATH (vvitek@redhat.com)
+
+* Mon Jun 09 2014 Adam Miller <admiller@redhat.com> 1.26.2-1
+- Merge pull request #5307 from dobbymoodge/test_php_env_scan
+  (dmcphers+openshiftbot@redhat.com)
+- php cart: dynamic, controllable php.d seeding (jolamb@redhat.com)
+
+* Thu Jun 05 2014 Adam Miller <admiller@redhat.com> 1.26.1-1
+- bump_minor_versions for sprint 46 (admiller@redhat.com)
+
+* Thu May 29 2014 Adam Miller <admiller@redhat.com> 1.25.3-1
+- Bump cartridge versions (agoldste@redhat.com)
+
+* Tue May 27 2014 Adam Miller <admiller@redhat.com> 1.25.2-1
+- Make READMEs in template repos more obvious (vvitek@redhat.com)
+
 * Fri May 16 2014 Adam Miller <admiller@redhat.com> 1.25.1-1
 - bump_minor_versions for sprint 45 (admiller@redhat.com)
 

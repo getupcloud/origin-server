@@ -21,14 +21,14 @@ module OpenShift
         # is the responsibility of the broker.
         #
         # context: root -> gear user -> root
-        # @param cart_name         cartridge name
+        # @param [OpenShift::Runtime::Ident] ident cartridge identifier
         # @param template_git_url  URL for template application source/bare repository
         # @param manifest          Broker provided manifest
         # @param do_expose_ports   Flag to suggest whether cartridge's public endpoints should be exposed out or not
-        def configure(cart_name, template_git_url=nil,  manifest=nil, do_expose_ports=false)
-          o = (@cartridge_model.configure(cart_name, template_git_url, manifest) || "")
+        def configure(ident, template_git_url=nil,  manifest=nil, do_expose_ports=false)
+          o = (@cartridge_model.configure(ident, template_git_url, manifest) || '')
           if do_expose_ports
-            o += (create_public_endpoints(cart_name) || "")
+            o += (create_public_endpoints(ident.to_name) || "")
           end
           o
         end
@@ -123,9 +123,9 @@ module OpenShift
         # Remove cartridge from gear
         #
         # context: root -> gear user -> root
-        # @param cart_name   cartridge name
-        def deconfigure(cart_name)
-          @cartridge_model.deconfigure(cart_name)
+        # @param [OpenShift::Runtime::Ident] ident   cartridge identifier
+        def deconfigure(ident)
+          @cartridge_model.deconfigure(ident)
         end
 
         # Unsubscribe from a cart
@@ -171,13 +171,10 @@ module OpenShift
         # Returns nil on success, or raises an exception if any errors occur: all errors here
         # are considered fatal.
         def create_public_endpoints(cart_name)
-          cart = @cartridge_model.get_cartridge(cart_name)
-
           output = ''
+          cart   = @cartridge_model.get_cartridge(cart_name)
 
-          ip_address = `facter host_ip`.chomp
-
-          env  = ::OpenShift::Runtime::Utils::Environ::for_gear(@container_dir)
+          env = ::OpenShift::Runtime::Utils::Environ::for_gear(@container_dir)
           # TODO: better error handling
           cart.public_endpoints.each do |endpoint|
             # Load the private IP from the gear
@@ -693,7 +690,7 @@ module OpenShift
         #   :err             : an IO to which any stderr should be written (default: nil)
         #
         def distribute(options={})
-          result = { status: RESULT_SUCCESS, gear_results: {}}
+          result = { status: RESULT_SUCCESS, gear_results: {}, messages: [], errors: []}
 
           # initial build - don't do anything because we don't have a gear registry yet
           # and distribution + activation will happen when update-cluster is called
@@ -714,6 +711,8 @@ module OpenShift
           gear_results.each do |gear_result|
             result[:gear_results][gear_result[:gear_uuid]] = gear_result
             result[:status] = RESULT_FAILURE unless gear_result[:status] == RESULT_SUCCESS
+            result[:messages].push(*gear_result[:messages])
+            result[:errors].push(*gear_result[:errors])
           end
 
           result
@@ -752,12 +751,19 @@ module OpenShift
 
           rsync_options = remote_rsync_options(result[:gear_uuid])
 
-          out, err, rc = run_in_container_context("rsync #{rsync_options} --rsh=/usr/bin/oo-ssh --delete-before --exclude=current ./ #{gear}:app-deployments/",
-                                                  env: gear_env,
-                                                  chdir: deployments_dir)
+          command = "rsync #{rsync_options} --rsh=/usr/bin/oo-ssh --delete-before --exclude=current ./ #{gear}:app-deployments/"
+          out, err, rc = run_in_container_context(command, env: gear_env, chdir: deployments_dir)
 
-          result[:messages] += out.split("\n") if out
-          result[:errors] += err.split("\n") if err
+          if out && !out.empty?
+            result[:messages] << command
+            result[:messages] += out.split("\n")
+          end
+
+          if err && !err.empty?
+            result[:errors] << command
+            result[:errors] += err.split("\n")
+          end
+
           return result unless rc == 0
 
           result[:status] = RESULT_SUCCESS if rc == 0
@@ -1287,9 +1293,11 @@ module OpenShift
 
         def generate_update_cluster_control_args(entries)
           entries ||= gear_registry.entries
-          args = []
-          entries[:web].each_value do |entry|
-            args << "#{entry.dns}|#{entry.proxy_hostname}:#{entry.proxy_port}"
+          args    = []
+          if entries.has_key?(:web)
+            entries[:web].each_value do |entry|
+              args << "#{entry.dns}|#{entry.proxy_hostname}:#{entry.proxy_port}"
+            end
           end
           args.join(' ')
         end
@@ -1456,9 +1464,8 @@ module OpenShift
             @cartridge_model.do_control('update-cluster', proxy_cart, args: args)
           rescue ::OpenShift::Runtime::Utils::ShellExecutionException => e
             logger.info "BZ1025043: Gear #{self.uuid} - got exception running update-cluster for the proxy: #{e.message}"
-            logger.info "BZ1025043: Gear #{self.uuid} - directory listing of primary cartridge directory:"
             listing, _, _ = Utils.oo_spawn("ls -laZ #{gear_env['OPENSHIFT_PRIMARY_CARTRIDGE_DIR']}/metadata")
-            logger.info "BZ1025043: Gear #{self.uuid} - #{listing}"
+            logger.info "BZ1025043: Gear #{self.uuid} - directory listing of primary cartridge directory:\n#{listing}"
             raise
           end
         end
@@ -1480,7 +1487,7 @@ module OpenShift
           ssh_dir        = PathUtils.join(container_dir, '.openshift_ssh')
           ssh_key        = PathUtils.join(ssh_dir, 'id_rsa')
           OpenShift::Runtime::Threads::Parallel.map(ssh_urls, :in_threads => MAX_THREADS) do |gear|
-            out, err, rc = run_in_container_context("rsync -aAX --rsh=/usr/bin/oo-ssh #{ssh_key}{,.pub} #{gear}:.openshift_ssh/",
+            out, err, rc = run_in_container_context("rsync -aAXS --rsh=/usr/bin/oo-ssh #{ssh_key}{,.pub} #{gear}:.openshift_ssh/",
                                                     env: gear_env,
                                                     chdir: container_dir,
                                                     expected_exitstatus: 0)
@@ -1705,7 +1712,7 @@ module OpenShift
             when 'windows'
               '-rltgoDOv'
             else
-              '-avz'
+              '-avzS'
           end
         end
       end

@@ -79,10 +79,12 @@ Broker::Application.configure do
   config.openshift = {
     :domain_suffix => conf.get("CLOUD_DOMAIN", "example.com"),
     :allow_alias_in_domain => conf.get_bool("ALLOW_ALIAS_IN_DOMAIN", "false"),
+    :prevent_alias_collision => conf.get_bool("PREVENT_ALIAS_COLLISION", "true"), # almost always want this. https://trello.com/c/ASq1CXyv
     :default_max_domains => (conf.get("DEFAULT_MAX_DOMAINS", "10")).to_i,
     :default_max_gears => (conf.get("DEFAULT_MAX_GEARS", "100")).to_i,
     :default_gear_size => conf.get("DEFAULT_GEAR_SIZE", "small"),
     :gear_sizes => conf.get("VALID_GEAR_SIZES", "small").split(","),
+    :cartridge_gear_sizes => OpenShift::Controller::Configuration.parse_tokens_hash("mock-no-small|medium,large,c9"),
     :default_gear_capabilities => conf.get("DEFAULT_GEAR_CAPABILITIES", "small").split(","),
     :default_allow_ha => conf.get_bool('DEFAULT_ALLOW_HA', "false"),
     :scopes => ['Scope::Session', 'Scope::Read', 'Scope::Domain', 'Scope::Application', 'Scope::Userinfo', 'Scope::Sso', 'Scope::OauthAccessToken'],
@@ -106,8 +108,11 @@ Broker::Application.configure do
     :default_max_teams => (conf.get("DEFAULT_MAX_TEAMS", "100")).to_i,
     :default_view_global_teams => conf.get_bool('DEFAULT_VIEW_GLOBAL_TEAMS', 'true'),
     :node_platforms => OpenShift::Controller::Configuration.parse_list(conf.get('NODE_PLATFORMS', 'linux')).map { |platform| platform.downcase },
-     :default_max_untracked_addtl_storage_per_gear => (conf.get("DEFAULT_MAX_UNTRACKED_ADDTL_STORAGE_PER_GEAR", "0")).to_i,
+    :default_max_untracked_addtl_storage_per_gear => (conf.get("DEFAULT_MAX_UNTRACKED_ADDTL_STORAGE_PER_GEAR", "0")).to_i,
     :default_max_tracked_addtl_storage_per_gear => (conf.get("DEFAULT_MAX_TRACKED_ADDTL_STORAGE_PER_GEAR", "0")).to_i,
+    :default_region_name => conf.get("DEFAULT_REGION_NAME", ""),
+    :allow_region_selection => conf.get_bool("ALLOW_REGION_SELECTION", 'true'),
+    :normalize_username_method => conf.get("NORMALIZE_USERNAME_METHOD", "noop"),
   }
 
   config.auth = {

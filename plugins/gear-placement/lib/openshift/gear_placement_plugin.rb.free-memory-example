@@ -1,0 +1,43 @@
+#
+# This plugin can customize the node selection algorithm used to determine where a gear resides 
+#
+
+module OpenShift
+  class GearPlacementPlugin
+
+    # Takes in a list of nodes and the relevant information related to the app/user/gear/components 
+    # and returns a single node where the gear will reside
+    #
+    # INPUTS:
+    # * server_infos: Array of server information (array of objects of class NodeProperties)
+    # * app_props: Properties of the application to which gear is being added (object of class ApplicationProperties)
+    # * current_gears: Array of existing gears in the application (objects of class GearProperties)
+    # * comp_list: Array of components that will be present on the new gear (objects of class ComponentProperties)
+    # * user_props: Properties of the user (object of class UserProperties)
+    # * request_time: the time that the request was sent to the plugin
+    #
+    # RETURNS:
+    # * NodeProperties: the server information for a single node where the gear will reside
+    #
+    def self.select_best_fit_node_impl(server_infos, app_props, current_gears, comp_list, user_props, request_time)
+      Rails.logger.debug("Using free memory gear placement plugin to choose node.")
+      Rails.logger.debug("selecting from nodes: #{server_infos.map(&:name).join ', '}")
+      # collect memory statistic from all nodes
+      memhash = Hash.new(0)
+      OpenShift::MCollectiveApplicationContainerProxy.rpc_get_fact('memoryfree') {|name,mem| memhash[name] = to_bytes(mem)}
+      Rails.logger.debug("node memory hash: #{memhash.inspect}")
+      # choose the one from our list with the largest value
+      return server_infos.max_by {|server| memhash[server.name]}
+    end
+
+    def self.to_bytes(mem)
+      mem.to_f * case mem
+        when /TB/; 1024 ** 4
+        when /GB/; 1024 ** 3
+        when /MB/; 1024 ** 2
+        when /KB/; 1024
+        else     ; 1
+      end
+    end
+  end
+end

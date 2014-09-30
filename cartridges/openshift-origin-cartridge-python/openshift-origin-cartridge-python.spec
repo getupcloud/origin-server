@@ -2,7 +2,7 @@
 %global httpdconfdir /etc/openshift/cart.conf.d/httpd/python
 
 Name:          openshift-origin-cartridge-python
-Version: 1.25.1
+Version: 1.29.1
 Release:       1%{?dist}
 Summary:       Python cartridge
 Group:         Development/Languages
@@ -97,6 +97,46 @@ Python cartridge for OpenShift. (Cartridge Format V2)
 %exclude %{cartridgedir}/usr/versions/*/template/*.pyo
 
 %changelog
+* Fri Aug 08 2014 Adam Miller <admiller@redhat.com> 1.29.1-1
+- bump_minor_versions for sprint 49 (admiller@redhat.com)
+
+* Wed Jul 30 2014 Adam Miller <admiller@redhat.com> 1.28.3-1
+- Merge pull request #5673 from bparees/latest_versions
+  (dmcphers+openshiftbot@redhat.com)
+- bump cart versions for sprint 48 (bparees@redhat.com)
+
+* Wed Jul 30 2014 Adam Miller <admiller@redhat.com> 1.28.2-1
+- Bug 1122166 - Preserve sparse files during rsync operations
+  (agrimm@redhat.com)
+
+* Fri Jul 18 2014 Adam Miller <admiller@redhat.com> 1.28.1-1
+- bump_minor_versions for sprint 48 (admiller@redhat.com)
+
+* Wed Jul 09 2014 Adam Miller <admiller@redhat.com> 1.27.3-1
+- Bump cartridge versions for 2.0.47 (jhadvig@gmail.com)
+
+* Thu Jul 03 2014 Adam Miller <admiller@redhat.com> 1.27.2-1
+- Bug 1114477: Incorrect pid written into appserver.pid upon python cartridge
+  start action (jhadvig@redhat.com)
+
+* Thu Jun 26 2014 Adam Miller <admiller@redhat.com> 1.27.1-1
+- bump_minor_versions for sprint 47 (admiller@redhat.com)
+
+* Thu Jun 19 2014 Adam Miller <admiller@redhat.com> 1.26.2-1
+- Bump cartridge versions for 2.0.46 (pmorie@gmail.com)
+- Making apache server-status optional with a marker (jhadvig@redhat.com)
+
+* Thu Jun 05 2014 Adam Miller <admiller@redhat.com> 1.26.1-1
+- bump_minor_versions for sprint 46 (admiller@redhat.com)
+
+* Thu May 29 2014 Adam Miller <admiller@redhat.com> 1.25.3-1
+- Merge pull request #5465 from ncdc/python-3.3-pip (admiller@redhat.com)
+- Add pip installer to the python cartridge (agoldste@redhat.com)
+- Bump cartridge versions (agoldste@redhat.com)
+
+* Tue May 27 2014 Adam Miller <admiller@redhat.com> 1.25.2-1
+- Make READMEs in template repos more obvious (vvitek@redhat.com)
+
 * Fri May 16 2014 Adam Miller <admiller@redhat.com> 1.25.1-1
 - bump_minor_versions for sprint 45 (admiller@redhat.com)
 

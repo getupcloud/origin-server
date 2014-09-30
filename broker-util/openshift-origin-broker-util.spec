@@ -2,12 +2,13 @@
     %global scl ruby193
     %global scl_prefix ruby193-
     %global scl_root /opt/rh/ruby193/root
+    %global ruby_libdir /usr/share/ruby
 %endif
 %global rubyabi 1.9.1
 
 Summary:       Utility scripts for the OpenShift Origin broker
 Name:          openshift-origin-broker-util
-Version: 1.25.1
+Version: 1.30.2
 Release:       1%{?dist}
 Group:         Network/Daemons
 License:       ASL 2.0
@@ -108,6 +109,104 @@ cp -p man/*.8 %{buildroot}%{_mandir}/man8/
 %{_mandir}/man8/oo-admin-ctl-team.8.gz
 
 %changelog
+* Tue Sep 23 2014 Adam Miller <admiller@redhat.com> 1.30.2-1
+- Multiple bug fixes Bug 1109647 - Loss of alias on SYNOPSIS part for oo-admin-
+  ctl-app Bug 1144610 - oo-admin-usage is broken Bug 1130435 - Setting a same
+  scale info on a cartridge makes connection hooks being run
+  (abhgupta@redhat.com)
+
+* Thu Sep 18 2014 Adam Miller <admiller@redhat.com> 1.30.1-1
+- bump_minor_versions for sprint 51 (admiller@redhat.com)
+- <oo-accept-broker> fix up handling of IFS (jdetiber@redhat.com)
+- Multiple bug fixes: Bug 1086061 - Should update the description of clean
+  command for oo-admin-ctl-cartridge tool Bug 1109647 - Loss of alias on
+  SYNOPSIS part for oo-admin-ctl-app Bug 1065853 - Should prompt warning when
+  leaving source code url blank but add branch/tag during app creation Bug
+  1143024 - A setting of ZONES_MIN_PER_GEAR_GROUP=2 with two available zones
+  will always error as though only one zone is available Bug 1099796 - Should
+  refine the error message when removing a nonexistent global team from file
+  (abhgupta@redhat.com)
+- Multiple bug fixes  - Bug 1108556: incorrect layout in oo-admin-ctl-domain
+  man page  - Bug 1117643: Missing '--allowed_gear_sizes' option in help of oo-
+  admin-ctl-domain  - Bug 1112455: Should give proper info when the same addon
+  cartridges added to one application  - Bug 1112636: zend-5.6 should be
+  removed from warning message when try to create an app using invalid download
+  cartridge  - Bug 1109647: Loss of alias on SYNOPSIS part for oo-admin-ctl-app
+  (abhgupta@redhat.com)
+- o-a-c-team: typo per bug 1141848 (lmeyer@redhat.com)
+
+* Wed Sep 10 2014 Adam Miller <admiller@redhat.com> 1.29.3-1
+- Add a hidden, unsupported change_region option to oo-admin-move for non-
+  scaled apps (agrimm@redhat.com)
+
+* Fri Sep 05 2014 Adam Miller <admiller@redhat.com> 1.29.2-1
+- ctl-cartridge manpage: update for import-profile (lmeyer@redhat.com)
+- oo-admin-ctl-cartridge: import-profile command (lmeyer@redhat.com)
+- <broker-util> Fix oo-accept-broker when admin-console installed
+  (jdetiber@redhat.com)
+- Merge pull request #5663 from sztsian/master
+  (dmcphers+openshiftbot@redhat.com)
+- broker utils: complete normalization of input logins (lmeyer@redhat.com)
+- fix bug 1122339 https://bugzilla.redhat.com/show_bug.cgi?id=1122339 add
+  detection to make sure node_platform is not nil before casecmp
+  (sztsian@gmail.com)
+
+* Thu Aug 21 2014 Adam Miller <admiller@redhat.com> 1.29.1-1
+- bump_minor_versions for sprint 50 (admiller@redhat.com)
+
+* Wed Aug 20 2014 Adam Miller <admiller@redhat.com> 1.28.5-1
+- Fix formatting (dmcphers@redhat.com)
+
+* Wed Aug 13 2014 Adam Miller <admiller@redhat.com> 1.28.4-1
+- broker oo scripts: enable login normalization (lmeyer@redhat.com)
+
+* Tue Aug 12 2014 Adam Miller <admiller@redhat.com> 1.28.3-1
+- Merge pull request #5704 from derekwaynecarr/bug_1126888
+  (dmcphers+openshiftbot@redhat.com)
+- ruby_lib_dir was not defined (decarr@redhat.com)
+
+* Mon Aug 11 2014 Adam Miller <admiller@redhat.com> 1.28.2-1
+- Updates to man page for oo-admin-ctl-region (decarr@redhat.com)
+
+* Fri Aug 08 2014 Adam Miller <admiller@redhat.com> 1.28.1-1
+- bump_minor_versions for sprint 49 (admiller@redhat.com)
+- Merge pull request #5689 from derekwaynecarr/region_description
+  (dmcphers+openshiftbot@redhat.com)
+- Add support for description on region object (decarr@redhat.com)
+- oo-app-info: don't assume rhcloud.com app domain (lmeyer@redhat.com)
+- app_info.rb: fix whitespace (lmeyer@redhat.com)
+
+* Wed Jul 30 2014 Adam Miller <admiller@redhat.com> 1.27.3-1
+- oo-accept-systems: Warn about obsolete cartridges (miciah.masters@gmail.com)
+- oo-accept-systems: Drop obsolete/downloaded carts (miciah.masters@gmail.com)
+
+* Tue Jul 29 2014 Adam Miller <admiller@redhat.com> 1.27.2-1
+- Add log message when deleting app (decarr@redhat.com)
+
+* Fri Jul 18 2014 Adam Miller <admiller@redhat.com> 1.27.1-1
+- oo-accept-systems: Better output in carts check (miciah.masters@gmail.com)
+- oo-accept-systems: Fix check_nodes_cartridges (miciah.masters@gmail.com)
+- Bug 1118417: Using default district platform when missing
+  (abhgupta@redhat.com)
+- bump_minor_versions for sprint 48 (admiller@redhat.com)
+
+* Tue Jul 08 2014 Adam Miller <admiller@redhat.com> 1.26.2-1
+- fix undefined variable reference (bparees@redhat.com)
+
+* Thu Jun 26 2014 Adam Miller <admiller@redhat.com> 1.26.1-1
+- bump_minor_versions for sprint 47 (admiller@redhat.com)
+
+* Tue Jun 17 2014 Adam Miller <admiller@redhat.com> 1.25.3-1
+- Measuring time for each operation inside oo-admin-chk (abhgupta@redhat.com)
+- Bug 1109646: dup was being called on nil (abhgupta@redhat.com)
+
+* Mon Jun 16 2014 Troy Dawson <tdawson@redhat.com> 1.25.2-1
+- Merge pull request #5507 from miheer/bug-1007454-oo-admin-ctl-app-status-
+  shows-app-and-gear-uuid (dmcphers+openshiftbot@redhat.com)
+- oo-admin-ctl-app: show app/gear UUID with status (misalunk@redhat.com)
+- Bug 1105843 - added add/remove alias functionality to oo-admin-ctl-app
+  (lnader@redhat.com)
+
 * Fri May 16 2014 Adam Miller <admiller@redhat.com> 1.25.1-1
 - corrected section number (lnader@redhat.com)
 - Bug 1094141 - update oo-admin-ctl-user man pages (lnader@redhat.com)

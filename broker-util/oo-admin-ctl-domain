@@ -32,6 +32,8 @@ Options:
     User's SSH key name
 -e|--env_name <env var name>
 -v|--env_value <env var value>
+   --allowed_gear_sizes <allowed gear sizes>
+    A comma separated list of gear sizes allowed on the domain
 -h|--help:
     Show Usage info
 USAGE
@@ -78,6 +80,8 @@ end
 require "#{ENV['OPENSHIFT_BROKER_DIR'] || '/var/www/openshift/broker'}/config/environment"
 # Disable analytics for admin scripts
 Rails.configuration.analytics[:enabled] = false
+
+login = CloudUser.normalize_login(login)
 
 reply = ResultIO.new
 case args["--command"]
@@ -210,7 +214,7 @@ when "update"
     exit 1
   else
     begin
-      d = user.domains.find_by(canonical_namespace: namespace)
+      d = user.domains.find_by(canonical_namespace: namespace.downcase)
       if new_namespace
         d.namespace = new_namespace
       end

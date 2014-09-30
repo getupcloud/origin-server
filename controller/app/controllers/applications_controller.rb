@@ -18,11 +18,11 @@ class ApplicationsController < BaseController
     domain_id = params[:domain_id].presence
 
     by = domain_id.present? ? {domain_namespace: Domain.check_name!(domain_id).downcase} : {}
-    apps = 
+    apps =
       case params[:owner]
       when "@self" then Application.includes(:domain).accessible(current_user).where(owner: current_user)
       when nil     then Application.includes(:domain).accessible(current_user)
-      else return render_error(:bad_request, "Only @self is supported for the 'owner' argument.") 
+      else return render_error(:bad_request, "Only @self is supported for the 'owner' argument.")
       end.where(by).sort_by{ |a| a.name }.map { |app| get_rest_application(app, include_cartridges) }
     Domain.find_by(canonical_namespace: domain_id.downcase) if apps.empty? && domain_id.present? # check for a missing domain
 
@@ -60,8 +60,27 @@ class ApplicationsController < BaseController
     default_gear_size = (params[:gear_size].presence || params[:gear_profile].presence || Rails.application.config.openshift[:default_gear_size]).downcase
     config = (params[:config].is_a?(Hash) and params[:config])
 
+    # Use the region user has specified, use default region if specified else leave as nil
+    region_name = params[:region].presence
+    region = nil
+    if region_name
+      unless Rails.application.config.openshift[:allow_region_selection] then
+        raise OpenShift::UserException.new("Specifying a region on application creation has been disabled. A region may be automatically assigned for you.")
+      end
+      region = Region.find_by(name: region_name) rescue nil
+      if region.nil?
+        available_regions = Region.where({}).collect{|r| r.name}
+        raise OpenShift::UserException.new(available_regions.empty? ? "Server does not support explicit regions." : "Could not find region '#{region_name}'. Available regions are: #{available_regions.join(", ")}.")
+      end
+    elsif Rails.application.config.openshift[:default_region_name].present?
+      region = Region.find_by(name: Rails.application.config.openshift[:default_region_name]) rescue nil
+      Rails.logger.warn "The default region #{Rails.application.config.openshift[:default_region_name]} does not exist. Proceeding to create app without specific region" if region.nil?
+    end
+
+    region_id = region ? region.id : nil
+
     if OpenShift::ApplicationContainerProxy.blacklisted? app_name
-      return render_error(:forbidden, "Application name is not allowed.  Please choose another.", 105)
+      return render_error(:forbidden, "Application name is not allowed. Please choose another.", 105)
     end
 
     if init_git_url = String(params[:initial_git_url]).presence
@@ -71,6 +90,9 @@ class ApplicationsController < BaseController
                             216, "initial_git_url")
       end
       init_git_url = [repo_spec, commit].compact.join('#')
+    elsif params[:initial_git_branch].presence
+      return render_error(:unprocessable_entity, "Initial git branch cannot be specified without specifying initial git URL",
+                            nil, "initial_git_branch")
     end
 
     specs = []
@@ -119,6 +141,7 @@ class ApplicationsController < BaseController
       builder_id: builder_id,
       user_agent: request.user_agent,
       init_git_url: init_git_url,
+      region_id: region_id
     )
     if config.present?
       app.config.each do |k, default|
@@ -137,9 +160,9 @@ class ApplicationsController < BaseController
 
     raise OpenShift::ApplicationValidationException.new(app) unless app.valid?
 
-    if (@cloud_user.consumed_gears >= @cloud_user.max_gears)
+    if (@domain.owner.consumed_gears >= @domain.owner.max_gears)
       return render_error(:unprocessable_entity,
-                          "#{@cloud_user.login} has already reached the gear limit of #{@cloud_user.max_gears}",
+                          "#{@cloud_user.login} has already reached the gear limit of #{@domain.owner.max_gears}",
                           104)
     end
 
@@ -148,15 +171,16 @@ class ApplicationsController < BaseController
 
     cartridges = CartridgeCache.find_and_download_cartridges(specs, "cartridge", true)
 
-    if (cartridges.map(&:additional_gear_storage).compact.map(&:to_i).max || 0) > @cloud_user.max_storage
+    if (cartridges.map(&:additional_gear_storage).compact.map(&:to_i).max || 0) > @domain.owner.max_storage
       return render_error(:unprocessable_entity,
-                          "#{@cloud_user.login} has requested more additional gear storage than allowed (max: #{@cloud_user.max_storage} GB)",
+                          "#{@cloud_user.login} has requested more additional gear storage than allowed (max: #{@domain.owner.max_storage} GB)",
                           166)
     end
 
     frameworks = cartridges.select(&:is_web_framework?)
     if frameworks.empty? && !params[:advanced]
-      framework_carts = CartridgeCache.web_framework_names.presence or
+      include_obsolete = builder_id or Rails.configuration.openshift[:allow_obsolete_cartridges]
+      framework_carts = CartridgeCache.web_framework_names(include_obsolete).presence or
         raise OpenShift::UserException.new("Unable to determine list of available cartridges. Please try again and contact support if the issue persists.", 109, "cartridges")
       raise OpenShift::UserException.new("An application must contain one web cartridge. None of the specified cartridges is a web cartridge. " \
                                          "Please include one of the following cartridges: #{framework_carts.to_sentence} or supply a valid url to a custom " \

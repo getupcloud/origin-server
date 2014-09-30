@@ -100,7 +100,7 @@ module OpenShift
 
           gear_env = ::OpenShift::Runtime::Utils::Environ::for_gear(@container.container_dir)
 
-          out, err, rc = @container.run_in_container_context("mkdir -p #{locations.first} ; rsync -rOv --exclude '.git' --delete --rsh=/usr/bin/oo-ssh #{ssh_url}:git/template/ #{locations.first}",
+          out, err, rc = @container.run_in_container_context("mkdir -p #{locations.first} ; rsync -rOvS --exclude '.git' --delete --rsh=/usr/bin/oo-ssh #{ssh_url}:git/template/ #{locations.first}",
                                                              env: gear_env,
                                                              chdir: @container.container_dir,
                                                              expected_exitstatus: 0)
@@ -361,6 +361,9 @@ git archive --format=tar <%= @deployment_ref %> | (cd <%= @target_dir %> && tar 
   name = OpenShift System User
 [gc]
   auto = 100
+[pack]
+  windowMemory = 10m
+  packSizeLimit = 20m
 }
 
       GIT_GET_SHA1 = %Q{

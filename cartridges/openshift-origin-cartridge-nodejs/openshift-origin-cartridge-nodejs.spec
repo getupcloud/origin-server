@@ -9,7 +9,7 @@
 
 Summary:       Provides Node.js support
 Name:          openshift-origin-cartridge-nodejs
-Version: 1.26.1
+Version: 1.30.1
 Release:       1%{?dist}
 Group:         Development/Languages
 License:       ASL 2.0
@@ -74,6 +74,69 @@ find versions/ -name .gitkeep -delete
 %doc %{cartridgedir}/LICENSE
 
 %changelog
+* Thu Aug 21 2014 Adam Miller <admiller@redhat.com> 1.30.1-1
+- bump_minor_versions for sprint 50 (admiller@redhat.com)
+
+* Wed Aug 20 2014 Adam Miller <admiller@redhat.com> 1.29.3-1
+- Bump cartridge versions for Sprint 49 (maszulik@redhat.com)
+
+* Thu Aug 14 2014 Adam Miller <admiller@redhat.com> 1.29.2-1
+- Bug 1128717 - set production as a default node environment
+  (maszulik@redhat.com)
+
+* Fri Jul 18 2014 Adam Miller <admiller@redhat.com> 1.29.1-1
+- bump_minor_versions for sprint 48 (admiller@redhat.com)
+
+* Wed Jul 09 2014 Adam Miller <admiller@redhat.com> 1.28.5-1
+- Merge pull request #5584 from jhadvig/latest_versions
+  (dmcphers+openshiftbot@redhat.com)
+- Bump cartridge versions for 2.0.47 (jhadvig@gmail.com)
+
+* Wed Jul 09 2014 Adam Miller <admiller@redhat.com> 1.28.4-1
+- Edit nodejs upgrade script for latest version (jhadvig@redhat.com)
+
+* Mon Jul 07 2014 Adam Miller <admiller@redhat.com> 1.28.3-1
+- Card origin_cartridge_224 - Upgrading nodejs quickstarts to version 0.10
+  (maszulik@redhat.com)
+
+* Tue Jul 01 2014 Adam Miller <admiller@redhat.com> 1.28.2-1
+- multiple nodejs processes running in a gear (bparees@redhat.com)
+
+* Thu Jun 26 2014 Adam Miller <admiller@redhat.com> 1.28.1-1
+- Merge pull request #5419 from ryanj/npm-globals
+  (dmcphers+openshiftbot@redhat.com)
+- bump_minor_versions for sprint 47 (admiller@redhat.com)
+- Include npm CLI scripts in the user's PATH -
+  https://trello.com/c/eTwC7UbD/174-support-for-javascript-cli-build-tools-
+  from-npm (ryan.jarvinen@gmail.com)
+
+* Thu Jun 19 2014 Adam Miller <admiller@redhat.com> 1.27.4-1
+- Bug 1111314 - Remove mysql-server dependency from nodejs cartridge
+  (jdetiber@redhat.com)
+- Merge pull request #5491 from mfojtik/fix-nodejs-update
+  (dmcphers+openshiftbot@redhat.com)
+- Bug 1104922 - Bump the nodejs cartridge version to trigger update
+  (mfojtik@redhat.com)
+
+* Wed Jun 18 2014 Adam Miller <admiller@redhat.com> 1.27.3-1
+- Fix bug 1108951: correct nodejs update-configuration function
+  (pmorie@gmail.com)
+
+* Mon Jun 09 2014 Adam Miller <admiller@redhat.com> 1.27.2-1
+- Merge pull request #5480 from mfojtik/nodejs_scl
+  (dmcphers+openshiftbot@redhat.com)
+- Bug 1104922 - Add v8314 collection list of enabled SCL for nodejs cart
+  (mfojtik@redhat.com)
+
+* Thu Jun 05 2014 Adam Miller <admiller@redhat.com> 1.27.1-1
+- bump_minor_versions for sprint 46 (admiller@redhat.com)
+
+* Thu May 29 2014 Adam Miller <admiller@redhat.com> 1.26.3-1
+- Bump cartridge versions (agoldste@redhat.com)
+
+* Tue May 27 2014 Adam Miller <admiller@redhat.com> 1.26.2-1
+- Make READMEs in template repos more obvious (vvitek@redhat.com)
+
 * Fri May 16 2014 Adam Miller <admiller@redhat.com> 1.26.1-1
 - bump_minor_versions for sprint 45 (admiller@redhat.com)
 

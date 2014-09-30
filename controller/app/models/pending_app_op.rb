@@ -130,6 +130,20 @@ class PendingAppOp
     end
   end
 
+  def is_app_delete_op_group?
+    if pending_app_op_group.nil?
+      return false
+    else
+      return (pending_app_op_group.kind_of?(RemoveFeaturesOpGroup) and pending_app_op_group.remove_all_features)
+    end
+  end
+
+  # any child op that does not require connections to be re-executed
+  # should override this method and return false
+  def reexecute_connections?
+    return true
+  end
+
   def if_not_found(e)
     raise e unless Mongoid::Errors::DocumentNotFound === e
   end

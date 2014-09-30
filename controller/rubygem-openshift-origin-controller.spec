@@ -9,7 +9,7 @@
 
 Summary:       Cloud Development Controller
 Name:          rubygem-%{gem_name}
-Version: 1.25.2
+Version: 1.31.3
 Release:       1%{?dist}
 Group:         Development/Languages
 License:       ASL 2.0
@@ -85,6 +85,202 @@ mkdir -p %{buildroot}/etc/openshift/
 %{gem_dir}/doc/%{gem_name}-%{version}
 
 %changelog
+* Wed Sep 24 2014 Adam Miller <admiller@redhat.com> 1.31.3-1
+- Merge pull request #5829 from mfojtik/wildfly_test
+  (dmcphers+openshiftbot@redhat.com)
+- Card origin_devexp_328 - Initial Wildfly 8 cucumber tests
+  (mfojtik@redhat.com)
+
+* Tue Sep 23 2014 Adam Miller <admiller@redhat.com> 1.31.2-1
+- Multiple bug fixes Bug 1109647 - Loss of alias on SYNOPSIS part for oo-admin-
+  ctl-app Bug 1144610 - oo-admin-usage is broken Bug 1130435 - Setting a same
+  scale info on a cartridge makes connection hooks being run
+  (abhgupta@redhat.com)
+
+* Thu Sep 18 2014 Adam Miller <admiller@redhat.com> 1.31.1-1
+- bump_minor_versions for sprint 51 (admiller@redhat.com)
+- Multiple bug fixes: Bug 1086061 - Should update the description of clean
+  command for oo-admin-ctl-cartridge tool Bug 1109647 - Loss of alias on
+  SYNOPSIS part for oo-admin-ctl-app Bug 1065853 - Should prompt warning when
+  leaving source code url blank but add branch/tag during app creation Bug
+  1143024 - A setting of ZONES_MIN_PER_GEAR_GROUP=2 with two available zones
+  will always error as though only one zone is available Bug 1099796 - Should
+  refine the error message when removing a nonexistent global team from file
+  (abhgupta@redhat.com)
+- Multiple bug fixes  - Bug 1108556: incorrect layout in oo-admin-ctl-domain
+  man page  - Bug 1117643: Missing '--allowed_gear_sizes' option in help of oo-
+  admin-ctl-domain  - Bug 1112455: Should give proper info when the same addon
+  cartridges added to one application  - Bug 1112636: zend-5.6 should be
+  removed from warning message when try to create an app using invalid download
+  cartridge  - Bug 1109647: Loss of alias on SYNOPSIS part for oo-admin-ctl-app
+  (abhgupta@redhat.com)
+
+* Wed Sep 10 2014 Adam Miller <admiller@redhat.com> 1.30.5-1
+- Bug 1084090: False positives reported for stale ssh keys  - In cases where
+  the user had multiple domains, false positives could be reported for stale
+  domain ssh keys (abhgupta@redhat.com)
+
+* Mon Sep 08 2014 Adam Miller <admiller@redhat.com> 1.30.4-1
+- Merge pull request #5787 from bparees/unique_domain_env_vars
+  (dmcphers+openshiftbot@redhat.com)
+- check for domain environment variable uniqueness on app create
+  (bparees@redhat.com)
+
+* Fri Sep 05 2014 Adam Miller <admiller@redhat.com> 1.30.3-1
+- Merge pull request #5766 from ncdc/fix-scale-snapshot-test
+  (dmcphers+openshiftbot@redhat.com)
+- Merge pull request #5762 from bparees/xpaas_tests
+  (dmcphers+openshiftbot@redhat.com)
+- Fix scalable platform snapshot test (agoldste@redhat.com)
+- broker: ensure normalization is idempotent (lmeyer@redhat.com)
+- move xpaas cucumber tests upstream (bparees@redhat.com)
+
+* Fri Aug 22 2014 Adam Miller <admiller@redhat.com> 1.30.2-1
+- remove the check on Apache DB files because the plugin may not be present
+  (rchopra@redhat.com)
+
+* Thu Aug 21 2014 Adam Miller <admiller@redhat.com> 1.30.1-1
+- Merge pull request #5731 from bparees/unique_json_filenames
+  (dmcphers+openshiftbot@redhat.com)
+- bump_minor_versions for sprint 50 (admiller@redhat.com)
+- use unique filenames for each TestApp persisted file (bparees@redhat.com)
+
+* Wed Aug 20 2014 Adam Miller <admiller@redhat.com> 1.29.6-1
+- Update extended test for online/enterprise (jdetiber@redhat.com)
+- Bug 1130496: Blocking carts with 2+ min gears in non-scalable apps
+  (abhgupta@redhat.com)
+
+* Mon Aug 18 2014 Adam Miller <admiller@redhat.com> 1.29.5-1
+- Bug 1126826: cleaning up domain env vars and ssh keys on rollback
+  (abhgupta@redhat.com)
+
+* Thu Aug 14 2014 Adam Miller <admiller@redhat.com> 1.29.4-1
+- Update README.md (dmcphers@redhat.com)
+- Merge pull request #5683 from soltysh/binary_deploy_tests
+  (dmcphers+openshiftbot@redhat.com)
+- Reafactored binary deployment tests for running them faster.
+  (maszulik@redhat.com)
+
+* Wed Aug 13 2014 Adam Miller <admiller@redhat.com> 1.29.3-1
+- Merge pull request #5709 from rajatchopra/master
+  (dmcphers+openshiftbot@redhat.com)
+- fix path for oo-accept-systems (rchopra@redhat.com)
+- cloud_user: enable normalization of user logins. (lmeyer@redhat.com)
+- fix whitespace (lmeyer@redhat.com)
+- fix node extended tests (rchopra@redhat.com)
+
+* Mon Aug 11 2014 Adam Miller <admiller@redhat.com> 1.29.2-1
+- Add broker flag to disable user selection of region (cewong@redhat.com)
+
+* Fri Aug 08 2014 Adam Miller <admiller@redhat.com> 1.29.1-1
+- bump_minor_versions for sprint 49 (admiller@redhat.com)
+- Merge pull request #5689 from derekwaynecarr/region_description
+  (dmcphers+openshiftbot@redhat.com)
+- Test improvements that were affecting enterprise test scenarios
+  (jdetiber@redhat.com)
+- Add support for description on region object (decarr@redhat.com)
+
+* Wed Jul 30 2014 Adam Miller <admiller@redhat.com> 1.28.7-1
+- Merge pull request #5669 from abhgupta/abhgupta-dev
+  (dmcphers+openshiftbot@redhat.com)
+- Merge pull request #5666 from lnader/master
+  (dmcphers+openshiftbot@redhat.com)
+- Bug 1124306: Handling nil min/max scale values for cartridge
+  (abhgupta@redhat.com)
+- Bug 1122809 (lnader@redhat.com)
+
+* Tue Jul 29 2014 Adam Miller <admiller@redhat.com> 1.28.6-1
+- Bug 1123371: Fixing issue with setting the cartridge multiplier
+  (abhgupta@redhat.com)
+
+* Mon Jul 28 2014 Adam Miller <admiller@redhat.com> 1.28.5-1
+- Bug 1122657: Fixing logic to select gear for scaledown (abhgupta@redhat.com)
+
+* Thu Jul 24 2014 Adam Miller <admiller@redhat.com> 1.28.4-1
+- Merge pull request #5649 from jwhonce/origin_node_401
+  (dmcphers+openshiftbot@redhat.com)
+- Merge pull request #5644 from fabianofranz/bugs/1122413
+  (dmcphers+openshiftbot@redhat.com)
+- Card origin_node_401 - Fix extended tests (jhonce@redhat.com)
+- Bug 1122413 - handle server without explicit regions
+  (contact@fabianofranz.com)
+
+* Wed Jul 23 2014 Adam Miller <admiller@redhat.com> 1.28.3-1
+- use ident instead of name in deconfigure invocation (bparees@redhat.com)
+- Bug 1121971: Validate based on domain owner capabilities during app create
+  (jliggitt@redhat.com)
+
+* Mon Jul 21 2014 Adam Miller <admiller@redhat.com> 1.28.2-1
+- Card origin_node_401 - Support Vendor in CartridgeRepository
+  (jhonce@redhat.com)
+
+* Fri Jul 18 2014 Adam Miller <admiller@redhat.com> 1.28.1-1
+- Merge pull request #5613 from derekwaynecarr/bug_1120413
+  (dmcphers+openshiftbot@redhat.com)
+- Added LIST_REGIONS (lnader@redhat.com)
+- Ensure domain environment variables are passed to cartridge install scripts
+  (decarr@redhat.com)
+- Added ruby-2.0 test cases (mfojtik@redhat.com)
+- Add currency_cd field to CloudUser (jliggitt@redhat.com)
+- bump_minor_versions for sprint 48 (admiller@redhat.com)
+
+* Tue Jul 08 2014 Adam Miller <admiller@redhat.com> 1.27.5-1
+- Do not attempt to filter if no conf is provided (decarr@redhat.com)
+
+* Mon Jul 07 2014 Adam Miller <admiller@redhat.com> 1.27.4-1
+- Merge pull request #5566 from soltysh/card224
+  (dmcphers+openshiftbot@redhat.com)
+- Card origin_cartridge_224 - Upgrading nodejs quickstarts to version 0.10
+  (maszulik@redhat.com)
+
+* Thu Jul 03 2014 Adam Miller <admiller@redhat.com> 1.27.3-1
+- Bug 1115309 - Default region will be selected when optional param 'region' is
+  not set during app creation. (rpenta@redhat.com)
+- Bug 1115274 - Fix 'default' field in /regions REST api (rpenta@redhat.com)
+- Bug 1115244 - Add 'region' as optional param to ADD_APPLICATION link
+  (rpenta@redhat.com)
+- Bug 1115321 - Fix zone name in gear_groups rest api responsew
+  (rpenta@redhat.com)
+- Merge pull request #5559 from derekwaynecarr/restrict_cart_gear_size
+  (dmcphers+openshiftbot@redhat.com)
+- Merge pull request #5564 from sosiouxme/relax-alias-validation
+  (dmcphers+openshiftbot@redhat.com)
+- broker: add PREVENT_ALIAS_COLLISION option. (lmeyer@redhat.com)
+- application.rb: allow vim to fix whitespace (lmeyer@redhat.com)
+- Restrict carts to set of gear sizes (decarr@redhat.com)
+
+* Tue Jul 01 2014 Adam Miller <admiller@redhat.com> 1.27.2-1
+- Enables user to specify a region when creating an application
+  (lnader@redhat.com)
+- Expose region and zones of gears in REST API (lnader@redhat.com)
+
+* Thu Jun 26 2014 Adam Miller <admiller@redhat.com> 1.27.1-1
+- bump_minor_versions for sprint 47 (admiller@redhat.com)
+
+* Tue Jun 17 2014 Adam Miller <admiller@redhat.com> 1.26.3-1
+- Bug 1067404: Handling additional storage correctly at the group level
+  (abhgupta@redhat.com)
+
+* Mon Jun 09 2014 Adam Miller <admiller@redhat.com> 1.26.2-1
+- Merge pull request #5307 from dobbymoodge/test_php_env_scan
+  (dmcphers+openshiftbot@redhat.com)
+- php cart: dynamic, controllable php.d seeding (jolamb@redhat.com)
+
+* Thu Jun 05 2014 Adam Miller <admiller@redhat.com> 1.26.1-1
+- Bug 1103131: Remove authorize! check and let Team.accessible() limit which
+  global teams a user can see (jliggitt@redhat.com)
+- bump_minor_versions for sprint 46 (admiller@redhat.com)
+
+* Thu May 29 2014 Adam Miller <admiller@redhat.com> 1.25.4-1
+- Ensure at least one scope's conditions are met, even when combined with
+  complex queries (jliggitt@redhat.com)
+- Bug 1102273: Make domain scopes additive (jliggitt@redhat.com)
+
+* Wed May 28 2014 Adam Miller <admiller@redhat.com> 1.25.3-1
+- Change GroupOverride.empty? so group overrides with 1 component is not
+  considered empty. Change logic that splits group overrides up if their
+  component don't belong to the same platform. (vlad.iovanov@uhurusoftware.com)
+
 * Wed May 21 2014 Adam Miller <admiller@redhat.com> 1.25.2-1
 - Add Team management UI (jliggitt@redhat.com)
 

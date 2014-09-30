@@ -71,8 +71,8 @@ module OpenShift
         raise "#{gear_extension_path} exists and failed to load" unless @@gear_extension_present
       end
 
-      attr_reader :uuid, :application_uuid, :namespace, :version, :hostname, 
-                  :ignore_cartridge_version, :gear_home, :gear_env, :progress, :container, 
+      attr_reader :uuid, :application_uuid, :namespace, :version, :hostname,
+                  :ignore_cartridge_version, :gear_home, :gear_env, :progress, :container,
                   :gear_extension, :config, :hourglass
 
       def initialize(uuid, application_uuid, namespace, version, hostname, ignore_cartridge_version, scalable, hourglass = nil)
@@ -263,7 +263,7 @@ module OpenShift
       def gear_post_upgrade
         if !gear_extension.nil? && gear_extension.respond_to?(:post_upgrade)
           progress.step 'post_upgrade' do
-            gear_extension.post_upgrade(progress) 
+            gear_extension.post_upgrade(progress)
           end
         end
       end
@@ -373,16 +373,12 @@ module OpenShift
               end
 
               ident_path                               = Dir.glob(File.join(cartridge_path, 'env', 'OPENSHIFT_*_IDENT')).first
-              ident                                    = IO.read(ident_path)
+              ident                                    = File.read(ident_path)
               vendor, name, version, cartridge_version = gear_map_ident(ident)
 
-              unless vendor == 'redhat'
-                progress.log "No upgrade available for cartridge #{ident}, #{vendor} not supported."
-                next
-              end
-
-              next_manifest = cartridge_repository.select(name, version)
-              unless next_manifest
+              begin
+                next_manifest = cartridge_repository.select(vendor, name, version)
+              rescue KeyError
                 progress.log "No upgrade available for cartridge #{ident}, cartridge not found in repository."
                 next
               end
@@ -495,9 +491,9 @@ module OpenShift
               end
 
               ident_path                               = Dir.glob(File.join(cartridge_path, 'env', 'OPENSHIFT_*_IDENT')).first
-              ident                                    = IO.read(ident_path)
+              ident                                    = File.read(ident_path)
               vendor, name, version, cartridge_version = gear_map_ident(ident)
-              next_manifest                            = cartridge_repository.select(name, version)
+              next_manifest                            = cartridge_repository.select(vendor, name, version)
 
               progress.step "#{name}_upgrade_cart" do |context, errors|
                 context[:cartridge] = name.downcase

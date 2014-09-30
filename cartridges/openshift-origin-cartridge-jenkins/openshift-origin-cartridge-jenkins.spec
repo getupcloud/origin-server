@@ -2,7 +2,7 @@
 
 Summary:       Provides jenkins-1.x support
 Name:          openshift-origin-cartridge-jenkins
-Version: 1.22.1
+Version: 1.25.1
 Release:       1%{?dist}
 Group:         Development/Languages
 License:       ASL 2.0
@@ -49,6 +49,35 @@ chkconfig jenkins off
 %doc %{cartridgedir}/LICENSE
 
 %changelog
+* Fri Aug 08 2014 Adam Miller <admiller@redhat.com> 1.25.1-1
+- bump_minor_versions for sprint 49 (admiller@redhat.com)
+
+* Wed Jul 30 2014 Adam Miller <admiller@redhat.com> 1.24.2-1
+- bump cart versions for sprint 48 (bparees@redhat.com)
+
+* Fri Jul 18 2014 Adam Miller <admiller@redhat.com> 1.24.1-1
+- Merge pull request #5585 from
+  vbalazs/bvarga/origin_cartridge_214_jvm_heap_opts
+  (dmcphers+openshiftbot@redhat.com)
+- bump_minor_versions for sprint 48 (admiller@redhat.com)
+- JVM heap optimization settings and remove SerialGC (bvarga@redhat.com)
+
+* Wed Jul 09 2014 Adam Miller <admiller@redhat.com> 1.23.3-1
+- Bump cartridge versions for 2.0.47 (jhadvig@gmail.com)
+
+* Tue Jul 01 2014 Adam Miller <admiller@redhat.com> 1.23.2-1
+- "WARNING: Failed to broadcast over UDP" appears in jenkins.log
+  (bparees@redhat.com)
+
+* Thu Jun 05 2014 Adam Miller <admiller@redhat.com> 1.23.1-1
+- bump_minor_versions for sprint 46 (admiller@redhat.com)
+
+* Thu May 29 2014 Adam Miller <admiller@redhat.com> 1.22.3-1
+- Bump cartridge versions (agoldste@redhat.com)
+
+* Tue May 27 2014 Adam Miller <admiller@redhat.com> 1.22.2-1
+- Make READMEs in template repos more obvious (vvitek@redhat.com)
+
 * Fri May 16 2014 Adam Miller <admiller@redhat.com> 1.22.1-1
 - bump_minor_versions for sprint 45 (admiller@redhat.com)
 

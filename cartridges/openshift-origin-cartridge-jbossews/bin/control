@@ -20,8 +20,34 @@ killtree() {
     for _child in $(ps -o pid --no-headers --ppid ${_pid}); do
         killtree ${_child}
     done
-    echo kill -9 ${_pid}
-    kill -9 ${_pid}
+
+    local should_be_gone_pid=$(ps -o pid -p ${_pid} --no-headers)
+    if [ -z "$should_be_gone_pid" ]; then
+        return
+    else
+        # process might have finished stopping after the ps check above
+        # so prevent kill from throwing an error (which would exit the script due to bash -e)
+        # with || true
+        kill -TERM ${_pid} || true
+    fi
+
+    local count=0
+    while [ ${count} -lt 15 ]
+    do
+        local should_be_gone_pid=$(ps -o pid -p ${_pid} --no-headers)
+        if [ -z "$should_be_gone_pid" ]; then
+                return
+        else
+                sleep 2
+                let count=${count}+1
+        fi
+    done
+
+    local should_be_gone_pid=$(ps -o pid -p ${_pid} --no-headers)
+    if [ ! -z $should_be_gone_pid ]
+    then
+        kill -9 ${_pid}
+    fi
 }
 
 # Check if the jbossas process is running
@@ -44,7 +70,7 @@ function ishttpup() {
     count=0
     while [ ${count} -lt 64 ]
     do
-        if /usr/sbin/lsof -P -n -i "@${OPENSHIFT_JBOSSEWS_IP}:${OPENSHIFT_JBOSSEWS_HTTP_PORT}" | grep "(LISTEN)" > /dev/null; then
+        if echo 2> /dev/null > "/dev/tcp/${OPENSHIFT_JBOSSEWS_IP}/${OPENSHIFT_JBOSSEWS_HTTP_PORT}"; then
             echo "Found ${OPENSHIFT_JBOSSEWS_IP}:${OPENSHIFT_JBOSSEWS_HTTP_PORT} listening port"
             return 0
         fi
@@ -67,21 +93,8 @@ function start_app() {
         echo "The jbossews cartridge is already running" 1>&2
     else
         echo "Starting jbossews cartridge"
-        
-        # Setup the config directory (for --from-code path where the code repository did
-        # not provide config files, link to the template config files)
-        conf_files=(
-          "web.xml"
-          "tomcat-users.xml"
-          "postgresql_module.xml"
-          "catalina.properties"
-          "catalina.policy"
-          "logging.properties"
-        )
-        for conf_file in "${replacement_conf_files[@]}"; do
-          relink_config $conf_file
-        done
-        
+        relink_configs
+
         # Start
         export CATALINA_HOME=$OPENSHIFT_JBOSSEWS_DIR
         export CATALINA_BASE=$OPENSHIFT_JBOSSEWS_DIR
@@ -114,7 +127,7 @@ function stop_app() {
         pid=$(cat $JBOSS_PID_FILE);
         echo "Sending SIGTERM to jboss:$pid ..." 1>&2
         killtree $pid
-    else 
+    else
         echo "Failed to locate JBOSS PID File" 1>&2
     fi
 }
@@ -128,9 +141,9 @@ function threaddump() {
         java_pid=`ps h --ppid $pid -o '%p'`
         kill -3 $java_pid
         client_result "Success"
-        client_result ""        
+        client_result ""
         client_result "The thread dump file will be available via: rhc tail $OPENSHIFT_APP_NAME -g $OPENSHIFT_GEAR_UUID -f ${OPENSHIFT_LOG_DIR}${cartridge_type}.log -o '-n 250'"
-    else 
+    else
         echo "Failed to locate JBOSS PID File"
     fi
 }

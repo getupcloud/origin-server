@@ -107,6 +107,53 @@ class ApplicationTypesControllerTest < ActionController::TestCase
     ApplicationType.all.select{ |t| t.cartridge? }.sample(1).first.id
   end
 
+  test "should default 'No preference' radio button for gear region where there is more than 1 and no default" do
+    Region.stub :all, [Region.new(:name => 'west', :allow_selection=>true), Region.new(:name => 'east')] do
+      with_unique_user
+      get :show, :id => random_application_type_id
+
+      assert_response :success
+      assert assigns(:regions)
+      assert no_pref = css_select("input[type=radio][name='application[region]'][checked=checked]").first, 'Exp. No Preference to be the first option'
+    end
+  end
+
+  test "should default the region radio button for gear region where there is more than 1 and a default" do
+    Region.stub :all, [Region.new(:name => 'west', :allow_selection=>true), Region.new(:name => 'east', :default => true)] do
+      with_unique_user
+      get :show, :id => random_application_type_id
+
+      assert_response :success
+      assert assigns(:regions)
+      assert defaulted = css_select("input[type=radio][name='application[region]'][checked=checked]").first, 'Exp. the defaulted region to be selected'
+      assert_equal 'east', defaulted.attributes['value']
+    end
+  end
+
+  test "should show label of default gear region when there is only 1" do
+    Region.stub :all, [Region.new(:name => 'west',:description => 'the west', :allow_selection=>true)] do
+      with_unique_user
+      get :show, :id => random_application_type_id
+      assert_response :success
+      assert assigns(:regions)
+      assert_select 'h3.control-label', {:text => 'Region', :count => 1}, 'Exp. the Region block to not be displayed'
+      assert_nil css_select('input#application_region').first, 'Exp. no input tag since we are relying on the broker functionality'
+      assert_select 'div.controls.first  div.region-name.single', {:text => 'west', :count => 1}, 'Exp. the default region to be displayed'
+      assert_select 'div.controls.first  div.region-description.single', {:text => 'the west', :count => 1}, 'Exp. the default region description to be displayed'
+    end
+  end
+
+  test "should not show region info when there are no regions configured" do
+    Region.stub :all, [] do
+      with_unique_user
+      get :show, :id => random_application_type_id
+      assert_response :success, 'Exp. the get call to return successfully'
+      assert assigns(:regions), 'Exp. the regions variable to be assigned'
+      assert_nil css_select('input#application_region').first, 'Exp. no input tag since regions are empty'
+      assert_nil css_select('select#application_region').first, 'Exp. no select list  since regions are empty'
+      assert_select 'h3.control-label', {:text => 'Region', :count => 0}, 'Exp. the Region block to not be displayed'
+    end
+  end
 
   test "should show text field for domain with no default" do
     with_unique_user
@@ -238,6 +285,40 @@ class ApplicationTypesControllerTest < ActionController::TestCase
     type = ApplicationType.from_quickstart(type)
     get :show, :id => 'quickstart!test'
     assert_standard_show_type(type)
+  end
+
+  test "should show error in type page with unsupported gear size for cartridge" do
+    CartridgeType.any_instance.stubs(:valid_gear_sizes).returns(%w(medium large))
+    CartridgeType.any_instance.stubs(:valid_gear_sizes?).returns(true)
+
+    with_unique_user
+    type = ApplicationType.all.select(&:cartridge?).sample(1).first
+
+    get :show, :id => type.id
+    assert_standard_show_type(type)
+    assert assigns(:application).name
+    assert_select '.text-warning', /Supported gear sizes: medium, large/
+    assert_select '.alert-error', /Your account does not support gear sizes compatible with this cartridge/
+  end
+
+  test "should only show gear sizes compatible with the cartridge" do
+    ApplicationTypesController.any_instance.stubs(:new_application_gear_sizes).returns(%w(small medium large))
+
+    CartridgeType.any_instance.stubs(:valid_gear_sizes).returns(%w(medium large))
+    CartridgeType.any_instance.stubs(:valid_gear_sizes?).returns(true)
+    ApplicationType.any_instance.stubs(:valid_gear_sizes).returns(%w(medium large))
+    ApplicationType.any_instance.stubs(:valid_gear_sizes?).returns(true)
+
+    with_unique_user
+    type = ApplicationType.all.select(&:cartridge?).sample(1).first
+
+    get :show, :id => type.id
+    assert_standard_show_type(type)
+    assert assigns(:application).name
+    assert_select '.text-warning', /Supported gear sizes: medium, large/
+    assert_select "select[name='application[gear_profile]'] > option", 'small', false
+    assert_select "select[name='application[gear_profile]'] > option", 'medium'
+    assert_select "select[name='application[gear_profile]'] > option", 'large'
   end
 
   test "should render custom type" do

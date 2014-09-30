@@ -13,11 +13,19 @@ Broker::Application.configure do
   conf = OpenShift::Config.new(conf_file)
 
   config.routing_activemq = {
-    :topic => conf.get("ACTIVEMQ_TOPIC", "/topic/routing"),
+    :destination => conf.get("ACTIVEMQ_DESTINATION", conf.get("ACTIVEMQ_TOPIC", "/topic/routing")),
+    :hosts => conf.get("ACTIVEMQ_HOST", "127.0.0.1").split(',').map do |hp|
+      hp.split(":").instance_eval do |h,p|
+        {
+          :host => h,
+          # Originally, ACTIVEMQ_HOST allowed specifying only one host, with
+          # the port specified separately in ACTIVEMQ_PORT.
+          :port => p || conf.get("ACTIVEMQ_PORT", "61613"),
+        }
+      end
+    end,
     :username => conf.get("ACTIVEMQ_USERNAME", "routinginfo"),
     :password => conf.get("ACTIVEMQ_PASSWORD", "routinginfopasswd"),
-    :host => conf.get("ACTIVEMQ_HOST", "127.0.0.1"),
-    :port => conf.get("ACTIVEMQ_PORT", "61613"),
     :debug => conf.get_bool("ACTIVEMQ_DEBUG", "false"),
   }
 end

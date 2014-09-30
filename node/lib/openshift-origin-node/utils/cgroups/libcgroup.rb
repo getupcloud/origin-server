@@ -50,6 +50,8 @@ module OpenShift
 
             @cgroup_root = self.class.cgroup_root
             @cgroup_path = "#{@cgroup_root}/#{@uuid}"
+            @config      = OpenShift::Config.new
+            @wrap_around_uid = (@config.get("WRAPAROUND_UID") || 65536).to_i
           end
 
           def self.cgroup_root
@@ -155,13 +157,13 @@ module OpenShift
                 NodeLogger.logger.error %Q(Failed to read cgroups counters from #{expression}: #{err} (#{rc}))
               end
             end
-            parse_usage(out)
+            parse_usage(out, Time.now.to_f)
           end
 
-          def self.parse_usage(info)
-            info.lines.to_a.inject(Hash.new{|h,k| h[k] = {}} ) do |h,line|
+          def self.parse_usage(info, ts)
+            info.lines.to_a.inject(Hash.new{|h,k| h[k] = { 'ts' => ts }} ) do |h,line|
               (uuid, key, val) = line.split(/\W/).values_at(0,-2,-1)
-              h[uuid][key.to_sym] = val.to_i
+              h[uuid][key] = val.to_i
               h
             end
           end
@@ -321,13 +323,13 @@ module OpenShift
           # Compute the network class id
           # Major = 1
           # Minor = UID
-          # Caveat: 0 <= Minor <= 0xFFFF (65535)
+          # Caveat: 0 <= Minor
           def net_cls
             major = 1
-            if (uid < 1) or (uid > 0xFFFF)
+            if (uid < 1)
               raise RuntimeError, "Cannot assign network class id for: #{uid}"
             end
-            (major << 16) + uid
+            (major << 16) + (uid % @wrap_around_uid)
           end
 
 
@@ -399,6 +401,7 @@ module OpenShift
 
           # Private: Call the low level cgroups deletion
           def cgdelete
+            force_stop = false
             cgroup_paths.each do |subsys, path|
               while File.exist?(path)
                 begin
@@ -406,9 +409,16 @@ module OpenShift
                 rescue Errno::EBUSY
                   File.open(File.join(path, "..", "tasks"), File::WRONLY | File::SYNC) do |t|
                     File.read(File.join(path, "tasks")).split.each do |pid|
-                      t.syswrite("#{pid}\n")
+                      begin
+                        t.syswrite("#{pid}\n")
+                      rescue Errno::ESRCH => e
+                        $stderr.puts "ERROR: #{e.message} zombie or non-existing pid #{pid}"
+                        force_stop = true
+                        break
+                      end
                     end
                   end
+                  retry unless force_stop
                 end
               end
             end

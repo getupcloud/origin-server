@@ -1,17 +1,25 @@
+%if 0%{?rhel} <= 6
+    %global scl mongodb24
+    %global scl_prefix mongodb24-
+    %global scl_context /usr/bin/scl enable %{scl}
+%else
+    %global scl_context eval
+%endif
+
 %global cartridgedir %{_libexecdir}/openshift/cartridges/mongodb
 
 Summary:       Embedded mongodb support for OpenShift
 Name:          openshift-origin-cartridge-mongodb
-Version: 1.21.1
+Version: 1.23.2
 Release:       1%{?dist}
 Group:         Network/Daemons
 License:       ASL 2.0
 URL:           http://www.openshift.com
 Source0:       http://mirror.openshift.com/pub/openshift-origin/source/%{name}/%{name}-%{version}.tar.gz
-Requires:      mongodb-server
-Requires:      mongodb-devel
-Requires:      libmongodb
-Requires:      mongodb
+Requires:      %{?scl:%scl_prefix}mongodb-server
+Requires:      %{?scl:%scl_prefix}mongodb-devel
+Requires:      %{?scl:%scl_prefix}libmongodb
+Requires:      %{?scl:%scl_prefix}mongodb
 Requires:      rubygem(openshift-origin-node)
 Requires:      openshift-origin-node-util
 Provides:      openshift-origin-cartridge-mongodb-2.2 = 2.0.0
@@ -35,7 +43,7 @@ Provides mongodb cartridge support to OpenShift
 
 
 %post
-%{cartridgedir}/bin/mkjournal %{cartridgedir}/usr/journal-cache/journal.tar.gz
+%{?scl_context} "%{cartridgedir}/bin/mkjournal %{cartridgedir}/usr/journal-cache/journal.tar.gz"
 
 
 %preun
@@ -47,6 +55,7 @@ fi
 %files
 %dir %{cartridgedir}
 %attr(0755,-,-) %{cartridgedir}/bin/
+%attr(0755,-,-) %{cartridgedir}/lib/
 %attr(0755,-,-) %{cartridgedir}/hooks/
 %{cartridgedir}/conf
 %{cartridgedir}/metadata
@@ -57,6 +66,29 @@ fi
 %doc %{cartridgedir}/LICENSE
 
 %changelog
+* Fri Sep 19 2014 Adam Miller <admiller@redhat.com> 1.23.2-1
+- Bump mongodb cartridge version (mfojtik@redhat.com)
+- Bug 1144114 - Add compatible upgrade for mongodb to fix missing PATH
+  (mfojtik@redhat.com)
+
+* Thu Aug 21 2014 Adam Miller <admiller@redhat.com> 1.23.1-1
+- bump_minor_versions for sprint 50 (admiller@redhat.com)
+
+* Wed Aug 20 2014 Adam Miller <admiller@redhat.com> 1.22.2-1
+- Bump cartridge versions for Sprint 49 (maszulik@redhat.com)
+
+* Fri Aug 08 2014 Adam Miller <admiller@redhat.com> 1.22.1-1
+- mongodb cart: clean up `mongodb_context`, `rhcsh` (jolamb@redhat.com)
+- mongodb cart: Support non-SCL systems (jolamb@redhat.com)
+- mongodb cart: address bugs with scaled carts (jolamb@redhat.com)
+- <mongodb cart> adapt to use SCL-provided mongodb (jolamb@redhat.com)
+
+* Fri Aug 08 2014 Adam Miller <admiller@redhat.com>
+- mongodb cart: clean up `mongodb_context`, `rhcsh` (jolamb@redhat.com)
+- mongodb cart: Support non-SCL systems (jolamb@redhat.com)
+- mongodb cart: address bugs with scaled carts (jolamb@redhat.com)
+- <mongodb cart> adapt to use SCL-provided mongodb (jolamb@redhat.com)
+
 * Fri May 16 2014 Adam Miller <admiller@redhat.com> 1.21.1-1
 - bump_minor_versions for sprint 45 (admiller@redhat.com)
 

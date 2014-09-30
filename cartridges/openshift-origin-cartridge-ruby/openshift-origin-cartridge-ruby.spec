@@ -1,13 +1,15 @@
 %if 0%{?fedora}%{?rhel} <= 6
-    %global scl ruby193
-    %global scl_prefix ruby193-
+    %global scl19 ruby193
+    %global scl19_prefix ruby193-
+    %global scl20 ruby200
+    %global scl20_prefix ruby200-
 %endif
 
 %global cartridgedir %{_libexecdir}/openshift/cartridges/ruby
 %global httpdconfdir /etc/openshift/cart.conf.d/httpd/ruby
 
 Name:          openshift-origin-cartridge-ruby
-Version: 1.25.1
+Version: 1.28.1
 Release:       1%{?dist}
 Summary:       Ruby cartridge
 Group:         Development/Languages
@@ -29,21 +31,42 @@ Requires:      rubygems
 # need to declare the dependency here
 Requires:      ruby-rdoc
 Requires:      rubygem-thread-dump
-Requires:      %{?scl:%scl_prefix}rubygem-fastthread
-Requires:      %{?scl:%scl_prefix}runtime
+Requires:      %{?scl19:%scl19_prefix}rubygem-fastthread
+Requires:      %{?scl19:%scl19_prefix}runtime
 %endif
-Requires:      %{?scl:%scl_prefix}js
-Requires:      %{?scl:%scl_prefix}mod_passenger
-Requires:      %{?scl:%scl_prefix}ruby
-Requires:      %{?scl:%scl_prefix}ruby-libs
-Requires:      %{?scl:%scl_prefix}rubygem-bundler
-Requires:      %{?scl:%scl_prefix}rubygem-passenger
-Requires:      %{?scl:%scl_prefix}rubygem-passenger-devel
-Requires:      %{?scl:%scl_prefix}rubygem-passenger-native
-Requires:      %{?scl:%scl_prefix}rubygem-passenger-native-libs
-Requires:      %{?scl:%scl_prefix}rubygems
+
+# For ruby-2.0.0 SCL
+Requires:      %{?scl20:%scl20_prefix}ruby
+Requires:      %{?scl20:%scl20_prefix}ruby-libs
+Requires:      %{?scl20:%scl20_prefix}ruby-devel
+Requires:      %{?scl20:%scl20_prefix}runtime
+Requires:      %{?scl20:%scl20_prefix}rubygems
+# 'ror40' collection is needed to get the rubygems in ruby 2.0
+Requires:      ror40
+#
+Requires:      %{?scl20:%scl20_prefix}rubygem-passenger
+Requires:      %{?scl20:%scl20_prefix}rubygem-passenger-devel
+Requires:      %{?scl20:%scl20_prefix}rubygem-passenger-native
+Requires:      %{?scl20:%scl20_prefix}rubygem-passenger-native-libs
+Requires:      %{?scl20:%scl20_prefix}mod_passenger
+
+# For ruby-1.9.3 SCL
+Requires:      %{?scl19:%scl19_prefix}js
+Requires:      %{?scl19:%scl19_prefix}mod_passenger
+Requires:      %{?scl19:%scl19_prefix}ruby
+Requires:      %{?scl19:%scl19_prefix}ruby-libs
+Requires:      %{?scl19:%scl19_prefix}rubygem-bundler
+Requires:      %{?scl19:%scl19_prefix}rubygem-passenger
+Requires:      %{?scl19:%scl19_prefix}rubygem-passenger-devel
+Requires:      %{?scl19:%scl19_prefix}rubygem-passenger-native
+Requires:      %{?scl19:%scl19_prefix}rubygem-passenger-native-libs
+Requires:      %{?scl19:%scl19_prefix}rubygems
+
+
 Provides:      openshift-origin-cartridge-ruby-1.8 = 2.0.0
 Provides:      openshift-origin-cartridge-ruby-1.9-scl = 2.0.0
+Provides:      openshift-origin-cartridge-ruby-2.0-scl = 2.0.0
+
 Obsoletes:     openshift-origin-cartridge-ruby-1.8 <= 1.99.9
 Obsoletes:     openshift-origin-cartridge-ruby-1.9-scl <= 1.99.9
 BuildArch:     noarch
@@ -58,6 +81,12 @@ Ruby cartridge for OpenShift. (Cartridge Format V2)
 %__rm %{name}.spec
 %__rm logs/.gitkeep
 %__rm run/.gitkeep
+
+%pretrans
+# Bug 1101779 (RPM Bug 447156) - directories replaced by symlinks
+for dir in %{cartridgedir}/versions/{1.8,1.9}/template/.openshift; do
+  [ -d $dir -a ! -L $dir ] && rm -rf $dir || :
+done
 
 %install
 %__mkdir -p %{buildroot}%{cartridgedir}
@@ -80,6 +109,49 @@ Ruby cartridge for OpenShift. (Cartridge Format V2)
 %attr(0755,-,-) %{httpdconfdir}
 
 %changelog
+* Fri Aug 08 2014 Adam Miller <admiller@redhat.com> 1.28.1-1
+- bump_minor_versions for sprint 49 (admiller@redhat.com)
+
+* Wed Jul 30 2014 Adam Miller <admiller@redhat.com> 1.27.3-1
+- bump cart versions for sprint 48 (bparees@redhat.com)
+
+* Fri Jul 18 2014 Adam Miller <admiller@redhat.com> 1.27.2-1
+- Bug 1120467: Fixing wrong grep format for threaddump in ruby-2.0
+  (j.hadvig@gmail.com)
+- Added SECRET_KEY_BASE environment variable to support rails4
+  (mfojtik@redhat.com)
+- Initial support for Ruby 2.0 (mfojtik@redhat.com)
+
+* Thu Jun 26 2014 Adam Miller <admiller@redhat.com> 1.27.1-1
+- Bug 1109645 - Fix the wrong path of libmysqlclient for Ruby 1.8
+  (mfojtik@redhat.com)
+- bump_minor_versions for sprint 47 (admiller@redhat.com)
+
+* Thu Jun 19 2014 Adam Miller <admiller@redhat.com> 1.26.2-1
+- Merge pull request #5533 from pmorie/latest_versions (admiller@redhat.com)
+- Bump cartridge versions for 2.0.46 (pmorie@gmail.com)
+- Merge pull request #5526 from jhadvig/BZ_1109645
+  (dmcphers+openshiftbot@redhat.com)
+- Merge pull request #5523 from jhadvig/status
+  (dmcphers+openshiftbot@redhat.com)
+- Bug 1110287: Removing thread-dump dependency from ruby-1.8 cunfig.ru template
+  (jhadvig@redhat.com)
+- Bug 1109645: Setting mysql2 variable for bundler (jhadvig@redhat.com)
+- Making apache server-status optional with a marker (jhadvig@redhat.com)
+
+* Thu Jun 05 2014 Adam Miller <admiller@redhat.com> 1.26.1-1
+- bump_minor_versions for sprint 46 (admiller@redhat.com)
+
+* Thu May 29 2014 Adam Miller <admiller@redhat.com> 1.25.4-1
+- Bump cartridge versions (agoldste@redhat.com)
+- Fix bug 1102428 (vvitek@redhat.com)
+
+* Wed May 28 2014 Adam Miller <admiller@redhat.com> 1.25.3-1
+- Fix bug 1101779 (vvitek@redhat.com)
+
+* Tue May 27 2014 Adam Miller <admiller@redhat.com> 1.25.2-1
+- Make READMEs in template repos more obvious (vvitek@redhat.com)
+
 * Fri May 16 2014 Adam Miller <admiller@redhat.com> 1.25.1-1
 - bump_minor_versions for sprint 45 (admiller@redhat.com)
 

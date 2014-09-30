@@ -16,22 +16,27 @@
 require_relative '../test_helper'
 require 'webrick'
 require 'webrick/https'
+require 'securerandom'
 require 'thread'
 require 'openssl'
 require 'openshift-origin-node/utils/node_logger'
 require 'openshift-origin-node/model/cartridge_repository'
 require 'openshift-origin-common/models/manifest'
 require 'digest'
-require 'webmock'
-require 'webmock/minitest'
 
 class CartridgeRepositoryWebFunctionalTest < OpenShift::NodeTestCase
   include WEBrick
 
-  def before_setup
-    @uuid = %x(uuidgen -r |sed -e s/-//g).chomp
-    @port = 6001
+  def find_free_port(port)
+    %x[lsof -iTCP:#{port}]
+    find_free_port(port + 1) if $?.exitstatus == 0
+    port
+  end
 
+  def before_setup
+    @uuid = SecureRandom.uuid.gsub('-', '')
+
+    @port        = find_free_port(6001)
     @test_home   = "/tmp/tests/#{@uuid}"
     @doc_root    = "#{@test_home}/www"
     @config_home = "#{@test_home}/config"
@@ -44,7 +49,7 @@ class CartridgeRepositoryWebFunctionalTest < OpenShift::NodeTestCase
 
     cr = OpenShift::Runtime::CartridgeRepository.instance
     cr.load
-    @cartridge = cr.select('mock-plugin', '0.1')
+    @cartridge = cr.select('redhat', 'mock-plugin', '0.1')
     puts %x(shopt -s dotglob;
          cd #{@cartridge.repository_path};
          tar zcf #{@tgz_file} ./*;
@@ -52,7 +57,6 @@ class CartridgeRepositoryWebFunctionalTest < OpenShift::NodeTestCase
     @tgz_hash = %x(md5sum #{@tgz_file} |cut -d' ' -f1)
 
     @manifest = IO.read(File.join(@cartridge.manifest_path))
-
   end
 
   def after_teardown
@@ -60,8 +64,6 @@ class CartridgeRepositoryWebFunctionalTest < OpenShift::NodeTestCase
   end
 
   def setup
-    WebMock.allow_net_connect!
-
     private_file = File.join(@config_home, 'private_key.pem')
     %x(/usr/bin/openssl genrsa -out #{private_file} 2048 2>&1)
 
@@ -80,23 +82,22 @@ class CartridgeRepositoryWebFunctionalTest < OpenShift::NodeTestCase
         SSLVerifyClient:     OpenSSL::SSL::VERIFY_NONE,
         SSLPrivateKey:       key,
         SSLCertificate:      cert,
-        SSLCertName:         [['CN', 'www.example.com']]
+        SSLCertName:         [['CN', 'www.example.com']],
+        Logger:              ::OpenShift::Runtime::NodeLogger.logger,
     }
 
     @web_thread = Thread.new do
       @server = HTTPServer.new(@config)
-      %w(INT TERM).each { |signal|
-        trap(signal) { @server.shutdown }
-      }
-
       @server.start
     end
-    sleep 2
 
+    sleep 2 until @server
+    sleep 2 until @server.status == :Running
+    puts %Q[Webrick Server: #{@server}\nconfig: #{@config}]
   end
 
   def teardown
-    Thread.kill(@web_thread)
+    @server.stop if @server
   end
 
   def test_https_get
@@ -104,7 +105,7 @@ class CartridgeRepositoryWebFunctionalTest < OpenShift::NodeTestCase
     manifest = change_cartridge_vendor_of manifest
 
     cartridge      = OpenShift::Runtime::Manifest.new(manifest)
-    cartridge_home = "/tmp/var/home/gear/mock"
+    cartridge_home = '/tmp/var/home/gear/mock'
 
     with_detail_output do
       OpenShift::Runtime::CartridgeRepository.instantiate_cartridge(cartridge, cartridge_home)
@@ -118,7 +119,7 @@ class CartridgeRepositoryWebFunctionalTest < OpenShift::NodeTestCase
     begin
       yield
     rescue ::OpenShift::Runtime::Utils::ShellExecutionException => e
-      NodeLogger.logger.debug(e.message + "\n" +
+      ::OpenShift::Runtime::NodeLogger.logger.debug(e.message + "\n" +
                                   e.stdout + "\n" +
                                   e.stderr + "\n" +
                                   e.backtrace.join("\n")

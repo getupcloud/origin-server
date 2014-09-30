@@ -10,7 +10,7 @@
 
 Summary:       OpenShift plugin for mcollective service
 Name:          rubygem-%{gem_name}
-Version: 1.25.2
+Version: 1.30.2
 Release:       1%{?dist}
 Group:         Development/Languages
 License:       ASL 2.0
@@ -85,6 +85,50 @@ sed -i -e "s|\(/etc/mcollective/client.cfg\)|%{scl_root}/\1|" %{buildroot}/etc/o
 %attr(0644,-,-) %ghost %{?scl:%scl_root}/etc/mcollective/client.cfg
 
 %changelog
+* Wed Sep 24 2014 Adam Miller <admiller@redhat.com> 1.30.2-1
+- Better error messages around no nodes available (dmcphers@redhat.com)
+
+* Thu Sep 18 2014 Adam Miller <admiller@redhat.com> 1.30.1-1
+- bump_minor_versions for sprint 51 (admiller@redhat.com)
+- Multiple bug fixes: Bug 1086061 - Should update the description of clean
+  command for oo-admin-ctl-cartridge tool Bug 1109647 - Loss of alias on
+  SYNOPSIS part for oo-admin-ctl-app Bug 1065853 - Should prompt warning when
+  leaving source code url blank but add branch/tag during app creation Bug
+  1143024 - A setting of ZONES_MIN_PER_GEAR_GROUP=2 with two available zones
+  will always error as though only one zone is available Bug 1099796 - Should
+  refine the error message when removing a nonexistent global team from file
+  (abhgupta@redhat.com)
+
+* Wed Sep 10 2014 Adam Miller <admiller@redhat.com> 1.29.2-1
+- Add a hidden, unsupported change_region option to oo-admin-move for non-
+  scaled apps (agrimm@redhat.com)
+
+* Fri Sep 05 2014 Adam Miller <admiller@redhat.com> 1.29.1-1
+- bump spec for tag fix (admiller@redhat.com)
+- Fixing has_app_cartridge method (abhgupta@redhat.com)
+
+* Fri Sep 05 2014 Adam Miller <admiller@redhat.com>
+- Fixing has_app_cartridge method (abhgupta@redhat.com)
+
+* Fri Aug 08 2014 Adam Miller <admiller@redhat.com> 1.28.1-1
+- bump_minor_versions for sprint 49 (admiller@redhat.com)
+
+* Wed Jul 30 2014 Adam Miller <admiller@redhat.com> 1.27.2-1
+- Bug 1122166 - Preserve sparse files during rsync operations
+  (agrimm@redhat.com)
+
+* Fri Jul 18 2014 Adam Miller <admiller@redhat.com> 1.27.1-1
+- Logging error if region is specified but no districted nodes available
+  (abhgupta@redhat.com)
+- bump_minor_versions for sprint 48 (admiller@redhat.com)
+
+* Tue Jul 01 2014 Adam Miller <admiller@redhat.com> 1.26.2-1
+- Enables user to specify a region when creating an application
+  (lnader@redhat.com)
+
+* Thu Jun 05 2014 Adam Miller <admiller@redhat.com> 1.26.1-1
+- bump_minor_versions for sprint 46 (admiller@redhat.com)
+
 * Wed May 21 2014 Adam Miller <admiller@redhat.com> 1.25.2-1
 - Fix typos in rsync commands (daniel.carabas@uhurusoftware.com)
 

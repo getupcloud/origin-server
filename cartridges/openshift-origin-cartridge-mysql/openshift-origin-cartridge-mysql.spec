@@ -2,7 +2,7 @@
 
 Summary:       Provides embedded mysql support
 Name:          openshift-origin-cartridge-mysql
-Version: 1.25.1
+Version: 1.28.1
 Release:       1%{?dist}
 Group:         Network/Daemons
 License:       ASL 2.0
@@ -48,6 +48,40 @@ Provides mysql cartridge support to OpenShift. (Cartridge Format V2)
 %doc %{cartridgedir}/LICENSE
 
 %changelog
+* Thu Sep 18 2014 Adam Miller <admiller@redhat.com> 1.28.1-1
+- bump_minor_versions for sprint 51 (admiller@redhat.com)
+- mysql cart: simplify user env var check (jolamb@redhat.com)
+
+* Wed Sep 10 2014 Adam Miller <admiller@redhat.com> 1.27.4-1
+- Bump cartridge versions (agoldste@redhat.com)
+
+* Fri Sep 05 2014 Adam Miller <admiller@redhat.com> 1.27.3-1
+- mysql cart: user-settable start timeout (jolamb@redhat.com)
+
+* Fri Aug 22 2014 Adam Miller <admiller@redhat.com> 1.27.2-1
+- upgrade version of mysql cart (rchopra@redhat.com)
+- fix typo in mysql cart upgrade (rchopra@redhat.com)
+
+* Thu Aug 21 2014 Adam Miller <admiller@redhat.com> 1.27.1-1
+- bump_minor_versions for sprint 50 (admiller@redhat.com)
+
+* Wed Aug 20 2014 Adam Miller <admiller@redhat.com> 1.26.2-1
+- Fix bug 1131089: use correct mysql client for 5.5 (pmorie@gmail.com)
+
+* Thu Jun 26 2014 Adam Miller <admiller@redhat.com> 1.26.1-1
+- bump_minor_versions for sprint 47 (admiller@redhat.com)
+
+* Thu Jun 19 2014 Adam Miller <admiller@redhat.com> 1.25.3-1
+- Bump cartridge versions for 2.0.46 (pmorie@gmail.com)
+
+* Thu Jun 05 2014 Adam Miller <admiller@redhat.com> 1.25.2-1
+- Merge pull request #5256 from mfojtik/bugzilla/1086807
+  (dmcphers+openshiftbot@redhat.com)
+- Bug 1086807 - Advertise $PATH for scaled SCL based cartridges
+  (mfojtik@redhat.com)
+- Bug 1103367: Increasing timeout of the stop action in the MySQL cartridge
+  (jhadvig@redhat.com)
+
 * Fri May 16 2014 Adam Miller <admiller@redhat.com> 1.25.1-1
 - bump_minor_versions for sprint 45 (admiller@redhat.com)
 

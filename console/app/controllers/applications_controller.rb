@@ -106,7 +106,6 @@ class ApplicationsController < ConsoleController
 
   def delete
     @application = Application.find(params[:id], :as => current_user)
-
     @referer = application_path(@application)
   end
 
@@ -124,6 +123,8 @@ class ApplicationsController < ConsoleController
     @application_type = (type == 'custom' || !type.is_a?(String)) ?
       ApplicationType.custom(type) :
       ApplicationType.find(type)
+
+    @regions = Region.cached.all
 
     @capabilities = user_capabilities :refresh => true
     @user_usage_rates = current_api_user.usage_rates
@@ -148,7 +149,7 @@ class ApplicationsController < ConsoleController
 
     (@domain_capabilities, @domain_usage_rates, @is_domain_owner) = estimate_domain_capabilities(@application.domain_name, @user_writeable_domains, @can_create, @capabilities, @user_usage_rates)
 
-    @gear_sizes = new_application_gear_sizes(@user_writeable_domains, @capabilities)
+    @gear_sizes = new_application_gear_sizes(@user_writeable_domains, @capabilities, @application_type)
 
     flash.now[:error] = out_of_gears_message unless @capabilities.gears_free? or @user_writeable_domains.find(&:can_create_application?)
     # opened bug 789763 to track simplifying this block - with domain_name submission we would
@@ -191,12 +192,11 @@ class ApplicationsController < ConsoleController
   end
 
   def show
-    @capabilities = user_capabilities
-
     if params[:test]
-      @capabilities.send(:max_gears=, params[:test_gears].to_i) if params[:test_gears]
       @application = Fixtures::Applications.send(params[:test])
       @domain = Domain.new({:name => @application.domain_id}, true)
+      @capabilities = Domain::Capabilities.new({:max_gears => 3})
+      @capabilities.send(:max_gears=, params[:test_gears].to_i) if params[:test_gears]
       @gear_groups = @application.cartridge_gear_groups
       @gear_groups_with_state = @application.gear_groups
       @gear_groups.each{ |g| g.merge_gears(@gear_groups_with_state) }
@@ -210,6 +210,8 @@ class ApplicationsController < ConsoleController
     async{ sshkey_uploaded? }
 
     join!(30)
+
+    @capabilities = @application.domain.capabilities
 
     @gear_groups = @application.cartridge_gear_groups
     @gear_groups.each{ |g| g.merge_gears(@gear_groups_with_state) }

@@ -6,7 +6,7 @@
 
 Summary:       Provides HA Proxy
 Name:          openshift-origin-cartridge-haproxy
-Version: 1.25.1
+Version: 1.27.1
 Release:       1%{?dist}
 Group:         Network/Daemons
 License:       ASL 2.0
@@ -48,6 +48,29 @@ HAProxy cartridge for OpenShift. (Cartridge Format V2)
 %doc %{cartridgedir}/LICENSE
 
 %changelog
+* Fri Aug 08 2014 Adam Miller <admiller@redhat.com> 1.27.1-1
+- bump_minor_versions for sprint 49 (admiller@redhat.com)
+
+* Wed Jul 30 2014 Adam Miller <admiller@redhat.com> 1.26.4-1
+- bump cart versions for sprint 48 (bparees@redhat.com)
+
+* Mon Jul 28 2014 Adam Miller <admiller@redhat.com> 1.26.3-1
+- race condition in haproxy reload (bparees@redhat.com)
+
+* Mon Jul 21 2014 Adam Miller <admiller@redhat.com> 1.26.2-1
+- Merge pull request #5626 from bparees/fix_haproxy_ratio
+  (dmcphers+openshiftbot@redhat.com)
+-  Haproxy gear ratio is only considered when adding a gear, not when start an
+  existing application (bparees@redhat.com)
+
+* Fri Jul 18 2014 Adam Miller <admiller@redhat.com> 1.26.1-1
+- Wrong message when starting catridge haproxy_ctld.rb (bparees@redhat.com)
+- bump_minor_versions for sprint 48 (admiller@redhat.com)
+
+* Wed Jul 09 2014 Adam Miller <admiller@redhat.com> 1.25.2-1
+- Scalable app will keep using the customized haproxy_ctld.rb even the action
+  hook has been removed from app git repo (bparees@redhat.com)
+
 * Fri May 16 2014 Adam Miller <admiller@redhat.com> 1.25.1-1
 - bump_minor_versions for sprint 45 (admiller@redhat.com)
 

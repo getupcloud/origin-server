@@ -17,7 +17,7 @@
 
 Summary:       Cloud Development Node
 Name:          rubygem-%{gem_name}
-Version: 1.25.2
+Version: 1.31.2
 Release:       1%{?dist}
 Group:         Development/Languages
 License:       ASL 2.0
@@ -248,7 +248,7 @@ fi
 %attr(0600,-,-) %config(noreplace) /etc/openshift/iptables.nat.rules
 %config(noreplace) /etc/openshift/env/*
 %config(noreplace) /etc/logrotate.d/%{name}
-%attr(0640,-,-) %config(noreplace) /etc/openshift/resource_limits.conf
+%attr(0640,-,-) %config(noreplace) /etc/openshift/resource_limits.conf*
 %dir %attr(0755,-,-) %{appdir}
 %dir %attr(0750,-,-) %{appdir}/.tc_user_dir
 
@@ -283,6 +283,218 @@ fi
 %attr(0755,-,-) /etc/cron.daily/openshift-origin-stale-lockfiles
 
 %changelog
+* Tue Sep 23 2014 Adam Miller <admiller@redhat.com> 1.31.2-1
+- Expose haproxy-sni-proxy mapped ports as environmental variables
+  (bparees@redhat.com)
+
+* Thu Sep 18 2014 Adam Miller <admiller@redhat.com> 1.31.1-1
+- bump_minor_versions for sprint 51 (admiller@redhat.com)
+- Merge pull request #5794 from sosiouxme/improve-platform-logging-bz1139359
+  (dmcphers+openshiftbot@redhat.com)
+- NodeLogger: add attrs to log, parse execute_parallel actions
+  (lmeyer@redhat.com)
+
+* Tue Sep 09 2014 Adam Miller <admiller@redhat.com> 1.30.5-1
+- Bug 1024531 - /proc/net provides too much information (jhonce@redhat.com)
+
+* Mon Sep 08 2014 Adam Miller <admiller@redhat.com> 1.30.4-1
+- Merge pull request #5787 from bparees/unique_domain_env_vars
+  (dmcphers+openshiftbot@redhat.com)
+- check for domain environment variable uniqueness on app create
+  (bparees@redhat.com)
+
+* Fri Sep 05 2014 Adam Miller <admiller@redhat.com> 1.30.3-1
+- Merge pull request #3516 from Filirom1/patch-1
+  (dmcphers+openshiftbot@redhat.com)
+- node.conf: comments for external port range (lmeyer@redhat.com)
+- Merge pull request #5772 from jwhonce/wip/node_essentials
+  (dmcphers+openshiftbot@redhat.com)
+- Merge pull request #5753 from sosiouxme/bz1133936
+  (dmcphers+openshiftbot@redhat.com)
+- node conf: supply resource_limit.conf examples (lmeyer@redhat.com)
+- WIP Node Platform - Restore cartridge_repository_web_func_test.rb
+  (jhonce@redhat.com)
+- WIP Node Platform - Stabilize cartridge_repository_web_func_test.rb
+  (jhonce@redhat.com)
+- Merge pull request #5742 from bparees/resource_limits
+  (dmcphers+openshiftbot@redhat.com)
+- Merge pull request #5741 from brenton/BZ1124094
+  (dmcphers+openshiftbot@redhat.com)
+- add new resource limits template for xpaas cartridges (bparees@redhat.com)
+- Bug 1124094 - oo-admin-upgrade does not work for unsupported cartridges
+  (bleanhar@redhat.com)
+- fix http://stackoverflow.com/questions/4826639/repack-of-git-repository-fails
+  (filirom1@gmail.com)
+
+* Fri Aug 22 2014 Adam Miller <admiller@redhat.com> 1.30.2-1
+- Merge pull request #5738 from bparees/sni_port_message
+  (dmcphers+openshiftbot@redhat.com)
+- The output message about TLS URLs is not clear when creating jboss-amq
+  cartridge (bparees@redhat.com)
+
+* Thu Aug 21 2014 Adam Miller <admiller@redhat.com> 1.30.1-1
+- bump_minor_versions for sprint 50 (admiller@redhat.com)
+
+* Wed Aug 20 2014 Adam Miller <admiller@redhat.com> 1.29.4-1
+- Fix bug 1131089: use correct mysql client for 5.5 (pmorie@gmail.com)
+
+* Thu Aug 14 2014 Adam Miller <admiller@redhat.com> 1.29.3-1
+- Merge pull request #5683 from soltysh/binary_deploy_tests
+  (dmcphers+openshiftbot@redhat.com)
+- Reafactored binary deployment tests for running them faster.
+  (maszulik@redhat.com)
+
+* Tue Aug 12 2014 Adam Miller <admiller@redhat.com> 1.29.2-1
+- Update get_quota to handle grace values (agoldste@redhat.com)
+
+* Fri Aug 08 2014 Adam Miller <admiller@redhat.com> 1.29.1-1
+- bump_minor_versions for sprint 49 (admiller@redhat.com)
+- Merge pull request #5441 from dobbymoodge/sclmongo
+  (dmcphers+openshiftbot@redhat.com)
+- Bug 1121217 - Symbol leak in Throttler cgroup code (jhonce@redhat.com)
+- Bug 1121217 - Symbol leak in Throttler cgroup code (jhonce@redhat.com)
+- mongodb cart: clean up `mongodb_context`, `rhcsh` (jolamb@redhat.com)
+- mongodb cart: Support non-SCL systems (jolamb@redhat.com)
+- mongodb cart: address bugs with scaled carts (jolamb@redhat.com)
+- <mongodb cart> adapt to use SCL-provided mongodb (jolamb@redhat.com)
+
+* Wed Jul 30 2014 Adam Miller <admiller@redhat.com> 1.28.5-1
+- Merge pull request #5622 from Miciah/bug-1121200-oo-iptables-port-proxy-
+  getaddr-check-ipaddr (dmcphers+openshiftbot@redhat.com)
+- Merge pull request #5640 from a13m/bz1122166
+  (dmcphers+openshiftbot@redhat.com)
+- Bug 1122166 - Preserve sparse files during rsync operations
+  (agrimm@redhat.com)
+- oo-iptables-port-proxy: getaddr: check ipaddr (miciah.masters@gmail.com)
+- oo-iptables-port-proxy: Rewrite getaddr (miciah.masters@gmail.com)
+
+* Mon Jul 28 2014 Adam Miller <admiller@redhat.com> 1.28.4-1
+- Merge pull request #5625 from Miciah/bug-1121238-fix-frontend-
+  system_proxy_delete-and-system_proxy_set-methods-return-value-ordering
+  (dmcphers+openshiftbot@redhat.com)
+- Fix typo (dmcphers@redhat.com)
+- Fix frontend system_proxy_delete/system_proxy_set (miciah.masters@gmail.com)
+
+* Thu Jul 24 2014 Adam Miller <admiller@redhat.com> 1.28.3-1
+- Card origin_node_401 - Fix extended tests (jhonce@redhat.com)
+
+* Mon Jul 21 2014 Adam Miller <admiller@redhat.com> 1.28.2-1
+- Card origin_node_401 - Support Vendor in CartridgeRepository
+  (jhonce@redhat.com)
+
+* Fri Jul 18 2014 Adam Miller <admiller@redhat.com> 1.28.1-1
+- Bug 1118588 - Fix oo-cgroup-read for parsing blkio stats (agrimm@redhat.com)
+- bump_minor_versions for sprint 48 (admiller@redhat.com)
+
+* Mon Jul 07 2014 Adam Miller <admiller@redhat.com> 1.27.4-1
+- Bug 1116135 - Add -u to bash sdk pgrep calls (jhonce@redhat.com)
+- Bug 1116062 - Remove spurious call to facter (jhonce@redhat.com)
+
+* Tue Jul 01 2014 Adam Miller <admiller@redhat.com> 1.27.3-1
+- Merge pull request #5561 from jwhonce/bug/1111077
+  (dmcphers+openshiftbot@redhat.com)
+- Bug 1111077 - Enforce FrontendHttpServer state to match .state file
+  (jhonce@redhat.com)
+
+* Mon Jun 30 2014 Adam Miller <admiller@redhat.com> 1.27.2-1
+- Merge pull request #5499 from jwhonce/wip/mcollective
+  (dmcphers+openshiftbot@redhat.com)
+- WIP Node Platform - Add reference_id and container_uuid to New Relic report
+  (jhonce@redhat.com)
+
+* Thu Jun 26 2014 Adam Miller <admiller@redhat.com> 1.27.1-1
+- Revert "Bug 1111077 - Ensure frontend and state in sync" (jhonce@redhat.com)
+- Bug 1111077 - Ensure frontend and state in sync (jhonce@redhat.com)
+- bump_minor_versions for sprint 47 (admiller@redhat.com)
+
+* Thu Jun 19 2014 Adam Miller <admiller@redhat.com> 1.26.8-1
+- Merge pull request #5523 from jhadvig/status
+  (dmcphers+openshiftbot@redhat.com)
+- Making apache server-status optional with a marker (jhadvig@redhat.com)
+- Merge pull request #5478 from a13m/bz1104902
+  (dmcphers+openshiftbot@redhat.com)
+- Bug 1104902 - Fix unit tests (jhonce@redhat.com)
+- Bug 1104902 - Fix several bugs in OOM Plugin app restarts (agrimm@redhat.com)
+
+* Wed Jun 18 2014 Adam Miller <admiller@redhat.com> 1.26.7-1
+- Merge pull request #5522 from pmorie/bugs/1108951
+  (dmcphers+openshiftbot@redhat.com)
+- Merge pull request #5518 from jwhonce/bug/1110283
+  (dmcphers+openshiftbot@redhat.com)
+- Fix bug 1108951: correct nodejs update-configuration function
+  (pmorie@gmail.com)
+- Bug 1110283 - Escape Source-Url during clone/copy (jhonce@redhat.com)
+
+* Tue Jun 17 2014 Adam Miller <admiller@redhat.com> 1.26.6-1
+- Merge pull request #5513 from pmorie/bugs/1108951
+  (dmcphers+openshiftbot@redhat.com)
+- Fix bug 1108951: fix rhcsh 'node' wrapper (pmorie@gmail.com)
+
+* Mon Jun 16 2014 Troy Dawson <tdawson@redhat.com> 1.26.5-1
+- Merge pull request #5509 from pmorie/bugs/1108951
+  (dmcphers+openshiftbot@redhat.com)
+- Fix bug 1108951: add rhcsh wrapper for nodejs (pmorie@gmail.com)
+
+* Fri Jun 13 2014 Adam Miller <admiller@redhat.com> 1.26.4-1
+- Merge pull request #5503 from a13m/bz1103849
+  (dmcphers+openshiftbot@redhat.com)
+- Bug 1103849 - Remove quota for deleted gear by uid (agrimm@redhat.com)
+
+* Wed Jun 11 2014 Adam Miller <admiller@redhat.com> 1.26.3-1
+- Merge pull request #5496 from jwhonce/bug/1101164
+  (dmcphers+openshiftbot@redhat.com)
+- Bug 1101164 - Support gear registry with no web framework (jhonce@redhat.com)
+- Merge pull request #5494 from jwhonce/wip/oom_plugin_test
+  (dmcphers+openshiftbot@redhat.com)
+- Bug 1106413: psql wrapper always return zero even if psql command is already
+  failed (jhadvig@redhat.com)
+- WIP Node Platform - Add tests for OOM Plugin (jhonce@redhat.com)
+
+* Mon Jun 09 2014 Adam Miller <admiller@redhat.com> 1.26.2-1
+- Merge pull request #5470 from brenton/BZ1064631
+  (dmcphers+openshiftbot@redhat.com)
+- Merge pull request #5481 from jwhonce/bug/1105232
+  (dmcphers+openshiftbot@redhat.com)
+- Bug 1105232 - Output rsync results from gear distribute (jhonce@redhat.com)
+- Bug 1064631 - Wrap UID-based ip addresses and netclasses calculations
+  (bleanhar@redhat.com)
+
+* Thu Jun 05 2014 Adam Miller <admiller@redhat.com> 1.26.1-1
+- Bug 1101499: Adjusting logic of gear state restoration (jhadvig@redhat.com)
+- Merge pull request #5466 from jhadvig/post_restore_stop
+  (dmcphers+openshiftbot@redhat.com)
+- Document bash SDK httpd helper functions (vvitek@redhat.com)
+- Bug 1101499: Stopping secondary gear after restore snapshot for scaleable app
+  (jhadvig@redhat.com)
+- bump_minor_versions for sprint 46 (admiller@redhat.com)
+
+* Thu May 29 2014 Adam Miller <admiller@redhat.com> 1.25.6-1
+- Merge pull request #5443 from a13m/bz1100518
+  (dmcphers+openshiftbot@redhat.com)
+- Merge pull request #5126 from mmahut/handle_zombie
+  (dmcphers+openshiftbot@redhat.com)
+- oo-admin-gear: error out if we're not able to move the cgroup pid into the
+  default group because the process does not exist or is a zombie process
+  (mmahut@redhat.com)
+- Fix throttler math in monitored_gear_test (agrimm@redhat.com)
+- Move cgroup sample timestamp insertion and fix unit test (agrimm@redhat.com)
+- Bug 1101156 - Always initialize container_plugin (jhonce@redhat.com)
+
+* Tue May 27 2014 Adam Miller <admiller@redhat.com> 1.25.5-1
+- Merge pull request #5447 from jwhonce/bug/1100619
+  (dmcphers+openshiftbot@redhat.com)
+- Bug 1100619 - Uppercase primary cartridge name for use in env vars
+  (jhonce@redhat.com)
+
+* Fri May 23 2014 Adam Miller <admiller@redhat.com> 1.25.4-1
+- Merge pull request #5438 from jwhonce/bug/1099754
+  (dmcphers+openshiftbot@redhat.com)
+- Bug 1099754 - Set default_command to help (jhonce@redhat.com)
+
+* Thu May 22 2014 Adam Miller <admiller@redhat.com> 1.25.3-1
+- WIP Node Platform - Skip syslog_plugin test if it has been disabled
+  (jhonce@redhat.com)
+
 * Wed May 21 2014 Adam Miller <admiller@redhat.com> 1.25.2-1
 - Merge pull request #5434 from jwhonce/bug/1099772
   (dmcphers+openshiftbot@redhat.com)

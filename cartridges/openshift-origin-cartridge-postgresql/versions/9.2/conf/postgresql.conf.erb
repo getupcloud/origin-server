@@ -35,6 +35,9 @@ max_connections = 100
 <% end %>
 unix_socket_directories  = '<%= ENV['OPENSHIFT_POSTGRESQL_DB_SOCKET'] %>'
 unix_socket_permissions = 0700
+<% if ENV['OPENSHIFT_POSTGRESQL_SSL_ENABLED'] && ENV['OPENSHIFT_POSTGRESQL_SSL_ENABLED'].downcase == 'true' %>
+ssl = on
+<% end %>
 
 #------------------------------------------------------------------------------
 # RESOURCE USAGE (except WAL)
@@ -67,9 +70,9 @@ effective_cache_size = <%= ENV['OPENSHIFT_APP_DNS'] == ENV['OPENSHIFT_GEAR_DNS']
 #------------------------------------------------------------------------------
 # - Locale and Formatting -
 
-datestyle = 'iso, mdy'
-lc_messages = 'en_US.utf8'
-lc_monetary = 'en_US.utf8'
-lc_numeric = 'en_US.utf8'
-lc_time = 'en_US.utf8'
+datestyle = '<%= ENV['OPENSHIFT_POSTGRESQL_DATESTYLE'] || 'iso, mdy'%>'
+lc_messages = '<%= ENV['OPENSHIFT_POSTGRESQL_LOCALE'] || 'en_US.utf8'%>'
+lc_monetary = '<%= ENV['OPENSHIFT_POSTGRESQL_LOCALE'] || 'en_US.utf8'%>'
+lc_numeric = '<%= ENV['OPENSHIFT_POSTGRESQL_LOCALE'] || 'en_US.utf8'%>'
+lc_time = '<%= ENV['OPENSHIFT_POSTGRESQL_LOCALE'] || 'en_US.utf8'%>'
 default_text_search_config = 'pg_catalog.english'

@@ -4,7 +4,7 @@
 
 Summary:       Provides JBossEAP6.0 support
 Name:          openshift-origin-cartridge-jbosseap
-Version: 2.18.1
+Version: 2.21.1
 Release:       1%{?dist}
 Group:         Development/Languages
 License:       ASL 2.0
@@ -12,7 +12,6 @@ URL:           http://www.openshift.com
 Source0:       http://mirror.openshift.com/pub/openshift-origin/source/%{name}/%{name}-%{version}.tar.gz
 Requires:      rubygem(openshift-origin-node)
 Requires:      openshift-origin-node-util
-Requires:      lsof
 Requires:      java-1.7.0-openjdk
 Requires:      java-1.7.0-openjdk-devel
 Requires:      jbossas-appclient
@@ -26,7 +25,6 @@ Requires:      jbossas-product-eap
 Requires:      jbossas-standalone
 Requires:      jbossas-welcome-content-eap
 Requires:      jboss-eap6-modules
-Requires:      jboss-eap6-index
 Requires:      bc
 Requires:      jboss-openshift-metrics-module
 %if 0%{?rhel}
@@ -98,6 +96,42 @@ ln -fs /usr/share/openshift/jboss/modules/com/openshift/metrics /etc/alternative
 %doc %{cartridgedir}/LICENSE
 
 %changelog
+* Thu Sep 18 2014 Adam Miller <admiller@redhat.com> 2.21.1-1
+- bump_minor_versions for sprint 51 (admiller@redhat.com)
+
+* Wed Sep 10 2014 Adam Miller <admiller@redhat.com> 2.20.4-1
+- Bump cartridge versions (agoldste@redhat.com)
+
+* Tue Sep 09 2014 Adam Miller <admiller@redhat.com> 2.20.3-1
+- Bug 1125430 - jboss-eap6-index is no longer needed (bleanhar@redhat.com)
+
+* Fri Sep 05 2014 Adam Miller <admiller@redhat.com> 2.20.2-1
+- Corrected jboss issues WRT lsof (mmcgrath@redhat.com)
+
+* Fri Aug 08 2014 Adam Miller <admiller@redhat.com> 2.20.1-1
+- bump_minor_versions for sprint 49 (admiller@redhat.com)
+
+* Wed Jul 30 2014 Adam Miller <admiller@redhat.com> 2.19.4-1
+- Merge pull request #5673 from bparees/latest_versions
+  (dmcphers+openshiftbot@redhat.com)
+- bump cart versions for sprint 48 (bparees@redhat.com)
+
+* Wed Jul 30 2014 Adam Miller <admiller@redhat.com> 2.19.3-1
+- Bug 1122166 - Preserve sparse files during rsync operations
+  (agrimm@redhat.com)
+
+* Fri Jul 18 2014 Adam Miller <admiller@redhat.com> 2.19.2-1
+- JVM heap optimization settings and remove SerialGC (bvarga@redhat.com)
+
+* Thu Jun 05 2014 Adam Miller <admiller@redhat.com> 2.19.1-1
+- bump_minor_versions for sprint 46 (admiller@redhat.com)
+
+* Thu May 29 2014 Adam Miller <admiller@redhat.com> 2.18.3-1
+- Bump cartridge versions (agoldste@redhat.com)
+
+* Tue May 27 2014 Adam Miller <admiller@redhat.com> 2.18.2-1
+- Make READMEs in template repos more obvious (vvitek@redhat.com)
+
 * Fri May 16 2014 Adam Miller <admiller@redhat.com> 2.18.1-1
 - bump_minor_versions for sprint 45 (admiller@redhat.com)
 

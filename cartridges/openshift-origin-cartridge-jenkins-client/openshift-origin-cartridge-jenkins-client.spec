@@ -7,7 +7,7 @@
 
 Summary:       Embedded jenkins client support for OpenShift 
 Name:          openshift-origin-cartridge-jenkins-client
-Version: 1.21.1
+Version: 1.25.1
 Release:       1%{?dist}
 Group:         Network/Daemons
 License:       ASL 2.0
@@ -49,6 +49,56 @@ Provides plugin jenkins client support. (Cartridge Format V2)
 %doc %{cartridgedir}/LICENSE
 
 %changelog
+* Fri Aug 08 2014 Adam Miller <admiller@redhat.com> 1.25.1-1
+- bump_minor_versions for sprint 49 (admiller@redhat.com)
+
+* Wed Jul 30 2014 Adam Miller <admiller@redhat.com> 1.24.3-1
+- Merge pull request #5673 from bparees/latest_versions
+  (dmcphers+openshiftbot@redhat.com)
+- bump cart versions for sprint 48 (bparees@redhat.com)
+
+* Wed Jul 30 2014 Adam Miller <admiller@redhat.com> 1.24.2-1
+- Bug 1122166 - Preserve sparse files during rsync operations
+  (agrimm@redhat.com)
+
+* Fri Jul 18 2014 Adam Miller <admiller@redhat.com> 1.24.1-1
+- bump_minor_versions for sprint 48 (admiller@redhat.com)
+
+* Wed Jul 09 2014 Adam Miller <admiller@redhat.com> 1.23.4-1
+- Bump cartridge versions for 2.0.47 (jhadvig@gmail.com)
+
+* Thu Jul 03 2014 Adam Miller <admiller@redhat.com> 1.23.3-1
+- Merge pull request #5563 from bparees/jenkins_encoding
+  (dmcphers+openshiftbot@redhat.com)
+- "InvalidByteSequenceError" on the first time do jenkins build for app
+  (bparees@redhat.com)
+
+* Tue Jul 01 2014 Adam Miller <admiller@redhat.com> 1.23.2-1
+- Merge pull request #5552 from bparees/update_lts
+  (dmcphers+openshiftbot@redhat.com)
+- "WARNING: Failed to broadcast over UDP" appears in jenkins.log
+  (bparees@redhat.com)
+
+* Thu Jun 26 2014 Adam Miller <admiller@redhat.com> 1.23.1-1
+- bump_minor_versions for sprint 47 (admiller@redhat.com)
+
+* Thu Jun 19 2014 Adam Miller <admiller@redhat.com> 1.22.4-1
+- Bump cartridge versions for 2.0.46 (pmorie@gmail.com)
+
+* Wed Jun 18 2014 Adam Miller <admiller@redhat.com> 1.22.3-1
+- Merge pull request #5516 from bparees/jenkins_wording
+  (dmcphers+openshiftbot@redhat.com)
+- Jenkins client description is misleading (bparees@redhat.com)
+
+* Tue Jun 17 2014 Adam Miller <admiller@redhat.com> 1.22.2-1
+- https://bugzilla.redhat.com/show_bug.cgi?id=1109026 (bparees@redhat.com)
+
+* Thu Jun 05 2014 Adam Miller <admiller@redhat.com> 1.22.1-1
+- bump_minor_versions for sprint 46 (admiller@redhat.com)
+
+* Thu May 29 2014 Adam Miller <admiller@redhat.com> 1.21.2-1
+- Bump cartridge versions (agoldste@redhat.com)
+
 * Fri May 16 2014 Adam Miller <admiller@redhat.com> 1.21.1-1
 - support cygwin in jenkins client shell command detect application platform in
   jenkins client and use it to determine if builder should be scalable update

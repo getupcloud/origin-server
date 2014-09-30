@@ -2,7 +2,7 @@
 
 Summary:       Provides JBossEWS2.0 support
 Name:          openshift-origin-cartridge-jbossews
-Version: 1.24.1
+Version: 1.29.1
 Release:       1%{?dist}
 Group:         Development/Languages
 License:       ASL 2.0
@@ -11,7 +11,6 @@ Source0:       http://mirror.openshift.com/pub/openshift-origin/source/%{name}/%
 Requires:      bc
 Requires:      rubygem(openshift-origin-node)
 Requires:      openshift-origin-node-util
-Requires:      lsof
 Requires:      java-1.7.0-openjdk
 Requires:      java-1.7.0-openjdk-devel
 %if 0%{?rhel}
@@ -77,6 +76,76 @@ alternatives --set jbossews-2.0 /usr/share/tomcat7
 %doc %{cartridgedir}/LICENSE
 
 %changelog
+* Thu Sep 18 2014 Adam Miller <admiller@redhat.com> 1.29.1-1
+- bump_minor_versions for sprint 51 (admiller@redhat.com)
+
+* Wed Sep 10 2014 Adam Miller <admiller@redhat.com> 1.28.3-1
+- Bump cartridge versions (agoldste@redhat.com)
+
+* Fri Sep 05 2014 Adam Miller <admiller@redhat.com> 1.28.2-1
+- Merge pull request #5748 from jwhonce/wip/proc_net
+  (dmcphers+openshiftbot@redhat.com)
+- Corrected jboss issues WRT lsof (mmcgrath@redhat.com)
+
+* Thu Aug 21 2014 Adam Miller <admiller@redhat.com> 1.28.1-1
+- bump_minor_versions for sprint 50 (admiller@redhat.com)
+
+* Wed Aug 20 2014 Adam Miller <admiller@redhat.com> 1.27.4-1
+- Bump cartridge versions for Sprint 49 (maszulik@redhat.com)
+
+* Tue Aug 19 2014 Adam Miller <admiller@redhat.com> 1.27.3-1
+- Bug 1084427 - Stop JBossEws cartridge gracefully (bvarga@redhat.com)
+
+* Thu Aug 14 2014 Adam Miller <admiller@redhat.com> 1.27.2-1
+- Merge pull request #5683 from soltysh/binary_deploy_tests
+  (dmcphers+openshiftbot@redhat.com)
+- Reafactored binary deployment tests for running them faster.
+  (maszulik@redhat.com)
+
+* Fri Aug 08 2014 Adam Miller <admiller@redhat.com> 1.27.1-1
+- bump_minor_versions for sprint 49 (admiller@redhat.com)
+- always meet control error when restartstop a jbossews scalable app with
+  medium or large gear size (bparees@redhat.com)
+
+* Wed Jul 30 2014 Adam Miller <admiller@redhat.com> 1.26.5-1
+- Merge pull request #5673 from bparees/latest_versions
+  (dmcphers+openshiftbot@redhat.com)
+- bump cart versions for sprint 48 (bparees@redhat.com)
+
+* Wed Jul 30 2014 Adam Miller <admiller@redhat.com> 1.26.4-1
+- Merge pull request #5640 from a13m/bz1122166
+  (dmcphers+openshiftbot@redhat.com)
+- Bug 1122166 - Preserve sparse files during rsync operations
+  (agrimm@redhat.com)
+
+* Tue Jul 29 2014 Adam Miller <admiller@redhat.com> 1.26.3-1
+- Bug 1123105 - Fixed binary jbossews binary deployment, currently when no
+  config files are specified inside archive, then template's one are taken as
+  the default (maszulik@redhat.com)
+
+* Fri Jul 18 2014 Adam Miller <admiller@redhat.com> 1.26.2-1
+- JVM heap optimization settings and remove SerialGC (bvarga@redhat.com)
+
+* Thu Jun 26 2014 Adam Miller <admiller@redhat.com> 1.26.1-1
+- bump_minor_versions for sprint 47 (admiller@redhat.com)
+
+* Thu Jun 19 2014 Adam Miller <admiller@redhat.com> 1.25.3-1
+- Bump cartridge versions for 2.0.46 (pmorie@gmail.com)
+
+* Mon Jun 09 2014 Adam Miller <admiller@redhat.com> 1.25.2-1
+- Merge pull request #5374 from shekhargulati/master
+  (dmcphers+openshiftbot@redhat.com)
+- added Servlet 3 dependency (shekhargulati84@gmail.com)
+
+* Thu Jun 05 2014 Adam Miller <admiller@redhat.com> 1.25.1-1
+- bump_minor_versions for sprint 46 (admiller@redhat.com)
+
+* Thu May 29 2014 Adam Miller <admiller@redhat.com> 1.24.3-1
+- Bump cartridge versions (agoldste@redhat.com)
+
+* Tue May 27 2014 Adam Miller <admiller@redhat.com> 1.24.2-1
+- Make READMEs in template repos more obvious (vvitek@redhat.com)
+
 * Fri May 16 2014 Adam Miller <admiller@redhat.com> 1.24.1-1
 - bump_minor_versions for sprint 45 (admiller@redhat.com)
 

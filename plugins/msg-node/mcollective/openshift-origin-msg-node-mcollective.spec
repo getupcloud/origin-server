@@ -12,7 +12,7 @@
 
 Summary:       M-Collective agent file for openshift-origin-msg-node-mcollective
 Name:          openshift-origin-msg-node-mcollective
-Version: 1.23.1
+Version: 1.27.1
 Release:       1%{?dist}
 Group:         Development/Languages
 License:       ASL 2.0
@@ -53,6 +53,40 @@ cp -p facts/update_yaml.rb %{buildroot}%{update_yaml_root}
 %attr(0700,-,-) %config(noreplace) /etc/cron.minutely/openshift-facts
 
 %changelog
+* Thu Sep 18 2014 Adam Miller <admiller@redhat.com> 1.27.1-1
+- bump version to fix tags (admiller@redhat.com)
+- Bug 1141304 - Add path to facts calls (jhonce@redhat.com)
+- NodeLogger: add attrs to log, parse execute_parallel actions
+  (lmeyer@redhat.com)
+
+* Thu Sep 18 2014 Adam Miller <admiller@redhat.com>
+- Bug 1141304 - Add path to facts calls (jhonce@redhat.com)
+- NodeLogger: add attrs to log, parse execute_parallel actions
+  (lmeyer@redhat.com)
+
+* Fri Aug 08 2014 Adam Miller <admiller@redhat.com> 1.26.1-1
+- bump_minor_versions for sprint 49 (admiller@redhat.com)
+
+* Mon Jul 21 2014 Adam Miller <admiller@redhat.com> 1.25.2-1
+- Bug 1119609 - Support vendor in oo-admin-cartridge (jhonce@redhat.com)
+- Card origin_node_401 - Support Vendor in CartridgeRepository
+  (jhonce@redhat.com)
+
+* Fri Jul 18 2014 Adam Miller <admiller@redhat.com> 1.25.1-1
+- bump_minor_versions for sprint 48 (admiller@redhat.com)
+
+* Mon Jun 30 2014 Adam Miller <admiller@redhat.com> 1.24.2-1
+- Merge pull request #5499 from jwhonce/wip/mcollective
+  (dmcphers+openshiftbot@redhat.com)
+- WIP Node Platform - Add reference_id and container_uuid to New Relic report
+  (jhonce@redhat.com)
+
+* Thu Jun 26 2014 Adam Miller <admiller@redhat.com> 1.24.1-1
+- bump_minor_versions for sprint 47 (admiller@redhat.com)
+
+* Thu Jun 12 2014 Adam Miller <admiller@redhat.com> 1.23.2-1
+- Bug 1101169 - Remove spurious report to New Relic (jhonce@redhat.com)
+
 * Fri May 16 2014 Adam Miller <admiller@redhat.com> 1.23.1-1
 - bump_minor_versions for sprint 45 (admiller@redhat.com)
 

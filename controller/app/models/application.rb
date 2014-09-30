@@ -131,7 +131,7 @@ class Application
   # non-persisted field used to store user agent of current request
   attr_accessor :user_agent
   attr_accessor :connections
-
+  attr_accessor :region_id
   #
   # Return a count of the gears for each application identified by the current query.  Returns
   # an array of hashes including:
@@ -396,7 +396,7 @@ class Application
   # Updates the configuration of the application.
   # @return [ResultIO] Output from cartridges
   def update_configuration(new_config={})
-    # set the new config in the application object without persisting for validation 
+    # set the new config in the application object without persisting for validation
     self.config['auto_deploy'] = new_config['auto_deploy'] unless new_config['auto_deploy'].nil?
     self.config['deployment_branch'] = new_config['deployment_branch'] unless new_config['deployment_branch'].nil?
     self.config['keep_deployments'] = new_config['keep_deployments'] unless new_config['keep_deployments'].nil?
@@ -521,23 +521,7 @@ class Application
       # Cartridges can contribute overrides
       spec.cartridge.group_overrides.each do |override|
         if o = GroupOverride.resolve_from(specs, override)
-          platforms = o.components.map do |component|
-            cart = CartridgeCache.find_cartridge(component.cartridge_name, self)
-
-            unless cart
-              # check inside specs for the cartridge object,
-              # since d/l carts are not stored in the application yet
-              cart = specs.map {|s| s.cartridge if s.cartridge.name == component.cartridge_name }.compact.first
-            end
-
-            cart ? cart.platform : nil
-          end
-
-          # only allow grouping if we're working with a single platform
-          # compact will remove nils from the array, to exclude carts that have not been found
-          if platforms.compact.uniq.size == 1
-            overrides << o.implicit
-          end
+          overrides << o.implicit
         end
       end
 
@@ -611,7 +595,7 @@ class Application
       end
     end
 
-    overrides
+    split_platform_overrides(overrides)
   end
 
   ##
@@ -708,7 +692,7 @@ class Application
       component_instances.each do |ci|
         ci_cart = ci.get_cartridge
         if ci_cart.original_name == cart.original_name
-          if ci_cart.version == cart.version
+          if ci_cart.name == cart.name
             raise OpenShift::UserException.new("#{cart.name} already exists in your application", 136, "cartridge")
           else
             raise OpenShift::UserException.new("#{cart.name} cannot co-exist with cartridge #{ci.cartridge_name} in your application", 136, "cartridge")
@@ -755,6 +739,15 @@ class Application
         end
       end
 
+      # check if a cartridge with a min gear requirement of 2+ is being added to a non-scalable application
+      if !self.scalable
+        min_gears = 1
+        cart.components.each do |component|
+          min_gears = [min_gears, component.scaling.min].max
+          raise OpenShift::UserException.new("The cartridge '#{cart.name}' requies a minimum of #{min_gears} gears and cannot be added to a non-scalable application.", 109, 'scalable') if min_gears > 1
+        end
+      end
+
       # Validate that this feature either does not have the domain_scope category
       # or if it does, then no other application within the domain has this feature already
       if cart.is_domain_scoped?
@@ -774,7 +767,7 @@ class Application
       end
     end
 
-    # validate the group overrides for the cartridges being added 
+    # validate the group overrides for the cartridges being added
     # combine the existing carts with the ones being added to get the full proposed group overrides
     specs = component_specs_from(cartridges) + self.component_instances.map(&:to_component_spec)
     specs.each do |spec|
@@ -819,7 +812,8 @@ class Application
         features: cartridges.map(&:name), # For old data support
         cartridges: cartridges.map(&:specification_hash), # Replaces features
         group_overrides: group_overrides, init_git_url: init_git_url,
-        user_env_vars: user_env_vars, user_agent: self.user_agent
+        user_env_vars: user_env_vars, user_agent: self.user_agent,
+        region_id: region_id
       )
       self.pending_op_groups << op_group
 
@@ -1326,7 +1320,10 @@ class Application
     validate_certificate(ssl_certificate, private_key, pass_phrase)
 
     Lock.run_in_app_lock(self) do
-      raise OpenShift::UserException.new("Alias #{server_alias} is already registered", 140, "id") if Application.where("aliases.fqdn" => server_alias).count > 0
+      # Normally, do not allow two apps to register the same alias. Unless configured.
+      raise OpenShift::UserException.new("Alias #{server_alias} is already registered", 140, "id") if
+        Rails.configuration.openshift[:prevent_alias_collision] and Application.where("aliases.fqdn" => server_alias).count > 0
+
       op_group = AddAliasOpGroup.new(fqdn: server_alias, user_agent: self.user_agent)
       self.pending_op_groups << op_group
       if ssl_certificate.present?
@@ -1345,10 +1342,12 @@ class Application
     return false if fqdn =~ /^\d+\.\d+\.\d+\.\d+$/
     return false if fqdn =~ /\A[\S]+(\.(json|xml|yml|yaml|html|xhtml))\z/
     return false if not fqdn =~ /\A[a-z0-9]+([\.]?[\-a-z0-9]+)+\z/
-    if fqdn.end_with?(cloud_domain = Rails.configuration.openshift[:domain_suffix])
-      return false if ! Rails.configuration.openshift[:allow_alias_in_domain]
-      # still exclude those that could conflict with app names.
-      return false if fqdn.chomp(cloud_domain) =~ /\A\w+-\w+\.\z/
+    conf = Rails.configuration.openshift
+    if fqdn.end_with?(cloud_domain = conf[:domain_suffix])
+      # Normally, do not allow creating an alias in the cloud domain. Unless configured.
+      return false unless conf[:allow_alias_in_domain]
+      # Even then, still exclude those that could conflict with app names. Unless configured.
+      return false if fqdn.chomp(cloud_domain) =~ /\A\w+-\w+\.\z/ and conf[:prevent_alias_collision]
     end
     return fqdn
   end
@@ -1663,7 +1662,9 @@ class Application
       when "APP_ENV_VAR_REMOVE"
         remove_env_vars.push({"key" => command_item[:args][0]})
       when "ENV_VAR_ADD"
-        domain_env_vars_to_add.push({"key" => command_item[:args][0], "value" => command_item[:args][1], "component_id" => component_id})
+        domain_env_vars_to_add.push({"key" => command_item[:args][0], "value" => command_item[:args][1], "component_id" => component_id, "unique" => false})
+      when "ENV_VAR_ADD_UNIQUE"
+        domain_env_vars_to_add.push({"key" => command_item[:args][0], "value" => command_item[:args][1], "component_id" => component_id, "unique" => true})
       when "BROKER_KEY_ADD"
         op_group = AddBrokerAuthKeyOpGroup.new(user_agent: self.user_agent)
         op_group.set_created_at
@@ -1801,16 +1802,29 @@ class Application
     self.component_instances.map {|comp| comp.get_cartridge.platform }.uniq.size == 1
   end
 
-  def update_requirements(cartridges, replacements, overrides, init_git_url=nil, user_env_vars=nil)
+  def update_requirements(cartridges, replacements, overrides, init_git_url=nil, user_env_vars=nil, region_id=nil)
     current = group_instances_with_overrides
     connections, updated = elaborate(cartridges, overrides)
 
     upgrades = compute_upgrades(replacements)
     changes, moves = compute_diffs(current, updated, upgrades)
+    # ensure that the cart is assigned to a group that is valid
+    changes.each do |change|
+      if change.to
+        change.to.components.each do |component|
+          valid_gear_sizes = Rails.application.config.openshift[:cartridge_gear_sizes][component.cartridge.name]
+          if !valid_gear_sizes.empty? && !valid_gear_sizes.include?(change.to.gear_size)
+            error_message = "The cartridge, #{component.cartridge.name}, cannot run on a gear with size: #{change.to.gear_size}.  Per configuration, the cartridge can only run on the following gear sizes: #{valid_gear_sizes.join ', '}."
+            raise OpenShift::UserException.new(error_message)
+          end
+        end
+      end
+    end
+
     if moves.present?
       raise OpenShift::UserException.new("Moving cartridges from one gear group to another is not supported.")
     end
-    calculate_ops(changes, moves, connections, updated, init_git_url, user_env_vars)
+    calculate_ops(changes, moves, connections, updated, init_git_url, user_env_vars, region_id)
   end
 
   def calculate_remove_group_instance_ops(comp_specs, group_instance, additional_filesystem_gb)
@@ -1830,7 +1844,7 @@ class Application
   end
 
   def calculate_gear_create_ops(ginst_id, gear_ids, deploy_gear_id, comp_specs, component_ops, additional_filesystem_gb, gear_size,
-                                prereq_op=nil, is_scale_up=false, hosts_app_dns=false, init_git_url=nil, user_env_vars=nil)
+                                prereq_op=nil, is_scale_up=false, hosts_app_dns=false, init_git_url=nil, user_env_vars=nil, region_id=nil)
     ops = []
     track_usage_ops = []
 
@@ -1873,7 +1887,7 @@ class Application
                                     app_dns: app_dns, pre_save: (not self.persisted?))
       init_gear_op.prereq << prereq_op._id.to_s unless prereq_op.nil?
 
-      reserve_uid_op = ReserveGearUidOp.new(gear_id: gear_id, gear_size: gear_size, prereq: maybe_notify_app_create_op + [init_gear_op._id.to_s])
+      reserve_uid_op = ReserveGearUidOp.new(gear_id: gear_id, gear_size: gear_size, region_id: region_id, prereq: maybe_notify_app_create_op + [init_gear_op._id.to_s])
 
       create_gear_op = CreateGearOp.new(gear_id: gear_id, prereq: [reserve_uid_op._id.to_s], retry_rollback_op: reserve_uid_op._id.to_s)
       # this flag is passed to the node to indicate that an sshkey is required to be generated for this gear
@@ -1908,7 +1922,10 @@ class Application
 
     gear_id_prereqs.each_key do |gear_id|
       prereq = gear_id_prereqs[gear_id].nil? ? [] : [gear_id_prereqs[gear_id]]
-      ops << UpdateAppConfigOp.new(gear_id: gear_id, prereq: prereq, recalculate_sshkeys: true, add_env_vars: env_vars, config: (self.config || {}))
+      op = UpdateAppConfigOp.new(gear_id: gear_id, prereq: prereq, recalculate_sshkeys: true, add_env_vars: env_vars, config: (self.config || {}))
+      ops << op
+      update_app_config_op_id = op._id.to_s
+      gear_id_prereqs[gear_id] = update_app_config_op_id
     end
 
     # Add broker auth for non scalable apps
@@ -1921,7 +1938,8 @@ class Application
     user_vars_op_id = nil
     # FIXME this condition should be stronger (only fired when env vars are specified OR other gears already exist)
     if maybe_notify_app_create_op.empty? || user_env_vars.present?
-      op = PatchUserEnvVarsOp.new(group_instance_id: ginst_id, user_env_vars: user_env_vars, push_vars: true, prereq: [ops.last._id.to_s])
+      prereq = gear_id_prereqs[app_dns_gear_id].nil? ? [ops.last._id.to_s] : [gear_id_prereqs[app_dns_gear_id]]
+      op = PatchUserEnvVarsOp.new(group_instance_id: ginst_id, user_env_vars: user_env_vars, push_vars: true, prereq: prereq)
       ops << op
       user_vars_op_id = op._id.to_s
     end
@@ -1984,37 +2002,49 @@ class Application
 
   def get_sparse_scaledown_gears(ginst, scale_down_factor)
     scaled_gears = ginst.gears.select { |g| g.app_dns==false }
-    sparse_components = ginst.component_instances.select(&:is_sparse?)
+    sparse_components = ginst.all_component_instances.select(&:is_sparse?)
+    gi_overrides = group_instances_with_overrides.select {|o| o.instance._id == ginst._id}
+    specs ||= component_instances.map(&:to_component_spec)
     gears = []
     if sparse_components.length > 0
       (scale_down_factor...0).each do |i|
         # iterate through sparse components to see which ones need a definite scale-down
-        relevant_sparse_components = sparse_components.select do |ci|
-          min = ci.min rescue ci.get_component.scaling.min
-          multiplier = ci.multiplier rescue ci.get_component.scaling.multiplier
-          cur_sparse_gears = (ci.gears - gears)
-          cur_total_gears = (gi.gears - gears)
+        surplus_sparse_components = sparse_components.select do |ci|
+          comp_spec = nil
+          gi_overrides.each {|o| o.components.each {|c| comp_spec = c if c.cartridge_name == ci.cartridge_name}}
+          min = (comp_spec.min_gears rescue ci.get_component.scaling.min) || 1
+          multiplier = comp_spec.multiplier rescue ci.get_component.scaling.multiplier
+          cur_sparse_gears = ( ci.gears - gears.select {|g| g.component_instances.include?(ci)} ).count
+          cur_total_gears = (ginst.gears - gears).count
           status = false
-          if cur_sparse_gears <= min or multiplier<=0
+          if cur_sparse_gears <= min
             status = false
+          # if the multiplier is nil, -1, 0, or 1, then any gears that are in addition to the minimum value can be removed
+          elsif multiplier.nil? || multiplier <= 1
+            status = true
           else
-            status = cur_total_gears/(cur_sparse_gears*1.0)>multiplier ? false : true
+            # does removing a gear with this sparse cart still maintain the multiplier?
+            # ensuring a float arithmetic to make correct comparisons 
+            status = (cur_total_gears -1) / ((cur_sparse_gears - 1) * 1.0) <= multiplier
           end
           status
         end
-        # each of relevant_sparse_components want a gear removed that has them contained in the gear
+        # each of surplus_sparse_components want a gear removed that has them contained in the gear
         # if its empty, then remove a gear which does not have any of sparse_components in them (non-sparse gears)
-        if relevant_sparse_components.length > 0
-          relevant_sparse_comp_ids = relevant_sparse_components.map { |sp_ci| ci._id }
-          gear = scaled_gears.find do |g|
-             (relevant_sparse_comp_ids - g.sparse_carts).empty?
-          end
-        else
-          gear = scaled_gears.find { |g| g.sparse_carts.empty? }
+        gear = nil
+        if surplus_sparse_components.length > 0
+          surplus_sparse_comp_ids = surplus_sparse_components.map(&:_id)
+          # try to find a gear that has all the (and only those) sparse carts that need to be scaled down
+          # doing a reverse on the gears list ensures that the last possible gear is picked for scaledown
+          gear = scaled_gears.reverse.find { |g| g.sparse_carts.sort == surplus_sparse_comp_ids.sort }
+          # if the above fails, try to find a gear that has sparse carts that are all part of those that need to be scaled down
+          gear = scaled_gears.reverse.find { |g| g.sparse_carts.count > 0 && (g.sparse_carts - surplus_sparse_comp_ids).empty? } if gear.nil?
         end
+        # if a gear is not found, just try to find one without any sparse carts
+        gear = scaled_gears.reverse.find { |g| g.sparse_carts.empty? } if gear.nil?
         if gear.nil?
           # this may mean that some sparse_component's min limit is being violated
-          gear = scaled_gears.last
+          raise OpenShift::UserException.new("Cannot scale down by #{scale_down_factor.abs} as it violates the minimum gear restrictions for sparse cartridges.")
         end
         gears << gear
         scaled_gears.delete(gear)
@@ -2050,14 +2080,15 @@ class Application
     return false if multiplier <= 0
 
     # for max, and cases where multiplier has been changed in apps mid-life
-    should_be_sparse_cart_count = [total/multiplier, (max==-1 ? (total/multiplier) : max)].min
+    multiplier_gears = ( total / ( multiplier * 1.0 ) ).ceil
+    should_be_sparse_cart_count = [multiplier_gears, (max == -1 ? multiplier_gears : max)].min
     return true if gears < should_be_sparse_cart_count
 
     false
   end
 
-  def calculate_add_component_ops(gear_comp_specs, comp_spec_gears, group_instance_id, deploy_gear_id, 
-                                  gear_id_prereqs, component_ops, is_scale_up, prereq_id, init_git_url=nil, 
+  def calculate_add_component_ops(gear_comp_specs, comp_spec_gears, group_instance_id, deploy_gear_id,
+                                  gear_id_prereqs, component_ops, is_scale_up, prereq_id, init_git_url=nil,
                                   app_dns_gear_id=nil, is_gear_creation=false)
     ops = []
     usage_ops = []
@@ -2102,7 +2133,7 @@ class Application
           git_url = init_git_url
         end
 
-        add_component_op = AddCompOp.new(gear_id: gear_id, comp_spec: comp_spec, init_git_url: git_url, 
+        add_component_op = AddCompOp.new(gear_id: gear_id, comp_spec: comp_spec, init_git_url: git_url,
                                          skip_rollback: is_gear_creation, prereq: new_component_op_id + [prereq_id])
         ops << add_component_op
         component_ops[comp_spec][:adds] << add_component_op
@@ -2110,13 +2141,13 @@ class Application
 
         # if this is a web_proxy, send any existing alias and SSL cert information to it
         if cartridge.is_web_proxy? and self.aliases.present?
-          resend_aliases_op = ResendAliasesOp.new(gear_id: gear_id, fqdns: self.aliases.map {|app_alias| app_alias.fqdn}, 
+          resend_aliases_op = ResendAliasesOp.new(gear_id: gear_id, fqdns: self.aliases.map {|app_alias| app_alias.fqdn},
                                                   skip_rollback: is_gear_creation, prereq: [add_component_op._id.to_s])
           ops.push resend_aliases_op
 
           aliases_with_certs = self.aliases.select {|app_alias| app_alias.has_private_ssl_certificate}
           if aliases_with_certs.present?
-            resend_ssl_certs_op = ResendSslCertsOp.new(gear_id: gear_id, ssl_certs: get_ssl_certs(), 
+            resend_ssl_certs_op = ResendSslCertsOp.new(gear_id: gear_id, ssl_certs: get_ssl_certs(),
                                                        skip_rollback: is_gear_creation, prereq: [resend_aliases_op._id.to_s])
             ops.push resend_ssl_certs_op
           end
@@ -2177,19 +2208,20 @@ class Application
   #
   # connections::
   #   An array of connections. (Output of {#elaborate})
-  def calculate_ops(changes, moves=[], connections=nil, group_overrides=nil, init_git_url=nil, user_env_vars=nil)
+  def calculate_ops(changes, moves=[], connections=nil, group_overrides=nil, init_git_url=nil, user_env_vars=nil, region_id=nil)
     add_gears = 0
     remove_gears = 0
     pending_ops = []
     begin_usage_ops = []
 
     overrides = GroupOverride.remove_defaults_from(group_overrides, 1, -1, default_gear_size, 0)
-    if overrides != self.group_overrides
-      pending_ops << SetGroupOverridesOp.new(group_overrides: overrides,
-                                             saved_group_overrides: self.group_overrides,
-                                             pre_save: !self.persisted?)
-      prereq_op = pending_ops.last
-    end
+
+    # we are not comparing the old and new group overrides since it ignores the multiplier
+    # refer bug for details --> https://bugzilla.redhat.com/show_bug.cgi?id=1123371
+    pending_ops << SetGroupOverridesOp.new(group_overrides: overrides,
+                                           saved_group_overrides: self.group_overrides,
+                                           pre_save: !self.persisted?)
+    prereq_op = pending_ops.last
 
     deploy_gear_id = nil
     component_ops = {}
@@ -2219,7 +2251,7 @@ class Application
       end
 
       ops, usage_ops = calculate_gear_create_ops(change.to_instance_id.to_s, gear_ids, deploy_gear_id, change.added, component_ops, additional_filesystem_gb,
-                                      gear_size, prereq_op, false, app_dns, init_git_url, user_env_vars)
+                                      gear_size, prereq_op, false, app_dns, init_git_url, user_env_vars, region_id)
       pending_ops.concat(ops)
       begin_usage_ops.concat(usage_ops)
     end
@@ -2382,7 +2414,7 @@ class Application
       (component_ops[config_order[idx]][:adds] || []).each { |op| op.prereq += prereq_ids }
     end
 
-    if pending_ops.present? and !(pending_ops.length == 1 and SetGroupOverridesOp === pending_ops.first)
+    if pending_ops.present? and pending_ops.any?{|op| op.reexecute_connections?}.present?
       # set all ops as the pre-requisite for execute connections except post_configure ops
       # FIXME: this could be arbitrarily large
       all_ops_ids = pending_ops.map{ |op| op._id.to_s }.compact
@@ -2405,7 +2437,7 @@ class Application
       end
 
       next if idx == 0
-      
+
       prev_spec = post_config_order[idx - 1]
       prereq_ids = []
       prereq_ids += (component_ops[prev_spec][:post_configures] || []).map{|op| op._id.to_s}
@@ -2413,7 +2445,7 @@ class Application
     end
 
     # update-cluster has to run after all deployable carts have been post-configured
-    if scalable && pending_ops.present?
+    if scalable && pending_ops.present? && !(pending_ops.length == 1 and SetGroupOverridesOp === pending_ops.first)
       all_ops_ids = pending_ops.map{ |op| op._id.to_s }
       pending_ops << UpdateClusterOp.new(prereq: all_ops_ids)
     end
@@ -2562,6 +2594,8 @@ class Application
     # use a new set of group overrides
     overrides.concat(group_overrides)
 
+    overrides = split_platform_overrides(overrides)
+
     # Calculate connections and add any shared placement rules
     connections, connection_overrides = connections_from_component_specs(specs)
     overrides.concat(connection_overrides)
@@ -2572,6 +2606,35 @@ class Application
     end
 
     [connections, groups]
+  end
+
+  # Replaces group overrides that contain components with more than one platform
+  #
+  # == Parameters:
+  # overrides::
+  #   An array of GroupOverride instances
+  #
+  # == Returns:
+  #   An array of GroupOverride instances that do not contain components with more that one platform.
+  def split_platform_overrides(overrides)
+    return overrides unless overrides
+    split_overrides = []
+
+    overrides.each do |group_override|
+      next unless group_override
+
+      # only allow grouping if we're working with a single platform
+      if group_override.components.map {|c| c.cartridge.platform rescue nil }.compact.uniq.count > 1
+        group_override.components.each do |c|
+          split_overrides << GroupOverride.new([c], group_override.min_gears, group_override.max_gears,
+                                               group_override.gear_size, group_override.additional_filesystem_gb).implicit
+        end
+      else
+        split_overrides << group_override
+      end
+    end
+
+    split_overrides
   end
 
   def component_specs_from(cartridges)
@@ -2680,7 +2743,7 @@ class Application
   def enforce_system_order(order, categories)
     web_carts = Array(categories['web_framework'])
     service_carts = Array(categories['service']) - web_carts
-    other_carts = categories.map { |k,v| Array(v) }.flatten - web_carts - service_carts 
+    other_carts = categories.map { |k,v| Array(v) }.flatten - web_carts - service_carts
 
     web_carts.each do |w|
       (service_carts + other_carts).each do |so|
@@ -2781,7 +2844,7 @@ class Application
   def calculate_component_orders
     start_order = calculate_post_configure_order(self.component_instances)
     stop_order = start_order.reverse
-    
+
     [start_order, stop_order]
   end
 

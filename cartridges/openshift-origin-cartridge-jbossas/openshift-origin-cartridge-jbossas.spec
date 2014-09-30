@@ -4,7 +4,7 @@
 
 Summary:       Provides JBossAS7 support
 Name:          openshift-origin-cartridge-jbossas
-Version: 1.25.1
+Version: 1.28.2
 Release:       1%{?dist}
 Group:         Development/Languages
 License:       ASL 2.0
@@ -12,7 +12,6 @@ URL:           http://www.openshift.com
 Source0:       http://mirror.openshift.com/pub/openshift-origin/source/%{name}/%{name}-%{version}.tar.gz
 Requires:      rubygem(openshift-origin-node)
 Requires:      openshift-origin-node-util
-Requires:      lsof
 Requires:      java-1.7.0-openjdk
 Requires:      java-1.7.0-openjdk-devel
 Requires:      jboss-as7-modules >= %{jbossver}
@@ -110,6 +109,43 @@ fi
 
 
 %changelog
+* Tue Sep 23 2014 Adam Miller <admiller@redhat.com> 1.28.2-1
+- Bug 1145123 - Updated jbossas manifest description (mfojtik@redhat.com)
+
+* Thu Sep 18 2014 Adam Miller <admiller@redhat.com> 1.28.1-1
+- bump_minor_versions for sprint 51 (admiller@redhat.com)
+
+* Wed Sep 10 2014 Adam Miller <admiller@redhat.com> 1.27.3-1
+- Bump cartridge versions (agoldste@redhat.com)
+
+* Fri Sep 05 2014 Adam Miller <admiller@redhat.com> 1.27.2-1
+- Fix websockets in jbossas cartridge (agoldste@redhat.com)
+- Corrected jboss issues WRT lsof (mmcgrath@redhat.com)
+
+* Fri Aug 08 2014 Adam Miller <admiller@redhat.com> 1.27.1-1
+- bump_minor_versions for sprint 49 (admiller@redhat.com)
+
+* Wed Jul 30 2014 Adam Miller <admiller@redhat.com> 1.26.4-1
+- Merge pull request #5673 from bparees/latest_versions
+  (dmcphers+openshiftbot@redhat.com)
+- bump cart versions for sprint 48 (bparees@redhat.com)
+
+* Wed Jul 30 2014 Adam Miller <admiller@redhat.com> 1.26.3-1
+- Bug 1122166 - Preserve sparse files during rsync operations
+  (agrimm@redhat.com)
+
+* Fri Jul 18 2014 Adam Miller <admiller@redhat.com> 1.26.2-1
+- JVM heap optimization settings and remove SerialGC (bvarga@redhat.com)
+
+* Thu Jun 05 2014 Adam Miller <admiller@redhat.com> 1.26.1-1
+- bump_minor_versions for sprint 46 (admiller@redhat.com)
+
+* Thu May 29 2014 Adam Miller <admiller@redhat.com> 1.25.3-1
+- Bump cartridge versions (agoldste@redhat.com)
+
+* Tue May 27 2014 Adam Miller <admiller@redhat.com> 1.25.2-1
+- Make READMEs in template repos more obvious (vvitek@redhat.com)
+
 * Fri May 16 2014 Adam Miller <admiller@redhat.com> 1.25.1-1
 - bump_minor_versions for sprint 45 (admiller@redhat.com)
 

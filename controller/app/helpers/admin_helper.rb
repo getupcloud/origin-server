@@ -9,6 +9,7 @@ module AdminHelper
   $user_hash = {}
   $domain_hash = {}
   $app_gear_hash = {}
+  $domain_gear_sizes = []
 
   $usage_gear_hash = {}
   $usage_storage_hash = {}
@@ -144,16 +145,16 @@ module AdminHelper
       owner_id = domain["owner_id"].to_s
       env_vars = {}
       domain["env_vars"].each {|ev| env_vars[ev["key"]] = ev["component_id"].to_s} if domain["env_vars"].present?
-      $domain_hash[domain["_id"].to_s] = {"owner_id" => owner_id, "canonical_namespace" => domain["canonical_namespace"], "env_vars" => env_vars, "ref_ids" => []}
       system_ssh_keys = []
       domain["system_ssh_keys"].each { |k| system_ssh_keys << ["domain-#{k['name']}", Digest::MD5.hexdigest(k["content"]), k["component_id"].to_s] if k["content"] } if domain["system_ssh_keys"].present?
+      $domain_hash[domain["_id"].to_s] = {"owner_id" => owner_id, "canonical_namespace" => domain["canonical_namespace"], "env_vars" => env_vars, "ssh_keys" => system_ssh_keys, "ref_ids" => []}
       get_user_hash(owner_id, true)
+      $domain_gear_sizes |= domain["allowed_gear_sizes"]
 
       print_message "Domain '#{domain['_id']}' has no members in mongo." unless domain['members'].present?
 
       if $user_hash[owner_id]
         $user_hash[owner_id]["domains"][domain["_id"].to_s] = 0
-        $user_hash[owner_id]["ssh_keys"] |= system_ssh_keys
       else
         print_message "User '#{owner_id}' for domain '#{domain['_id']}' does not exist in mongo."
       end
@@ -188,6 +189,7 @@ module AdminHelper
 
         app_ssh_keys = []
         app["app_ssh_keys"].each { |k| app_ssh_keys << [k["name"], Digest::MD5.hexdigest(k["content"]), k["component_id"].to_s] if k["content"] } if app["app_ssh_keys"].present?
+        app_ssh_keys |= $domain_hash[domain_id]["ssh_keys"] if $domain_hash[domain_id]["ssh_keys"].present?
 
         if owner_id.nil?
           print_message "Application '#{app['name']}' does not have a domain '#{domain_id}' in mongo." if app_life_time > 600
@@ -196,7 +198,7 @@ module AdminHelper
         else
           login = $user_hash[owner_id]["login"]
           app_ssh_keys |= $user_hash[owner_id]["ssh_keys"]
- 
+
           if app['owner_id'].nil?
             print_message "Application '#{app['name']}' for domain '#{domain_id}' does not have the denormalized owner_id set in mongo."
           elsif app['owner_id'].to_s != owner_id
@@ -854,4 +856,14 @@ module AdminHelper
       print_message errors.join("\n") if errors.present?
     end
   end 
+
+  # Find allowed gear sizes inconsistencies in domains in mongo 
+  # vs the valid gear sizes defined in the broker configuration
+  def find_domain_gear_sizes_inconsistencies
+    invalid_gear_sizes = $domain_gear_sizes - Rails.configuration.openshift[:gear_sizes]
+    if invalid_gear_sizes.present?
+      print_message "Some domains have invalid gear sizes allowed: #{invalid_gear_sizes.join(',')}"
+    end
+    invalid_gear_sizes
+  end
 end

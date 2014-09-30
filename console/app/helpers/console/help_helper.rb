@@ -4,10 +4,14 @@ module Console::HelpHelper
   def user_guide_topic_url(topic)
     # locale = 'en-US'
     # "http://access.redhat.com/knowledge/docs/#{locale}/OpenShift/2.0/html/User_Guide/#{topic}"
-    
+
     # Use the community redirect to get to the user guide
     # No deep-linking of help topics is allowed
     community_base_url 'user-guide'
+  end
+
+  def community_developer_portal_url(path='')
+    "https://developers.openshift.com/#{path}"
   end
 
   def user_guide_url
@@ -51,7 +55,7 @@ module Console::HelpHelper
   end
 
   def openshift_blog_url
-    community_base_url 'blog'
+    community_base_url 'blogs'
   end
 
   def openshift_twitter_url
@@ -125,6 +129,10 @@ module Console::HelpHelper
   def post_to_forum_url
     community_base_url 'forums/openshift'
   end
+  
+  def ask_questions_url
+    'http://stackoverflow.com/questions/ask/advice?tags=openshift'
+  end
 
   def events_url
     community_base_url 'events'
@@ -143,7 +151,7 @@ module Console::HelpHelper
   end
 
   def faq_url
-   community_base_url 'faq'
+    community_base_url 'faq'
   end
 
   def signup_faq_url
@@ -175,7 +183,7 @@ module Console::HelpHelper
   end
 
   def blog_post_url(post)
-    community_base_url "blog/#{post}"
+    community_base_url "blogs/#{post}"
   end
 
   def community_document_url(file)
@@ -304,6 +312,6 @@ module Console::HelpHelper
   end
 
   def alias_docs_url
-    community_base_url 'blog/custom-url-names-for-your-paas-applications-host-forwarding-and-cnames-the-openshift-way'
+    community_base_url 'blogs/custom-url-names-for-your-paas-applications-host-forwarding-and-cnames-the-openshift-way'
   end
 end

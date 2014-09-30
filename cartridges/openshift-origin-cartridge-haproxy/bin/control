@@ -86,14 +86,21 @@ function _start_haproxy_service() {
     else
         echo "HAProxy already running" 1>&2
         wait_to_start
-
         # support auto reloading of this action hook on git push
         if [ -x "$OPENSHIFT_REPO_DIR/.openshift/action_hooks/haproxy_ctld.rb" ]; then
             echo "Action hook haproxy_ctld.rb detected"
             _stop_haproxy_ctld || :
             _start_haproxy_ctld
             echo "Action hook haproxy_ctld.rb restarted"
-        fi
+        elif pgrep -f "action_hooks/haproxy_ctld.rb" >& /dev/null; then
+            # previous running an action hook haproxy_ctld.rb but the
+            # action hook file was removed, so restart w/ the normal cart
+            # haproxy_ctld.rb
+            echo "Action hook haproxy_ctld.rb removed"
+            _stop_haproxy_ctld || :
+            _start_haproxy_ctld
+            echo "Cartridge haproxy_ctld.rb started"
+        fi                        
     fi
 }
 
@@ -127,6 +134,8 @@ function _restart_haproxy_service() {
 }
 
 function _reload_service() {
+    exec 200>/tmp/haproxy_reload.lock
+    flock 200
     [ -f $HAPROXY_PID ]  &&  zpid=$( /bin/cat "${HAPROXY_PID}" )
     i=0
     while (! _launch_haproxy_bg "$zpid" )  && [ $i -lt 60 ]; do
@@ -134,7 +143,7 @@ function _reload_service() {
         i=$(($i + 1))
         echo "`date`: Retrying HAProxy service reload - attempt #$((i+1)) ... "
     done
-
+    flock -u 200
     wait_to_start
 }
 
@@ -274,11 +283,18 @@ function enable-server() {
         info=($(app_web_to_proxy_ratio_and_colocated_gears))
         ratio=${info[0]}
         unset info[0]
+        
         declare -i proxy_gear_ttl="${OPENSHIFT_HAPROXY_PROXY_GEAR_TTL:-3}"
         if [ "$proxy_gear_ttl" -ge 0 -a "$proxy_gear_ttl" -lt 3 ]; then
             proxy_gear_ttl=3
         fi
-        if [ "$proxy_gear_ttl" -gt -1 -a "$ratio" -ge "$proxy_gear_ttl" ]; then
+
+        # For backwards compatibility, use the OPENSHIFT_HAPROXY_PROXY_GEAR_TTL value if it was
+        # defined.  Note that the OPENSHIFT_HAPROXY_PROXY_GEAR_TTL value is subject to the rule
+        # that if it is less than 3, it is set to 3.
+        OPENSHIFT_HAPROXY_GEAR_RATIO="${OPENSHIFT_HAPROXY_GEAR_RATIO:-$proxy_gear_ttl}"
+
+        if [ "$OPENSHIFT_HAPROXY_GEAR_RATIO" -gt -1 -a "$ratio" -ge "$OPENSHIFT_HAPROXY_GEAR_RATIO" ]; then
             declare -A map
             for uuid in ${info[@]}; do
                 map["$uuid"]=1

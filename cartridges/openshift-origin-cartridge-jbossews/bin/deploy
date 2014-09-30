@@ -2,6 +2,11 @@
 set -e
 set -x
 
+source $OPENSHIFT_CARTRIDGE_SDK_BASH
+source ${OPENSHIFT_JBOSSEWS_DIR}/bin/util
+
+relink_configs
+
 tmp=${OPENSHIFT_JBOSSEWS_DIR}/tmp
 if [ -d $tmp ]; then
   for d in $tmp/*; do
@@ -22,5 +27,10 @@ fi
 # and delete any files in $OPENSHIFT_JBOSSEWS_DIR/webapps that don't exist in
 # repo/webapps
 if [ "$(ls ${OPENSHIFT_REPO_DIR}/webapps 2>/dev/null)" ]; then
-  rsync -r --delete ${OPENSHIFT_REPO_DIR}/webapps/ ${OPENSHIFT_JBOSSEWS_DIR}/webapps/
+  rsync -rS --delete ${OPENSHIFT_REPO_DIR}/webapps/ ${OPENSHIFT_JBOSSEWS_DIR}/webapps/
+fi
+
+# for hot deploy, the touching is needed when app date is older than current date
+if hot_deploy_enabled_for_latest_deployment; then
+    touch ${OPENSHIFT_JBOSSEWS_DIR}/webapps/*
 fi

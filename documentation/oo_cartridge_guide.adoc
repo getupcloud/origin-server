@@ -655,6 +655,9 @@ The `mongodb` cartridge provides several environment variables to reference for 
 
 OPENSHIFT_MONGODB_DB_HOST:: The MongoDB IP address
 OPENSHIFT_MONGODB_DB_PORT:: The MongoDB port
+OPENSHIFT_MONGODB_DB_USERNAME:: The MongoDB username
+OPENSHIFT_MONGODB_DB_PASSWORD:: The MongoDB password
+OPENSHIFT_MONGODB_DB_URL:: The MongoDB connection URL (e.g. mongodb://<username>:<password>@<hostname>:<port>/
 OPENSHIFT_MONGODB_DB_LOG_DIR:: The path to the MongoDB log directory
 
 
@@ -845,8 +848,10 @@ Adding marker files to `.openshift/markers` will have the following effects:
 
 |disable_auto_scaling
 |Will prevent scalable applications from scaling up or down according to application load.
-|===
 
+|enable_public_server_status
+|Will enable server-status application path to be publicly available.
+|===
 
 [[php]]
 == PHP
@@ -890,6 +895,7 @@ automatically searched when calling require(), include() and other file I/O func
 - vendors/
 ----
 
+[[php-markers]]
 === Markers
 Adding marker files to `.openshift/markers` will have the following effects:
 
@@ -898,14 +904,46 @@ Adding marker files to `.openshift/markers` will have the following effects:
 |Marker |Effect
 
 |force_clean_build
-|Will remove all previous deps and start installing required deps from scratch
+|Will remove all previous deps and start installing required deps from scratch.
 
 |hot_deploy
-|Will prevent the apache process from being restarted during build/deployment
+|Will prevent the Apache process from being restarted and will skip checking for Pear and Composer dependencies during build/deployment.
 
 |disable_auto_scaling
 |Will prevent scalable applications from scaling up or down according to application load.
+
+|use_composer
+|Will enable running `composer install` on each build automatically. See the https://getcomposer.org/doc/[Composer docs].
+
+|enable_public_server_status
+|Will enable server-status application path to be publicly available.
 |===
+
+=== Environment Variables
+The `php` cartridge provides several environment variables to change the default PHP configuration:
+
+[options="header"]
+|===
+|Variable name |Description
+
+|APPLICATION_ENV
+|Application mode, default value is `production`. When set to `development`, the Xdebug extension is enabled, more verbose `error_reporting` and the `APC.stat` setting are set.
+
+|OPENSHIFT_PHP_APC_ENABLED
+|Whether APC op-code cache PECL is enabled, `true` by default. Set value to `false` to turn this extension off.
+
+|OPENSHIFT_PHP_APC_SHM_SIZE
+|The APC shared memory size. The default value is `64M` on Small gears, `128M` on Medium gears and `256M` on Large gears.
+
+|OPENSHIFT_PHP_XDEBUG_ENABLED
+|Whether Xdebug PECL is enabled, `true` by default. Set value to `false` to turn this extension off. This variable overrides behavior set by `APPLICATION_ENV`.
+
+|OPENSHIFT_PHP_<MODULE>_ENABLED
+|Whether `<MODULE>` PECL is enabled, `true` by default. Set value to `false` to turn the specified extension off. To list all enabled modules, run `php -m` command while ssh'd into the gear.
+
+|===
+
+_Note: You must restart the `php` cartridge to pick-up the updated values._
 
 
 [[phpmyadmin]]
@@ -973,6 +1011,11 @@ changing the default values for these variables:
 |max_connections sets exactly that: the maximum number of client connections allowed.
 |===
 
+Users can change the authentication and restrict the list of remote connection
+IPs by modifying the pg_hba.conf file, but doing so might be dangerous and
+possibly lead to broken application. Make sure you snapshot the application
+before doing such changes.
+
 For more details, please refer to PostgreSQL
 https://wiki.postgresql.org/wiki/Tuning_Your_PostgreSQL_Server[wiki page].
 
@@ -1027,6 +1070,9 @@ Adding marker files to `.openshift/markers` will have the following effects:
 
 |hot_deploy
 |Will prevent shutdown and startup of the application during builds.
+
+|enable_public_server_status
+|Will enable server-status application path to be publicly available.
 |===
 
 === Environment variables
@@ -1177,4 +1223,7 @@ Adding marker files to `.openshift/markers` will have the following effects:
 
 |disable_asset_compilation
 |Will prevent assets to be compiled upon application deployment. This marker should be used when deploying application with assets which are already compiled.
+
+|enable_public_server_status
+|Will enable server-status application path to be publicly available.
 |===

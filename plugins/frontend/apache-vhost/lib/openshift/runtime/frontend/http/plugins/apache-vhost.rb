@@ -184,18 +184,23 @@ module OpenShift
                     if gen_default_rule
                       tpath = path.empty? ? "/" : path
 
-                      f.puts("ProxyPass #{tpath} #{proxy_proto}://#{uri}/")
-
                       if uri.empty?
                         turi = "127.0.0.1:80"
-                      elsif uri.end_with?("/")
-                        turi = uri
+                      elsif tpath[-1] != uri[-1]
+                        # tpath and uri are unequal, fix uri to match tpath
+                        if uri.end_with?("/")
+                          turi = uri[0..-2]
+                        else
+                          turi = uri + "/"
+                        end
                       else
-                        turi = uri + "/"
+                        turi = uri
                       end
 
+                      f.puts("ProxyPass #{tpath} #{proxy_proto}://#{turi} retry=0")
+
                       f.puts("ProxyPassReverse #{tpath} #{proxy_proto}://#{turi}")
-                      f.puts("ProxyPassReverse #{tpath} #{proxy_proto}://#{fqdn}/")
+                      f.puts("ProxyPassReverse #{tpath} #{proxy_proto}://#{fqdn}#{tpath}")
                     end
 
                     f.fsync
@@ -367,12 +372,12 @@ module OpenShift
                 ssl_certificate_file = ssl_certificate_path(server_alias)
                 ssl_key_file = ssl_key_path(server_alias)
 
-                File.open(ssl_certificate_file, File::RDWR | File::CREAT | File::TRUNC, 0644) do |f|
+                File.open(ssl_certificate_file, File::RDWR | File::CREAT | File::TRUNC, 0600) do |f|
                   f.write(ssl_cert)
                   f.fsync
                 end
 
-                File.open(ssl_key_file, File::RDWR | File::CREAT | File::TRUNC, 0644) do |f|
+                File.open(ssl_key_file, File::RDWR | File::CREAT | File::TRUNC, 0600) do |f|
                   f.write(priv_key)
                   f.fsync
                 end

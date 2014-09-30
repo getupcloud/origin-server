@@ -1,5 +1,6 @@
 %if 0%{?fedora}%{?rhel} <= 6
     %global scl ruby193
+    %global v8_scl v8314
     %global scl_prefix ruby193-
 %endif
 %{!?scl:%global pkg_name %{name}}
@@ -9,7 +10,7 @@
 
 Summary:       OpenShift plugin adding an administrative console to the broker
 Name:          rubygem-%{gem_name}
-Version: 1.22.1
+Version: 1.26.2
 Release:       1%{?dist}
 Group:         Development/Languages
 License:       ASL 2.0
@@ -72,7 +73,7 @@ OpenShift plugin that adds the administrative console as a Rails Engine for the 
 %setup -q
 
 %build
-%{?scl:scl enable %scl - << \EOF}
+%{?scl:scl enable %scl %v8_scl - << \EOF}
 
 set -ex
 mkdir -p .%{gem_dir}
@@ -129,6 +130,45 @@ cp %{buildroot}/%{gem_dir}/gems/%{gem_name}-%{version}/conf/openshift-origin-adm
 %defattr(-,root,apache,-)
 
 %changelog
+* Wed Sep 24 2014 Adam Miller <admiller@redhat.com> 1.26.2-1
+- Expose oo-stats data in an admin-console api (jforrest@redhat.com)
+
+* Thu Sep 18 2014 Adam Miller <admiller@redhat.com> 1.26.1-1
+- bump_minor_versions for sprint 51 (admiller@redhat.com)
+
+* Fri Sep 05 2014 Adam Miller <admiller@redhat.com> 1.25.2-1
+- Merge pull request #5715 from detiber/sclbuildfixes
+  (dmcphers+openshiftbot@redhat.com)
+- scl build fixes (jdetiber@redhat.com)
+
+* Thu Aug 21 2014 Adam Miller <admiller@redhat.com> 1.25.1-1
+- bump_minor_versions for sprint 50 (admiller@redhat.com)
+
+* Mon Aug 11 2014 Adam Miller <admiller@redhat.com> 1.24.2-1
+- Merge pull request #5696 from detiber/adminConsoleTestPartDeux
+  (dmcphers+openshiftbot@redhat.com)
+- Delete users plan_id users after admin-console functional tests
+  (jdetiber@redhat.com)
+
+* Fri Aug 08 2014 Adam Miller <admiller@redhat.com> 1.24.1-1
+- bump_minor_versions for sprint 49 (admiller@redhat.com)
+- Test improvements that were affecting enterprise test scenarios
+  (jdetiber@redhat.com)
+
+* Mon Jul 28 2014 Adam Miller <admiller@redhat.com> 1.23.2-1
+- Merge pull request #5633 from jcantrill/190_expose_region_and_zones
+  (dmcphers+openshiftbot@redhat.com)
+- Origin UI 190 - Expose region for app create and show, region and zone on
+  gear page for admin-console (jcantril@redhat.com)
+- Bubble up config suggestions compared to other the suggestions of the same
+  level of importance (jforrest@redhat.com)
+
+* Thu Jun 26 2014 Adam Miller <admiller@redhat.com> 1.23.1-1
+- bump_minor_versions for sprint 47 (admiller@redhat.com)
+
+* Thu Jun 05 2014 Adam Miller <admiller@redhat.com> 1.22.2-1
+- [stylesheets] - remove unit after 0 length. (pivanov@mozilla.com)
+
 * Fri May 16 2014 Adam Miller <admiller@redhat.com> 1.22.1-1
 - bump_minor_versions for sprint 45 (admiller@redhat.com)
 

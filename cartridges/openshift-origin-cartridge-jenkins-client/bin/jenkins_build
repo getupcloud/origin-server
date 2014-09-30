@@ -5,6 +5,7 @@ require 'json'
 
 STDOUT.sync = true
 STDERR.sync = true
+Encoding.default_external = "utf-8"
 
 @hostname = ENV['JENKINS_URL'].split("/")[-1]
 @job_url = "/job/#{ENV['OPENSHIFT_APP_NAME']}-build"
@@ -46,7 +47,7 @@ end
 
 def schedule_build
   status_code = `curl -s -w %{http_code} --output /dev/null -X POST --insecure https://${JENKINS_USERNAME}:${JENKINS_PASSWORD}@#{@hostname}#{@job_url}/build`
-  if status_code != '302' && status_code != '200' && status_code !='201'
+  unless ['302', '200', '201'].include? status_code
     puts "ERROR - Couldn't schedule job"
     exit 292
   end

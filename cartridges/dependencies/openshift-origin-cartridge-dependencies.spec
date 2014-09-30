@@ -5,7 +5,7 @@
 
 Summary:       User dependencies for OpenShift Cartridges
 Name:          openshift-origin-cartridge-dependencies
-Version: 1.25.1
+Version: 1.27.1
 Release:       1%{?dist}
 License:       ASL 2.0
 URL:           http://www.openshift.com
@@ -35,7 +35,7 @@ Requires:  %{name}-recommended-python
 Requires:  %{name}-recommended-ruby
 
 %description recommended-all
-This package pulls in all the recommended OpenShift 
+This package pulls in all the recommended OpenShift
 Cartridge dependency packages.
 
 Those packages pulls in other packages that a user
@@ -59,7 +59,7 @@ Requires:  %{name}-optional-python
 Requires:  %{name}-optional-ruby
 
 %description optional-all
-This package pulls in all the optional OpenShift 
+This package pulls in all the optional OpenShift
 Cartridge dependency packages.
 
 Those packages pulls in other packages that a user
@@ -376,7 +376,11 @@ Requires:  ta-lib-devel
 Requires:  xz-devel
 %if 0%{?fedora}%{?rhel} <= 6
 Requires:  python27-numpy
+Requires:  python27-numpy-f2py
+Requires:  python27-scipy
 Requires:  python33-numpy
+Requires:  python33-numpy-f2py
+Requires:  python33-scipy
 Requires:  python33-python-pymongo
 %endif
 
@@ -429,6 +433,7 @@ Requires:  libicu-devel
 Requires:  libxml2-devel
 Requires:  libxslt-devel
 Requires:  ruby-RMagick
+Requires:  subversion
 %if 0%{?fedora}%{?rhel} <= 6
 Requires:  js
 Requires:  ruby-nokogiri
@@ -515,6 +520,19 @@ an OpenShift cartrige.
 %files optional-ruby
 
 %changelog
+* Thu Sep 18 2014 Adam Miller <admiller@redhat.com> 1.27.1-1
+- bump_minor_versions for sprint 51 (admiller@redhat.com)
+
+* Fri Sep 05 2014 Adam Miller <admiller@redhat.com> 1.26.2-1
+- Bug 1123988 - Added scipy for python-2.7 and python-3.3 cartridges
+  (maszulik@redhat.com)
+
+* Thu Jun 26 2014 Adam Miller <admiller@redhat.com> 1.26.1-1
+- bump_minor_versions for sprint 47 (admiller@redhat.com)
+
+* Thu Jun 05 2014 Adam Miller <admiller@redhat.com> 1.25.2-1
+- Bug 1103772 - Add svn client to support Redmine (jhonce@redhat.com)
+
 * Fri May 16 2014 Adam Miller <admiller@redhat.com> 1.25.1-1
 - bump_minor_versions for sprint 45 (admiller@redhat.com)
 

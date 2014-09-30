@@ -9,7 +9,7 @@
 
 Summary:       Cloud Development Common
 Name:          rubygem-%{gem_name}
-Version: 1.24.1
+Version: 1.28.3
 Release:       1%{?dist}
 Group:         Development/Languages
 License:       ASL 2.0
@@ -26,6 +26,9 @@ Requires:      %{?scl:%scl_prefix}rubygem(json)
 Requires:      %{?scl:%scl_prefix}rubygem(safe_yaml)
 Requires:      %{?scl:%scl_prefix}rubygem(bundler)
 Requires:      %{?scl:%scl_prefix}rubygem(parseconfig)
+%if %{?scl_ror:1}%{!?scl_ror:0} || 0%{?fedora} >= 20
+Requires:      %{?scl:%scl_prefix}rubygem(rails-observers)
+%endif
 %if 0%{?rhel}
 Requires:      openshift-origin-util-scl
 %endif
@@ -43,6 +46,7 @@ BuildRequires: %{?scl:%scl_prefix}ruby(abi) >= %{rubyabi}
 %endif
 BuildRequires: %{?scl:%scl_prefix}rubygems
 BuildRequires: %{?scl:%scl_prefix}rubygems-devel
+BuildRequires: %{?scl:%scl_prefix}rubygem-rails
 # For the prereq_domain_resolves check in oo-diagnostics:
 Requires:      bind-utils
 BuildArch:     noarch
@@ -121,6 +125,54 @@ rm -rf %{buildroot}%{gem_instdir}/.yardoc*
 %doc %{gem_docdir}
 
 %changelog
+* Tue Sep 23 2014 Adam Miller <admiller@redhat.com> 1.28.3-1
+- oo-diagnostics: test_mcollective_direct_addressing (miciah.masters@gmail.com)
+
+* Thu Sep 18 2014 Adam Miller <admiller@redhat.com> 1.28.2-1
+- oo-diagnostics: add test_sshd_permit_root_login (miciah.masters@gmail.com)
+
+* Fri Aug 08 2014 Adam Miller <admiller@redhat.com> 1.28.1-1
+- bump_minor_versions for sprint 49 (admiller@redhat.com)
+
+* Wed Jul 30 2014 Adam Miller <admiller@redhat.com> 1.27.4-1
+- Bug 1122515 (lnader@redhat.com)
+
+* Wed Jul 23 2014 Adam Miller <admiller@redhat.com> 1.27.3-1
+- Fix syntax error in oo-diagnostics (decarr@redhat.com)
+
+* Mon Jul 21 2014 Adam Miller <admiller@redhat.com> 1.27.2-1
+- Merge pull request #5630 from Miciah/bug-1121267-oo-diagnostics-add-
+  test_node_clock_in_synch_with_broker (dmcphers+openshiftbot@redhat.com)
+- oo-diagnostics: Add test_node_clock_in_synch_with_broker
+  (miciah.masters@gmail.com)
+
+* Fri Jul 18 2014 Adam Miller <admiller@redhat.com> 1.27.1-1
+- oo-diagnostics: Read /proc instead of using ps (miciah.masters@gmail.com)
+- bump_minor_versions for sprint 48 (admiller@redhat.com)
+
+* Wed Jul 09 2014 Adam Miller <admiller@redhat.com> 1.26.2-1
+- add rails as a BuildRequires for the rpm build, the gemspec now requires it
+  (admiller@redhat.com)
+
+* Thu Jun 26 2014 Adam Miller <admiller@redhat.com> 1.26.1-1
+- bump_minor_versions for sprint 47 (admiller@redhat.com)
+
+* Thu Jun 12 2014 Adam Miller <admiller@redhat.com> 1.25.2-1
+- add conditional inclusion of rails-observers which is it's own gem in rails4
+  (admiller@redhat.com)
+
+* Thu Jun 05 2014 Adam Miller <admiller@redhat.com> 1.25.1-1
+- bump_minor_versions for sprint 46 (admiller@redhat.com)
+
+* Tue May 27 2014 Adam Miller <admiller@redhat.com> 1.24.3-1
+- Merge pull request #5449 from jwhonce/bug/1100743
+  (dmcphers+openshiftbot@redhat.com)
+- Bug 1100743 - Validate manifest endpoint element (jhonce@redhat.com)
+- Bug 1100743 - Validate manifest endpoint element (jhonce@redhat.com)
+
+* Fri May 23 2014 Adam Miller <admiller@redhat.com> 1.24.2-1
+- diagnostics: fix errant warning on httpd conf (lmeyer@redhat.com)
+
 * Fri May 16 2014 Adam Miller <admiller@redhat.com> 1.24.1-1
 - Merge pull request #5324 from Miciah/oo-diagnostics-test_broker_certificate-
   fixes (dmcphers+openshiftbot@redhat.com)

@@ -9,7 +9,7 @@
 
 Summary:       Provides embedded PostgreSQL support
 Name:          openshift-origin-cartridge-postgresql
-Version: 1.25.1
+Version: 1.29.2
 Release:       1%{?dist}
 Group:         Network/Daemons
 License:       ASL 2.0
@@ -95,6 +95,56 @@ Provides PostgreSQL cartridge support to OpenShift. (Cartridge Format V2)
 %doc %{cartridgedir}/LICENSE
 
 %changelog
+* Thu Sep 18 2014 Adam Miller <admiller@redhat.com> 1.29.2-1
+- Bug 1139280 - Allow postgresql upgrade to pass when data/ was erased by user
+  (mfojtik@redhat.com)
+
+* Thu Aug 21 2014 Adam Miller <admiller@redhat.com> 1.29.1-1
+- bump_minor_versions for sprint 50 (admiller@redhat.com)
+
+* Wed Aug 20 2014 Adam Miller <admiller@redhat.com> 1.28.2-1
+- Bump cartridge versions for Sprint 49 (maszulik@redhat.com)
+
+* Fri Aug 08 2014 Adam Miller <admiller@redhat.com> 1.28.1-1
+- bump_minor_versions for sprint 49 (admiller@redhat.com)
+- Bug 1123587 - Updated postgresql-8.2 to support
+  OPENSHIFT_POSTGRESQL_DATESTYLE (mfojtik@redhat.com)
+- Bug 1123587 - Added OPENSHIFT_POSTGRESQL_DATESTYLE env var
+  (mfojtik@redhat.com)
+
+* Wed Jul 30 2014 Adam Miller <admiller@redhat.com> 1.27.5-1
+- bump cart versions for sprint 48 (bparees@redhat.com)
+
+* Mon Jul 28 2014 Adam Miller <admiller@redhat.com> 1.27.4-1
+- Bug 1123587 - Added OPENSHIFT_POSTGRESQL_LOCALE environment variable
+  (mfojtik@redhat.com)
+
+* Wed Jul 23 2014 Adam Miller <admiller@redhat.com> 1.27.3-1
+- Merge pull request #5635 from bparees/postgres_ssl
+  (dmcphers+openshiftbot@redhat.com)
+- Openshift overwrites postgresql.conf during restart, destroying SSL
+  configuration (bparees@redhat.com)
+
+* Mon Jul 21 2014 Adam Miller <admiller@redhat.com> 1.27.2-1
+- fix bad reference to mysql in postgres cart (bparees@redhat.com)
+
+* Thu Jun 26 2014 Adam Miller <admiller@redhat.com> 1.27.1-1
+- bump_minor_versions for sprint 47 (admiller@redhat.com)
+
+* Thu Jun 19 2014 Adam Miller <admiller@redhat.com> 1.26.2-1
+- Bump cartridge versions for 2.0.46 (pmorie@gmail.com)
+
+* Thu Jun 05 2014 Adam Miller <admiller@redhat.com> 1.26.1-1
+- Bug 1086807 - Advertise $PATH for scaled SCL based cartridges
+  (mfojtik@redhat.com)
+- bump_minor_versions for sprint 46 (admiller@redhat.com)
+
+* Thu May 29 2014 Adam Miller <admiller@redhat.com> 1.25.3-1
+- Bump cartridge versions (agoldste@redhat.com)
+
+* Tue May 27 2014 Adam Miller <admiller@redhat.com> 1.25.2-1
+- Make READMEs in template repos more obvious (vvitek@redhat.com)
+
 * Fri May 16 2014 Adam Miller <admiller@redhat.com> 1.25.1-1
 - bump_minor_versions for sprint 45 (admiller@redhat.com)
 

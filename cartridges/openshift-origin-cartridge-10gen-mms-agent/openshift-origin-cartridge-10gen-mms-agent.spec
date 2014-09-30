@@ -2,7 +2,7 @@
 
 Summary:       Embedded 10gen MMS agent for performance monitoring of MondoDB
 Name:          openshift-origin-cartridge-10gen-mms-agent
-Version: 1.34.1
+Version: 1.35.2
 Release:       1%{?dist}
 Group:         Applications/Internet
 License:       ASL 2.0
@@ -32,12 +32,33 @@ Provides 10gen MMS agent cartridge support. (Cartridge Format V2)
 %files
 %dir %{cartridgedir}
 %{cartridgedir}/metadata
+%{cartridgedir}/lib
 %attr(0755,-,-) %{cartridgedir}/bin/
 %doc %{cartridgedir}/README.md
 %doc %{cartridgedir}/COPYRIGHT
 %doc %{cartridgedir}/LICENSE
 
 %changelog
+* Thu Sep 18 2014 Adam Miller <admiller@redhat.com> 1.35.2-1
+- Bug 1135941 - Finish setup for 10gen cartridge when the agent code is
+  missing. (mfojtik@redhat.com)
+
+* Fri Jul 18 2014 Adam Miller <admiller@redhat.com> 1.35.1-1
+- bump_minor_versions for sprint 48 (admiller@redhat.com)
+
+* Wed Jul 09 2014 Adam Miller <admiller@redhat.com> 1.34.4-1
+- Merge pull request #5584 from jhadvig/latest_versions
+  (dmcphers+openshiftbot@redhat.com)
+- Bump cartridge versions for 2.0.47 (jhadvig@gmail.com)
+
+* Wed Jul 09 2014 Adam Miller <admiller@redhat.com> 1.34.3-1
+- Bug 1117163: Fix 10gen-mms-agent action triggering for scaled application
+  (jhadvig@redhat.com)
+
+* Mon Jul 07 2014 Adam Miller <admiller@redhat.com> 1.34.2-1
+- Bug 1115539: Make 10gen cartridge able to embed with scaled application
+  (jhadvig@redhat.com)
+
 * Fri May 16 2014 Adam Miller <admiller@redhat.com> 1.34.1-1
 - bump_minor_versions for sprint 45 (admiller@redhat.com)
 

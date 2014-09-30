@@ -168,7 +168,7 @@ function ishttpup() {
     count=0
     while [ ${count} -lt 64 ]
     do
-        if /usr/sbin/lsof -P -n -i "@${OPENSHIFT_JBOSSEAP_IP}:${OPENSHIFT_JBOSSEAP_HTTP_PORT}" | grep "(LISTEN)" > /dev/null; then
+        if echo 2> /dev/null > "/dev/tcp/${OPENSHIFT_JBOSSEAP_IP}/${OPENSHIFT_JBOSSEAP_HTTP_PORT}"; then
             echo "Found ${OPENSHIFT_JBOSSEAP_IP}:${OPENSHIFT_JBOSSEAP_HTTP_PORT} listening port"
             return 0
         fi
@@ -190,7 +190,7 @@ function ismgmtup() {
     let count=0
     while [ ${count} -lt 10 ]
     do
-        if /usr/sbin/lsof -P -n -i "@${OPENSHIFT_JBOSSEAP_IP}:${OPENSHIFT_JBOSSEAP_MANAGEMENT_NATIVE_PORT}" | grep "(LISTEN)" > /dev/null; then
+        if echo 2> /dev/null > "/dev/tcp/${OPENSHIFT_JBOSSEAP_IP}/${OPENSHIFT_JBOSSEAP_MANAGEMENT_NATIVE_PORT}"; then
             echo "Found ${OPENSHIFT_JBOSSEAP_IP}:${OPENSHIFT_JBOSSEAP_MANAGEMENT_NATIVE_PORT} listening port"
             return 0
         fi
@@ -288,7 +288,7 @@ function deploy() {
   # and delete any files in $JBOSSEAP_DEPLOYMENTS_DIR that don't exist in
   # repo/deployments
   if [ "$(ls ${OPENSHIFT_REPO_DIR}/deployments 2>/dev/null)" ]; then
-    rsync -r --delete --exclude ".*" ${OPENSHIFT_REPO_DIR}/deployments/ $JBOSSEAP_DEPLOYMENTS_DIR
+    rsync -rS --delete --exclude ".*" ${OPENSHIFT_REPO_DIR}/deployments/ $JBOSSEAP_DEPLOYMENTS_DIR
   fi
 }
 

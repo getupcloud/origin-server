@@ -45,6 +45,39 @@ class ApplicationControllerTest < ActionController::TestCase
     end.returns(afog)
   end
 
+  test "validates gear usage and storage capabilities of domain owner" do
+    @other_login = "otheruser#{@random}"
+    @other_user = CloudUser.new(login: @other_login)
+    @other_user.capabilities["gear_sizes"] = ['small', 'medium', 'large']
+    @other_user.max_untracked_additional_storage = 5
+    @other_user.max_gears = 3
+    @other_user.save!
+    Lock.create_lock(@other_user.id)
+    register_user(@other_login, @password)
+
+    @other_namespace = "otherns#{@random}"
+    @other_domain = Domain.new(namespace: @other_namespace, owner:@other_user)
+    @other_domain.save
+    @other_domain.add_members @user, :edit
+    @other_domain.save
+    @other_domain.run_jobs
+
+    begin
+      @app_name = "app#{@random}"
+      @user.max_untracked_additional_storage = 0
+      @user.max_gears = 0
+      @user.save!
+
+      post :create, {"name" => @app_name, "cartridges" => [
+        {"name" => php_version, "gear_size" => "medium", "scales_from" => 2, "scales_to" => 3},
+        {"name" => mysql_version, "gear_size" => "medium", "additional_gear_storage" => 2}
+      ], "domain_id" => @other_domain.namespace, "scale" => true}
+      assert_response :created
+    ensure
+      @other_user.force_delete rescue nil
+    end
+  end
+
   test "app created with admin-defined default initial_git_url" do
     default_git_url_setup
     # try it with no git URL provided
@@ -198,7 +231,7 @@ class ApplicationControllerTest < ActionController::TestCase
 
     post :create, {"name" => @app_name, "cartridges" => CartridgeCache.find_all_cartridges('ruby').map(&:name), "domain_id" => @domain.namespace, "scale" => true}
     assert_response :unprocessable_entity
-    json_messages{ |ms| assert ms.any?{ |m| m['text'].include? "ruby-1.8 cannot co-exist with ruby-1.9 in the same application" }, ms.inspect }
+    json_messages{ |ms| assert ms.any?{ |m| /ruby-(1.8|1.9|2.0) cannot co-exist with ruby-(1.8|1.9|2.0) in the same application/.match(m['text'])  }, ms.inspect }
   end
 
   test "set app configuration on create" do
@@ -1244,6 +1277,73 @@ class ApplicationControllerTest < ActionController::TestCase
     @app_name = "app#{@random}"
     post :create, {"name" => @app_name, "cartridge" => [php_version, {"url" => "manifest://test"}], "domain_id" => @domain.namespace, "scale" => true}
     assert_response :success
+  end
+
+  test "higher min scaling limit cartridges with non scalable app" do
+    CartridgeCache.expects(:download_from_url).with("manifest://test", "cartridge").returns(<<-MANIFEST.strip_heredoc)
+      ---
+      Name: mock
+      Version: '0.1'
+      Cartridge-Short-Name: MOCK
+      Cartridge-Vendor: mock
+      Source-Url: manifest://test.zip
+      Provides:
+      - mycart
+      Categories:
+      - web_framework
+      Scaling:
+        Min: 2
+        Max: -1
+      MANIFEST
+
+    @app_name = "app#{@random}"
+    post :create, {"name" => @app_name, "cartridge" => [php_version, {"url" => "manifest://test"}], "domain_id" => @domain.namespace, "scale" => false}
+    assert_response :unprocessable_entity
+  end
+
+  test "higher min scaling limit cartridges with scalable app" do
+    CartridgeCache.expects(:download_from_url).with("manifest://test", "cartridge").returns(<<-MANIFEST.strip_heredoc)
+      ---
+      Name: mock
+      Version: '0.1'
+      Cartridge-Short-Name: MOCK
+      Cartridge-Vendor: mock
+      Source-Url: manifest://test.zip
+      Provides:
+      - mycart
+      Categories:
+      - web_framework
+      Scaling:
+        Min: 2
+        Max: -1
+      MANIFEST
+
+    @app_name = "app#{@random}"
+    post :create, {"name" => @app_name, "cartridge" => [{"url" => "manifest://test"}], "domain_id" => @domain.namespace, "scale" => true}
+    assert_response :success
+  end
+
+  test "invalid region" do
+    post :create, {"domain_id" => @domain.namespace, "name" => "invlidregion#{@random}", "cartridge" => php_version, "region" => "bogus"}
+    assert_response :unprocessable_entity
+  end
+
+  test "no error on specified region when region selection allowed" do
+    region = Region.create("region_#{@random}")
+    os = Rails.configuration.openshift
+    Rails.configuration.stubs(:openshift).returns(os.merge(:allow_region_selection => true))
+    post :create, {"domain_id" => @domain.namespace, "name" => "app#{@random}", "cartridge" => php_version, "region" => region.name}
+    assert_response :success
+    region.delete
+  end
+
+  test "error on specified region when region selection not allowed" do
+    region = Region.create("region_#{@random}")
+    os = Rails.configuration.openshift
+    Rails.configuration.stubs(:openshift).returns(os.merge(:allow_region_selection => false))
+    post :create, {"domain_id" => @domain.namespace, "name" => "app#{@random}", "cartridge" => php_version, "region" => region.name}
+    assert_response :unprocessable_entity
+    region.delete
   end
 
 end

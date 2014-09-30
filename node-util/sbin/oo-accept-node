@@ -193,7 +193,7 @@ def load_node_conf
     %w[
       GEAR_BASE_DIR GEAR_SKEL_DIR GEAR_SHELL GEAR_GECOS
       GEAR_MIN_UID GEAR_MAX_UID CARTRIDGE_BASE_PATH
-      PROXY_MIN_PORT_NUM PROXY_PORTS_PER_GEAR OPENSHIFT_HTTP_CONF_DIR
+      OPENSHIFT_HTTP_CONF_DIR
       CLOUD_DOMAIN BROKER_HOST PUBLIC_IP PUBLIC_HOSTNAME
     ].each do |value|
       next unless $CONF.get(value).nil? || $CONF.get(value).empty?
@@ -218,6 +218,19 @@ def find_ext_net_dev
     %x[/sbin/ip link show dev #{$EXTERNAL_ETH_DEV}]
     if not $?.success?
       do_fail("SEVERE: not a valid ethernet device: #{$EXTERNAL_ETH_DEV}")
+    end
+  rescue Errno::ENOENT
+    do_fail("SEVERE: could not find ip command (/sbin/ip).")
+  end
+end
+
+def check_ext_net_dev_addr
+  verbose("checking that external network device has a globally scoped IPv4 address")
+
+  begin
+    output = %x[/sbin/ip -o -f inet addr show dev #{$EXTERNAL_ETH_DEV} scope global]
+    if not $?.success? or not output.match(/(?:\S+\s+){3}[0-9.\\]+\s/)
+      do_fail("SEVERE: #{$EXTERNAL_ETH_DEV} has no globally scoped IPv4 address")
     end
   rescue Errno::ENOENT
     do_fail("SEVERE: could not find ip command (/sbin/ip).")
@@ -315,7 +328,12 @@ def check_node_public_resolution
     # but we can check PUBLIC_HOSTNAME resolves to either a NIC on this host or PUBLIC_IP.
     # in EC2, hostname resolves differently internal vs. external, so will match NIC.
     # in most places, PUBLIC_HOSTNAME will resolve to PUBLIC_IP
-    my_ips = %x[/sbin/ip addr show scope global].scan(/^\s+inet\s+([\d\.]+)/).flatten.push(pubip).uniq
+    begin
+      my_ips = %x[/sbin/ip addr show scope global].scan(/^\s+inet\s+([\d\.]+)/).flatten.push(pubip).uniq
+    rescue Errno::ENOENT
+      do_fail("SEVERE: could not find ip command (/sbin/ip).")
+      return
+    end
     do_fail("#{$NODE_CONF_FILE}: PUBLIC_HOSTNAME #{pubhost} resolves to #{resolved_host}; expected #{my_ips.join '|'}") unless my_ips.member? resolved_host
 end
 
@@ -523,25 +541,45 @@ def check_quotas
     verbose("checking filesystem quotas")
     oo_device=%x[/bin/df -P #{$GEAR_BASE_DIR} | /usr/bin/tail -1].split[0]
     oo_mount=%x[/bin/df -P #{$GEAR_BASE_DIR} | /usr/bin/tail -1 | /usr/bin/tr -s ' '].split[5]
-    unless %x[/sbin/quotaon -u -p #{oo_mount} 2>&1].strip == "user quota on #{oo_mount} (#{oo_device}) is on"
-        do_fail "quotas are not enabled on #{oo_mount} (#{oo_device})"
-    end
-
-    quota_db_file=File.join(oo_mount,"/aquota.user")
-    if File.exists? quota_db_file
-        verbose("checking quota db file selinux label")
-        quota_db_type = %x[/usr/bin/secon -f #{quota_db_file} | /bin/grep type: ]
-        if quota_db_type !~ /quota_db_t/
-            do_fail("quota db file: selinux type is incorrect: #{quota_db_type}")
-        end
+    fs_type=%x[/bin/df -TP #{oo_mount} | tail -1 2>&1].split[1]
+    if fs_type=="xfs"
+      unless %x[/usr/sbin/repquota -v #{oo_mount} | /bin/grep "Accounting.*Enforcement"].strip == "Accounting: ON; Enforcement: ON"
+          do_fail "quotas are not enabled on #{oo_mount} (#{oo_device})"
+      end
     else
-        do_fail("quota db file #{quota_db_file} does not exist")
+      unless %x[/sbin/quotaon -u -p #{oo_mount} 2>&1].strip == "user quota on #{oo_mount} (#{oo_device}) is on"
+          do_fail "quotas are not enabled on #{oo_mount} (#{oo_device})"
+      end
+
+      quota_db_file=File.join(oo_mount,"/aquota.user")
+      if File.exists? quota_db_file
+          verbose("checking quota db file selinux label")
+          quota_db_type = %x[/usr/bin/secon -f #{quota_db_file} | /bin/grep type: ]
+          if quota_db_type !~ /quota_db_t/
+              do_fail("quota db file: selinux type is incorrect: #{quota_db_type}")
+          end
+      else
+          do_fail("quota db file #{quota_db_file} does not exist")
+      end
     end
 end
 
 def check_users
   verbose("checking #{$USERS.length} user accounts")
   conf_dir_templ = "#{$LIMITS_CONF_DIR}/84-%s.conf"
+
+  missing_shadow_entries = %x[/usr/sbin/pwck -q -r].split("\n").select {|line| line =~ /add user/}.map {|line| line.match(/.+'(.*)'.+/)[1]}
+  unless missing_shadow_entries.empty?
+    openshift_usernames = $USERS.map {|u| u.name}
+
+    (missing_shadow_entries & openshift_usernames).each do |u|
+      user_fail(u, "OpenShift user #{u} is configured to use a shadow password but has no corresponding /etc/shadow entry.  Verify and run pwconv to resolve.")
+    end
+
+    (missing_shadow_entries - openshift_usernames).each do |u|
+      user_fail(u, "Warning: Non-OpenShift user #{u} is configured to use a shadow password but has no corresponding /etc/shadow entry.  Verify and run pwconv to resolve.")
+    end
+  end
 
   $USERS.each do |user|
     #Test home dir
@@ -568,7 +606,7 @@ def check_users
     if results.length == 0 ||
         results[0].split[4].to_i == 0 ||
         results[0].split[7].to_i == 0
-      user_fail(user.name, "user #{user.name} does not have quotas imposed. This can be addressed by running: oo-devel-node set-quota --with-container-uuid #{user.name} --blocks 1048576 --inodes 80000")
+      user_fail(user.name, "user #{user.name} does not have quotas imposed. This can be addressed by running: oo-devel-node set-quota --with-container-uuid #{user.name} --blocks #{$RESOURCE_LIMITS.get('quota_blocks', 1048576)} --inodes #{$RESOURCE_LIMITS.get('quota_files', 80000)}")
     end
   end
 end
@@ -576,7 +614,7 @@ end
 # Verify that the user has a cgroup in all subsystems and no others
 def check_user_cgroups(username)
   user_cgroup="/openshift/#{username}"
-  test_subsystems = Set.new(['cpu', 'cpuacct', 'memory', 'freezer', 'net_cls'])
+  test_subsystems = Set.new($CONF.get('OPENSHIFT_CGROUP_SUBSYSTEMS', 'cpu,cpuacct,memory,freezer,net_cls').split(','))
   if not test_subsystems == $CGROUP_DATA[username]
     user_fail(username, "user #{username} must have all cgroup subsystems.")
   end
@@ -590,16 +628,19 @@ def check_system_httpd_configs
     return
   end
 
-  return unless $CONF.get('OPENSHIFT_FRONTEND_HTTP_PLUGINS').split(',').include?('openshift-origin-frontend-apache-mod-rewrite')
-  return unless $CONF.get('OPENSHIFT_FRONTEND_HTTP_PLUGINS').split(',').include?('openshift-origin-frontend-nodejs-websocket')
+  http_plugins = $CONF.get('OPENSHIFT_FRONTEND_HTTP_PLUGINS').split(',')
+  # xor between mod-rewrite and vhost plugins. One of them has to exist and both of them cannot.
+  return unless (http_plugins.include?('openshift-origin-frontend-apache-mod-rewrite') ^ http_plugins.include?('openshift-origin-frontend-apache-vhost'))
+  return unless http_plugins.include?('openshift-origin-frontend-nodejs-websocket')
 
+  mod_rewrite = http_plugins.include? 'openshift-origin-frontend-apache-mod-rewrite'
   ['aliases.db', 'idler.db', 'nodes.db', 'sts.db'].each do |db|
     begin
       File.open(File.join($CONF.get('OPENSHIFT_HTTP_CONF_DIR'), db))
     rescue => e
       do_fail("#{e}")
     end
-  end
+  end if mod_rewrite
 
   httpconfs = Hash.new
   ['aliases.txt', 'idler.txt', 'nodes.txt', 'sts.txt'].each do |db|
@@ -616,7 +657,7 @@ def check_system_httpd_configs
     rescue => e
       do_fail("#{e}")
     end
-  end
+  end if mod_rewrite
 
   ['routes.json', 'geardb.json'].each do |db|
     begin
@@ -629,7 +670,7 @@ def check_system_httpd_configs
     end
   end
 
-  httpconfs['nodes.txt'].delete_if   { |k,v|  k.split('/')[0] == '__default__' }
+  httpconfs['nodes.txt'].delete_if   { |k,v|  k.split('/')[0] == '__default__' } if mod_rewrite
   mangled_gears=[]
   $USERS.each do |u|
     dnsfile = File.join($GEAR_BASE_DIR, u.name, '.env', 'OPENSHIFT_GEAR_DNS')
@@ -698,7 +739,7 @@ def check_system_httpd_configs
         }
       }
 
-      if has_framework and not httpconfs['nodes.txt'].has_key?(fqdn)
+      if mod_rewrite and has_framework and not httpconfs['nodes.txt'].has_key?(fqdn)
         user_fail(u.name, "Gear has a web framework cartridge but no Apache configuration: #{u.name}")
       end
 
@@ -707,10 +748,12 @@ def check_system_httpd_configs
       end
 
 
-      httpconfs['nodes.txt'].delete_if   { |k,v|  k.split('/')[0] == fqdn }
-      httpconfs['aliases.txt'].delete_if { |k,v|  v == fqdn }
-      httpconfs['idler.txt'].delete(fqdn)
-      httpconfs['sts.txt'].delete(fqdn)
+      if mod_rewrite
+        httpconfs['nodes.txt'].delete_if   { |k,v|  k.split('/')[0] == fqdn }
+        httpconfs['aliases.txt'].delete_if { |k,v|  v == fqdn }
+        httpconfs['idler.txt'].delete(fqdn)
+        httpconfs['sts.txt'].delete(fqdn)
+      end
       httpconfs['routes.json'].delete_if   { |k,v|  k.split('/')[0] == fqdn }
       httpconfs['routes.json'].delete_if { |k, v| v["alias"] == fqdn }
       httpconfs['geardb.json'].delete_if { |k, v| v["fqdn"] == fqdn }
@@ -719,10 +762,12 @@ def check_system_httpd_configs
   end
 
   fail_dns_names = Hash.new
-  httpconfs['nodes.txt'].each   { |k, v| fail_dns_names[k.split('/')[0]]=1 }
-  httpconfs['aliases.txt'].each { |k, v| fail_dns_names[v]=1 }
-  httpconfs['idler.txt'].each   { |k, v| fail_dns_names[k]=1 }
-  httpconfs['sts.txt'].each     { |k, v| fail_dns_names[k]=1 }
+  if mod_rewrite
+    httpconfs['nodes.txt'].each   { |k, v| fail_dns_names[k.split('/')[0]]=1 }
+    httpconfs['aliases.txt'].each { |k, v| fail_dns_names[v]=1 }
+    httpconfs['idler.txt'].each   { |k, v| fail_dns_names[k]=1 }
+    httpconfs['sts.txt'].each     { |k, v| fail_dns_names[k]=1 }
+  end
   httpconfs['routes.json'].each do |k, v|
     if v["alias"]
       fail_dns_names[v["alias"]]=1
@@ -905,6 +950,7 @@ if __FILE__ == $0
     $STATUS=0
     load_node_conf
     find_ext_net_dev
+    check_ext_net_dev_addr
     load_users
 
     if $OPTIONS[:'run-upgrade-checks']

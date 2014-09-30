@@ -22,6 +22,7 @@ require 'parseconfig'
 require 'syslog'
 require 'thread'
 require 'date'
+
 require 'openshift-origin-node'
 require 'openshift-origin-node/utils/environ'
 require 'openshift-origin-node/utils/node_logger'
@@ -60,7 +61,7 @@ module OpenShift
     class Watchman
 
       attr_reader :logger, :config, :gears, :incidents, :epoch
-      attr_accessor :retry_delay, :gear_retries, :retry_period
+      attr_accessor :retry_delay, :gear_retries, :retry_period, :debug
 
       # @param config [Config] elements from node.conf
       # @param gears [CachedGears] collection of running gears on node
@@ -74,6 +75,7 @@ module OpenShift
         @retry_delay  = 300
         @gear_retries = 3
         @retry_period = 28800
+        @debug        = false
         @logger       = logger(config)
         @incidents    = {}
 
@@ -115,8 +117,15 @@ module OpenShift
         @retry_period = seconds.instance_of?(Rational) ? seconds : Rational(seconds, 86400)
       end
 
+      # Override the watchman debug value
+      # @param value [Boolean]
+      def debug=(value)
+        Syslog.info("Watchman debug is set to #{value}")
+        @debug = value
+      end
+
       def gear_retries=(retries)
-        Syslog.info("Watchman gear_retries #{retries}s")
+        Syslog.info("Watchman gear_retries #{retries}")
         @gear_retries = retries
       end
 
@@ -129,6 +138,21 @@ module OpenShift
         name
       end
 
+
+      # Print memory consumed by the process along with the plugin name
+      # Useful for debugging memory leaks
+      # @param plugin [WatchmanPlugin] derived class object
+      # @return none
+      def print_memory(plugin)
+        #mem = `ps -o rss= -p #{Process.pid}`.to_i rescue 0
+        out, _, rc = Utils.oo_spawn(%Q{ps -o rss= -p #{Process.pid}}, timeout: OP_TIMEOUT)
+        if rc==0
+          mem = out.to_i rescue -1
+          msg = "Gears: #{@gears.total_count}, Memory: #{mem}, Plugin: #{plugin}, Symbols: #{Symbol.all_symbols.size}, Objects: #{ObjectSpace.count_objects[:TOTAL]}"
+          Syslog.info(msg)
+        end
+      end
+
       # loop through plugins until stopped
       # @param daemon [true, false] Loop more than once?
       def apply(daemon = true)
@@ -139,6 +163,7 @@ module OpenShift
           @plugins.each do |plugin|
             begin
               plugin.apply(iteration)
+              #print_memory(plugin.class.to_s) if @debug
             rescue SystemExit => e
               msg = "SystemExit raised from Watchman plugin #{plugin}:\n#{e.backtrace.join("\n")}"
               Syslog.notice(msg)
@@ -149,6 +174,7 @@ module OpenShift
               @logger.debug(%Q{#{msg}\n#{e.backtrace.join("\n")}})
             end
           end
+          print_memory('all') if @debug
 
           break unless daemon
 
@@ -199,13 +225,19 @@ module OpenShift
           delta = DateTime.now - @incidents[uuid][:last_updated]
 
           # Have we tried to restart in the last @retry_delay seconds?
-          return if delta < @retry_delay
+          if delta < @retry_delay && op != :stop
+            Syslog.info("gear #{uuid} (re)started under retry_delay (#{@retry_delay})")
+            return
+          end
 
           # If we haven't attempted to restart in last 8 hours, do so...
           @incidents[uuid][:retries] = (delta > @retry_period) ? 0 : @incidents[uuid][:retries].succ
 
           # Have we tried to restart more that @gear_retries times?
-          return if @incidents[uuid][:retries] > @gear_retries
+          if @incidents[uuid][:retries] > @gear_retries && op != :stop
+            Syslog.info("gear #{uuid} (re)started more than #{@gear_retries} times")
+            return
+          end
 
           # Either repeat death or failed start...
           send(op, uuid, @incidents[uuid][:retries])
@@ -237,6 +269,34 @@ module OpenShift
         rescue Errno::ENOENT
           # .state file missing is there a stop_lock?
           restart_gear.call unless @gears.stop_lock?(uuid)
+        end
+      end
+
+      # Conditionally start gear
+      # Don't start if already running
+      #
+      # @param uuid [String] gear identifier
+      # @param retries [Fixnum] number of retries for start
+      def start(uuid, retries)
+        start_gear = lambda do
+          Syslog.info("starting #{uuid}")
+          out, err, rc = Utils.oo_spawn(%Q{#{OO_ADMIN_CTL_GEARS} startgear #{uuid}}, timeout: OP_TIMEOUT)
+
+          Syslog.info("watchman started user #{uuid}: application #{gear_name(uuid)} (retries: #{retries})")
+          unless 0 == rc
+            Syslog.warning("watchman results for #{uuid} start: exitcode: #{rc}\nstdout: #{out}\nstderr: #{err}")
+          end
+        end
+
+        begin
+          if @gears.running?(uuid)
+            Syslog.info("Gear #{uuid} still running; not starting")
+          else
+            start_gear.call
+          end
+        rescue Errno::ENOENT
+          # .state file missing is there a stop_lock?
+          start_gear.call unless @gears.stop_lock?(uuid)
         end
       end
 
@@ -433,6 +493,7 @@ if ENV['DAEMONS_ARGV']
     watcher.gear_retries = ENV['GEAR_RETRIES'].to_i unless ENV['GEAR_RETRIES'].nil?
     watcher.retry_delay  = ENV['RETRY_DELAY'].to_i unless ENV['RETRY_DELAY'].nil?
     watcher.retry_period = ENV['RETRY_PERIOD'].to_i unless ENV['RETRY_PERIOD'].nil?
+    watcher.debug        = ENV['WATCHMAN_DEBUG'] unless ENV['WATCHMAN_DEBUG'].nil?
     watcher.apply
   end
 end

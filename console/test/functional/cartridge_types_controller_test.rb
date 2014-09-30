@@ -40,7 +40,7 @@ class CartridgeTypesControllerTest < ActionController::TestCase
     assert assigns(:application)
     assert assigns(:gear_sizes)
     assert_select ".indicator-gear-increase", "+0"
-    assert_select ".cartridge_gear_size", "Small"
+    assert_select ".cartridge_gear_size", "small"
   end
 
   test "should show type page for scalable" do
@@ -53,7 +53,7 @@ class CartridgeTypesControllerTest < ActionController::TestCase
     assert assigns(:application)
     assert assigns(:gear_sizes)
     assert_select ".indicator-gear-increase", /\+1\b/
-    assert_select ".cartridge_gear_size", "Small"
+    assert_select ".cartridge_gear_size", "small"
   end
 
   test "should show type page for scalable with gear sizes" do
@@ -66,8 +66,53 @@ class CartridgeTypesControllerTest < ActionController::TestCase
     assert assigns(:gear_sizes)
     assert_select ".indicator-gear-increase", /\+1\b/
     assert_select "#cartridge_gear_size" do
-      assert_select 'option', gear_sizes.delete_at(0).titleize
+      assert_select 'option', gear_sizes.delete_at(0)
     end
+  end
+
+  test "should show type page with restricted gear sizes for cartridge" do
+    Domain::Capabilities.any_instance.stubs(:allowed_gear_sizes).returns(%w(small medium large))
+
+    CartridgeType.any_instance.stubs(:valid_gear_sizes).returns(['medium', 'large'])
+    CartridgeType.any_instance.stubs(:valid_gear_sizes?).returns(true)
+
+    t = CartridgeType.embedded.find(&:service?)
+    get :show, :application_id => with_scalable_app.to_param, :id => t.name
+    assert_response :success
+    assert gear_sizes = assigns(:gear_sizes)
+    assert_equal gear_sizes.length, 2
+    assert_select "#cartridge_gear_size" do
+      assert_select 'option', 'medium'
+    end
+    assert_select '.text-warning', /Supported gear sizes: medium, large/
+  end
+
+  test "should show type page with one gear size match for cartridge" do
+    Domain::Capabilities.any_instance.stubs(:allowed_gear_sizes).returns(%w(small medium))
+
+    CartridgeType.any_instance.stubs(:valid_gear_sizes).returns(['medium'])
+    CartridgeType.any_instance.stubs(:valid_gear_sizes?).returns(true)
+
+    t = CartridgeType.embedded.find(&:service?)
+    get :show, :application_id => with_scalable_app.to_param, :id => t.name
+    assert_response :success
+    assert gear_sizes = assigns(:gear_sizes)
+    assert_equal gear_sizes.length, 1
+    assert_select ".cartridge_gear_size", "medium"
+    assert_select '.text-warning', /Supported gear size: medium/
+  end
+
+  test "should show error on type page without valid gear sizes for cartridge" do
+    Domain::Capabilities.any_instance.stubs(:allowed_gear_sizes).returns(%w(small))
+
+    CartridgeType.any_instance.stubs(:valid_gear_sizes).returns(['medium', 'large'])
+    CartridgeType.any_instance.stubs(:valid_gear_sizes?).returns(true)
+
+    t = CartridgeType.embedded.first
+    get :show, :application_id => with_app.to_param, :id => t.name
+    assert_response :success
+    assert_select '.text-warning', /Supported gear sizes: medium, large/
+    assert_select '.alert-error', /The gear sizes available for this application or your account are not compatible with this cartridge/
   end
 
   test "should show custom url page" do

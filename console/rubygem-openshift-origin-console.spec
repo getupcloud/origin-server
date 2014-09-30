@@ -1,5 +1,6 @@
 %if 0%{?fedora}%{?rhel} <= 6
     %global scl ruby193
+    %global v8_scl v8314
     %global scl_prefix ruby193-
 %endif
 %{!?scl:%global pkg_name %{name}}
@@ -9,7 +10,7 @@
 
 Summary:       OpenShift Origin Management Console
 Name:          rubygem-%{gem_name}
-Version: 1.25.2
+Version: 1.31.3
 Release:       1%{?dist}
 Group:         Development/Languages
 License:       ASL 2.0
@@ -40,6 +41,7 @@ Requires:      %{?scl:%scl_prefix}rubygem(syslog-logger)
 %if 0%{?fedora}%{?rhel} <= 6
 BuildRequires: %{?scl:%scl_prefix}build
 BuildRequires: scl-utils-build
+BuildRequires:  v8314
 %endif
 
 BuildRequires: %{?scl:%scl_prefix}rubygem(coffee-rails)
@@ -82,7 +84,7 @@ OpenShift Origin Management Console ri documentation
 %setup -q
 
 %build
-%{?scl:scl enable %scl - << \EOF}
+%{?scl:scl enable %scl %v8_scl - << \EOF}
 
 set -e
 mkdir -p .%{gem_dir}
@@ -166,6 +168,127 @@ cp bin/man/*.8 %{buildroot}%{_mandir}/man8/
 %{gem_dir}/doc/%{gem_name}-%{version}
 
 %changelog
+* Wed Sep 24 2014 Adam Miller <admiller@redhat.com> 1.31.3-1
+- Bug 1146108 - display unique name on cartridge if there is another cart with
+  the same display name (jforrest@redhat.com)
+
+* Tue Sep 23 2014 Adam Miller <admiller@redhat.com> 1.31.2-1
+- Merge pull request #5830 from jwforres/bug_1144950_alias_cert_errors
+  (dmcphers+openshiftbot@redhat.com)
+- Bug 1144950 - Show server-side errors for bad certs (jforrest@redhat.com)
+
+* Thu Sep 18 2014 Adam Miller <admiller@redhat.com> 1.31.1-1
+- bump_minor_versions for sprint 51 (admiller@redhat.com)
+- Use domain max_gears when displaying app scaling limits (jliggitt@redhat.com)
+- Changes first_steps links to developer portal (spurtell@redhat.com)
+
+* Mon Sep 08 2014 Adam Miller <admiller@redhat.com> 1.30.3-1
+- add build dep for RHEL6 to pull in RHSCL 1.1 v8314 (admiller@redhat.com)
+
+* Fri Sep 05 2014 Adam Miller <admiller@redhat.com> 1.30.2-1
+- Merge pull request #5779 from liggitt/logout_link_example
+  (dmcphers+openshiftbot@redhat.com)
+- LOGOUT_LINK example (jliggitt@redhat.com)
+- Add logout logic (jliggitt@redhat.com)
+- Merge pull request #5715 from detiber/sclbuildfixes
+  (dmcphers+openshiftbot@redhat.com)
+- scl build fixes (jdetiber@redhat.com)
+
+* Thu Aug 21 2014 Adam Miller <admiller@redhat.com> 1.30.1-1
+- bump_minor_versions for sprint 50 (admiller@redhat.com)
+- Bug 1131967 - fixes validation of gear sizes on quickstarts page
+  (contact@fabianofranz.com)
+
+* Tue Aug 19 2014 Adam Miller <admiller@redhat.com> 1.29.5-1
+- [origin-ui-192] Adjustments according to feedback (contact@fabianofranz.com)
+- [origin-ui-192] Handle cartridges restricted by gear size
+  (contact@fabianofranz.com)
+
+* Fri Aug 15 2014 Troy Dawson <tdawson@redhat.com> 1.29.4-1
+- Merge pull request #5714 from
+  jcantrill/207_hide_regions_when_user_not_allowed
+  (dmcphers+openshiftbot@redhat.com)
+- [Origin UI 207] Show region selection only if user is allowed
+  (jcantril@redhat.com)
+
+* Thu Aug 14 2014 Adam Miller <admiller@redhat.com> 1.29.3-1
+- [Origin UI 194] Add description support to app create page and refactor to
+  use radio buttons (jcantril@redhat.com)
+
+* Wed Aug 13 2014 Adam Miller <admiller@redhat.com> 1.29.2-1
+- Show sub-cent rates (jliggitt@redhat.com)
+
+* Fri Aug 08 2014 Adam Miller <admiller@redhat.com> 1.29.1-1
+- bump_minor_versions for sprint 49 (admiller@redhat.com)
+- Allow customizing the content-type and accept headers for oauth calls
+  (jforrest@redhat.com)
+
+* Mon Jul 28 2014 Adam Miller <admiller@redhat.com> 1.28.3-1
+- Origin UI 190 - Expose region for app create and show, region and zone on
+  gear page for admin-console (jcantril@redhat.com)
+
+* Wed Jul 23 2014 Adam Miller <admiller@redhat.com> 1.28.2-1
+- Allow for 2-leg oauth where there is no token or token_secret
+  (jforrest@redhat.com)
+
+* Fri Jul 18 2014 Adam Miller <admiller@redhat.com> 1.28.1-1
+- Update Rest API Integration test for ruby-2.0 cartridge (j.hadvig@gmail.com)
+- OAuth - should be able to specify what HTTP method is being used when signing
+  a request (jforrest@redhat.com)
+- bump_minor_versions for sprint 48 (admiller@redhat.com)
+
+* Mon Jul 07 2014 Adam Miller <admiller@redhat.com> 1.27.3-1
+- Merge pull request #5566 from soltysh/card224
+  (dmcphers+openshiftbot@redhat.com)
+- Card origin_cartridge_224 - Upgrading nodejs quickstarts to version 0.10
+  (maszulik@redhat.com)
+
+* Thu Jul 03 2014 Adam Miller <admiller@redhat.com> 1.27.2-1
+- Merge pull request #5565 from developercorey/add-stack-url
+  (dmcphers+openshiftbot@redhat.com)
+- removing forum link and replacing with stackoverflow url, and updating
+  newsletter text (cdaley@redhat.com)
+
+* Thu Jun 26 2014 Adam Miller <admiller@redhat.com> 1.27.1-1
+- bump_minor_versions for sprint 47 (admiller@redhat.com)
+
+* Thu Jun 19 2014 Adam Miller <admiller@redhat.com> 1.26.3-1
+- Fix bug 1111009: Typo on app scaling page (jliggitt@redhat.com)
+
+* Tue Jun 17 2014 Adam Miller <admiller@redhat.com> 1.26.2-1
+- Merge pull request #5510 from developercorey/fix_delete_application_namespace
+  (dmcphers+openshiftbot@redhat.com)
+- Replacing the short app name on the delete application page with the full
+  application url to help negate confusion when deleting applications when you
+  have access to multiple domains.  Similar to how github does it when you
+  delete a repository, they show the user or organization name plus the repo
+  name.  if this format is not appropriate, let me know what format would make
+  more sense maybe domain/app_name? (cdaley@redhat.com)
+- https://bugzilla.redhat.com/show_bug.cgi?id=1109026 (bparees@redhat.com)
+
+* Thu Jun 05 2014 Adam Miller <admiller@redhat.com> 1.26.1-1
+- console_helper.rb:   - replace hard-coded value of product logo and product
+  title by     dynamic value from Console.config.env console.conf:   - add
+  PRODUCT_LOGO and PRODUCT_TITLE parameters (thierry@tfserver.no-ip.org)
+- Merge pull request #5453 from pivanov/css-small-fix
+  (dmcphers+openshiftbot@redhat.com)
+- Add a section to inject information about external cartridges
+  (jforrest@redhat.com)
+- Comment test_in_groups_by_tag (miciah.masters@gmail.com)
+- model_helper_tests.rb: Add test for bug 1100508 (miciah.masters@gmail.com)
+- Console: Improve grouping of application types (miciah.masters@gmail.com)
+- bump_minor_versions for sprint 46 (admiller@redhat.com)
+- [stylesheets] - remove unit after 0 length. (pivanov@mozilla.com)
+
+* Thu May 29 2014 Adam Miller <admiller@redhat.com> 1.25.4-1
+- Revert "Updating file paths from blogs to blog" (shalompisteuo@gmail.com)
+
+* Fri May 23 2014 Adam Miller <admiller@redhat.com> 1.25.3-1
+- Merge pull request #5359 from worldline/improving_config_files
+  (dmcphers+openshiftbot@redhat.com)
+- adding console community helper parameters in /etc/openshift/console.conf
+  (thierry.forli@worldline.com)
+
 * Wed May 21 2014 Adam Miller <admiller@redhat.com> 1.25.2-1
 - Merge pull request #5430 from liggitt/improve_team_creation
   (dmcphers+openshiftbot@redhat.com)

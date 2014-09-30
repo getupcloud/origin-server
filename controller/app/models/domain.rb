@@ -171,7 +171,7 @@ class Domain
 
   # Defend against namespace changes after creation.
   before_update do
-    if namespace_changed? && Application.where(domain_id: _id).present?
+    if canonical_namespace_changed? && Application.where(domain_id: _id).present?
       raise OpenShift::UserException.new("Domain contains applications. Delete applications first before changing the domain namespace.", 128)
     end
   end
@@ -246,7 +246,13 @@ class Domain
     variables.each do |new_var|
       self.env_vars.each do |cur_var|
         if cur_var["key"] == new_var["key"]
-          env_vars_to_rm << cur_var.dup
+          if !(new_var["unique"] || cur_var["unique"])
+            env_vars_to_rm << cur_var.dup
+          else
+            raise OpenShift::UserException.new(
+              "This application attempted to create a unique domain environment variable #{new_var["key"]} which already exists in this domain (#{namespace}).",
+              134, nil, nil, :forbidden)
+          end
         end
       end
     end

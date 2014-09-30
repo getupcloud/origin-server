@@ -258,8 +258,35 @@
           [501, 10, "127.0.250.138"],
           [501, 20, "127.0.250.148"],
           [501, 100, "127.0.250.228"],
+          [501, 127, "127.0.250.255"],
           [540, 1, "127.1.14.1"],
-          [560, 7, "127.1.24.7"]
+          [560, 7, "127.1.24.7"],
+
+          # 2x 2^16 +- 1
+          [131071, 1, "127.128.0.1"],
+          [131071, 10, "127.128.0.10"],
+          [131071, 127, "127.128.0.127"],
+
+          [131072, 1, "127.0.0.129"],
+          [131072, 10, "127.0.0.138"],
+          [131072, 127, "127.0.0.255"],
+
+          [131073, 1, "127.0.1.1"],
+          [131073, 10, "127.0.1.10"],
+          [131073, 127, "127.0.1.127"],
+
+          # 10x 2^16 +- 1
+          [655359, 1, "127.128.0.1"],
+          [655359, 10, "127.128.0.10"],
+          [655359, 127, "127.128.0.127"],
+
+          [655360, 1, "127.0.0.129"],
+          [655360, 10, "127.0.0.138"],
+          [655360, 127, "127.0.0.255"],
+
+          [655361, 1, "127.0.1.1"],
+          [655361, 10, "127.0.1.10"],
+          [655361, 127, "127.0.1.127"],
       ]
 
       scenarios.each do |s|
@@ -275,7 +302,7 @@
         container = OpenShift::Runtime::ApplicationContainer.new("gear_uuid", "gear_uuid", s[0],
                                                                  "app_name", "gear_uuid", "namespace", nil, nil, nil)
 
-        assert_equal container.get_ip_addr(s[1]), s[2]
+        assert_equal s[2], container.get_ip_addr(s[1])
       end
     end
 
@@ -420,7 +447,7 @@
       ssh_url = "#{entry1[:uuid]}@#{entry1[:proxy_hostname]}"
       location = PathUtils.join(@container.container_dir, 'mock', 'template')
 
-      @container.expects(:run_in_container_context).with("mkdir -p #{location} ; rsync -rOv --exclude '.git' --delete --rsh=/usr/bin/oo-ssh #{ssh_url}:git/template/ #{location}",
+      @container.expects(:run_in_container_context).with("mkdir -p #{location} ; rsync -rOvS --exclude '.git' --delete --rsh=/usr/bin/oo-ssh #{ssh_url}:git/template/ #{location}",
                                                          env: gear_env,
                                                          chdir: @container.container_dir,
                                                          expected_exitstatus: 0)
@@ -468,7 +495,7 @@
       @container.expects(:gear_registry).times(2).returns(gear_registry)
 
       rsync_options = @container.send(:remote_rsync_options, uuid1)
-      assert_equal '-avz', rsync_options
+      assert_equal '-avzS', rsync_options
 
       rsync_options = @container.send(:remote_rsync_options, uuid2)
       assert_equal '-rltgoDOv', rsync_options
@@ -534,7 +561,7 @@
 
       @container.expects(:gear_registry).returns(gear_registry).at_least_once
 
-      @container.expects(:run_in_container_context).with("rsync -aAX --rsh=/usr/bin/oo-ssh /var/lib/openshift/#{@gear_uuid}/.openshift_ssh/id_rsa{,.pub} #{@gear_uuid.to_i + 2}@node1.example.com:.openshift_ssh/",
+      @container.expects(:run_in_container_context).with("rsync -aAXS --rsh=/usr/bin/oo-ssh /var/lib/openshift/#{@gear_uuid}/.openshift_ssh/id_rsa{,.pub} #{@gear_uuid.to_i + 2}@node1.example.com:.openshift_ssh/",
                                                               env: gear_env,
                                                               chdir: @container.container_dir,
                                                               expected_exitstatus: 0)
@@ -630,7 +657,7 @@
       gear_registry.expects(:save)
 
       [web_entry2, web_entry3].each do |new_entry|
-        @container.expects(:run_in_container_context).with("rsync -avz --delete --rsh=/usr/bin/oo-ssh app-deployments/ #{new_entry.uuid}@#{new_entry.proxy_hostname}:app-deployments/",
+        @container.expects(:run_in_container_context).with("rsync -avzS --delete --rsh=/usr/bin/oo-ssh app-deployments/ #{new_entry.uuid}@#{new_entry.proxy_hostname}:app-deployments/",
                                                           env: gear_env,
                                                           chdir: @container.container_dir,
                                                           expected_exitstatus: 0)
@@ -649,7 +676,7 @@
                                          rotate: false)
                                    .returns(status: 'success')
 
-      @container.expects(:run_in_container_context).with("rsync -avz --delete --exclude hooks --rsh=/usr/bin/oo-ssh git/#{@app_name}.git/ #{proxy_entry3.uuid}@#{proxy_entry3.proxy_hostname}:git/#{@app_name}.git/",
+      @container.expects(:run_in_container_context).with("rsync -avzS --delete --exclude hooks --rsh=/usr/bin/oo-ssh git/#{@app_name}.git/ #{proxy_entry3.uuid}@#{proxy_entry3.proxy_hostname}:git/#{@app_name}.git/",
                                                           env: gear_env,
                                                           chdir: @container.container_dir,
                                                           expected_exitstatus: 0)
@@ -698,7 +725,7 @@
       location = PathUtils.join(@container.container_dir, 'foo', 'template')
       ssh_url = "#{uuid1}@#{gear1[:proxy_hostname]}"
 
-      @container.expects(:run_in_container_context).with("mkdir -p #{location} ; rsync -rOv --exclude '.git' --delete --rsh=/usr/bin/oo-ssh #{ssh_url}:git/template/ #{location}",
+      @container.expects(:run_in_container_context).with("mkdir -p #{location} ; rsync -rOvS --exclude '.git' --delete --rsh=/usr/bin/oo-ssh #{ssh_url}:git/template/ #{location}",
                                                          env: gear_env,
                                                          chdir: @container.container_dir,
                                                          expected_exitstatus: 0)
@@ -856,7 +883,7 @@
       gear_registry.expects(:save)
 
       [web_entry2, web_entry3].each do |new_entry|
-        @container.expects(:run_in_container_context).with("rsync -avz --delete --rsh=/usr/bin/oo-ssh app-deployments/ #{new_entry.uuid}@#{new_entry.proxy_hostname}:app-deployments/",
+        @container.expects(:run_in_container_context).with("rsync -avzS --delete --rsh=/usr/bin/oo-ssh app-deployments/ #{new_entry.uuid}@#{new_entry.proxy_hostname}:app-deployments/",
                                                           env: gear_env,
                                                           chdir: @container.container_dir,
                                                           expected_exitstatus: 0)
@@ -1257,5 +1284,9 @@
       @container.cartridge_model.expects(:stop_gear).with(options).returns('stop')
       @container.expects(:stopped_status_attr).returns('attr')
       @container.stop_gear(options)
+    end
+
+    def test_plugin
+      refute_nil @container.container_plugin
     end
   end

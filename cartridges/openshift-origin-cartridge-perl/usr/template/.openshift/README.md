@@ -1,3 +1,5 @@
 The OpenShift `perl` cartridge documentation can be found at:
+http://openshift.github.io/documentation/oo_cartridge_guide.html#perl
 
-https://github.com/openshift/origin-server/tree/master/cartridges/openshift-origin-cartridge-perl/README.md
+For information about .openshift directory, consult the documentation:
+http://openshift.github.io/documentation/oo_user_guide.html#the-openshift-directory

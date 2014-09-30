@@ -30,6 +30,47 @@ class ApplicationsTest < ActionDispatch::IntegrationTest
     container.stubs(:set_district)
   end
 
+  test "create application valid gear size configuration" do
+    restricted_cart_name = "mock-no-small"
+    CartridgeType.where(:name => restricted_cart_name).delete
+    restricted_cart = CartridgeType.new(
+        :base_name => restricted_cart_name,
+        :cartridge_vendor => 'redhat',
+        :name => restricted_cart_name,
+        :text => {'Name' => restricted_cart_name}.to_json,
+        :version => '1.0'
+        )
+    restricted_cart.provides = restricted_cart.names
+    assert restricted_cart.activate!
+    restricted_cart_instances = [CartridgeInstance.new(restricted_cart)]
+
+    unrestricted_cart_instances = try_cartridge_instances_for(:php)
+    assert(unrestricted_cart_instances.size == 1, "Expected a single cartridge")
+    unrestricted_cart_name = unrestricted_cart_instances[0].name
+
+    valid_gear_sizes = Rails.application.config.openshift[:cartridge_gear_sizes]
+    user_valid_gear_sizes = @user.capabilities["gear_sizes"]
+    assert(user_valid_gear_sizes.include?("small"))
+
+    unrestricted_cart_valid_gear_sizes = valid_gear_sizes[unrestricted_cart_name]
+    assert_equal(unrestricted_cart_valid_gear_sizes, [])
+
+    restricted_cart_valid_gear_sizes = valid_gear_sizes[restricted_cart_name]
+    assert(!restricted_cart_valid_gear_sizes.empty? && !restricted_cart_valid_gear_sizes.include?("small"))
+
+    blacklisted_words = OpenShift::ApplicationContainerProxy.get_blacklisted
+    @appname = blacklisted_words.first if blacklisted_words.present?
+    Gear.any_instance.expects(:publish_routing_info).never
+    Gear.any_instance.expects(:unpublish_routing_info).never
+
+    opts = {:default_gear_size => "small"}
+    assert_raise(OpenShift::UserException){ Application.create_app(@appname, restricted_cart_instances, @domain, opts) }
+
+    app = Application.create_app(@appname, unrestricted_cart_instances, @domain, opts)
+    app.destroy_app
+    assert_equal(false, Application.where(canonical_name: @appname.downcase).exists?)
+  end
+
   test "create update and destroy application" do
     blacklisted_words = OpenShift::ApplicationContainerProxy.get_blacklisted
     @appname = blacklisted_words.first if blacklisted_words.present?
@@ -127,14 +168,15 @@ class ApplicationsTest < ActionDispatch::IntegrationTest
     assert_not_equal true, app.ha
     assert_equal 1, app.gears.count
 
-    app.make_ha
+    # scale up, get 1 more php instance
+    app.scale_by(app.group_instances.first._id, 1)
     app.reload
-    assert_equal true, app.ha
     assert_equal 2, app.gears.count
-    assert app.gears.all?{ |g| g.sparse_carts.length == 1 }
+    assert_equal 1, app.gears.inject(0){ |c, g| c + (g.sparse_carts.present? ? 1 : 0) }
     assert_equal [app.component_instances.detect{ |i| i.cartridge.is_web_proxy? }._id], app.gears.map(&:sparse_carts).flatten.uniq
 
-    # scale up, get 1 more php instance
+    # make app ha and scale up, get 1 more php instance
+    app.make_ha
     app.scale_by(app.group_instances.first._id, 1)
     app.reload
     assert_equal 3, app.gears.count
@@ -154,18 +196,25 @@ class ApplicationsTest < ActionDispatch::IntegrationTest
 
     app.scale_by(app.group_instances.first._id, -1)
 
-    # alter multiplier to 2, expect 4 new php gears
+    # alter multiplier to 2
     stubs_config(:openshift, default_ha_multiplier: 2)
     app.scale_by(app.group_instances.first._id, 3)
     assert_equal 5, app.gears.count
-    assert_equal 2, app.gears.inject(0){ |c, g| c + (g.sparse_carts.present? ? 1 : 0) }
+    assert_equal 3, app.gears.inject(0){ |c, g| c + (g.sparse_carts.present? ? 1 : 0) }
 
+    # scale up, get 1 more haproxy instance
     app.scale_by(app.group_instances.first._id, 1)
     assert_equal 6, app.gears.count
     assert_equal 3, app.gears.inject(0){ |c, g| c + (g.sparse_carts.present? ? 1 : 0) }
 
+    # scale down, haproxy instances should remain the same
     app.scale_by(app.group_instances.first._id, -1)
     assert_equal 5, app.gears.count
+    assert_equal 3, app.gears.inject(0){ |c, g| c + (g.sparse_carts.present? ? 1 : 0) }
+
+    # scale down, 1 haproxy instance should get removed
+    app.scale_by(app.group_instances.first._id, -1)
+    assert_equal 4, app.gears.count
     assert_equal 2, app.gears.inject(0){ |c, g| c + (g.sparse_carts.present? ? 1 : 0) }
 
     app.destroy_app
@@ -373,6 +422,45 @@ class ApplicationsTest < ActionDispatch::IntegrationTest
     app.destroy_app
   end
 
+  test "multiplier events on application" do
+    app = Application.create_app(@appname, cartridge_instances_for(:php), @domain, :scalable => true)
+    app = Application.find_by(canonical_name: @appname.downcase, domain_id: @domain._id) rescue nil
+
+    web_instance = app.web_component_instance
+    proxy_instance = app.component_instances.detect(&:is_web_proxy?)
+
+    assert_equal [], app.group_overrides
+
+    app.update_component_limits(proxy_instance, 1, 2, nil, nil)
+    app.reload
+    assert_equal 1, app.group_overrides.count
+    proxy_go = app.group_overrides[0].components.find {|c| c.name == proxy_instance.component_name}
+    assert_equal ComponentOverrideSpec, proxy_go.class
+    assert_equal 1, proxy_go.min_gears
+    assert_equal 2, proxy_go.max_gears
+    assert_equal nil, proxy_go.multiplier
+
+    app.update_component_limits(proxy_instance, nil, nil, nil, 2)
+    app.reload
+    assert_equal 1, app.group_overrides.count
+    proxy_go = app.group_overrides[0].components.find {|c| c.name == proxy_instance.component_name}
+    assert_equal ComponentOverrideSpec, proxy_go.class
+    assert_equal 1, proxy_go.min_gears
+    assert_equal 2, proxy_go.max_gears
+    assert_equal 2, proxy_go.multiplier
+
+    app.update_component_limits(proxy_instance, nil, nil, nil, 3)
+    app.reload
+    assert_equal 1, app.group_overrides.count
+    proxy_go = app.group_overrides[0].components.find {|c| c.name == proxy_instance.component_name}
+    assert_equal ComponentOverrideSpec, proxy_go.class
+    assert_equal 1, proxy_go.min_gears
+    assert_equal 2, proxy_go.max_gears
+    assert_equal 3, proxy_go.multiplier
+
+    app.destroy_app
+  end
+
   test "application events through internal rest" do
     app = Application.create_app(@appname, cartridge_instances_for(:ruby, :mysql), @domain, :scalable => true)
     app = Application.find_by(canonical_name: @appname.downcase, domain_id: @domain._id) rescue nil
@@ -431,14 +519,12 @@ class ApplicationsTest < ActionDispatch::IntegrationTest
       GroupOverride.new([nil]),
       GroupOverride.new([ComponentSpec.new("test", "other")]),
     ]
-    app.group_overrides.concat(overrides)
+
     ops, added, removed = app.update_requirements(app.cartridges, nil, overrides)
     assert_equal 0, added
     assert_equal 0, removed
-    assert_equal true, ops.empty?
-    assert_equal true, ops.none?{ |t| SetGroupOverridesOp === t }
-
-    app.reload
+    assert_equal 1, ops.count
+    assert_equal [], ops.first.group_overrides
 
     app.destroy_app
   end

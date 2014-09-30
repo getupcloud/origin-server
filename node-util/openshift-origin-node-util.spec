@@ -1,3 +1,7 @@
+%if 0%{?fedora}%{?rhel} <= 6
+    %global scl ruby193
+    %global scl_prefix ruby193-
+%endif
 %if 0%{?fedora} >= 16 || 0%{?rhel} >= 7
 %global with_systemd 1
 %else
@@ -6,7 +10,7 @@
 
 Summary:       Utility scripts for the OpenShift Origin node
 Name:          openshift-origin-node-util
-Version: 1.24.2
+Version: 1.30.1
 Release:       1%{?dist}
 Group:         Network/Daemons
 License:       ASL 2.0
@@ -15,14 +19,23 @@ Source0:       http://mirror.openshift.com/pub/openshift-origin/source/%{name}/%
 Requires:      oddjob
 Requires:      rng-tools
 Requires:      rubygem-openshift-origin-node
+Requires:      %{?scl:%scl_prefix}rubygem-daemons
 Requires:      httpd
 Requires:      php >= 5.3.2
 Requires:      lsof
+Requires:      shadow-utils
 %if %{with_systemd}
 Requires:      systemd-units
 BuildRequires: systemd-units
 %endif
 BuildArch:     noarch
+
+# Needed for custom openshift policy. Bug 1024531
+BuildRequires: selinux-policy >= 3.7.19-231
+Requires:      selinux-policy-targeted >= 3.7.19-231
+Requires:      policycoreutils-python
+Requires:      policycoreutils
+
 
 %description
 This package contains a set of utility scripts for a OpenShift node.
@@ -32,10 +45,24 @@ They must be run on a OpenShift node instance.
 %setup -q
 
 %build
+# Needed for custom openshift policy  Bug 1024531
+pushd selinux >/dev/null
+make -f /usr/share/selinux/devel/Makefile
+bzip2 -9 openshift.pp
+popd >/dev/null
+
 
 %install
+rm -rf %{buildroot}
 mkdir -p %{buildroot}%{_sbindir}
 mkdir -p %{buildroot}%{_bindir}
+
+# Needed for custom openshift policy. Bug 1024531
+mkdir -p %{buildroot}%{_datadir}/selinux/packages
+mkdir -p %{buildroot}%{_datadir}/selinux/include/services
+
+install -m 644 selinux/openshift.pp.bz2 %{buildroot}%{_datadir}/selinux/packages/openshift.pp.bz2
+install -m 644 selinux/openshift.if     %{buildroot}%{_datadir}/selinux/include/services/openshift.if
 
 cp -p sbin/* %{buildroot}%{_sbindir}/
 cp -p bin/*  %{buildroot}%{_bindir}/
@@ -78,8 +105,15 @@ mv services/openshift-watchman.service %{buildroot}/etc/systemd/system/openshift
 cp -p init.d/openshift-gears %{buildroot}%{_initddir}/
 %endif
 
+%clean
+rm -rf %{buildroot}
+
 %post
+# Needed for custom openshift policy. Bug 1024531
+/usr/sbin/semodule -i %{_datadir}/selinux/packages/openshift.pp.bz2 || :
+
 /sbin/restorecon /usr/sbin/oo-restorer* || :
+/sbin/restorecon /usr/bin/oo-lists-ports || :
 
 %if %{with_systemd}
 %systemd_post openshift-gears.service
@@ -117,6 +151,7 @@ cp -p init.d/openshift-gears %{buildroot}%{_initddir}/
 %attr(0750,-,-) %{_sbindir}/oo-cartridge
 %attr(0750,-,-) %{_sbindir}/oo-admin-cartridge
 %attr(0750,-,-) %{_sbindir}/oo-admin-repair-node
+%attr(0750,-,-) %{_sbindir}/oo-admin-regenerate-gear-metadata
 %attr(0750,-,-) %{_sbindir}/oo-watchman
 %attr(0750,-,-) %{_initddir}/openshift-watchman
 %attr(0755,-,-) %{_bindir}/rhc-list-ports
@@ -126,8 +161,13 @@ cp -p init.d/openshift-gears %{buildroot}%{_initddir}/
 %attr(0755,-,-) %{_bindir}/unidle_gear.sh
 %attr(0755,-,-) %{_bindir}/oo-config-eval
 %attr(0755,-,-) %{_bindir}/oo-gear-registry
+%attr(0755,-,-) %{_bindir}/oo-lists-ports
 %attr(0755,-,-) %{_sysconfdir}/openshift/watchman/plugins.d/
 %attr(0744,-,-) %{_sysconfdir}/openshift/watchman/plugins.d/*
+
+# Needed for custom openshift policy. Bug 1024531
+%attr(0644,-,-) %{_datadir}/selinux/packages/openshift.pp.bz2
+%{_datadir}/selinux/include/services/openshift.if
 
 %{_mandir}/man8/oo-accept-node.8.gz
 %{_mandir}/man8/oo-admin-gear.8.gz
@@ -161,6 +201,140 @@ cp -p init.d/openshift-gears %{buildroot}%{_initddir}/
 %endif
 
 %changelog
+* Thu Sep 18 2014 Adam Miller <admiller@redhat.com> 1.30.1-1
+- bump_minor_versions for sprint 51 (admiller@redhat.com)
+- Watchman filters out haproxy/logshifter (agoldste@redhat.com)
+- Bug 1141304 - use full path for pwck (jhonce@redhat.com)
+- Fully qualify repquota path usages to avoid PATH lookups
+  (ironcladlou@gmail.com)
+
+* Wed Sep 10 2014 Adam Miller <admiller@redhat.com> 1.29.5-1
+- Merge pull request #5802 from ironcladlou/bz/1140144
+  (dmcphers+openshiftbot@redhat.com)
+- Increase watchman OOM plugin timeout (ironcladlou@gmail.com)
+
+* Wed Sep 10 2014 Adam Miller <admiller@redhat.com> 1.29.4-1
+- Bug 1024531 - Update requires for selinux-policy version (jhonce@redhat.com)
+
+* Tue Sep 09 2014 Adam Miller <admiller@redhat.com> 1.29.3-1
+- Bug 1024531 - Add custom openshift policy (jhonce@redhat.com)
+- Bug 1024531 - /proc/net provides too much information (jhonce@redhat.com)
+- Bug 1101167 - Update man page (jhonce@redhat.com)
+
+* Fri Sep 05 2014 Adam Miller <admiller@redhat.com> 1.29.2-1
+- Bug 1135617 - AVC denied messages when creating new gears
+  (bleanhar@redhat.com)
+- oo-accept-node: remove check for unused settings (lmeyer@redhat.com)
+- Merge pull request #5771 from ironcladlou/bz/1134106
+  (dmcphers+openshiftbot@redhat.com)
+- Merge pull request #5761 from brenton/BZ1131031
+  (dmcphers+openshiftbot@redhat.com)
+- Merge pull request #5570 from nak3/fix01 (dmcphers+openshiftbot@redhat.com)
+- Use portable output format df commands (ironcladlou@gmail.com)
+- Bug 1131031 - improving /etc/group, /etc/shadow recovery
+  (bleanhar@redhat.com)
+- Fix unclear variable name (nakayamakenjiro@gmail.com)
+
+* Thu Aug 21 2014 Adam Miller <admiller@redhat.com> 1.29.1-1
+- re-arrange oo-accept-node to test mod_rewrite stuff only when the plugin is
+  present (rchopra@redhat.com)
+- bump_minor_versions for sprint 50 (admiller@redhat.com)
+
+* Wed Aug 20 2014 Adam Miller <admiller@redhat.com> 1.28.4-1
+- Merge pull request #5718 from rajatchopra/xfs
+  (dmcphers+openshiftbot@redhat.com)
+- fix accept-node for vhost vs rewrite plugin presence (rchopra@redhat.com)
+- use repquota for xfs - bz1128932 (rchopra@redhat.com)
+
+* Mon Aug 18 2014 Adam Miller <admiller@redhat.com> 1.28.3-1
+- Merge pull request #5713 from
+  twiest/dev/twiest/regenerate_gear_metadata_options
+  (dmcphers+openshiftbot@redhat.com)
+- oo-admin-regenerate-gear-metadata: Changed to using oo_spawn and node cgroup
+  libraries. Added --quiet and --no-accept-node options. (twiest@redhat.com)
+
+* Wed Aug 13 2014 Adam Miller <admiller@redhat.com> 1.28.2-1
+- Added oo-admin-regenerate-gear-metadata (twiest@redhat.com)
+
+* Fri Aug 08 2014 Adam Miller <admiller@redhat.com> 1.28.1-1
+- bump_minor_versions for sprint 49 (admiller@redhat.com)
+- Bug 1121217 - Symbol leak in Throttler cgroup code (jhonce@redhat.com)
+
+* Wed Jul 30 2014 Adam Miller <admiller@redhat.com> 1.27.5-1
+- Merge pull request #5670 from rajatchopra/bz_watchman
+  (dmcphers+openshiftbot@redhat.com)
+- add debug messages to watchman that print memory usage (bz1123935)
+  (rchopra@redhat.com)
+- fix bz1123935 - patch a sign for tz when missing (rchopra@redhat.com)
+
+* Fri Jul 25 2014 Troy Dawson <tdawson@redhat.com> 1.27.4-1
+- Bug 1121864 - Cleanup OPENSHIFT_PRIMARY_CARTRIDGE_DIR (jhonce@redhat.com)
+- Bug 1121067 - Updated error messages (jhonce@redhat.com)
+
+* Wed Jul 23 2014 Adam Miller <admiller@redhat.com> 1.27.3-1
+- Merge pull request #5624 from Miciah/bug-1121224-oo-accept-node-handle-non-
+  existence-of-slash-sbin-slash-ip (dmcphers+openshiftbot@redhat.com)
+- Merge pull request #5623 from Miciah/bug-1121206-oo-accept-node-add-
+  check_ext_net_dev_addr (dmcphers+openshiftbot@redhat.com)
+- oo-accept-node: Handle non-existence of /sbin/ip (miciah.masters@gmail.com)
+- oo-accept-node: Add check_ext_net_dev_addr (miciah.masters@gmail.com)
+
+* Mon Jul 21 2014 Adam Miller <admiller@redhat.com> 1.27.2-1
+- Bug 1120463 - Update man pages (jhonce@redhat.com)
+- Bug 1119609 - Support vendor in oo-admin-cartridge (jhonce@redhat.com)
+- Card origin_node_401 - Support Vendor in CartridgeRepository
+  (jhonce@redhat.com)
+- Card origin_node_401 - Support Vendor in CartridgeRepository
+  (jhonce@redhat.com)
+
+* Fri Jul 18 2014 Adam Miller <admiller@redhat.com> 1.27.1-1
+- bump_minor_versions for sprint 48 (admiller@redhat.com)
+
+* Wed Jul 09 2014 Adam Miller <admiller@redhat.com> 1.26.3-1
+- Merge pull request #5545 from a13m/bz1112378
+  (dmcphers+openshiftbot@redhat.com)
+- Bug 1112378 - Respect OPENSHIFT_CGROUP_SUBSYSTEMS in oo-accept-node
+  (agrimm@redhat.com)
+
+* Tue Jul 01 2014 Adam Miller <admiller@redhat.com> 1.26.2-1
+- Bug 1111077 - Enforce FrontendHttpServer state to match .state file
+  (jhonce@redhat.com)
+
+* Thu Jun 26 2014 Adam Miller <admiller@redhat.com> 1.26.1-1
+- bump_minor_versions for sprint 47 (admiller@redhat.com)
+
+* Thu Jun 19 2014 Adam Miller <admiller@redhat.com> 1.25.5-1
+- Bug 1104902 - Fix several bugs in OOM Plugin app restarts (agrimm@redhat.com)
+
+* Mon Jun 16 2014 Troy Dawson <tdawson@redhat.com> 1.25.4-1
+- Merge pull request #5508 from jwhonce/bug/1109324
+  (dmcphers+openshiftbot@redhat.com)
+- Bug 1109324 - Enable job control in oo-su (jhonce@redhat.com)
+
+* Fri Jun 13 2014 Adam Miller <admiller@redhat.com> 1.25.3-1
+- oo-accept-node: check_user: use configured quotas (misalunk@redhat.com)
+
+* Wed Jun 11 2014 Adam Miller <admiller@redhat.com> 1.25.2-1
+- WIP Node Platform - Add tests for OOM Plugin (jhonce@redhat.com)
+
+* Thu Jun 05 2014 Adam Miller <admiller@redhat.com> 1.25.1-1
+- bump_minor_versions for sprint 46 (admiller@redhat.com)
+
+* Thu May 29 2014 Adam Miller <admiller@redhat.com> 1.24.5-1
+- Move cgroup sample timestamp insertion and fix unit test (agrimm@redhat.com)
+- Bug 1100518 - Correct throttler's CPU usage math (agrimm@redhat.com)
+
+* Tue May 27 2014 Adam Miller <admiller@redhat.com> 1.24.4-1
+- Merge pull request #5446 from jwhonce/bug/1100648
+  (dmcphers+openshiftbot@redhat.com)
+- Bug 1100648 - Fixed formatting of man page (jhonce@redhat.com)
+
+* Fri May 23 2014 Adam Miller <admiller@redhat.com> 1.24.3-1
+- Merge pull request #5439 from jwhonce/bug/1100372
+  (dmcphers+openshiftbot@redhat.com)
+- Bug 1100372 - Add missing spec file dependency (jhonce@redhat.com)
+- Bug 1099754 - Set default_command to help (jhonce@redhat.com)
+
 * Wed May 21 2014 Adam Miller <admiller@redhat.com> 1.24.2-1
 - Merge pull request #5434 from jwhonce/bug/1099772
   (dmcphers+openshiftbot@redhat.com)

@@ -1050,6 +1050,37 @@ class OODiag
     end
   end
 
+  def test_sshd_permit_root_login
+    skip_test unless @is_node
+
+    # If PermitRootLogin is not specified in /etc/ssh/sshd_config, its default
+    # value is 'yes'.
+    permit_root_login = 'yes'
+
+    File.open('/etc/ssh/sshd_config') do |f|
+      f.lines.grep(/^\s*permitrootlogin\s+(\S+)/i) do
+        permit_root_login = $1
+
+        # sshd respects the first value set and ignores subsequent
+        # occurrences of the same setting (per emperical evidence).
+        break
+      end
+    end
+
+    unless ['yes', 'without-password'].include?(permit_root_login)
+      do_warn <<-PERMITROOTLOGIN
+        /etc/ssh/sshd_config sets PermitRootLogin to "#{permit_root_login}".
+
+        PermitRootLogin should be set to "yes" or "without-password" because
+        the broker requires root access to nodes in order to move gears between
+        nodes.
+
+        If the broker does not have root access to nodes, oo-admin-move commands
+        may fail.
+      PERMITROOTLOGIN
+    end
+  end
+
   def test_mcollective_context
     skip_test unless @is_node
     # Check if the context for running mcollective process is correct -
@@ -1058,9 +1089,8 @@ class OODiag
     # Under certain circumstances they would not have the dominating MCS label
     # (s0-s0:c0.c1023) and not be able to affect gears.
     scl_root = @scl_prefix.empty? ? "" : "/opt/rh/ruby193/root"
-    context = `ps -o label= $(pgrep -f "ruby[^[:space:]]*[[:space:]]#{scl_root}/usr/sbin/mcollectived([[:space:]]|$)")`.chomp.split ":"
-    context.shift
-    context = context.join ":"
+    pid = `pgrep -f "ruby[^[:space:]]*[[:space:]]#{scl_root}/usr/sbin/mcollectived([[:space:]]|$)"`.chomp
+    context = File.read("/proc/#{pid}/attr/current").chomp("\0").split(':').drop(1).join(':')
     expected = "system_r:openshift_initrc_t:s0-s0:c0.c1023"
     unless context == expected
       do_fail <<-CONTEXT
@@ -1088,6 +1118,41 @@ class OODiag
       problems on these node hosts, such as AVC denials in /var/log/audit/audit.log
       or misconfigurations in /etc/openshift/resource_limits.conf
       NAN
+    end
+  end
+
+  def test_mcollective_direct_addressing
+    skip_test unless @is_node || @is_broker
+
+    scl_root = @scl_prefix.empty? ? "" : "/opt/rh/ruby193/root"
+    cfgfiles = [
+      ("#{scl_root}/etc/mcollective/client.cfg" if @is_broker),
+      ("#{scl_root}/etc/mcollective/server.cfg" if @is_node)
+    ].compact
+
+    cfgfiles.each do |cfgfile|
+      # <https://docs.puppetlabs.com/mcollective/configure/client.html> and
+      # <https://docs.puppetlabs.com/mcollective/configure/server.html> state
+      # that the default value is 0.  However, oo-mco inventory fails with
+      # ruby193-mcollective-client-2.4.1-5.el6op if direct_addressing is not
+      # explicitly disabled.
+      setting = nil
+
+      File.open(cfgfile).each_line do |line|
+        setting = $1 if line =~ /^\s*direct_addressing\s*=\s*(\S*)/
+        # MCollective respects the last declaration, so continue reading lines.
+      end
+
+      unless setting =~ /^(0|no|false|n|f)$/i
+        do_fail <<-DIRECT_ADDRESSING
+          MCollective is not configured with direct addressing disabled.
+          Direct addressing may prevent your broker and node hosts from
+          communicating.
+
+          Please set direct_addressing = 0 in
+          #{cfgfile}.
+        DIRECT_ADDRESSING
+      end
     end
   end
 
@@ -1271,17 +1336,23 @@ class OODiag
     unreadable = []
     broker_unreadable = node_unreadable = []
     if @is_broker
-      dirs = "/etc/openshift /etc/httpd/conf.d /var/www/openshift/{broker,console}/httpd/"
+      # many files in /etc/openshift are read by apache, others are not
+      dirs = "/etc/openshift"
       names = %w[*.conf *.pem htpasswd quickstarts.json].map {|n| "-name '#{n}'" }
       names = '\( ' +  names * ' -o ' + ' \)'
-      broker_ok = %w[express node resource_limits].map {|f| "/etc/openshift/#{f}.conf" }
-      broker_unreadable = %x[find #{dirs} #{names} #{query} 2> /dev/null].split(/\n/) - broker_ok
-      dirs = "/etc/httpd/conf.d"
-      broker_unreadable += %x[find #{dirs} #{query}].split(/\n/)
+      broker_unreadable = %x[find #{dirs} #{names} #{query} 2> /dev/null].split(/\n/) -
+               # ignore these, broker/console do not read them
+               %w[express node resource_limits].map {|f| "/etc/openshift/#{f}.conf" }
+
+      # basically everything under broker/console should be apache-readable
+      # except httpd config (which is read by root)
+      dirs = "/var/www/openshift/broker"
+      dirs += " /var/www/openshift/console" if Dir.exists? "/var/www/openshift/console"
+      broker_unreadable += %x[find #{dirs} #{query} ! -wholename '*/httpd/*' ].split(/\n/)
     end
     if @is_node
-      dirs = "/etc/httpd/conf.d /var/lib/openshift/.httpd.d "
-      node_unreadable = %x[find #{dirs} #{query}].split(/\n/)
+      dirs = "/var/lib/openshift/.httpd.d/*.db" # only present for mod-rewrite frontend
+      node_unreadable = %x[find #{dirs} #{query}].split(/\n/) unless Dir.glob(dirs).empty?
     end
     unreadable = (broker_unreadable + node_unreadable).uniq
     unless unreadable.empty?
@@ -1295,6 +1366,46 @@ class OODiag
         #{ broker_unreadable.empty? ? "" : "The broker and console services may malfunction without read access to these files." }
         #{ node_unreadable.empty? ? "" : "The host httpd server may malfunction without read access to these files."}
       UNREADABLE
+    end
+  end
+
+  def test_node_clock_in_synch_with_broker
+    skip_test unless @is_node
+    require 'time'
+    warning_threshold = 5
+    drop_threshold = 60
+    host = OpenShift::Config.new.get('BROKER_HOST')
+    response = `curl -sI http://#{host}/`
+    local = Time.now
+    unless $?.success?
+      do_warn "Could not get date from #{host}:80."
+      skip_test
+    end
+    remote = response.match(/Date: (.*)/) {|date| Time.httpdate(date[1])}
+    unless remote
+      do_warn "Could not parse response from #{host}:80."
+      skip_test
+    end
+    diff = (local - remote).abs
+    if diff >= warning_threshold
+      msg = <<-"CLOCK"
+        The local host's clock is #{local > remote ? "ahead of" : "behind"} #{host}'s
+        by #{diff.to_i} seconds.  Note that a host will drop messages that it receives
+        over MCollective if the sender's timestamp on those messages is more
+        than #{drop_threshold} seconds in the past by the recipient's clock.  This means that
+        if a node's clock is too far off from the broker's, the node will
+        effectively be invisible to the broker.
+
+        Please ensure that all hosts' clocks are synchronized, and consider
+        configuring ntpd to keep their clocks synchronized.
+      CLOCK
+      # Subtract 5 from the actual threshold because if we're that close
+      # to it, we're dangerously close.
+      if diff >= drop_threshold - 5
+        do_fail msg
+      else
+        do_warn msg
+      end
     end
   end
 

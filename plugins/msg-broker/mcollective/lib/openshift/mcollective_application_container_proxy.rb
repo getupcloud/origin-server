@@ -1910,6 +1910,7 @@ module OpenShift
     # * destination_container: An ApplicationContainerProxy?
     # * destination_district_uuid: String
     # * change_district: Boolean
+    # * change_region: Boolean
     # * node_profile: String
     #
     # RETURNS:
@@ -1926,16 +1927,16 @@ module OpenShift
     # * uses rsync_destination_container
     # * uses move_gear_destroy_old
     #
-    def move_gear_secure(gear, destination_container, destination_district_uuid, change_district, node_profile)
+    def move_gear_secure(gear, destination_container, destination_district_uuid, change_district, change_region, node_profile)
       app = gear.application
       Lock.run_in_app_lock(app) do
         # run_in_app_lock() will reload the app object and any references to its fields need to be recomputed
         current_gear = app.gears.select {|g| g.uuid == gear.uuid }.first
-        move_gear(current_gear, destination_container, destination_district_uuid, change_district, node_profile)
+        move_gear(current_gear, destination_container, destination_district_uuid, change_district, change_region, node_profile)
       end
     end
 
-    def move_gear(gear, destination_container, destination_district_uuid, change_district, node_profile)
+    def move_gear(gear, destination_container, destination_district_uuid, change_district, change_region, node_profile)
       app = gear.application
       reply = ResultIO.new
       state_map = {}
@@ -1947,8 +1948,15 @@ module OpenShift
         raise OpenShift::OOException.new("Could not set gear uid to #{gear.uid}") if res.nil? or !res["updatedExisting"]
       end
 
+      # We don't have access to the whole app in the method where we check
+      # whether we are _actually_ changing regions, so block the operation early.
+      if change_region && app.scalable
+        log_debug "Cannot change region for *scalable* application gear - this operation is not supported."
+        raise OpenShift::UserException.new("Error moving gear. Cannot change region for *scalable* app.", 1)
+      end
+
       # resolve destination_container according to district
-      destination_container, destination_district_uuid, district_changed = resolve_destination(gear, destination_container, destination_district_uuid, change_district, node_profile)
+      destination_container, destination_district_uuid, district_changed = resolve_destination(gear, destination_container, destination_district_uuid, change_district, change_region, node_profile)
 
       source_platform = gear.group_instance.platform
       destination_platform = destination_container.get_platform
@@ -2151,7 +2159,7 @@ module OpenShift
     # NOTES:
     # * uses ApplicationContainerProxy.find_available
     #
-    def resolve_destination(gear, destination_container, destination_district_uuid, change_district, node_profile)
+    def resolve_destination(gear, destination_container, destination_district_uuid, change_district, change_region, node_profile)
       gear_exists_in_district = false
       required_uid = gear.uid
       source_container = gear.get_proxy
@@ -2207,7 +2215,7 @@ module OpenShift
 
       source_server = District.find_server(source_container.id)
       dest_server = District.find_server(destination_container.id)
-      if source_server && dest_server && (source_server.region_id != dest_server.region_id)
+      if source_server && dest_server && (source_server.region_id != dest_server.region_id) && !change_region
         raise OpenShift::UserException.new("Error moving gear. Old and new servers must belong to the same region, source region: #{source_server.region_name} destination region: #{dest_server.region_name}")
       end
 
@@ -2255,7 +2263,7 @@ module OpenShift
           #Rsync arguments had to be changed for windows to move the gear with full rights and reset them correctly in the post move method
           log_debug `eval \`ssh-agent\`; ssh-add #{rsync_keyfile}; ssh -o StrictHostKeyChecking=no -A root@#{source_container.get_ip_address} "rsync --perms -rltgoD0v --chmod=Du=rwx,Dg=rwx,Do=rwx,Fu=rww,Fg=rwx,Fo=rwx -p --exclude 'profile' -e 'ssh -o StrictHostKeyChecking=no' /cygdrive/c/openshift/gears/#{gear.uuid}/ root@#{destination_container.get_ip_address}:/cygdrive/c/openshift/gears/#{gear.uuid}/"; exit_code=$?; ssh-agent -k;exit $exit_code`
         else
-          log_debug `eval \`ssh-agent\`; ssh-add #{rsync_keyfile}; ssh -o StrictHostKeyChecking=no -A root@#{source_container.get_ip_address} "rsync -aAX -e 'ssh -o StrictHostKeyChecking=no' /var/lib/openshift/#{gear.uuid}/ root@#{destination_container.get_ip_address}:/var/lib/openshift/#{gear.uuid}/"; exit_code=$?; ssh-agent -k; exit $exit_code`
+          log_debug `eval \`ssh-agent\`; ssh-add #{rsync_keyfile}; ssh -o StrictHostKeyChecking=no -A root@#{source_container.get_ip_address} "rsync -aAXS -e 'ssh -o StrictHostKeyChecking=no' /var/lib/openshift/#{gear.uuid}/ root@#{destination_container.get_ip_address}:/var/lib/openshift/#{gear.uuid}/"; exit_code=$?; ssh-agent -k; exit $exit_code`
       end
 
       if $?.exitstatus != 0
@@ -2268,7 +2276,7 @@ module OpenShift
           #Rsync arguments changed, preserving extended attributes and ACLs cannot be used on windows
           log_debug `eval \`ssh-agent\`; ssh-add #{rsync_keyfile}; ssh -o StrictHostKeyChecking=no -A root@#{source_container.get_ip_address} "rsync -rltgoD0v -e 'ssh -o StrictHostKeyChecking=no' --include '.httpd.d/' --include '.httpd.d/#{gear.uuid}_***' --include '#{gear.name}-#{app.domain.namespace}' --include '.last_access/' --include '.last_access/#{gear.uuid}' --exclude '*' /cygdrive/c/openshift/gears/ root@#{destination_container.get_ip_address}:/cygdrive/c/openshift/gears/"; exit_code=$?; ssh-agent -k; exit $exit_code`
         else
-          log_debug `eval \`ssh-agent\`; ssh-add #{rsync_keyfile}; ssh -o StrictHostKeyChecking=no -A root@#{source_container.get_ip_address} "rsync -aAX -e 'ssh -o StrictHostKeyChecking=no' --include '.httpd.d/' --include '.httpd.d/#{gear.uuid}_***' --include '#{gear.name}-#{app.domain_namespace}' --include '.last_access/' --include '.last_access/#{gear.uuid}' --exclude '*' /var/lib/openshift/ root@#{destination_container.get_ip_address}:/var/lib/openshift/"; exit_code=$?; ssh-agent -k; exit $exit_code`
+          log_debug `eval \`ssh-agent\`; ssh-add #{rsync_keyfile}; ssh -o StrictHostKeyChecking=no -A root@#{source_container.get_ip_address} "rsync -aAXS -e 'ssh -o StrictHostKeyChecking=no' --include '.httpd.d/' --include '.httpd.d/#{gear.uuid}_***' --include '#{gear.name}-#{app.domain_namespace}' --include '.last_access/' --include '.last_access/#{gear.uuid}' --exclude '*' /var/lib/openshift/ root@#{destination_container.get_ip_address}:/var/lib/openshift/"; exit_code=$?; ssh-agent -k; exit $exit_code`
       end
 
       if $?.exitstatus != 0
@@ -2432,7 +2440,9 @@ module OpenShift
         rpc_client.disconnect
       end
 
-      raise OpenShift::NodeException.new("Node execution failure (error getting result from node).", 143) unless result
+      # checking for nil explicitly instead of "unless result"
+      # this is to prevent raising exception in case of a boolean false return value
+      raise OpenShift::NodeException.new("Node execution failure (error getting result from node).", 143) if result.nil?
 
       result
     end
@@ -2906,7 +2916,7 @@ module OpenShift
       MCollectiveApplicationContainerProxy.rpc_exec('openshift', @id) do |client|
         client.has_app_cartridge(:app_uuid => app_uuid, :gear_uuid => gear_uuid, :cartridge => cart) do |response|
           # the output is a boolean that is true if the cartridge exists on the gear and false otherwise
-          response[:body][:data][:output]
+          return response[:body][:data][:output]
         end
       end
     end
@@ -3017,6 +3027,7 @@ module OpenShift
       gear_exists_in_district = false
 
       node_profile = opts[:node_profile]
+      region_id = opts[:region_id]
       platform = opts[:platform]
       district_uuid = opts[:district_uuid]
       least_preferred_servers = opts[:least_preferred_servers]
@@ -3100,26 +3111,40 @@ module OpenShift
           # - server is not active
           # - server can not accomodate any more gears
           # - server not part of any zone when user requested zone
+          # - if request region is not available
           next if required_uid and !district.available_uids.include?(required_uid)
           if district.servers.where(name: server_identity).exists?
-          server = district.servers.find_by(name: server_identity)
-          if (gear_exists_in_district || district.available_capacity > 0) &&
-              server.active && (!require_zone || server.zone_id)
-            server_infos << NodeProperties.new(server_identity, capacity.to_f, district, server)
-          end
-          found_district = true
-          break
+            server = district.servers.find_by(name: server_identity)
+            if (gear_exists_in_district || district.available_capacity > 0) &&
+                server.active && (!require_zone || server.zone_id)
+              server_infos << NodeProperties.new(server_identity, capacity.to_f, district, server) unless (region_id and server.region_id != region_id)
+            end
+            found_district = true
+            break
           end
         end
-        if !found_district && !require_district # Districts aren't required in this case
-          server_infos << NodeProperties.new(server_identity, capacity.to_f)
+        if !found_district
+          # Add node info if districts aren't required
+          server_infos << NodeProperties.new(server_identity, capacity.to_f) if !require_district
+          # log an error if region is specified and no districted nodes are available
+          Rails.logger.warn "Specified region will be ignored since there are no districted nodes available" if region_id.present?
         end
       end
       if server_infos.empty?
-        if require_district && require_zone
-          raise OpenShift::NodeUnavailableException.new("No districted zone nodes available", 140)
-        elsif require_district
-          raise OpenShift::NodeUnavailableException.new("No district nodes available", 140)
+        if require_district
+          if require_zone
+            if region_id
+              raise OpenShift::NodeUnavailableException.new("No nodes available for the specified gear size/region/zone combination", 140)
+            else
+              raise OpenShift::NodeUnavailableException.new("No nodes available for the specified gear size/zone combination", 140)
+            end
+          else
+            if region_id
+              raise OpenShift::NodeUnavailableException.new("No nodes available for the specified gear size/region combination", 140)
+            else
+              raise OpenShift::NodeUnavailableException.new("No nodes available for the specified gear size", 140)
+            end
+          end
         end
       end
       # Remove the restricted servers from the list
@@ -3151,12 +3176,21 @@ module OpenShift
             min_zones_per_gear_group = Rails.configuration.msg_broker[:regions][:min_zones_per_gear_group]
             if available_zones_count < min_zones_per_gear_group
               active_zones = []
+              gi_zones = []
+              reloaded_gi = reloaded_app.group_instances.find_by(_id: gear.group_instance._id)
+              gi_server_names = reloaded_gi.gears.map {|gi_gear| gi_gear.server_identity}.uniq.compact
               districts.each do |district|
                 district.servers.where(region_id: server.region_id).each { |s| active_zones << s.zone_id }
+                district.servers.where(:name.in => gi_server_names).each { |s| gi_zones << s.zone_id }
               end
+
               active_zones = active_zones.uniq.compact
+              gi_zones = gi_zones.uniq.compact
               required_min_zones = [active_zones.length, min_zones_per_gear_group].min
-              if available_zones_count < required_min_zones
+
+              # include the zones that the existing app gears belong to
+              revised_available_zone_count = (zones_consumed_capacity.keys | gi_zones).uniq.compact.length
+              if revised_available_zone_count < required_min_zones
                 raise OpenShift::OOException.new("Unable to find minimum zones required for application gear group. " \
                                                    "Available zones:#{available_zones_count}, Needed min zones:#{required_min_zones}")
               end

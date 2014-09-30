@@ -2,14 +2,14 @@
 Name: jbossas
 Cartridge-Short-Name: JBOSSAS
 Display-Name: JBoss Application Server 7
-Description: The leading open source Java EE6 application server for enterprise Java
-  applications. Popular development frameworks include Seam, CDI, Weld, and Spring.
+Description: The leading open source Java EE6 application server for enterprise Java applications. Popular development frameworks include CDI, DeltaSpike and Spring.
 Version: '7'
 License: LGPL
 License-Url: http://www.gnu.org/copyleft/lesser.txt
 Vendor: Red Hat
-Cartridge-Version: 0.0.17
-Compatible-Versions: []
+Cartridge-Version: 0.0.20
+Compatible-Versions:
+- 0.0.19
 Cartridge-Vendor: redhat
 Categories:
 - service
@@ -52,8 +52,6 @@ Endpoints:
   Private-Port-Name: HTTP_PORT
   Private-Port: 8080
   Public-Port-Name: HTTP_PROXY_PORT
-  WebSocket-Port-Name: WEBSOCKET_PORT
-  WebSocket-Port: 8676
   Protocols:
   - http
   - ws
