@@ -1,4 +1,5 @@
 class AccountController < ConsoleController
+  include Console::HelpHelper
   include Console::UserManagerHelper
 
   def show
