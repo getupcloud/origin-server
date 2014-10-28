@@ -8,14 +8,20 @@
 - if plan[:free_tier]
   %tr
     %td Free Tier:
-    %td= plan[:free_tier] small gear(s)
+    %td
+      = plan[:free_tier]
+      small gear(s)
 
 - if plan[:bonus]
   %tr
     %td Bonus:
-    %td= plan[:bonus] small gear(s)
+    %td
+      = plan[:bonus]
+      small gear(s)
 
 - if plan[:voucher]
   %tr
     %td Voucher:
-    %td= 'R$ ' + plan[:voucher]
+    %td
+      R$ 
+      = plan[:voucher]
