@@ -444,6 +444,7 @@ en:
   addr_info_caption: 'Edit your contact and billing information.'
   gears_count: 'You have %{gears_free} gears available of %{max_gears} authorized.'
   validate_account: 'Valide sua conta'
+  unlock_your_account: 'Unlock your account in order to receive your credit.'
   validate_your_account_1: 'There are no more available gears.'
   validate_your_account_2: 'Please, validate your account.'
   increase_gears_limit: 'Increase your gears limit.'
