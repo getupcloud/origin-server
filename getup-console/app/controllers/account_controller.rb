@@ -1,6 +1,6 @@
 class AccountController < ConsoleController
-  include Console::HelpHelper
   include Console::UserManagerHelper
+  include Console::CommunityHelper
 
   def show
     @plan = user_manager_account_plan.content
