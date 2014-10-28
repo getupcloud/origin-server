@@ -98,6 +98,7 @@ en:
   Domain_name: 'Domain name'
   Application_URL: 'Application URL'
   hour: 'hour'
+  hours: 'hours'
   day: 'day'
   month: 'month'
   not_found_caption: 'Were you looking for any of the following?'
