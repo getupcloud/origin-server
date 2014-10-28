@@ -8,14 +8,14 @@
     - if plan[:free_tier].to_i > 0
       %tr
         %td Free Tier:
-        %td #{plan[:free_tier].to_i} #{I18n.t(:hours)}/small gear
+        %td #{plan[:free_tier].to_i} #{I18n.t(:hours)}/gear small
 
-    - if plan[:bonus].to_i > 0
+    - if plan[:bonus].to_f > 0
       %tr
         %td Bonus:
-        %td #{number_with_precision(plan[:bonus].to_f, :precision => 2)} #{I18n.t(:hours)}/small gear
+        %td #{number_with_precision(plan[:bonus].to_f, :precision => 2)} #{I18n.t(:hours)}/gear small
 
-    - if plan[:voucher].to_f > 0.0
+    - if plan[:voucher].to_f > 0
       %tr
         %td Voucher:
         %td R$ #{number_with_precision(plan[:voucher].to_f, :precision => 2)}
@@ -23,4 +23,3 @@
     %tr
       %td.right{:colspan => 2}
         %a{:href=>getup_credit_url}Entenda
-      %td

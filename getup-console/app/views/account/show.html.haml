@@ -6,7 +6,7 @@
   .span7
     %section
       = render :partial => 'validate', :locals => {:capabilities => @capabilities, :payment=> @payment}
-    - if @plan[:free_tier].to_i or @plan[:bonus].to_i or @plan[:voucher].to_f
+    - if @plan[:free_tier].to_i > 0 or @plan[:bonus].to_f > 0 or @plan[:voucher].to_f > 0
       %section
         = render :partial => 'credits', :locals => {:plan=> @plan, :getup_credit_url => @getup_credit_url}
 
