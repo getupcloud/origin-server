@@ -11,7 +11,7 @@
       = render :partial => 'validate', :locals => {:capabilities => @capabilities, :payment=> @payment}
     - if @plan[:free_tier].to_i or @plan[:bonus].to_i or @plan[:voucher].to_f
       %secion
-        = render :partial => 'credits', :locals => {:plan=> @plan, :getup_credit_url => getup_credit_url}
+        = render :partial => 'credits', :locals => {:plan=> @plan, :getup_credit_url => @getup_credit_url}
 
   .span5
     %section
