@@ -1,7 +1,8 @@
-//%h2= I18n.t(:Subscription)
+%h2= I18n.t :Authorization
 
 //%pre
 //  = payment
+%p= I18n.t(:gears_count, gears_free: capabilities.gears_free, max_gears: capabilities.max_gears)
 
 - if payment[:valid]
 
