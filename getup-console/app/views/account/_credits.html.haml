@@ -1,27 +1,31 @@
 %h2= I18n.t :Credits
 
 :css
-  .credits { width: 25%; }
+  .credits { width: 50%; }
 
-%table.credits
+%table.table.credits
+  %tbody
+    - if plan[:free_tier].to_i > 0
+      %tr
+        %td Free Tier:
+        %td
+          = plan[:free_tier]
+          small gear(s)
 
-- if plan[:free_tier]
-  %tr
-    %td Free Tier:
-    %td
-      = plan[:free_tier]
-      small gear(s)
+    - if plan[:bonus].to_i > 0
+      %tr
+        %td Bonus:
+        %td
+          = plan[:bonus].to_i
+          small gear(s)
 
-- if plan[:bonus]
-  %tr
-    %td Bonus:
-    %td
-      = plan[:bonus]
-      small gear(s)
+    - if plan[:voucher].to_f > 0.0
+      %tr
+        %td Voucher:
+        %td
+          R$
+          #{number_with_precision(plan[:voucher].to_f, :precision => 2)}
 
-- if plan[:voucher]
-  %tr
-    %td Voucher:
-    %td
-      R$ 
-      = plan[:voucher]
+    %tr
+      %td
+      %td
