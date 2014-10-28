@@ -97,6 +97,7 @@ pt:
   Domain_name: 'Nome de Domínio'
   Application_URL: 'URL da Aplicação'
   hour: 'hora'
+  hours: 'horas'
   day: 'dia'
   month: 'mês'
   not_found_caption: 'Está procurando por algum destes?'
