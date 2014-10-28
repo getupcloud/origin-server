@@ -5,12 +5,9 @@
 .row
   .span7
     %section
-      = render :partial => 'gears', :locals => {:capabilities => @capabilities, :payment=> @payment}
-
-    %secion
       = render :partial => 'validate', :locals => {:capabilities => @capabilities, :payment=> @payment}
     - if @plan[:free_tier].to_i or @plan[:bonus].to_i or @plan[:voucher].to_f
-      %secion
+      %section
         = render :partial => 'credits', :locals => {:plan=> @plan, :getup_credit_url => @getup_credit_url}
 
   .span5
