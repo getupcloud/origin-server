@@ -8,7 +8,7 @@
     - if plan[:free_tier].to_i > 0
       %tr
         %td Free Tier:
-        %td #{number_with_precision(plan[:free_tier].to_f, :precision => 2)} #{I18n.t(:hours)}/small gear
+        %td #{plan[:free_tier].to_i} #{I18n.t(:hours)}/small gear
 
     - if plan[:bonus].to_i > 0
       %tr
