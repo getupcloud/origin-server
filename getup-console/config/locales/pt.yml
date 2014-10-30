@@ -432,7 +432,7 @@ pt:
   billing_history_caption: 'Acesse seu histórico de faturas'
   billing_history_button: 'Faturas'
   addr_info_caption: 'Altere seus dados de contato e cobrança.'
-  gears_count: 'Você possui %{gears_free} gears disponíveis de %{max_gears} autorizado(s).'
+  gears_count: 'Você possui %{gears_free} gear(s) disponívei(s) de %{max_gears} autorizado(s).'
   validate_account: 'Valide sua conta'
   unlock_your_account_click_here: 'Clique aqui'
   unlock_your_account_text: 'e valide a conta para receber seu crédito.'

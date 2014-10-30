@@ -443,7 +443,7 @@ en:
   billing_history_caption: 'View your invoice history'
   billing_history_button: 'Invoices'
   addr_info_caption: 'Edit your contact and billing information.'
-  gears_count: 'You have %{gears_free} gears available of %{max_gears} authorized.'
+  gears_count: 'You have %{gears_free} available gear(s) of %{max_gears} authorized.'
   validate_account: 'Valide sua conta'
   unlock_your_account_click_here: 'Click here'
   unlock_your_account_text: 'to validate your account in order to receive your credit.'
