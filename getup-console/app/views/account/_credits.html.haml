@@ -10,6 +10,11 @@
         %td Free Tier:
         %td #{plan[:free_tier].to_i} #{I18n.t(:hours)}/gear small
 
+    - if plan[:credit].to_f > 0
+      %tr
+        %td #{I18n.t :Credit}
+        %td #{number_with_precision(plan[:credit].to_f, :precision => 2)} #{I18n.t(:hours)}/gear small
+
     - if plan[:bonus].to_f > 0
       %tr
         %td Bonus:
