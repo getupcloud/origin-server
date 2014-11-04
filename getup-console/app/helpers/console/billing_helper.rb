@@ -17,11 +17,19 @@ module Console::BillingHelper
     services.length > 0
   end
 
+  def has_credits(amount)
+   has_bonus(amount) or has_credit(amount) or has_voucher(amount)
+  end
+
   def has_bonus(amount)
     amount[:GEAR_USAGE][:bonus][:amount].to_f > 0 rescue false
   end
 
   def has_credit(amount)
     amount[:GEAR_USAGE][:credit][:amount].to_f > 0 rescue false
+  end
+
+  def has_voucher(amount)
+    amount[:voucher][:amount].to_f > 0 rescue false
   end
 end

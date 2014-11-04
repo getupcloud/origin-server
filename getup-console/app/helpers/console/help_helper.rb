@@ -21,7 +21,7 @@ module Console::HelpHelper
   def forum_path
     community_base_url 'forums'
   end
- 
+
   def getup_community_path
     community_base_url 'forums/21724128'
   end

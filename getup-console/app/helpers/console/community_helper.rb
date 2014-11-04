@@ -1,4 +1,7 @@
 module Console::CommunityHelper
+  def getup_credit_url
+    community_base_url 'entries/61852715'
+  end
 
   def irc_web_url
     'http://webchat.freenode.net/?randomnick=1&channels=getupcloud&uio=d4'

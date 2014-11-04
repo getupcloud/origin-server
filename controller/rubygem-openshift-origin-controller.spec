@@ -10,7 +10,7 @@
 Summary:       Cloud Development Controller
 Name:          rubygem-%{gem_name}
 Version: 1.18.0.1
-Release:       2%{?dist}
+Release:       3%{?dist}
 Group:         Development/Languages
 License:       ASL 2.0
 URL:           http://www.openshift.com
@@ -85,6 +85,10 @@ mkdir -p %{buildroot}/etc/openshift/
 %{gem_dir}/doc/%{gem_name}-%{version}
 
 %changelog
+* Wed Oct 15 2014 Builder <getup@getupcloud.com> 1.18.0.1-3
+- bump version (mateus.caruccio@getupcloud.com)
+- Downloadable cart on TLSv1 only (mateus.caruccio@getupcloud.com)
+
 * Sat Feb 15 2014 Unknown name 1.18.0.1-2
 - bump version (spinolacastro@gmail.com)
 - fix missing env_vars routes (spinolacastro@gmail.com)

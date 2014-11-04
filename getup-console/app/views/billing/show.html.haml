@@ -94,7 +94,7 @@
                 %td{:style => 'font-weight: bold'} #{@acronym} #{number_with_precision(total, :precision => 2)}  
 
       //Services
-      - if @services
+      - if @services.length
         - total = 0
         %h3= I18n.t(:Services)
         %table.table.table-fixed.invoice{:style => 'background-color: #1b1b1b'}
@@ -118,7 +118,7 @@
               %td{:style => 'font-weight: bold'} #{@acronym} #{number_with_precision(total, :precision => 2)}
 
       //Credit
-      - if has_credit(@amount) or has_bonus(@amount)
+      - if has_credits(@amount)
         - total = 0
         %h3= I18n.t(:Credits)
         %table.table.table-fixed.invoice{:style => 'background-color: #1b1b1b'}
@@ -132,23 +132,32 @@
               %th{:scope => 'col', :style => 'width: 120px'}= I18n.t(:Total_credit)
           %tbody
             - if has_credit(@amount)
-              - total += @amount[:GEAR_USAGE][:credit][:amount].to_f
+              - total += @amount[:GEAR_USAGE][:credit][:used_amount].to_f
               %tr
-                %td= I18n.t(:Free_gear_credit)
-                %td GEAR_USAGE
+                %td #{I18n.t(:Free_gear_credit)}
+                %td GEAR_USAGE: small
                 %td #{@amount[:GEAR_USAGE][:credit][:quantity]}
                 %td #{@amount[:GEAR_USAGE][:credit][:unit]}
                 %td #{@acronym} #{number_with_precision(gear_price(:GEAR_USAGE, :small, @prices)[:value].to_f, :precision => 2)}
                 %td{:style => 'font-weight: bold'} #{@acronym} #{number_with_precision(@amount[:GEAR_USAGE][:credit][:amount].to_f, :precision => 2)}
             - if has_bonus(@amount)
-              - total += @amount[:GEAR_USAGE][:bonus][:amount].to_f
+              - total += @amount[:GEAR_USAGE][:bonus][:used_amount].to_f
               %tr
-                %td= I18n.t(:Free_gear_bonus)
-                %td GEAR_USAGE
+                %td #{I18n.t(:Free_gear_bonus)}
+                %td GEAR_USAGE: small
                 %td #{@amount[:GEAR_USAGE][:bonus][:quantity]}
                 %td #{@amount[:GEAR_USAGE][:bonus][:unit]}
                 %td #{@acronym} #{number_with_precision(gear_price(:GEAR_USAGE, :small, @prices)[:value].to_f, :precision => 2)}
                 %td{:style => 'font-weight: bold'} #{@acronym} #{number_with_precision(@amount[:GEAR_USAGE][:bonus][:amount].to_f, :precision => 2)}
+            - if has_voucher(@amount)
+              - total += @amount[:voucher][:used_amount].to_f
+              %tr
+                %td #{I18n.t(:Free_gear_voucher)}
+                %td #{I18n.t(:Money)}
+                %td #{number_with_precision(@amount[:voucher][:amount], :precision => 2)}
+                %td #{@acronym}
+                %td -
+                %td{:style => 'font-weight: bold'} #{@acronym} #{number_with_precision(@amount[:voucher][:used_amount], :precision => 2)}
             %tr
               %td{:colspan => 4}
               %td{:style => 'font-weight: bold'} Sub Total

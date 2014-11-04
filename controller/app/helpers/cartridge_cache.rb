@@ -147,6 +147,7 @@ class CartridgeCache
     client.connect_timeout =        cartridge_conf[:connect_timeout] || 2
     client.receive_timeout =        cartridge_conf[:max_download_time] || 10
     client.follow_redirect_count =  cartridge_conf[:max_download_redirects] || 2
+    client.ssl_config.ssl_version = 'TLSv1'
 
     manifest = ""
 
