@@ -200,6 +200,13 @@ Ruby cartridge for OpenShift. (Cartridge Format V2)
 %doc %{cartridgedir}/LICENSE
 
 %changelog
+* Tue Nov 04 2014 Builder <getup@getupcloud.com> 1.18.0.3-6
+- Merge branch 'getup-openshift-origin-release-3' of github.com:getupcloud
+  /origin-server into getup-openshift-origin-release-3
+  (spinolacastro@gmail.com)
+- bump version (spinolacastro@gmail.com)
+- add wrapper for rails 4 build (spinolacastro@gmail.com)
+
 * Tue Nov 04 2014 Builder <getup@getupcloud.com> 1.18.0.3-5
 - bump version (spinolacastro@gmail.com)
 - ruby 2 (spinolacastro@gmail.com)
