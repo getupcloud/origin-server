@@ -94,7 +94,7 @@
                 %td{:style => 'font-weight: bold'} #{@acronym} #{number_with_precision(total, :precision => 2)}  
 
       //Services
-      - if @services
+      - if @services.length
         - total = 0
         %h3= I18n.t(:Services)
         %table.table.table-fixed.invoice{:style => 'background-color: #1b1b1b'}
