@@ -126,6 +126,7 @@ pt:
   Disable_Scaling: 'Desabilitar Escalabilidade'
   Services: 'Serviços'
   Money: 'Dinheiro'
+  Discount: 'Desconto'
 
 ## Signin
   Dashboard_Auth: "BEM-VINDO AO DASHBOARD"

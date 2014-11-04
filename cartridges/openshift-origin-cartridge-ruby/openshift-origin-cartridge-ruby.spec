@@ -200,6 +200,10 @@ Ruby cartridge for OpenShift. (Cartridge Format V2)
 %doc %{cartridgedir}/LICENSE
 
 %changelog
+* Tue Nov 04 2014 Builder <getup@getupcloud.com> 1.18.0.3-5
+- bump version (spinolacastro@gmail.com)
+- ruby 2 (spinolacastro@gmail.com)
+
 * Tue Aug 12 2014 Builder <getup@getupcloud.com> 1.18.0.3-3
 - Translate welcome pages to pt-br (mateus.caruccio@getupcloud.com)
 
