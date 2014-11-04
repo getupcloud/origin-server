@@ -30,6 +30,6 @@ module Console::BillingHelper
   end
 
   def has_voucher(amount)
-    amount[:GEAR_USAGE][:voucher][:amount].to_f > 0 rescue false
+    amount[:voucher][:amount].to_f > 0 rescue false
   end
 end
