@@ -68,8 +68,9 @@ pt:
   Total_credit: 'Crédito total'
   Final_Total: 'Total Final'
   Free_gear: 'Gear grátis'
-  Free_gear_bonus: 'Gear grátis (bonus)'
-  Free_gear_credit: 'Gear grátis (crédito recorrente)'
+  Free_gear_voucher: 'Hora/gear grátis (voucher)'
+  Free_gear_bonus: 'Hora/gear grátis (bonus)'
+  Free_gear_credit: 'Hora/gear grátis (crédito recorrente)'
   Back: 'Voltar'
   Restart: 'Reiniciar'
   Shared: 'Compartilhado'
@@ -124,6 +125,7 @@ pt:
   Not_Scalable: 'Não Escalável'
   Disable_Scaling: 'Desabilitar Escalabilidade'
   Services: 'Serviços'
+  Money: 'Dinheiro'
 
 ## Signin
   Dashboard_Auth: "BEM-VINDO AO DASHBOARD"
