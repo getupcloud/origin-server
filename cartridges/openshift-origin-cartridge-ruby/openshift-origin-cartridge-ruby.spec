@@ -1,13 +1,15 @@
 %if 0%{?fedora}%{?rhel} <= 6
     %global scl ruby193
     %global scl_prefix ruby193-
+    %global scl20 ruby200
+    %global scl20_prefix ruby200-
 %endif
 
 %global cartridgedir %{_libexecdir}/openshift/cartridges/ruby
 
 Name:          openshift-origin-cartridge-ruby
 Version: 1.18.0.3
-Release:       3%{?dist}
+Release:       5%{?dist}
 Summary:       Ruby cartridge
 Group:         Development/Languages
 License:       ASL 2.0
@@ -130,6 +132,22 @@ Requires:      %{?scl:%scl_prefix}ruby-irb
 Requires:      %{?scl:%scl_prefix}ruby-libs
 Requires:      %{?scl:%scl_prefix}ruby-mysql
 Requires:      %{?scl:%scl_prefix}ruby-tcltk
+
+
+# For ruby-2.0.0 SCL
+Requires:      %{?scl20:%scl20_prefix}ruby
+Requires:      %{?scl20:%scl20_prefix}ruby-libs
+Requires:      %{?scl20:%scl20_prefix}ruby-devel
+Requires:      %{?scl20:%scl20_prefix}runtime
+Requires:      %{?scl20:%scl20_prefix}rubygems
+# 'ror40' collection is needed to get the rubygems in ruby 2.0
+Requires:      ror40
+#
+Requires:      %{?scl20:%scl20_prefix}rubygem-passenger
+Requires:      %{?scl20:%scl20_prefix}rubygem-passenger-devel
+Requires:      %{?scl20:%scl20_prefix}rubygem-passenger-native
+Requires:      %{?scl20:%scl20_prefix}rubygem-passenger-native-libs
+Requires:      %{?scl20:%scl20_prefix}mod_passenger
 
 # Deps for users
 Requires:      ImageMagick-devel
