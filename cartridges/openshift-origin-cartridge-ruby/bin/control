@@ -10,6 +10,13 @@ HTTPD_PASSENV_FILE=${HTTPD_CFG_DIR}/passenv.conf
 HTTPD_PID_FILE=$OPENSHIFT_RUBY_DIR/run/httpd.pid
 RAILS_ENV=${RAILS_ENV:-production}
 
+# Use a custom directory for Passenger's temp files to work around:
+# https://code.google.com/p/phusion-passenger/issues/detail?id=961
+#
+# The directory it creates automatically in /tmp has setuid which
+# triggers the bug when using graceful operations.
+[ -d /tmp/passenger ] || mkdir /tmp/passenger
+
 function start() {
     if process_running 'httpd', $HTTPD_PID_FILE; then
       if ruby_in_development_mode && httpd_in_development_mode; then

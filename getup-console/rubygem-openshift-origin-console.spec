@@ -10,7 +10,7 @@
 Summary:       OpenShift Origin Management Console
 Name:          rubygem-%{gem_name}
 Version: 1.7.6
-Release:       72%{?dist}
+Release:       89%{?dist}
 Group:         Development/Languages
 License:       ASL 2.0
 URL:           https://openshift.redhat.com
@@ -134,6 +134,99 @@ cp -a ./%{gem_dir}/* %{buildroot}%{gem_dir}/
 %{gem_dir}/doc/%{gem_name}-%{version}
 
 %changelog
+* Tue Nov 04 2014 Builder <getup@getupcloud.com> 1.7.6-89
+- Merge branch 'getup-openshift-origin-release-3' of github.com:getupcloud
+  /origin-server into getup-openshift-origin-release-3 (getup@getupcloud.com)
+- fix voucher load (mateus.caruccio@getupcloud.com)
+
+* Tue Nov 04 2014 Builder <getup@getupcloud.com> 1.7.6-88
+- Merge branch 'getup-openshift-origin-release-3' of github.com:getupcloud
+  /origin-server into getup-openshift-origin-release-3 (getup@getupcloud.com)
+- supress empty services (mateus.caruccio@getupcloud.com)
+
+* Tue Nov 04 2014 Builder <getup@getupcloud.com> 1.7.6-87
+- Merge branch 'getup-openshift-origin-release-3' of github.com:getupcloud
+  /origin-server into getup-openshift-origin-release-3 (getup@getupcloud.com)
+- Fix bill (mateus.caruccio@getupcloud.com)
+
+* Thu Oct 30 2014 Builder <getup@getupcloud.com> 1.7.6-86
+- Merge branch 'getup-openshift-origin-release-3' of github.com:getupcloud
+  /origin-server into getup-openshift-origin-release-3 (getup@getupcloud.com)
+- fix credit table filter (mateus.caruccio@getupcloud.com)
+
+* Thu Oct 30 2014 Builder <getup@getupcloud.com> 1.7.6-85
+- Merge branch 'getup-openshift-origin-release-3' of github.com:getupcloud
+  /origin-server into getup-openshift-origin-release-3 (getup@getupcloud.com)
+- minor change (mateus.caruccio@getupcloud.com)
+- Show credits on my account (mateus.caruccio@getupcloud.com)
+
+* Tue Oct 28 2014 Builder <getup@getupcloud.com> 1.7.6-84
+- Merge branch 'getup-openshift-origin-release-3' of github.com:getupcloud
+  /origin-server into getup-openshift-origin-release-3 (getup@getupcloud.com)
+- better unlock acct flash mesg (mateus.caruccio@getupcloud.com)
+
+* Tue Oct 28 2014 Builder <getup@getupcloud.com> 1.7.6-83
+- Merge branch 'getup-openshift-origin-release-3' of github.com:getupcloud
+  /origin-server into getup-openshift-origin-release-3 (getup@getupcloud.com)
+- move getup_credit_url to CommunityHelper (mateus.caruccio@getupcloud.com)
+
+* Tue Oct 28 2014 Builder <getup@getupcloud.com> 1.7.6-82
+- Merge branch 'getup-openshift-origin-release-3' of github.com:getupcloud
+  /origin-server into getup-openshift-origin-release-3 (getup@getupcloud.com)
+- fix credit filter (mateus.caruccio@getupcloud.com)
+- authorization title (mateus.caruccio@getupcloud.com)
+
+* Tue Oct 28 2014 Builder <getup@getupcloud.com> 1.7.6-81
+- Merge branch 'getup-openshift-origin-release-3' of github.com:getupcloud
+  /origin-server into getup-openshift-origin-release-3 (getup@getupcloud.com)
+- minor fix (mateus.caruccio@getupcloud.com)
+
+* Tue Oct 28 2014 Builder <getup@getupcloud.com> 1.7.6-80
+- Merge branch 'getup-openshift-origin-release-3' of github.com:getupcloud
+  /origin-server into getup-openshift-origin-release-3 (getup@getupcloud.com)
+- export getup_credit_url to view (mateus.caruccio@getupcloud.com)
+- Merge branch 'getup-openshift-origin-release-3' of github.com:getupcloud
+  /origin-server into getup-openshift-origin-release-3 (getup@getupcloud.com)
+- minor fix (mateus.caruccio@getupcloud.com)
+
+* Tue Oct 28 2014 Builder <getup@getupcloud.com>
+- Merge branch 'getup-openshift-origin-release-3' of github.com:getupcloud
+  /origin-server into getup-openshift-origin-release-3 (getup@getupcloud.com)
+- minor fix (mateus.caruccio@getupcloud.com)
+
+* Tue Oct 28 2014 Builder <getup@getupcloud.com> 1.7.6-79
+- Merge branch 'getup-openshift-origin-release-3' of github.com:getupcloud
+  /origin-server into getup-openshift-origin-release-3 (getup@getupcloud.com)
+- credit table help (mateus.caruccio@getupcloud.com)
+
+* Tue Oct 28 2014 Builder <getup@getupcloud.com> 1.7.6-78
+- Merge branch 'getup-openshift-origin-release-3' of github.com:getupcloud
+  /origin-server into getup-openshift-origin-release-3 (getup@getupcloud.com)
+- integer free tier (mateus.caruccio@getupcloud.com)
+
+* Tue Oct 28 2014 Builder <getup@getupcloud.com> 1.7.6-77
+- Merge branch 'getup-openshift-origin-release-3' of github.com:getupcloud
+  /origin-server into getup-openshift-origin-release-3 (getup@getupcloud.com)
+- fix credit table (mateus.caruccio@getupcloud.com)
+
+* Mon Oct 27 2014 Builder <getup@getupcloud.com> 1.7.6-76
+- Merge branch 'getup-openshift-origin-release-3' of github.com:getupcloud
+  /origin-server into getup-openshift-origin-release-3 (getup@getupcloud.com)
+- fix credit table (mateus.caruccio@getupcloud.com)
+
+* Mon Oct 27 2014 Builder <getup@getupcloud.com> 1.7.6-75
+- Merge branch 'getup-openshift-origin-release-3' of github.com:getupcloud
+  /origin-server into getup-openshift-origin-release-3 (getup@getupcloud.com)
+- fix credit template (mateus.caruccio@getupcloud.com)
+
+* Mon Oct 27 2014 Builder <getup@getupcloud.com> 1.7.6-74
+- Merge branch 'getup-openshift-origin-release-3' of github.com:getupcloud
+  /origin-server into getup-openshift-origin-release-3 (getup@getupcloud.com)
+- My Account show credits (mateus.caruccio@getupcloud.com)
+
+* Mon Oct 27 2014 Builder <getup@getupcloud.com> 1.7.6-73
+- 
+
 * Thu Jul 24 2014 Builder <getup@getupcloud.com> 1.7.6-72
 - Merge branch 'getup-openshift-origin-release-3' of github.com:getupcloud
   /origin-server into getup-openshift-origin-release-3 (getup@getupcloud.com)
