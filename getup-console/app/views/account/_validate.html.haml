@@ -2,7 +2,7 @@
 
 //%pre
 //  = payment
-- if plan.status == 'te' or plan.status == 'tf'
+- if plan[:status] == 'te' or plan[:status] == 'tf'
   %p= I18n.t(:trial_finished)
 
 %p= I18n.t(:gears_count, gears_free: capabilities.gears_free, max_gears: capabilities.max_gears)
