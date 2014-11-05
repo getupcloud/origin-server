@@ -449,6 +449,7 @@ pt:
   auth_updated: 'Autorização atualizada'
   auth_revoked: 'A autorização foi revogada'
   auth_revoked_all: 'Todas as autorizações foram revogadas'
+  trial_finished: 'Seu período de testes expirou.'
 
 ## My Account / Billing
   billing_history_title: 'Histórico de Faturas'

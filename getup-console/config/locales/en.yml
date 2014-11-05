@@ -460,6 +460,7 @@ en:
   auth_updated: 'Authorization updated'
   auth_revoked: 'The authorization has been revoked'
   auth_revoked_all: 'All authorizations revoked'
+  trial_finished: 'Your trial period has expired.'
 
 ## My Account / Billing
   billing_history_title: 'Billing History'
