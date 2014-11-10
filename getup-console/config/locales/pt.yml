@@ -509,6 +509,7 @@ pt:
       paypal:  'Atenção: sua modalidade de pagamento será descontinuada. Pedimos que faça nova validação clicando abaixo. Obrigado!'
       boleto: 'Você pode optar por pagar utilizando sua conta PayPal:'
       paypal_reftrans: 'Você pode atualizar a conta PayPal no botão abaixo:'
+      none: 'Valide sua conta para obter acesso a mais recursos:'
 
 ## Settings
   namespace_caption_1: 'Seu namespace é exclusivo da sua conta e identifica o suffixo da URL pública de suas aplicações'

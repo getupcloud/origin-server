@@ -500,7 +500,7 @@ en:
   change_credit_card: 'Change credit card'
   validate_title: 'Validate account'
   validate_caption_1: 'Fill in your credit card information.'
-  validate_caption_invalid: 'Validate your account to access more resources:'
+  validate_caption_invalid: 'Validate your account to have access to more resources:'
   Payment_method: 'Payment method'
   validate_caption_valid: 'Payments will be due using:'
   validate_not_supported: 'Either your JavaScript is disabled or you are using an old browser. Please upgrade your browser or activate your JavaScript.'
@@ -524,6 +524,7 @@ en:
       paypal: 'Attention: Your payment method will be discuntinued soon. Please, update your account now by clicking the button below. Thank you!'
       boleto: 'You can choose to pay using your PayPal account.'
       paypal_reftrans: 'You can update your PayPal account using the button below:'
+      none: 'Validate your account to have access to more resources:'
 
 ## Settings
   namespace_caption_1: 'Your namespace is unique to your account and is the suffix of the public URLs we assign to your applications.'
