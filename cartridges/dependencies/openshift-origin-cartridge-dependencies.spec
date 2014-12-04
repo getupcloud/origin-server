@@ -303,6 +303,7 @@ Requires:  php-pecl-apc
 Requires:  php-pecl-imagick
 Requires:  php-pecl-memcache
 Requires:  php-pecl-xdebug
+Requires:  php-pecl-opcache
 Requires:  php-process
 Requires:  php-soap
 Requires:  php-xml
@@ -321,6 +322,7 @@ Requires:  php54-php-pecl-apc
 Requires:  php54-php-pecl-imagick
 Requires:  php54-php-pecl-memcache
 Requires:  php54-php-pecl-xdebug
+Requires:  php54-php-pecl-zendopcache
 Requires:  php54-php-process
 Requires:  php54-php-soap
 Requires:  php54-php-xml
