@@ -302,8 +302,9 @@ Requires:  php-pdo
 Requires:  php-pecl-apc
 Requires:  php-pecl-imagick
 Requires:  php-pecl-memcache
+# Make sure not to install OPCache for PHP 5.3, as we're using APC opcode cache exclusively instead
+Conflicts: php-pecl-opcache
 Requires:  php-pecl-xdebug
-Requires:  php-pecl-opcache
 Requires:  php-process
 Requires:  php-soap
 Requires:  php-xml
