@@ -91,6 +91,10 @@ class CartridgeType < RestApi::Base
     @usage_rates || []
   end
 
+  def usage_rates?
+    not usage_rates.empty?
+  end
+
   def scalable
     self.attributes['supported_scales_to'] != self.attributes['supported_scales_from']
   end
