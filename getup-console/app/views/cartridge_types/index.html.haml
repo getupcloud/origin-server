@@ -9,16 +9,16 @@
     .alert.alert-info= I1n8.t(:no_cartridge)
 
   - else
-    .span8
+    .span10
       %p= I18n.t(:choose_cart)
       .row
         - @carts.in_groups(2, false).each do |types|
-          .span4
+          .span5
             = render :collection => types, :partial => 'cartridge_types/cartridge_type', :locals => {:application => @application}
 
 
   - unless @installed.empty? and @requires.empty? and @conflicts.empty? and @blocked.empty?
-    .span4
+    .span5
       - unless @installed.empty?
         %h3= I18n.t(:Installed)
         = render :collection => @installed, :partial => 'cartridge_types/cartridge_type', :locals => {:application => @application, :inactive => true, :reason => :installed}
