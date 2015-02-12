@@ -44,7 +44,7 @@
             %th{:scope => 'col'}= I18n.t(:Id)
             %th{:scope => 'col'}= I18n.t(:Month)
             %th{:scope => 'col'}= I18n.t(:Processed)
-            %th{:scope => 'col'}= I18n.t(:Due_Date)
+            //%th{:scope => 'col'}= I18n.t(:Due_Date)
             %th{:scope => 'col'}= I18n.t(:Status)
             %th{:scope => 'col'}= I18n.t(:Amount) + " (#{@currency})"
             %th{:scope => 'col'} PDF
@@ -57,8 +57,8 @@
               %td #{ref_date}
               - proc_date = !h[:proc_date].nil? ? Date.strptime("#{h[:proc_date]}","%Y-%m-%d").strftime("%h %d, %Y") : '-'
               %td #{proc_date}
-              - due_date = !h[:due_date].nil? ? Date.strptime("#{h[:due_date]}","%Y-%m-%d").strftime("%h %d, %Y") : '-'
-              %td #{due_date}
+              //- due_date = !h[:due_date].nil? ? Date.strptime("#{h[:due_date]}","%Y-%m-%d").strftime("%h %d, %Y") : '-'
+              //%td #{due_date}
               %td #{h[:status].capitalize}
               %td #{number_with_precision(h[:amount].to_f, :precision => 2)}
               %td
