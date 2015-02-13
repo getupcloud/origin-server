@@ -59,6 +59,24 @@ PHP cartridge for openshift. (Cartridge Format V2)
 
 
 %changelog
+* Fri Feb 13 2015 Builder <getup@getupcloud.com> 1.26.9.1-5
+- bump version (spinolacastro@gmail.com)
+- fix dup file (spinolacastro@gmail.com)
+- bump version (spinolacastro@gmail.com)
+- opcache php 5.5 (spinolacastro@gmail.com)
+- Change the style more readable (nakayamakenjiro@gmail.com)
+- Fix of bz1176491 (nakayamakenjiro@gmail.com)
+- Fix bug 1173796 (vvitek@redhat.com)
+- Refactor PHP enable_modules to support Zend Extensions (vvitek@redhat.com)
+- Move Xdebug enabling/disabling logic to enable_modules (vvitek@redhat.com)
+- Remove duplicate call to pre_start_httpd_config (vvitek@redhat.com)
+- Fix PHP 5.4 Zend OPCache default gear memory consumption (vvitek@redhat.com)
+- Make sure to disable OPCache for PHP 5.3 (vvitek@redhat.com)
+- Replace OPENSHIFT_PHP_OPCACHE_MEMORY_CONSUMPTION and tiny changes
+  (nakayamakenjiro@gmail.com)
+- Fixed zend opcache template (nakayamakenjiro@gmail.com)
+- Add zend opcache template to enable it (nakayamakenjiro@gmail.com)
+
 * Fri Sep 26 2014 Builder <getup@getupcloud.com> 1.26.9.1-4
 - bump version (getup@getupcloud.com)
 - Merge branch 'getup-openshift-origin-release-4' of github.com:getupcloud
