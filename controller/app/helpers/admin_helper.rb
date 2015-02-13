@@ -10,6 +10,7 @@ module AdminHelper
   $domain_hash = {}
   $app_gear_hash = {}
   $domain_gear_sizes = []
+  $user_gear_sizes = []
 
   $usage_gear_hash = {}
   $usage_storage_hash = {}
@@ -125,6 +126,7 @@ module AdminHelper
         print_message "User with Id #{user['_id']} has a null, empty, or missing login." unless skip_errors
       else
         $user_hash[user["_id"].to_s] = get_user_info(user)
+        $user_gear_sizes |= user["capabilities"]["gear_sizes"] if user["capabilities"].present? and user["capabilities"]["gear_sizes"].present?
       end
     end
   end
@@ -183,7 +185,7 @@ module AdminHelper
       app_life_time = Time.now.utc - creation_time
 
       if $chk_app or $chk_gear_mongo_node
-        # set the compoent and gear ids in the $domain_hash to check for stale sshkeys and env variables
+        # set the component and gear ids in the $domain_hash to check for stale sshkeys and env variables
         $domain_hash[domain_id]["ref_ids"] |= app["component_instances"].map {|ci_hash| ci_hash["_id"].to_s} if app["component_instances"].present?
         $domain_hash[domain_id]["ref_ids"] |= app["gears"].map {|g_hash| g_hash["_id"].to_s} if app["gears"].present?
 
@@ -533,6 +535,30 @@ module AdminHelper
         end
       end
     end
+
+    # check any domains with no ref_ids - this indicates domains with no applications
+    $domain_hash.each do |domain_id, domain_info|
+      ref_ids = domain_info["ref_ids"]
+      next if ref_ids.present?
+      domain_name = domain_info["canonical_namespace"]
+      unless stale_keys_domain_ids.include? domain_id
+        domain_sshkeys = $domain_hash[domain_id]["ssh_keys"]
+        stale_keys = domain_sshkeys.select {|k| k[2].present?}
+        stale_keys.each do |key|
+          stale_keys_domain_ids << domain_id
+          print_message "Domain '#{domain_name}' has a stale key '#{key[0]}' in mongo with missing component/gear '#{key[2]}'."
+        end
+      end
+      unless stale_vars_domain_ids.include? domain_id
+        domain_envvars = $domain_hash[domain_id]["env_vars"]
+        stale_envvars = domain_envvars.select {|k, v| v.present?}
+        stale_envvars.each do |k, v|
+          stale_vars_domain_ids << domain_id
+          print_message "Domain '#{domain_name}' has a stale environment variable '#{k}' in mongo with missing component/gear '#{v}'."
+        end
+      end
+    end
+
     (stale_keys_domain_ids + stale_vars_domain_ids).uniq
   end
 
@@ -863,6 +889,16 @@ module AdminHelper
     invalid_gear_sizes = $domain_gear_sizes - Rails.configuration.openshift[:gear_sizes]
     if invalid_gear_sizes.present?
       print_message "Some domains have invalid gear sizes allowed: #{invalid_gear_sizes.join(',')}"
+    end
+    invalid_gear_sizes
+  end
+
+  # Find gear sizes inconsistencies for user capabilities in mongo 
+  # vs the valid gear sizes defined in the broker configuration
+  def find_user_gear_sizes_inconsistencies
+    invalid_gear_sizes = $user_gear_sizes - Rails.configuration.openshift[:gear_sizes]
+    if invalid_gear_sizes.present?
+      print_message "Some users have invalid gear sizes in their capabilities: #{invalid_gear_sizes.join(',')}"
     end
     invalid_gear_sizes
   end

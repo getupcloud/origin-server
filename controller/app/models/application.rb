@@ -115,6 +115,7 @@ class Application
     format:   {with: APP_NAME_REGEX, message: "Application name must contain only alphanumeric characters (a-z, A-Z, or 0-9)."},
     length:   {maximum: APP_NAME_MAX_LENGTH, minimum: 0, message: "Application name must be a minimum of 1 and maximum of #{APP_NAME_MAX_LENGTH} characters."}
   validate :extended_validator
+  validate :name_plus_domain
 
   # Returns a map of field to error code for validation failures
   # * 105: Invalid application name
@@ -176,6 +177,14 @@ class Application
     notify_observers(:validate_application)
   end
 
+  def name_plus_domain
+    return if persisted? # only check at creation - old apps are grandfathered
+    charlimit = Rails.application.config.openshift[:limit_app_name_chars]
+    if charlimit > 0 && (name + domain.namespace).length > charlimit
+      errors.add :name,
+        "Name '#{name}' and domain namespace '#{domain.namespace}' cannot add up to more than #{charlimit} characters."
+    end
+  end
   ##
   # Helper for test cases to create the {Application}
   #
@@ -205,7 +214,7 @@ class Application
       ha: opts[:available],
       builder_id: opts[:builder_id],
       user_agent: opts[:user_agent],
-      init_git_url: opts[:initial_git_url],
+      init_git_url: opts[:initial_git_url]
     )
     app.config.each do |k, default|
       v = opts[k.to_sym]
@@ -962,6 +971,24 @@ class Application
 
     Lock.run_in_app_lock(self) do
       pending_op_groups << MakeAppHaOpGroup.new(user_agent: self.user_agent)
+      result_io = ResultIO.new
+      self.run_jobs(result_io)
+      result_io
+    end
+  end
+
+  ##
+  # Update the application's group overrides such that a scalable application ceases to be HA
+  # This broadly means setting the 'min' of web_proxy sparse cart to 1
+  def disable_ha
+    raise OpenShift::UserException.new("HA is not active for this application.") if !self.ha
+    raise OpenShift::UserException.new("HA operations are allowed only on scalable applications") if not self.scalable
+
+    component_instance = self.component_instances.detect{ |i| i.cartridge.is_web_proxy? } or
+      raise OpenShift::UserException.new("Cannot disable HA because there is no web cartridge.")
+
+    Lock.run_in_app_lock(self) do
+      pending_op_groups << DisableAppHaOpGroup.new(user_agent: self.user_agent)
       result_io = ResultIO.new
       self.run_jobs(result_io)
       result_io
@@ -1889,7 +1916,7 @@ class Application
 
       reserve_uid_op = ReserveGearUidOp.new(gear_id: gear_id, gear_size: gear_size, region_id: region_id, prereq: maybe_notify_app_create_op + [init_gear_op._id.to_s])
 
-      create_gear_op = CreateGearOp.new(gear_id: gear_id, prereq: [reserve_uid_op._id.to_s], retry_rollback_op: reserve_uid_op._id.to_s)
+      create_gear_op = CreateGearOp.new(gear_id: gear_id, prereq: [reserve_uid_op._id.to_s], retry_rollback_op: reserve_uid_op._id.to_s, is_group_creation: !is_scale_up)
       # this flag is passed to the node to indicate that an sshkey is required to be generated for this gear
       # currently the sshkey is being generated on the app dns gear if the application is scalable
       # we are assuming that haproxy will also be added to this gear
@@ -1901,8 +1928,8 @@ class Application
                            gear_size: gear_size, prereq: [create_gear_op._id.to_s])
 
       register_dns_op = RegisterDnsOp.new(gear_id: gear_id, prereq: [create_gear_op._id.to_s])
-
       ops.push(init_gear_op, reserve_uid_op, create_gear_op, register_dns_op)
+      ops.push(RegisterRoutingDnsOp.new(prereq: [register_dns_op._id.to_s])) if self.ha and Rails.configuration.openshift[:manage_ha_dns]
 
       if additional_filesystem_gb != 0
         # FIXME move into CreateGearOp
@@ -1937,19 +1964,20 @@ class Application
     # Add and/or push user env vars when this is not an app create or user_env_vars are specified
     user_vars_op_id = nil
     # FIXME this condition should be stronger (only fired when env vars are specified OR other gears already exist)
+    # If this is a new group instance creation (gear creation and not a scale up), we can skip rollback
     if maybe_notify_app_create_op.empty? || user_env_vars.present?
       prereq = gear_id_prereqs[app_dns_gear_id].nil? ? [ops.last._id.to_s] : [gear_id_prereqs[app_dns_gear_id]]
-      op = PatchUserEnvVarsOp.new(group_instance_id: ginst_id, user_env_vars: user_env_vars, push_vars: true, prereq: prereq)
+      op = PatchUserEnvVarsOp.new(group_instance_id: ginst_id, user_env_vars: user_env_vars, push_vars: true,
+                                  skip_rollback: !is_scale_up, prereq: prereq)
       ops << op
       user_vars_op_id = op._id.to_s
     end
 
+    # Since this is a new gear creation, we can skip rollback for some operations
     prereq_op_id = prereq_op._id.to_s rescue nil
-    # since this component add operation is part of a new gear creation, we can skip rollback for everything other that gear creation
-    is_gear_creation = true
     add, usage = calculate_add_component_ops(gear_comp_specs, comp_spec_gears, ginst_id, deploy_gear_id, gear_id_prereqs, component_ops,
                                              is_scale_up, (user_vars_op_id || prereq_op_id), init_git_url,
-                                             app_dns_gear_id, is_gear_creation)
+                                             app_dns_gear_id, true)
     ops.concat(add)
     track_usage_ops.concat(usage)
 
@@ -2024,7 +2052,7 @@ class Application
             status = true
           else
             # does removing a gear with this sparse cart still maintain the multiplier?
-            # ensuring a float arithmetic to make correct comparisons 
+            # ensuring a float arithmetic to make correct comparisons
             status = (cur_total_gears -1) / ((cur_sparse_gears - 1) * 1.0) <= multiplier
           end
           status
@@ -2891,6 +2919,7 @@ class Application
       case key.class
       when UserSshKey
         key_attrs["name"] = key.cloud_user._id.to_s + "-" + key_attrs["name"]
+        key_attrs["login"] = key.cloud_user.login
       when SystemSshKey
         key_attrs["name"] = "domain-" + key_attrs["name"]
       when ApplicationSshKey

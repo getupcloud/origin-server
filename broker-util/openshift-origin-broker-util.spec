@@ -8,7 +8,7 @@
 
 Summary:       Utility scripts for the OpenShift Origin broker
 Name:          openshift-origin-broker-util
-Version: 1.30.2
+Version: 1.33.1
 Release:       1%{?dist}
 Group:         Network/Daemons
 License:       ASL 2.0
@@ -79,6 +79,7 @@ cp -p man/*.8 %{buildroot}%{_mandir}/man8/
 %attr(0750,-,-) %{_sbindir}/oo-register-dns
 %attr(0750,-,-) %{_sbindir}/oo-stats
 %attr(0750,-,-) %{_sbindir}/oo-admin-ctl-team
+%attr(0750,-,-) %{_sbindir}/oo-plot-broker-stats
 
 %{?scl:%scl_root}%{ruby_libdir}/app_info.rb
 
@@ -109,6 +110,46 @@ cp -p man/*.8 %{buildroot}%{_mandir}/man8/
 %{_mandir}/man8/oo-admin-ctl-team.8.gz
 
 %changelog
+* Thu Feb 12 2015 Adam Miller <admiller@redhat.com> 1.33.1-1
+- Merge pull request #6052 from kwoodson/regions
+  (dmcphers+openshiftbot@redhat.com)
+- bump_minor_versions for sprint 57 (admiller@redhat.com)
+- Add region level reporting to oo-stats (cewong@redhat.com)
+
+* Tue Jan 13 2015 Adam Miller <admiller@redhat.com> 1.32.3-1
+- oo-accept-broker: testrecord DNS w/absolute domain (lmeyer@redhat.com)
+
+* Tue Dec 09 2014 Adam Miller <admiller@redhat.com> 1.32.2-1
+- Update spec file (jhonce@redhat.com)
+- Broker - Add script to plot Broker Stats (jhonce@redhat.com)
+
+* Mon Nov 24 2014 Adam Miller <admiller@redhat.com> 1.32.1-1
+- bump_minor_versions for sprint 54 (admiller@redhat.com)
+- Support full DNs in LDAP group members (pep@redhat.com)
+
+* Wed Nov 12 2014 Adam Miller <admiller@redhat.com> 1.31.2-1
+- Merge pull request #5950 from sztsian/bz1162474-keep
+  (dmcphers+openshiftbot@redhat.com)
+- bz1162474 if app_name different with app.name of uuid, throw out an warning
+  (zsun@fedoraproject.org)
+
+* Tue Nov 11 2014 Adam Miller <admiller@redhat.com> 1.31.1-1
+- bump_minor_versions for sprint 53 (admiller@redhat.com)
+
+* Tue Oct 07 2014 Adam Miller <admiller@redhat.com> 1.30.5-1
+- oo-accept-systems: fix errors from PR 5851 (lmeyer@redhat.com)
+- oo-accept-systems: improve cartridge integrity checks (lmeyer@redhat.com)
+
+* Thu Oct 02 2014 Adam Miller <admiller@redhat.com> 1.30.4-1
+- Bug 1145132 - Domain validation fails when adding size due to previously
+  removed size (abhgupta@redhat.com)
+
+* Tue Sep 30 2014 Adam Miller <admiller@redhat.com> 1.30.3-1
+- Bug 1146681 - oo-admin-ctl-domain cannot change allowed gear sizes for a
+  mixed-case domain (abhgupta@redhat.com)
+- Adding checks and repair logic for invalid gear sizes in domains
+  (abhgupta@redhat.com)
+
 * Tue Sep 23 2014 Adam Miller <admiller@redhat.com> 1.30.2-1
 - Multiple bug fixes Bug 1109647 - Loss of alias on SYNOPSIS part for oo-admin-
   ctl-app Bug 1144610 - oo-admin-usage is broken Bug 1130435 - Setting a same

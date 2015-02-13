@@ -69,6 +69,7 @@ module OpenShift
 
       GEAR_TO_GEAR_SSH = "/usr/bin/ssh -q -o 'BatchMode=yes' -o 'StrictHostKeyChecking=no' -i $OPENSHIFT_APP_SSH_KEY "
       DEFAULT_SKEL_DIR = PathUtils.join(OpenShift::Config::CONF_DIR,"skel")
+      DEFAULT_START_PRIORITY = 100
       $OpenShift_ApplicationContainer_SSH_KEY_MUTEX = Mutex.new
 
       attr_reader :uuid, :application_uuid, :state, :container_name, :application_name, :namespace, :container_dir,
@@ -233,7 +234,8 @@ module OpenShift
       # - model/unix_user.rb
       # context: root
       # @param skip_hooks should destroy call the gear's hooks before destroying the gear
-      def destroy(skip_hooks=false)
+      # @param is_group_rollback destroy is being called as part of a failed app deployment
+      def destroy(skip_hooks=false, is_group_rollback = false)
         notify_observers(:before_container_destroy)
 
         if @uid.nil? or (@container_plugin.nil? or !File.directory?(@container_dir.to_s))
@@ -259,7 +261,7 @@ module OpenShift
               end
             end
             # possible mismatch across cart model versions
-            out, errout, retcode = @cartridge_model.destroy(skip_hooks)
+            out, errout, retcode = @cartridge_model.destroy(skip_hooks, is_group_rollback)
             output << out unless out.nil?
           rescue => e
             logger.warn %Q(Failure while deleting gear #@uuid: #{e.message})
@@ -400,7 +402,7 @@ module OpenShift
           # git gc - do this last to maximize room  for git to write changes
           gear_level_tidy_git(gear_repo_dir)
         rescue Exception => e
-          logger.warn("An unknown exception occured during tidy for gear #{@uuid}: #{e.message}\n#{e.backtrace}")
+          logger.warn("An unknown exception occurred during tidy for gear #{@uuid}: #{e.message}\n#{e.backtrace}")
         ensure
           start_gear(user_initiated: false)
         end
@@ -491,22 +493,32 @@ module OpenShift
         if proxy_cartridge = @cartridge_model.web_proxy
           unless options[:hot_deploy] == true or options[:init]
             result = update_proxy_status(cartridge: proxy_cartridge,
-                                         action: :disable,
+                                         action:    :disable,
                                          gear_uuid: self.uuid,
-                                         persist: false)
+                                         persist:   false)
             result[:proxy_results].each do |proxy_gear_uuid, result|
               buffer << result[:messages].join("\n")
             end
           end
         end
-        buffer << @cartridge_model.stop_gear(options)
+
+        begin
+          buffer << @cartridge_model.stop_gear(options)
+        rescue ::OpenShift::Runtime::Utils::ShellExecutionException => e
+          raise e if options[:user_initiated] == true || options[:force] == false
+
+          logger.warn("stop_gear for #{self.uuid} failed with #{e.message}\n#{e.stdout}\n#{e.stderr}")
+        end
+
         unless buffer.empty?
           buffer.chomp!
           buffer << "\n"
         end
+
         if options[:force]
           kill_procs(options)
         end
+
         buffer << stopped_status_attr
         buffer
       end
@@ -514,7 +526,7 @@ module OpenShift
       def gear_level_tidy_tmp(gear_tmp_dir)
         # Temp dir cleanup
         tidy_action do
-          FileUtils.rm_rf(Dir.glob(PathUtils.join(gear_tmp_dir, "*")))
+          FileUtils.rm_rf(Dir.glob(PathUtils.join(gear_tmp_dir, uuid, '*')))
           logger.debug("Cleaned gear temp dir at #{gear_tmp_dir}")
         end
       end
@@ -599,30 +611,32 @@ module OpenShift
       #
       def report_deployments(gear_env, options = {})
         broker_addr = @config.get('BROKER_HOST')
-        domain = gear_env['OPENSHIFT_NAMESPACE']
-        app_name = gear_env['OPENSHIFT_APP_NAME']
-        app_uuid = gear_env['OPENSHIFT_APP_UUID']
-        url = "https://#{broker_addr}/broker/rest/domain/#{domain}/application/#{app_name}/deployments"
+        domain      = gear_env['OPENSHIFT_NAMESPACE']
+        app_name    = gear_env['OPENSHIFT_APP_NAME']
+        app_uuid    = gear_env['OPENSHIFT_APP_UUID']
+        url         = "https://#{broker_addr}/broker/rest/domain/#{domain}/application/#{app_name}/deployments"
 
         params = broker_auth_params
         if params
           deployments = calculate_deployments
+          deployments.reject! { |d| d[:activations].empty? }
+
           params['deployments[]'] = deployments
           params[:application_id] = app_uuid
 
           begin
-            request = RestClient::Request.new(:method => :post,
-                                              :url => url,
-                                              :timeout => 30,
-                                              :headers => { :accept => 'application/json;version=1.6', :user_agent => 'OpenShift' },
-                                              :payload => params)
+            request = RestClient::Request.new(method: :post,
+                                              url: url,
+                                              timeout: 30,
+                                              headers: {accept: 'application/json;version=1.6', user_agent: 'OpenShift'},
+                                              payload: params)
 
             response = request.execute { |response, request, result| response }
           rescue => e
             options[:out].puts "Failed to report deployment to broker.  This will be corrected on the next git push. Message: #{e.message}" if options[:out]
           else
             if 300 <= response.code
-              options[:out].puts "Failed to report deployment to broker.  This will be corrected on the next git push." if options[:out]
+              options[:out].puts "Failed to report deployment to broker with status #{response.code}.  This will be corrected on the next git push." if options[:out]
             end
           end
         end
@@ -644,6 +658,25 @@ module OpenShift
 
       def stop_lock?
         @cartridge_model.stop_lock?
+      end
+
+      def start_priority_file
+        return PathUtils.join(@container_dir, '.start_priority')
+      end
+
+      def start_priority
+        if @start_priority.nil? && File.exists?(start_priority_file)
+          @start_priority = File.open(start_priority_file).read.to_i rescue nil
+        end
+        @start_priority ||= DEFAULT_START_PRIORITY
+        return @start_priority
+      end
+
+      def start_priority=(prio)
+        File.open(start_priority_file, File::CREAT|File::TRUNC|File::WRONLY, 0644) do |sp|
+          sp.write(prio)
+        end
+        @start_priority = prio.to_i
       end
 
       #

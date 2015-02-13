@@ -116,13 +116,13 @@ module OpenShift
         # Public: Add user access by SSH to a gear
         #
         # Examples
-        # container.add_ssh_key("alongstring", "ssh-rsa", "a users key")
+        # container.add_ssh_key("alongstring", "ssh-rsa", "a users key", "testuser")
         #
-        # container.add_ssh_key("testuser@EXAMPLE.COM", "krb5-principal")
+        # container.add_ssh_key("testuser@EXAMPLE.COM", "krb5-principal", "testuser")
         #
         # Returns: nil
         #
-        def add_ssh_key(key_string, key_type=nil, comment=nil)
+        def add_ssh_key(key_string, key_type=nil, comment=nil, login=nil)
           if key_type == "krb5-principal"
             # create a K5login object and add it
 
@@ -135,7 +135,7 @@ module OpenShift
           else
             # create an SshAuthorizedKeys file object and add to it.
             self.class.notify_observers(:before_add_ssh_key, self, key_string)
-            AuthorizedKeysFile.new(self).add_key(key_string, key_type, comment)
+            AuthorizedKeysFile.new(self).add_key(key_string, key_type, comment, login)
             self.class.notify_observers(:after_add_ssh_key, self, key_string)
           end
         end
@@ -275,7 +275,10 @@ module OpenShift
           FileUtils.mkpath(directory) unless File.directory?(directory)
 
           if (Dir.entries(directory).size - 2 + variables.size) > USER_VARIABLE_MAX_COUNT
-            return 255, "CLIENT_ERROR: User Variables maximum of #{USER_VARIABLE_MAX_COUNT} exceeded\n"
+            variables.each_pair do |name,value|
+              path = PathUtils.join(directory, name)
+              return 255, "CLIENT_ERROR: User Variables maximum of #{USER_VARIABLE_MAX_COUNT} exceeded\n" if !File.exists?(path)
+            end
           end
 
           variables.each_pair do |name, value|
