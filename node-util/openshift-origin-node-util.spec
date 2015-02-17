@@ -168,6 +168,16 @@ cp -p init.d/openshift-gears %{buildroot}%{_initddir}/
 %endif
 
 %changelog
+* Tue Feb 17 2015 Builder <getup@getupcloud.com> 1.25.5.1-2
+- bump version (spinolacastro@gmail.com)
+- watchman conf (spinolacastro@gmail.com)
+- Watchman Plugins (spinolacastro@gmail.com)
+- Bug 1163910 - Rename watchman log files (jhonce@redhat.com)
+- Bug 1121217 - Symbol leak in Throttler cgroup code (jhonce@redhat.com)
+- add debug messages to watchman that print memory usage (bz1123935)
+  (rchopra@redhat.com)
+- Bug 1024531 - /proc/net provides too much information (jhonce@redhat.com)
+
 * Thu Jul 10 2014 Adam Miller <admiller@redhat.com> 1.25.5.1-1
 - 
 
