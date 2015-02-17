@@ -92,6 +92,36 @@ class GearStatePlugin < OpenShift::Runtime::WatchmanPlugin
             restart(uuid) if change_state?(uuid)
 
           when State::STOPPED
+            # If node idles gear then user does $(gear stop), frontend cannot be updated.
+            # This forces frontend to match .state file
+            # https://bugzilla.redhat.com/show_bug.cgi?id=1111077
+            frontend = OpenShift::Runtime::FrontendHttpServer.new(
+                OpenShift::Runtime::ApplicationContainer.from_uuid(uuid)
+            )
+
+            # When a gear is idled, the following happens:
+            # 1) the frontend plugin is idled
+            # 2) the gear's state is set to STOPPED
+            # 3) the gear is stopped (cartridge 'control stop')
+            # 4) the gear's state is set to IDLE
+            #
+            # If this plugin sees the gear at either steps 2 or 3 above, it may
+            # incorrectly think there is a mismatch between gear state (STOPPED)
+            # and frontend state (idle). To avoid this plugin from prematurely
+            # calling unidle, make sure that the gear's state has been STOPPED
+            # for at least as long as STATE_CHANGE_DELAY. Also, if there is truly
+            # a mismatch, return after calling unidle and let the next iteration
+            # perform the logic below the idle check.
+            #
+            # https://bugzilla.redhat.com/show_bug.cgi?id=1161165
+            if frontend.idle? and change_state?(uuid)
+              @logger.info %Q(watchman gear #{uuid} httpd frontend server updated to reflect 'stopped' state)
+              frontend.unidle
+
+              # let the next iteration handle the logic that follows this block
+              return
+            end
+
             if pids.empty?
               reset_state(uuid)
             else
@@ -157,12 +187,17 @@ class GearStatePlugin < OpenShift::Runtime::WatchmanPlugin
   def load_ps_table
     @ps_table = Hash.new { |h, k| h[k] = Array.new }
 
-    results, error, rc = Utils.oo_spawn(%Q(ps ax --format 'uid,pid=,ppid='), timeout: 300, quiet: true)
+    results, error, rc = Utils.oo_spawn(%Q(ps ax --format 'uid,pid=,ppid=,args='), timeout: 300, quiet: true)
     results.each_line do |entry|
-      uid, pid, ppid = entry.split(' ')
+      uid, pid, ppid, *command = entry.split(' ')
+      command = command.join(' ')
 
       # skip everything owned by root (for speed) and not a "daemon" (we can be fooled here)
       next unless uid != '0' && ppid == '1'
+
+      # bz1133629
+      # skip haproxy and logshifter related processes
+      next if command =~ /haproxy/ or command =~ /logshifter/
 
       begin
         name = Etc.getpwuid(uid.to_i).name
