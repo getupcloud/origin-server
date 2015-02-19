@@ -551,6 +551,20 @@ an OpenShift cartrige.
 %files optional-ruby
 
 %changelog
+* Thu Feb 19 2015 Builder <getup@getupcloud.com> 1.26.2-3
+- bump version (spinolacastro@gmail.com)
+- fix conflict (spinolacastro@gmail.com)
+- bump version (spinolacastro@gmail.com)
+- php deps (spinolacastro@gmail.com)
+- Make sure to disable OPCache for PHP 5.3 (vvitek@redhat.com)
+- Fixed zend opcache template (nakayamakenjiro@gmail.com)
+- fix merge conflict (spinolacastro@gmail.com)
+- Merge branch 'openshift-origin-release-4' of https://github.com/openshift
+  /origin-server into getup-openshift-origin-release-4
+  (spinolacastro@gmail.com)
+- Automatic commit of package [openshift-origin-cartridge-dependencies] release
+  [1.25.2.1-1]. (admiller@redhat.com)
+
 * Wed Jul 23 2014 Builder <getup@getupcloud.com> 1.26.2-1
 - bump version (getup@getupcloud.com)
 
