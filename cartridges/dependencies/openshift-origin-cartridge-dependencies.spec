@@ -302,6 +302,9 @@ Requires:  php-pdo
 Requires:  php-pecl-apc
 Requires:  php-pecl-imagick
 Requires:  php-pecl-memcache
+Requires:  php-pecl-oauth
+Requires:  php-pecl-geoip
+
 # Make sure not to install OPCache for PHP 5.3, as we're using APC opcode cache exclusively instead
 Conflicts: php-pecl-opcache
 Requires:  php-pecl-xdebug
@@ -328,6 +331,8 @@ Requires:  php54-php-process
 Requires:  php54-php-soap
 Requires:  php54-php-xml
 Requires:  php54-php-pecl-memcached
+Requires:  php54-php-pecl-oauth
+Requires:  php54-php-pecl-geoip
 
 Requires:  php55-php-bcmath
 Requires:  php55-php-devel
@@ -346,6 +351,9 @@ Requires:  php55-php-process
 Requires:  php55-php-soap
 Requires:  php55-php-xml
 Requires:  php55-php-pecl-memcached
+Requires:  php55-php-pecl-oauth
+Requires:  php55-php-pecl-geoip
+
 %endif
 
 %description optional-php
