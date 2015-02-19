@@ -109,6 +109,13 @@ done
 %attr(0755,-,-) %{httpdconfdir}
 
 %changelog
+* Wed Feb 18 2015 Builder <getup@getupcloud.com> 1.26.3.1-3
+- bump version (spinolacastro@gmail.com)
+- Bug 1191517 - Passenger is not hiding ErrorPages even when production is
+  specified. Added additional logic to force hiding ErrorPages when not in
+  development. (maszulik@redhat.com)
+- Initial support for Ruby 2.0 (mfojtik@redhat.com)
+
 * Fri Sep 26 2014 Builder <getup@getupcloud.com> 1.26.3.1-2
 - bump version (getup@getupcloud.com)
 - Translate welcome pages to pt-br (spinolacastro@gmail.com)
