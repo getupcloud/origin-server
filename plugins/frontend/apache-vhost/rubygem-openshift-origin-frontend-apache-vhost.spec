@@ -109,6 +109,10 @@ mv httpd/openshift-vhost-logconf.include %{buildroot}/etc/httpd/conf.d/
 /etc/openshift/node-plugins.d/
 
 %changelog
+* Mon Feb 23 2015 Builder <getup@getupcloud.com> 0.8.1.1-2
+- bump version (spinolacastro@gmail.com)
+- bz1131404 - ProxyPassReverse fix (rchopra@redhat.com)
+
 * Thu Jul 10 2014 Adam Miller <admiller@redhat.com> 0.8.1.1-1
 - 
 
