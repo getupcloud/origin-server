@@ -46,3 +46,7 @@ if [[ $curr == 0.0.17 ]]; then
     chown $OPENSHIFT_GEAR_UUID:$OPENSHIFT_GEAR_UUID ${OPENSHIFT_HOMEDIR}.composer
     chcon -u unconfined_u ${OPENSHIFT_HOMEDIR}.composer
 fi
+
+if [[ $curr == 0.0.20 ]]; then
+    rm -f ${OPENSHIFT_PHP_DIR}configuration/etc/php.d/opcache.ini
+fi
