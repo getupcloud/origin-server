@@ -59,6 +59,10 @@ PHP cartridge for openshift. (Cartridge Format V2)
 
 
 %changelog
+* Wed Feb 25 2015 Builder <getup@getupcloud.com> 1.26.9.1-6
+- bump version (spinolacastro@gmail.com)
+- fix php-5.5 opcache bug (spinolacastro@gmail.com)
+
 * Fri Feb 13 2015 Builder <getup@getupcloud.com> 1.26.9.1-5
 - bump version (spinolacastro@gmail.com)
 - fix dup file (spinolacastro@gmail.com)
