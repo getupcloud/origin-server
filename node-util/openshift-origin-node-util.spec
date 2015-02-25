@@ -11,7 +11,7 @@
 Summary:       Utility scripts for the OpenShift Origin node
 Name:          openshift-origin-node-util
 Version: 1.25.5.1
-Release:       2%{?dist}
+Release:       3%{?dist}
 Group:         Network/Daemons
 License:       ASL 2.0
 URL:           http://www.openshift.com
