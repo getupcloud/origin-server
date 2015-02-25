@@ -168,6 +168,13 @@ cp -p init.d/openshift-gears %{buildroot}%{_initddir}/
 %endif
 
 %changelog
+* Wed Feb 25 2015 Builder <getup@getupcloud.com> 1.25.5.1-3
+- bump version (spinolacastro@gmail.com)
+- oo-last-access: fix gear UUID detection (lmeyer@redhat.com)
+- oo-last-access: rename "app" to "gear" (lmeyer@redhat.com)
+- Perf Improvement? (dmcphers@redhat.com)
+- Bug 1160770 - consider CNAMEs when checking last access (agrimm@redhat.com)
+
 * Tue Feb 17 2015 Builder <getup@getupcloud.com> 1.25.5.1-2
 - bump version (spinolacastro@gmail.com)
 - watchman conf (spinolacastro@gmail.com)
