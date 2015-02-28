@@ -168,6 +168,10 @@ cp -p init.d/openshift-gears %{buildroot}%{_initddir}/
 %endif
 
 %changelog
+* Sat Feb 28 2015 Builder <getup@getupcloud.com> 1.25.5.1-4
+- bump version (spinolacastro@gmail.com)
+- Watchman retry delay delta is in seconds (mateus@caruccio.com)
+
 * Wed Feb 25 2015 Builder <getup@getupcloud.com> 1.25.5.1-3
 - bump version (spinolacastro@gmail.com)
 - oo-last-access: fix gear UUID detection (lmeyer@redhat.com)
