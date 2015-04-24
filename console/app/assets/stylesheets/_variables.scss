@@ -1,5 +1,5 @@
-$baseFontFamily:     "Open Sans", "Helvetica Neue", Helvetica, "Liberation Sans", Arial, sans-serif !default;
-$headerFontFamily:   "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif !default;
+$baseFontFamily:      'roboto light', Helvetica, "Liberation Sans", Arial, sans-serif !default;
+$headerFontFamily:    'roboto light', Helvetica, Arial, sans-serif !default;
 $monoFontFamily:      Menlo, Monaco, "Liberation Mono", Consolas, monospace !default;
 
 // Needed because FF on Mac sets line-height based on font-family, ignoring form field explicit line-height, 

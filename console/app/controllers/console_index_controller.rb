@@ -2,6 +2,7 @@ class ConsoleIndexController < ConsoleController
   skip_before_filter :authenticate_user!, :only => [:unauthorized, :server_unavailable]
 
   def index
+    redirect_to signin_path unless session[:authentication]
     flash.keep
     redirect_to applications_path
   end

@@ -1,0 +1,106 @@
+@font-face {
+    font-family: 'roboto light';
+    src: url('https://d14kvwo1d1egfx.cloudfront.net/static/fonts/roboto-light-webfont.eot');
+    src: url('https://d14kvwo1d1egfx.cloudfront.net/static/fonts/roboto-light-webfont.eot?#iefix') format('embedded-opentype'),
+         url('https://d14kvwo1d1egfx.cloudfront.net/static/fonts/roboto-light-webfont.woff') format('woff'),
+         url('https://d14kvwo1d1egfx.cloudfront.net/static/fonts/roboto-light-webfont.ttf') format('truetype'),
+         url('https://d14kvwo1d1egfx.cloudfront.net/static/fonts/roboto-light-webfont.svg#robotolight') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'roboto regular';
+    src: url('https://d14kvwo1d1egfx.cloudfront.net/static/fonts/roboto-regular-webfont.eot');
+    src: url('https://d14kvwo1d1egfx.cloudfront.net/static/fonts/roboto-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('https://d14kvwo1d1egfx.cloudfront.net/static/fonts/roboto-regular-webfont.woff') format('woff'),
+         url('https://d14kvwo1d1egfx.cloudfront.net/static/fonts/roboto-regular-webfont.ttf') format('truetype'),
+         url('https://d14kvwo1d1egfx.cloudfront.net/static/fonts/roboto-regular-webfont.svg#robotoregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'ostrich black';
+    src: url('https://d14kvwo1d1egfx.cloudfront.net/static/fonts/ostrich-black-webfont.eot');
+    src: url('https://d14kvwo1d1egfx.cloudfront.net/static/fonts/ostrich-black-webfont.eot?#iefix') format('embedded-opentype'),
+         url('https://d14kvwo1d1egfx.cloudfront.net/static/fonts/ostrich-black-webfont.woff') format('woff'),
+         url('https://d14kvwo1d1egfx.cloudfront.net/static/fonts/ostrich-black-webfont.ttf') format('truetype'),
+         url('https://d14kvwo1d1egfx.cloudfront.net/static/fonts/ostrich-black-webfont.svg#ostrich_sansblack') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.getup-sprite { background: url(https://d14kvwo1d1egfx.cloudfront.net/static/img/sprite.png) no-repeat; text-indent: -5000em; }
+
+.getup { border-bottom: 5px solid #FF4C4D; min-height: 125px; background: #fff url('https://d14kvwo1d1egfx.cloudfront.net/static/img/header.png') no-repeat top center; }
+
+.getup .logo { width: 182px; height: 81px; margin: 0; border-top: 5px solid #FF4C4D; background-position: 0 0; }
+.getup .app { position: absolute; top: 49px; left: 161px; margin: 0; line-height: 34px; font-family: 'ostrich black'; font-size: 34px; color: #2D2D2D; }
+
+.getup .navbar { background: 0; border: 0; }
+.getup .navbar .brand { background: 0; top: 0; text-shadow: none; }
+.getup .navbar .navbar-inner { min-height: 125px; }
+.getup .navbar .nav { background: transparent; border: none; margin-top: 100px; }
+
+.getup .navbar .nav > li { background: #FF4C4D; border: none; margin: 0 1px; }
+
+.getup .navbar .nav > li > a { color: #fff; margin: 0; }
+.getup .navbar .nav > li > a:hover { color: #ccc; }
+
+.getup .navbar .nav .active > a,
+.getup .navbar .nav .active > a:hover { background: #1f1f1f; }
+
+.getup #utility-nav > li > a { color: #FF4C4D; text-shadow: 0 1px 0 rgba(255, 255, 255, 1); }
+.getup #utility-nav > li > a:hover { color: #000; }
+.getup #utility-nav .dropdown-toggle { color: #fff; background-color: #444; background-color: rgba(70, 70, 70, 0.85); text-shadow: none; }
+
+/* Customize */
+
+#footer-nav { background: #fc3034; }
+#footer-nav a { color: #fff; font-family: 'roboto regular'; }
+
+.row-console > .row, .breadcrumb, .banner-ribbon,
+.section-console-light .row-console > .row { background: transparent; }
+
+.banner-ribbon:before, .banner-ribbon:after { display: none; }
+
+.section-header { background: transparent; border: none; }
+.digest-bg { background: transparent; border: none; border-left: 1px solid #2a2a2a; }
+
+body, h1, h2, h3, h4, h5, h6 { font-family: 'roboto light'; }
+
+.headline, .nav, .section-top, .btn-navbar { font-family: 'roboto light'; }
+
+.section-console-light .row-console > .row .divide, .section-console-light .row-console > .row legend { border-color: #2a2a2a; border-width: 1px; }
+
+#app-cartridges .gear-group { border-width: 1px; }
+#app-cartridges .cartridge-block { border-width: 1px; }
+#app-cartridges .cartridge-block .cartridge-border { background: transparent; border-left: 1px solid #2a2a2a; }
+#app-cartridges .cartridge-block .cartridge-inset { background: transparent; border: none; }
+#app-cartridges .cartridge-block .embedded { background: #222; }
+
+
+.table-striped tbody tr:nth-child(odd) td, .table-striped tbody tr:nth-child(odd) th { background: #333; }
+.table-striped tbody tr td, .table-striped tbody tr th { border-color: #444; }
+
+.btn.paypal { background: url(https://www.paypalobjects.com/en_US/i/btn/x-click-but20.gif) no-repeat 0 0; border: 0; height: 31px; padding: 0; text-indent: -5000em; width: 62px; }
+
+/* Responsive */
+
+@media (max-width: 767px) {
+	.getup .navbar .container { padding: 0; }
+
+	.getup .navbar .navbar-inner { padding-bottom: 0; min-height: 45px; padding-top: 0; }
+	.getup .navbar .brand { margin-top: 0; }
+
+	.getup .navbar .btn-navbar { margin: 13px 10px 0 3px; }
+
+	.getup .navbar .nav { margin: 0 0 6px; }
+	.getup .navbar .nav:first-child { margin-top: 30px; }
+
+	.getup .navbar .nav > li { margin: 3px 10px 0; border-radius: 4px; }
+	.getup .navbar .nav > li > a { border-radius: 4px; }
+}
