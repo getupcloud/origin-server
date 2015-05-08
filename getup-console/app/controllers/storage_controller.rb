@@ -13,7 +13,7 @@ class StorageController < ConsoleController
     else
       price = item_price({:usage_type => 'ADDTL_FS_GB', :currency => 'USD'}, prices)
     end
-    @storage_price = "#{price[:acronym]} #{price[:value]}"
+    @storage_price = number_to_currency(price[:value], unit: price[:acronym], precision: 2)
   end
 
   def update
