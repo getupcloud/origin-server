@@ -23,4 +23,8 @@ class SettingsController < ConsoleController
       flash.now[:info] = "You need to set a public key before you can work with application code"
     end
   end
+
+  def password
+    @authentication = session[:authentication]
+  end
 end

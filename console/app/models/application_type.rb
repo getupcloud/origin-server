@@ -1,4 +1,5 @@
 class ApplicationType
+  include ActionView::Helpers
   include ActiveModel::Conversion
   include ActiveModel::MassAssignmentSecurity
   include RestApi::Cacheable
@@ -88,6 +89,16 @@ class ApplicationType
     c = priority - other.priority
     return c unless c == 0
     display_name <=> other.display_name
+  end
+
+  def description
+    begin
+      return @description if @description.is_a? String
+      return @description[Console::LanguageHelper.locale] if @description.key? Console::LanguageHelper.locale
+      return @description['en-us'] || @description['en'] || @description.first
+    rescue
+      ''
+    end
   end
 
   def tags

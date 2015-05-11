@@ -1,4 +1,5 @@
 module Console::ModelHelper
+  include Console::UserManagerHelper
 
   def other_cartridges_link(has_suggestions, application)
     if has_suggestions
@@ -60,6 +61,11 @@ module Console::ModelHelper
   end
 
   def available_gears_warning(writeable_domains)
+    plan = user_manager_account_plan.content
+    if plan[:status] == 'bt'
+      return ("<a href='#{account_path}'>#{I18n.t :unlock_your_account_click_here}</a> #{I18n.t :unlock_your_account_text}").html_safe
+    end
+
     if writeable_domains.present?
       if !writeable_domains.find(&:allows_gears?)
         has_shared = writeable_domains.find {|d| !d.owner? }
@@ -69,7 +75,11 @@ module Console::ModelHelper
           "You have disabled all gear sizes from being created."
         end
       elsif !writeable_domains.find(&:has_available_gears?)
-        out_of_gears_message
+        if not plan[:payment][:valid]
+          (I18n.t('getup.account.no_available_gears') + " <a href='#{account_path}'>" + I18n.t('getup.account.please_validate_your_account') + '</a>.').html_safe
+        else
+          out_of_gears_message
+        end
       end
     end
   end

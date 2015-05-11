@@ -26,6 +26,7 @@
         = navigation_tabs do
           = navigation_tab :applications, :name => "Applications"
           = navigation_tab :settings, :action => :show, :name => "Settings"
+          = navigation_tab :account, :action => :show, :name => "My Account"
           = navigation_tab :console_index, :action => :help, :name => "Help"
           - unless Console.config.disable_account
             = navigation_tab :account, :action => :show, :classes => ["account", "visible-phone"] do

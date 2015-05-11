@@ -1,0 +1,177 @@
+- content_for :title, I18n.t(:Invoice)
+- end_date = !@period[:end].nil? ? Date.strptime("#{@period[:end]}","%Y-%m-%d").strftime("%d/%m/%Y") : '-'
+- start_date = !@period[:start].nil? ? Date.strptime("#{@period[:start]}","%Y-%m-%d").strftime("%d/%m/%Y") : '-'
+%h1= I18n.t(:Invoice) + " ##{@id}"
+%h3= I18n.t(:Period) + ": #{start_date} - #{end_date}"
+= flashes
+
+- if @status
+  .row.billing-info
+    .span12
+      %section
+  
+        %table.table.table-fixed.info
+          %tbody
+            %tr
+              %td.top
+                //Getup address
+                %h5 #{@getup[:name]}
+                %ul.unstyled
+                  %li CNPJ: #{@getup[:pj_cnpj]}
+                  - if @getup[:line1] != ''
+                    %li #{@getup[:line1]}
+                  - if @getup[:line2] != ''
+                    %li #{@getup[:line2]}
+                  %li #{@getup[:city]}/#{@getup[:state]} - #{@getup[:country_name]}
+                  %li CEP: #{@getup[:postal_code]}
+              %td.top
+                //User address
+                %h5 #{@user[:first_name]}
+                %ul.unstyled
+                  - if @address[:type] == 'pf'
+                    %li CPF: #{@address[:pf_cpf]}
+                  - if @address[:type] == 'pj'
+                    %li CNPJ: #{@address[:pj_cnpj]}
+                    - if @address[:ie] != ''
+                      %li Insc. Est.: #{@address[:pj_ie]}
+                  - if @address[:line1] != ''
+                    %li #{@address[:line1]}
+                  - if @address[:line2] != ''
+                    %li #{@address[:line2]}
+                  %li #{@address[:city]}/#{@address[:state]} - #{@address[:country_name]}
+                  %li CEP: #{@address[:postal_code]}
+
+              //Invoice summary
+              %td.top
+                %dl
+                  %dt= I18n.t(:Invoice) + ':'
+                  %dd ##{@id}
+
+                  %dt= I18n.t(:Client) + ':'
+                  %dd ##{@user[:id]}
+
+                  %dt= I18n.t(:Reference) + ':'
+                  - end_date = !@period[:end].nil? ? Date.strptime("#{@period[:end]}","%Y-%m-%d").strftime("%d/%m/%Y") : '-'
+                  %dd #{end_date}
+  
+                  %dt Sub Total:
+                  %dd #{@acronym} #{number_with_precision(@amount[:total][:amount].to_f, :precision => 2)}
+  
+        - if @user[:billing_type].downcase == 'variable'
+          //Applications
+          - @applications.each do |app|
+            - total = 0
+            %h3= I18n.t(:Application) + " #{app[1][:name]}"
+            %table.table.table-fixed.invoice
+              %thead
+                %tr
+                  %th{:scope => 'col', :style => 'width: 300px'}
+                    = I18n.t(:Item)
+                    %br
+                    =I18n.t(:Start) + ' - ' + I18n.t(:End)
+                  %th{:scope => 'col', :style => 'width: 200px'}= I18n.t(:Type)
+                  %th{:scope => 'col', :style => 'width: 150px'}= I18n.t(:Quantity)
+                  %th{:scope => 'col'}= I18n.t(:Unit)
+                  %th{:scope => 'col', :style => 'width: 120px'}= I18n.t(:Unit_cost)
+                  %th{:scope => 'col', :style => 'width: 120px'}= I18n.t(:Total_cost)
+              %tbody
+              - app[1][:items].each do |item|
+                - total += item[:amount].to_f
+                %tr
+                  %td Gear #{item[:gear_id]}<br>#{item[:billing_start].gsub('T', ' ').byteslice(0, 19)} - #{item[:billing_end].gsub('T', ' ').byteslice(0, 19)}
+                  - if item[:gear_size]
+                    %td #{item[:usage_type]}: #{item[:gear_size]}
+                  - else
+                    %td #{item[:usage_type]}
+                  %td #{number_with_precision(item[:quantity].to_f, :precision => 3)}
+                  %td #{item[:unit]}
+                  %td #{@acronym} #{number_with_precision(item_price(item, @prices)[:value].to_f, :precision => 3)}
+                  %td #{@acronym} #{number_with_precision(item[:amount].to_f, :precision => 2)}
+              %tr
+                %td{:colspan => 4}
+                %td{:style => 'font-weight: bold'} Sub Total
+                %td{:style => 'font-weight: bold'} #{@acronym} #{number_with_precision(total, :precision => 2)}  
+
+      //Services
+      - if @services.length > 0
+        - total = 0
+        %h3= I18n.t(:Services)
+        %table.table.table-fixed.invoice
+          %thead
+            %tr
+              %th{:scope => 'col', :style => 'width: 300px'}
+                = I18n.t(:Name)
+              %th{:scope => 'col'}= I18n.t(:Description)
+              %th{:scope => 'col', :style => 'width: 120px'}
+              %th{:scope => 'col', :style => 'width: 120px'}= I18n.t(:Total_cost)
+          %tbody
+            - @services.each do |svc|
+              - total += svc[:amount].to_f
+              %tr
+                %td= svc[:name]
+                %td{:colspan => 2}= svc[:description]
+                %td #{@acronym} #{number_with_precision(svc[:amount].to_f, :precision => 2)}
+            %tr
+              %td{:colspan => 2}
+              %td{:style => 'font-weight: bold'} Sub Total
+              %td{:style => 'font-weight: bold'} #{@acronym} #{number_with_precision(total, :precision => 2)}
+
+      //Credit
+      - if has_credits(@amount)
+        - total = 0
+        %h3= I18n.t(:Credits)
+        %table.table.table-fixed.invoice
+          %thead
+            %tr
+              %th{:scope => 'col', :style => 'width: 300px'}= I18n.t(:Item)
+              %th{:scope => 'col', :style => 'width: 200px'}= I18n.t(:Type)
+              %th{:scope => 'col', :style => 'width: 150px'}= I18n.t(:Quantity)
+              %th{:scope => 'col'}= I18n.t(:Unit)
+              %th{:scope => 'col', :style => 'width: 120px'}= I18n.t(:Unit_cost)
+              %th{:scope => 'col', :style => 'width: 120px'}= I18n.t(:Discount)
+          %tbody
+            - if has_credit(@amount)
+              - total += @amount[:GEAR_USAGE][:credit][:used_amount].to_f
+              %tr
+                %td #{I18n.t(:Free_gear_credit)}
+                %td GEAR_USAGE: small
+                %td #{number_with_precision(@amount[:GEAR_USAGE][:credit][:quantity], :precision => 3)}
+                %td #{@amount[:GEAR_USAGE][:credit][:unit]}
+                %td #{@acronym} #{number_with_precision(gear_price(:GEAR_USAGE, :small, @prices)[:value].to_f, :precision => 3)}
+                %td{:style => 'font-weight: bold'} #{@acronym} -#{number_with_precision(@amount[:GEAR_USAGE][:credit][:amount].to_f, :precision => 2)}
+            - if has_bonus(@amount)
+              - total += @amount[:GEAR_USAGE][:bonus][:used_amount].to_f
+              %tr
+                %td #{I18n.t(:Free_gear_bonus)}
+                %td GEAR_USAGE: small
+                %td #{number_with_precision(@amount[:GEAR_USAGE][:bonus][:used_quantity], :precision => 3)}
+                %td #{@amount[:GEAR_USAGE][:bonus][:unit]}
+                %td #{@acronym} #{number_with_precision(gear_price(:GEAR_USAGE, :small, @prices)[:value].to_f, :precision => 3)}
+                %td{:style => 'font-weight: bold'} #{@acronym} -#{number_with_precision(@amount[:GEAR_USAGE][:bonus][:used_amount].to_f, :precision => 2)}
+            - if has_voucher(@amount)
+              - total += @amount[:voucher][:used_amount].to_f
+              %tr
+                %td #{I18n.t(:Free_gear_voucher)}
+                %td #{I18n.t(:Money)}
+                %td #{number_with_precision(@amount[:voucher][:used_amount], :precision => 2)}
+                %td #{@acronym}
+                %td -
+                %td{:style => 'font-weight: bold'} #{@acronym} -#{number_with_precision(@amount[:voucher][:used_amount], :precision => 2)}
+            %tr
+              %td{:colspan => 4}
+              %td{:style => 'font-weight: bold'} Sub Total
+              %td{:style => 'font-weight: bold'} #{@acronym} -#{number_with_precision(total, :precision => 2)}
+
+      //Final
+      %h3= I18n.t(:Final_Total)
+      %table.table.table-fixed.invoice
+        %thead
+          %tr
+            %th{:colspan => 4}
+            %th{:style => 'width: 120px'}
+            %th{:style => 'width: 120px'}
+        %tbody
+          %tr
+            %td{:colspan => 4}
+            %td{:style => 'font-weight: bold'} Total
+            %td{:style => 'font-weight: bold'} #{@acronym} #{number_with_precision(@amount[:total][:amount].to_f, :precision => 2)}

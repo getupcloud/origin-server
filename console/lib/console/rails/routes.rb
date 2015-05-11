@@ -78,13 +78,34 @@ module ActionDispatch::Routing
 
         resources :authorizations, :id => id_regex, :except => :index, :singular_resource => true
         match 'authorizations' => 'authorizations#destroy_all', :via => :delete
+
+        resource :language, :only => :update, :format => false
+        resource :password, :only => [:new, :create], :format => false, :controller => :password
+
+       # scope 'password' do
+       #   get 'change/*token' => 'authentication#change_password', :format => false, :as => 'password_change'
+       #   post 'reset' => 'authentication#send_reset_token', :format => false, :as => 'password_reset'
+       #   post 'update' => 'authentication#update_password', :format => false, :as => 'password_update'
+       # end
       end
 
       def openshift_account_routes
         # Account specific resources
         resource :account,
                  :controller => :account,
-                 :only => :show
+                 :only => :show do
+
+          resource :validate, :controller => :validate, :only => [:create], :format => false do
+            get 'confirm'
+            get 'cancel'
+          end
+
+          resources :billings, :only => [:show, :index], :format => false
+          resources :pdf, :only => [:show], :format => /pdf/
+
+          resource :address_primary, :controller => :address_primary, :only => [:edit, :create], :format => false
+          resource :address_billing, :controller => :address_billing, :only => [:edit, :create], :format => false
+        end
       end
 
       def openshift_authentication_routes
@@ -94,14 +115,10 @@ module ActionDispatch::Routing
         match 'signin' => 'authentication#signin', :via => :get, :format => false
         match 'signout' => 'authentication#signout', :via => :get, :format => false
         match 'auth' => 'authentication#auth', :via => :post, :format => false
+        match 'password_reset' => 'authentication#send_reset_token', :format => false
 
-        match 'password_reset/*token' => 'authentication#change_password', :via => :get, :format => false
-
-        scope 'password' do
-          get 'change/*token' => 'authentication#change_password', :format => false
-          post 'reset' => 'authentication#send_token', :format => false
-          post 'update' => 'authentication#update_password', :format => false
-        end
+#        match 'password_reset/*token' => 'authentication#change_password', :via => :get, :format => false
       end
+
   end
 end

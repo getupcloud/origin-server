@@ -1,0 +1,17 @@
+%h2= I18n.t(:Language)
+
+.btn-toolbar
+  = semantic_form_for :lang,
+                      :simple => true,
+                      :method => :put,
+                      :url => language_path do |f|
+    = f.inputs :inline => true, :without_errors => true do
+      .input-prepend
+        %span.add-on= I18n.t(:select_language)
+        = f.input :select, {collection: options_for_select({I18n.t(:en) => 'en-us', I18n.t(:pt) => 'pt-br'}, session[:lang]), :include_blank => false, :input_html => {:style => 'width: auto', :title => I18n.t(:select_language) }}
+
+- content_for :javascripts do
+  :javascript
+    $('#lang_select').change(function (ev) {
+      ev.target.form.submit();
+    });

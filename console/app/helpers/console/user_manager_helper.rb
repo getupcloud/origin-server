@@ -1,7 +1,5 @@
 module Console::UserManagerHelper
   include Console::UserManagerApiHelper
-  # 
-  # 
 
   def userinfo
     ui = Hash.new("")
@@ -66,27 +64,18 @@ module Console::UserManagerHelper
     user_manager_get session[:authentication].login + _url('subscription_prices')
   end
 
-  def user_manager_primary_address
-    user_manager_get session[:authentication].login + _url('primary_address')
+  def user_manager_address(addr_type)
+    user_manager_get session[:authentication].login + _url("#{addr_type}_address")
   end
 
-  def user_manager_primary_address_update(params = {})
-    user_manager_post session[:authentication].login + _url('primary_address'), params
-  end
-  
-  def user_manager_billing_address
-    user_manager_get session[:authentication].login + _url('billing_address')
+  def user_manager_address_update(addr_type, params = {})
+    user_manager_post session[:authentication].login + _url("#{addr_type}_address"), params
   end
 
-  def user_manager_billing_address_update(params = {})
-    params[:is_billing] = !params[:is_billing]
-    user_manager_post session[:authentication].login + _url('billing_address'), params
-  end
-  
   def user_manager_billing_history
     user_manager_get session[:authentication].login + _url('billing_history')
   end
-  
+
   def user_manager_billing_invoice(id)
     user_manager_get session[:authentication].login + _url('billing_invoice') + id + '/'
   end
@@ -98,5 +87,5 @@ module Console::UserManagerHelper
   private
     def _url(url)
       Console.config.api[:user_manager][url]
-    end  
+    end
 end

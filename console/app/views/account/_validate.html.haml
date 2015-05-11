@@ -1,0 +1,66 @@
+%h2= I18n.t :Authorization
+
+//%pre
+//  = payment
+- if plan[:status] == 'te' or plan[:status] == 'tf'
+  %p= I18n.t(:trial_finished)
+
+%p= I18n.t(:gears_count, gears_free: capabilities.gears_free, max_gears: capabilities.max_gears)
+
+- if payment[:valid]
+
+  - if payment[:type] == 'paypal_reftrans'
+    %h4= I18n.t(:Payment_method) + ': PayPal (Express Checkout)'
+    %br
+    %table.table
+      %thead
+        %tr
+          %th{:scope => 'col'}= I18n.t(:PayPal_Account)
+          %th{:scope => 'col'}= I18n.t(:Date)
+          %th{:scope => 'col'}= I18n.t(:ID)
+      %tbody
+        %tr
+          %td{:scope => 'row'}= payment[:email]
+          %td{:scope => 'row'}= payment[:create_date]
+          %td{:scope => 'row'}= payment[:billing_agreement_id]
+
+  - elsif payment[:type] == 'paypal'
+    %h4= I18n.t(:Payment_method) + ': PayPal (PreApproval Key)'
+    %br
+    %table.table
+      %thead
+        %tr
+          %th{:scope => 'col'}= I18n.t(:PayPal_Account)
+          %th{:scope => 'col'}= I18n.t(:Amount)
+          %th{:scope => 'col'}= I18n.t(:Date)
+          %th{:scope => 'col'}= I18n.t(:PA_Key)
+      %tbody
+        %tr
+          %td{:scope => 'row'}= payment[:email]
+          %td{:scope => 'row'}= payment[:amount]
+          %td{:scope => 'row'}= payment[:create_date]
+          %td{:scope => 'row'}= payment[:key]
+
+  - elsif payment[:type] == 'boleto'
+    %h4= I18n.t(:Payment_method) + ': Boleto Bancário'
+
+  %br
+  - if payment[:type] == 'paypal'
+    %p.account-alert= I18n.t('account.footer.' + payment[:type])
+  - else
+    %p= I18n.t('account.footer.' + payment[:type])
+
+  %form.form-horizontal.formtastic{:action => account_validate_path, :id => 'form-validate', :method => 'post'}
+    = token_tag(nil)
+    %div.paypal-container
+      %button.btn.paypal-logo{:type => 'submit', :name => 'action', :value => 'create'} PayPal
+      %button.btn.paypal-subscribe{:type => 'submit', :name => 'action', :value => 'create'}= I18n.t(:validate_account)
+
+- else
+  %p= I18n.t(:validate_caption_invalid)
+
+  %form.form-horizontal.formtastic{:action => account_validate_path, :id => 'form-validate', :method => 'post'}
+    = token_tag(nil)
+    %div.paypal-container
+      %button.btn.paypal-logo{:type => 'submit', :name => 'action', :value => 'create'} PayPal
+      %button.btn.paypal-subscribe{:type => 'submit', :name => 'action', :value => 'create'}= I18n.t(:validate_account)

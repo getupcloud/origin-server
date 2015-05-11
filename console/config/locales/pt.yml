@@ -1,4 +1,4 @@
-en:
+pt:
   unknown: 'A system error has occurred.  If the problem persists, please contact Getup Cloud support at support@getupcloud.com.'
 
   types:
@@ -12,12 +12,16 @@ en:
       '151': You must create a Jenkins Server application in your domain (to act as a build server) before you can add the Jenkins cartridge to an application.
       '153': You are currently using more gears than the new plan would allow.  Please scale down or delete applications before downgrading.
 
-  account:
-    address:
-      edit:
-        title:
-          primary: Contact Address
-          billing: Billing Address
-        caption:
-          primary: Fill your contact info below
-          billing: Fill your billing info below
+  getup:
+    account:
+      no_available_gears: Não existem mais gears disponíveis.
+      please_validate_your_account: Por favor, valide sua conta.
+      address:
+        edit:
+          title:
+            primary: Endereço de Contato
+            billing: Endereço de Cobrança
+          caption:
+            primary: Preencha seus dados de contato abaixo
+            billing: Preencha seus dados de cobrança abaixo
+

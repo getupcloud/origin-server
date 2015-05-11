@@ -65,7 +65,7 @@ module Console::CommunityHelper
   end
 
   def contact_mail
-    Console.config.env(:CONTACT_MAIL, 'openshift@redhat.com')
+    Console.config.env(:CONTACT_MAIL, 'getup@getupcloud.com')
   end 
 
   def mailto_openshift_url
@@ -82,5 +82,29 @@ module Console::CommunityHelper
 
   def open_issues_jsonp_url(jsonp)
     open_issues_js_path :jsonp => jsonp
+  end
+
+  def getup_credit_url
+    getup_forum_base_url 'entries/61852715'
+  end
+
+  def openshift_twitter_status_url
+    'http://twitter.com/GetupStatus'
+  end
+
+  def getup_facebook_url
+    'http://fb.com/getupcloud'
+  end
+
+  def getup_youtube_url
+    'https://www.youtube.com/user/getupcloud'
+  end
+
+  def getup_site_url
+    Console.config.env(:GETUP_SITE_URL, 'https://getupcloud.com/')
+  end
+
+  def getup_blog_url
+    Console.config.env(:GETUP_BLOG_URL, 'https://getupcloud.com/blog/')
   end
 end

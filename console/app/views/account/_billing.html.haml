@@ -1,0 +1,13 @@
+%h2= I18n.t :Billing
+
+%p= I18n.t :billing_history_caption
+
+.btn-toolbar
+  = link_to I18n.t(:Invoices), account_billings_path, :class => 'btn btn-small btn-danger'
+
+%p= I18n.t :addr_info_caption
+
+.btn-toolbar
+  %p
+    = link_to I18n.t(:Primary), edit_account_address_primary_path, :class => 'btn btn-small btn-danger'
+    = link_to I18n.t(:Billing), edit_account_address_billing_path, :class => 'btn btn-small btn-danger'

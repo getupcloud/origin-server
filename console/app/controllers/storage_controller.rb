@@ -1,8 +1,19 @@
 class StorageController < ConsoleController
+  include Console::UserManagerHelper
+  include Console::BillingHelper
+
   before_filter :user_information
   before_filter :application_information
 
   def show
+    prices = user_manager_subscription_prices.content
+
+    if I18n.locale.to_s == 'pt'
+      price = item_price({:usage_type => 'ADDTL_FS_GB'}, prices)
+    else
+      price = item_price({:usage_type => 'ADDTL_FS_GB', :currency => 'USD'}, prices)
+    end
+    @storage_price = "#{price[:acronym]} #{price[:value]}"
   end
 
   def update
@@ -26,6 +37,8 @@ class StorageController < ConsoleController
   private
   def user_information
     @user = User.find :one, :as => current_user
+    @max_storage = @user.capabilities[:max_storage_per_gear] || 0
+    @can_modify_storage = @max_storage > 0
   end
 
   def application_information

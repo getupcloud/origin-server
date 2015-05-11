@@ -1,4 +1,7 @@
 module Console::HelpHelper
+  def getup_community_path
+    getup_forum_base_url
+  end
 
   # Given a relative path within the user guide, display the topic
   def user_guide_topic_url(topic)
@@ -15,7 +18,7 @@ module Console::HelpHelper
   end
 
   def newsletter_signup_url
-    community_base_url 'newsletter/signup'
+    "http://getupcloud.us6.list-manage.com/subscribe?u=4a3f06f90d5382ab5ffde773d&id=53fc0caeda"
   end
 
   def ssh_keys_help_path
@@ -47,11 +50,11 @@ module Console::HelpHelper
   end
 
   def suggest_features_url
-    community_base_url 'ideas'
+    getup_forum_base_url '21724148'
   end
 
   def openshift_blog_url
-    community_base_url 'blogs'
+    getup_blog_url
   end
 
   def openshift_twitter_url
@@ -79,7 +82,7 @@ module Console::HelpHelper
   end
 
   def get_started_quickstart_url
-    community_base_url 'developers/get-started'
+    getup_forum_base_url 'entries/38835698'
   end
 
   def developers_url
@@ -91,15 +94,15 @@ module Console::HelpHelper
   end
 
   def support_path
-    community_base_url 'support'
+    getup_forum_base_url
   end
 
   def ssh_help_url
-    community_base_url 'developers/remote-access'
+    getup_forum_base_url 'entries/23074108'
   end
 
   def client_tools_install_help_url
-    community_base_url 'developers/install-the-client-tools'
+    getup_forum_base_url 'entries/23056511'
   end
 
   def client_tools_help_url
@@ -171,7 +174,7 @@ module Console::HelpHelper
   end
 
   def videos_url
-    community_base_url 'videos'
+    getup_youtube_url
   end
 
   def blog_post_url(post)
@@ -288,10 +291,12 @@ module Console::HelpHelper
 
   def console_faq_links
     [
-      {:href => community_base_url('faq/how-do-i-start-a-new-forum-discussion'),
-       :name => 'How do I start a new Forum discussion?'},
-      {:href => community_base_url('faq/how-do-i-install-the-rhc-client-tools-on-windows'),
-       :name => 'How do I install the rhc client tools on Windows?'}
+      {:href => community_base_url('entries/23608756'),
+       :name => :faq_own_domain},
+      {:href => cli_on_windows_user_guide_topic_url,
+       :name => :faq_install_win},
+      {:href => community_base_url('entries/23042806'),
+       :name => :faq_pub_site}
     ]
   end
 
@@ -304,6 +309,18 @@ module Console::HelpHelper
   end
 
   def alias_docs_url
-    community_base_url 'blogs/custom-url-names-for-your-paas-applications-host-forwarding-and-cnames-the-openshift-way'
+    getup_forum_base_url 'entries/23608756'
+  end
+
+  def support_email
+    'support@getupcloud.com'
+  end
+
+  def support_url
+    getup_forum_base_url 'home'
+  end
+
+  def getupcloud_url
+    getup_site_url
   end
 end

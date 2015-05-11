@@ -1,0 +1,2 @@
+module Console::AddressHelper
+end

@@ -1,0 +1,28 @@
+= content_for :title, I18n.t(:password_title)
+= breadcrumb_for_settings I18n.t(:password_title)
+%h1= I18n.t(:password_title)
+= flashes
+
+%form.form-horizontal.formtastic{:action => password_path, :id => 'form-change-password', :method => :post}
+  = token_tag(nil)
+  %p= I18n.t(:change_password_caption)
+
+  %fieldset.inputs
+    .string.required.control-group
+      %label.control-label= I18n.t(:old_password)
+      .controls
+        = password_field_tag 'old-password', '', :placeholder => I18n.t(:old_password)
+
+    .string.required.control-group
+      %label.control-label= I18n.t(:new_password)
+      .controls
+        = password_field_tag 'password', '', :placeholder => I18n.t(:new_password)
+        
+    .string.required.control-group
+      %label.control-label= I18n.t(:new_password_again)
+      .controls
+        = password_field_tag 'verify-password', '', :placeholder => I18n.t(:new_password_again)
+
+  %fieldset.form-actions
+    = link_to I18n.t(:Cancel), settings_path, :class => 'btn'
+    %button.btn.btn-danger.update{:type => 'submit'}= I18n.t(:Change)

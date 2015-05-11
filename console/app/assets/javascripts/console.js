@@ -5,4 +5,4 @@
 //= require jquery_placeholder
 //= require plugins
 //= require typeahead_bundle_min
-//= require console/form
+//= require_tree .
