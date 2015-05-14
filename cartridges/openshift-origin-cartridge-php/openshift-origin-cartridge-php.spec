@@ -59,6 +59,11 @@ PHP cartridge for openshift. (Cartridge Format V2)
 
 
 %changelog
+* Thu May 14 2015 Builder <getup@getupcloud.com> 1.26.9.1-7
+- bump version (getup@getupcloud.com)
+- Add Support to scalable apps when using multisite option
+  (spinolacastro@gmail.com)
+
 * Wed Feb 25 2015 Builder <getup@getupcloud.com> 1.26.9.1-6
 - bump version (spinolacastro@gmail.com)
 - fix php-5.5 opcache bug (spinolacastro@gmail.com)
