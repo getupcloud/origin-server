@@ -8,6 +8,26 @@
 #
 BROKER_URL=https://localhost/broker/rest
 
+# Getup extensions
+LOCAL_BROKER_BASE_URL=http://127.0.0.1:8080
+
+USER_MANAGER_ACCOUNT_PLAN_URL=/account/plan/
+USER_MANAGER_ACCOUNT_LANG_URL=/account/lang/
+USER_MANAGER_ACCOUNT_USERINFO_URL=/account/userinfo/
+
+USER_MANAGER_ACCOUNT_PASSWORD_CHANGE_URL=/account/password/change/
+USER_MANAGER_ACCOUNT_PASSWORD_RESET_URL=/account/password/reset/
+USER_MANAGER_ACCOUNT_PASSWORD_RESET_KEY_URL=/account/password/reset/key/
+
+USER_MANAGER_SUBSCRIPTION_CREATE_URL=/subscription/create/
+USER_MANAGER_SUBSCRIPTION_CONFIRM_URL=/subscription/confirm/
+USER_MANAGER_SUBSCRIPTION_CANCEL_URL=/subscription/cancel/
+USER_MANAGER_SUBSCRIPTION_PRICES_URL=/subscription/prices/
+
+USER_MANAGER_PRIMARY_ADDRESS_URL=/billing/address/primary/
+USER_MANAGER_BILLING_ADDRESS_URL=/billing/address/billing/
+USER_MANAGER_BILLING_HISTORY_URL=/billing/history/
+USER_MANAGER_BILLING_INVOICE_URL=/billing/invoice/
 
 #
 # A proxy URL to use when connecting with the broker.
