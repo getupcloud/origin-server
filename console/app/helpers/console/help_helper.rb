@@ -1,6 +1,6 @@
 module Console::HelpHelper
   def getup_community_path
-    getup_forum_base_url
+    getup_forums_url
   end
 
   # Given a relative path within the user guide, display the topic
@@ -50,7 +50,7 @@ module Console::HelpHelper
   end
 
   def suggest_features_url
-    getup_forum_base_url '21724148'
+    getup_forum_article_url '21724148'
   end
 
   def openshift_blog_url
@@ -82,7 +82,7 @@ module Console::HelpHelper
   end
 
   def get_started_quickstart_url
-    getup_forum_base_url 'entries/38835698'
+    getup_forum_article_url '38835698'
   end
 
   def developers_url
@@ -94,15 +94,15 @@ module Console::HelpHelper
   end
 
   def support_path
-    getup_forum_base_url
+    getup_forums_url
   end
 
   def ssh_help_url
-    getup_forum_base_url 'entries/23074108'
+    getup_forum_article_url '23074108'
   end
 
   def client_tools_install_help_url
-    getup_forum_base_url 'entries/23056511'
+    getup_forum_article_url '23056511'
   end
 
   def client_tools_help_url
@@ -291,11 +291,11 @@ module Console::HelpHelper
 
   def console_faq_links
     [
-      {:href => community_base_url('entries/23608756'),
+      {:href => getup_forum_article_url('23608756'),
        :name => :faq_own_domain},
       {:href => cli_on_windows_user_guide_topic_url,
        :name => :faq_install_win},
-      {:href => community_base_url('entries/23042806'),
+      {:href => getup_forum_article_url('23042806'),
        :name => :faq_pub_site}
     ]
   end
@@ -309,7 +309,7 @@ module Console::HelpHelper
   end
 
   def alias_docs_url
-    getup_forum_base_url 'entries/23608756'
+    getup_forum_article_url '23608756'
   end
 
   def support_email
@@ -317,7 +317,7 @@ module Console::HelpHelper
   end
 
   def support_url
-    getup_forum_base_url 'home'
+    getup_forums_url
   end
 
   def getupcloud_url

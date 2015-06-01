@@ -3,12 +3,15 @@
 %h1 My Account
 = flashes
 
-%section
-  = render :partial => 'validate', :locals => { :capabilities => @capabilities, :payment => @payment, :plan => @plan }
+.row
+  .span7
+    %section
+      = render :partial => 'payment', :locals => { :capabilities => @capabilities, :payment => @payment, :plan => @plan }
 
-- if @has_credits
-  %section
-    = render :partial => 'credits', :locals => {:plan=> @plan, :getup_credit_url => @getup_credit_url}
+  .span5
+    %section
+      = render :partial => 'billing'
 
-  %section
-    = render :partial => 'billing'
+    - if @has_credits
+      %section
+        = render :partial => 'credits', :locals => {:plan=> @plan, :getup_credit_url => @getup_credit_url}

@@ -4,7 +4,7 @@ module Console
 
     included do
       helper_method :community_base_url, :community_path, :community_url if respond_to?(:helper_method)
-      helper_method :getup_forum_base_url
+      helper_method :getup_zendesk_url, :getup_forums_url, :getup_forum_article_url
     end
 
     protected
@@ -20,8 +20,16 @@ module Console
         "#{Console.config.community_url || "#{request.scheme}://#{request.host}:8118/"}#{path}#{opts && opts[:anchor] ? "##{opts[:anchor]}" : ""}"
       end
 
-      def getup_forum_base_url(entry=nil)
-        "#{Console.config.env(:GETUP_FORUM_URL, 'https://getup.zendesk.com')}/forums/#{entry || ""}"
+      def getup_zendesk_url
+        Console.config.env(:GETUP_ZENDESK_URL, 'https://getup.zendesk.com')
+      end
+
+      def getup_forums_url
+        Console.config.env(:GETUP_FORUM_URL, getup_zendesk_url) + '/forums/'
+      end
+
+      def getup_forum_article_url(entry)
+        Console.config.env(:GETUP_ZENDESK_URL, 'https://getup.zendesk.com') + '/entries/' + entry.to_s
       end
 
   end

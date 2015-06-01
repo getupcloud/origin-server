@@ -1,0 +1,77 @@
+%h2= I18n.t 'getup.account.payment.Authorization'
+
+//%pre
+//  = payment
+
+- if plan[:status] == 'te' or plan[:status] == 'tf'
+  %p= I18n.t(:trial_finished)
+
+%p= I18n.t('getup.account.available_gears', gears_free: capabilities.gears_free, max_gears: capabilities.max_gears)
+
+- if payment[:valid]
+
+  - if payment[:type] == 'paypal_reftrans'
+    %h4= I18n.t('getup.account.payment.Current_Payment_Method') + ': PayPal (Express Checkout)'
+    %br
+    %table.table
+      %thead
+        %tr
+          %th{:scope => 'col'}= I18n.t('getup.account.payment.PayPal_Account')
+          %th{:scope => 'col'}= I18n.t('getup.account.payment.Date')
+          %th{:scope => 'col'}= I18n.t('getup.account.payment.ID')
+      %tbody
+        %tr
+          %td{:scope => 'row'}= payment[:email]
+          %td{:scope => 'row'}= payment[:create_date]
+          %td{:scope => 'row'}= payment[:billing_agreement_id]
+
+  - elsif payment[:type] == 'paypal'
+    %h4= I18n.t('getup.account.payment.Current_Payment_Method') + ': PayPal (PreApproval Key)'
+    %br
+    %table.table
+      %thead
+        %tr
+          %th{:scope => 'col'}= I18n.t('getup.account.payment.PayPal_Account')
+          %th{:scope => 'col'}= I18n.t('getup.account.payment.Amount')
+          %th{:scope => 'col'}= I18n.t('getup.account.payment.Date')
+          %th{:scope => 'col'}= I18n.t('getup.account.payment.PA_Key')
+      %tbody
+        %tr
+          %td{:scope => 'row'}= payment[:email]
+          %td{:scope => 'row'}= payment[:amount]
+          %td{:scope => 'row'}= payment[:create_date]
+          %td{:scope => 'row'}= payment[:key]
+
+  - if payment[:type] == 'creditcard'
+    %h4= I18n.t('getup.account.payment.Current_Payment_Method') + ': Credit Card'
+    %br
+    %table.table
+      %thead
+        %tr
+          %th{:scope => 'col'}= I18n.t('getup.account.payment.Brand')
+          %th{:scope => 'col'}= I18n.t('getup.account.payment.Last_Digits')
+          %th{:scope => 'col'}= I18n.t('getup.account.payment.Holder_Name')
+          %th{:scope => 'col'}= I18n.t('getup.account.payment.Date')
+      %tbody
+        %tr
+          %td{:scope => 'row'}= payment[:brand]
+          %td{:scope => 'row'}= '**** **** **** ' + payment[:last_digits]
+          %td{:scope => 'row'}= payment[:holder_name]
+          %td{:scope => 'row'}= payment[:create_date]
+
+  - elsif payment[:type] == 'boleto'
+    %h4= I18n.t('getup.account.payment.Current_Payment_Method') + ': Boleto Bancário'
+
+  %p
+    %button.btn.btn-primary{:type => 'button', 'data-toggle' => 'collapse', 'data-target' => "#collapsePayment", 'aria-expanded' => "false", 'aria-controls' => "collapsePayment"}= I18n.t('getup.account.payment.Change_payment_method')
+
+  .collapse{:id => 'collapsePayment'}
+    .well
+      = render :partial => 'payment_method'
+
+- else
+  %p= I18n.t('getup.account.validate.validate_your_account')
+  = render :partial => 'payment_method'
+
+- content_for :javascripts do
+  = javascript_include_tag 'payment'

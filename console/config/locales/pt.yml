@@ -1,5 +1,5 @@
 pt:
-  unknown: 'A system error has occurred.  If the problem persists, please contact Getup Cloud support at support@getupcloud.com.'
+  unknown: A system error has occurred.  If the problem persists, please contact Getup Cloud support at support@getupcloud.com.
 
   types:
     php: PHP
@@ -14,8 +14,24 @@ pt:
 
   getup:
     account:
+      available_gears: Você possui %{gears_free} gear(s) disponívei(s) de %{max_gears} autorizado(s).
       no_available_gears: Não existem mais gears disponíveis.
       please_validate_your_account: Por favor, valide sua conta.
+      payment:
+        Change_payment_method: Alterar método de pagamento
+        Authorization: Authorização
+        Current_Payment_Method: Método de Pagamento atual
+        PayPal_Account: Conta PayPal
+        Date: Data
+        ID: ID
+        PA_Key: PA-Key
+        Brand: Bandeira
+        Last_Digits: Últimos Digitos
+        Holder_Name: Nome no Cartão
+      validate:
+        Credits: Créditos
+        hours: horas
+        validate_your_account: 'Valide sua conta para obter acesso a mais recursos:'
       address:
         edit:
           title:
@@ -24,4 +40,12 @@ pt:
           caption:
             primary: Preencha seus dados de contato abaixo
             billing: Preencha seus dados de cobrança abaixo
-
+      credit_card:
+        Credit_Card: Cartão de Crédito
+        Provide_your_Credit_Card_Information: Informe os dados do seu Cartão de Crédito
+        Type: Tipo
+        Number: Número
+        Expiration_Month: Mes de expiração
+        Expiration_Year: Ano de expiração
+        Holder_Name: Nome do proprietário
+        Validation_Code: Código de validação

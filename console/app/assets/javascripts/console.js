@@ -5,4 +5,6 @@
 //= require jquery_placeholder
 //= require plugins
 //= require typeahead_bundle_min
+//= require skeuocard
+//= require pagarme_v2_min
 //= require_tree .

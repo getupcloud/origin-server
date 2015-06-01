@@ -1,12 +1,8 @@
-class ValidateController < ConsoleController
+class PaypalController < ConsoleController
   include Console::UserManagerHelper
 
-
-	def show
-	end
-
-  def create
-    result = user_manager_subscription_create
+  def new
+    result = user_manager_subscription_create('paypal')
 
     if result.code === 302
       redirect_to result.header["location"]
@@ -33,5 +29,4 @@ class ValidateController < ConsoleController
       redirect_to account_path, :flash => {:error => result.content[:message]}
     end
   end
-
 end

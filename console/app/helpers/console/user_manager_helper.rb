@@ -48,8 +48,12 @@ module Console::UserManagerHelper
     user_manager_post _url('account_password_reset_key') + token + "/", :password1 => password, :password2 => password
   end
 
-  def user_manager_subscription_create
-  	user_manager_post session[:authentication].login + _url('subscription_create'), :returnurl => confirm_validate_url, :cancelurl => cancel_validate_url
+  def user_manager_subscription_create(type)
+    if type == 'paypal'
+      user_manager_post session[:authentication].login + _url('subscription_create'), :type => type, :returnurl => confirm_account_validate_paypal_url, :cancelurl => cancel_account_validate_paypal_url
+    else
+      user_manager_post session[:authentication].login + _url('subscription_create'), :type => type, :card_hash => params['card_hash']
+    end
   end
 
   def user_manager_subscription_confirm

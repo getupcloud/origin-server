@@ -85,7 +85,7 @@ module Console::CommunityHelper
   end
 
   def getup_credit_url
-    getup_forum_base_url 'entries/61852715'
+    getup_forum_article_url '61852715'
   end
 
   def openshift_twitter_status_url

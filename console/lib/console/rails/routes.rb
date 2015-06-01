@@ -95,9 +95,13 @@ module ActionDispatch::Routing
                  :controller => :account,
                  :only => :show do
 
-          resource :validate, :controller => :validate, :only => [:create], :format => false do
-            get 'confirm'
-            get 'cancel'
+          resource :validate, :controller => :validate, :only => [:show, :create], :format => false do
+            resource :paypal, :controller => :paypal, :only => [:new], :format => false do
+              get :confirm
+              get :cancel
+            end
+
+            resource :credit_card, :controller => :credit_card, :only => [:new, :create], :format => false
           end
 
           resources :billings, :only => [:show, :index], :format => false

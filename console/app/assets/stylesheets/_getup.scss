@@ -1,10 +1,10 @@
 @font-face {
     font-family: 'roboto light';
-    src: url('https://d14kvwo1d1egfx.cloudfront.net/static/fonts/roboto-light-webfont.eot');
-    src: url('https://d14kvwo1d1egfx.cloudfront.net/static/fonts/roboto-light-webfont.eot?#iefix') format('embedded-opentype'),
-         url('https://d14kvwo1d1egfx.cloudfront.net/static/fonts/roboto-light-webfont.woff') format('woff'),
-         url('https://d14kvwo1d1egfx.cloudfront.net/static/fonts/roboto-light-webfont.ttf') format('truetype'),
-         url('https://d14kvwo1d1egfx.cloudfront.net/static/fonts/roboto-light-webfont.svg#robotolight') format('svg');
+    src: url('https://s3-us-west-2.amazonaws.com/getupcloud/static/fonts/roboto-light-webfont.eot');
+    src: url('https://s3-us-west-2.amazonaws.com/getupcloud/static/fonts/roboto-light-webfont.eot?#iefix') format('embedded-opentype'),
+         url('https://s3-us-west-2.amazonaws.com/getupcloud/static/fonts/roboto-light-webfont.woff') format('woff'),
+         url('https://s3-us-west-2.amazonaws.com/getupcloud/static/fonts/roboto-light-webfont.ttf') format('truetype'),
+         url('https://s3-us-west-2.amazonaws.com/getupcloud/static/fonts/roboto-light-webfont.svg#robotolight') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -12,11 +12,11 @@
 
 @font-face {
     font-family: 'roboto regular';
-    src: url('https://d14kvwo1d1egfx.cloudfront.net/static/fonts/roboto-regular-webfont.eot');
-    src: url('https://d14kvwo1d1egfx.cloudfront.net/static/fonts/roboto-regular-webfont.eot?#iefix') format('embedded-opentype'),
-         url('https://d14kvwo1d1egfx.cloudfront.net/static/fonts/roboto-regular-webfont.woff') format('woff'),
-         url('https://d14kvwo1d1egfx.cloudfront.net/static/fonts/roboto-regular-webfont.ttf') format('truetype'),
-         url('https://d14kvwo1d1egfx.cloudfront.net/static/fonts/roboto-regular-webfont.svg#robotoregular') format('svg');
+    src: url('https://s3-us-west-2.amazonaws.com/getupcloud/static/fonts/roboto-regular-webfont.eot');
+    src: url('https://s3-us-west-2.amazonaws.com/getupcloud/static/fonts/roboto-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('https://s3-us-west-2.amazonaws.com/getupcloud/static/fonts/roboto-regular-webfont.woff') format('woff'),
+         url('https://s3-us-west-2.amazonaws.com/getupcloud/static/fonts/roboto-regular-webfont.ttf') format('truetype'),
+         url('https://s3-us-west-2.amazonaws.com/getupcloud/static/fonts/roboto-regular-webfont.svg#robotoregular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -24,18 +24,20 @@
 
 @font-face {
     font-family: 'ostrich black';
-    src: url('https://d14kvwo1d1egfx.cloudfront.net/static/fonts/ostrich-black-webfont.eot');
-    src: url('https://d14kvwo1d1egfx.cloudfront.net/static/fonts/ostrich-black-webfont.eot?#iefix') format('embedded-opentype'),
-         url('https://d14kvwo1d1egfx.cloudfront.net/static/fonts/ostrich-black-webfont.woff') format('woff'),
-         url('https://d14kvwo1d1egfx.cloudfront.net/static/fonts/ostrich-black-webfont.ttf') format('truetype'),
-         url('https://d14kvwo1d1egfx.cloudfront.net/static/fonts/ostrich-black-webfont.svg#ostrich_sansblack') format('svg');
+    src: url('https://s3-us-west-2.amazonaws.com/getupcloud/static/fonts/ostrich-black-webfont.eot');
+    src: url('https://s3-us-west-2.amazonaws.com/getupcloud/static/fonts/ostrich-black-webfont.eot?#iefix') format('embedded-opentype'),
+         url('https://s3-us-west-2.amazonaws.com/getupcloud/static/fonts/ostrich-black-webfont.woff') format('woff'),
+         url('https://s3-us-west-2.amazonaws.com/getupcloud/static/fonts/ostrich-black-webfont.ttf') format('truetype'),
+         url('https://s3-us-west-2.amazonaws.com/getupcloud/static/fonts/ostrich-black-webfont.svg#ostrich_sansblack') format('svg');
     font-weight: normal;
     font-style: normal;
 }
 
-.getup-sprite { background: url(https://d14kvwo1d1egfx.cloudfront.net/static/img/sprite.png) no-repeat; text-indent: -5000em; }
+.hidden { display: none; }
 
-.getup { border-bottom: 5px solid #FF4C4D; min-height: 125px; background: #fff url('https://d14kvwo1d1egfx.cloudfront.net/static/img/header.png') no-repeat top center; }
+.getup-sprite { background: url(https://s3-us-west-2.amazonaws.com/getupcloud/static/img/sprite.png) no-repeat; text-indent: -5000em; }
+
+.getup { border-bottom: 5px solid #FF4C4D; min-height: 125px; background: #fff url('https://s3-us-west-2.amazonaws.com/getupcloud/static/img/header.png') no-repeat top center; }
 
 .getup .logo { width: 182px; height: 81px; margin: 0; border-top: 5px solid #FF4C4D; background-position: 0 0; }
 .getup .app { position: absolute; top: 49px; left: 161px; margin: 0; line-height: 34px; font-family: 'ostrich black'; font-size: 34px; color: #2D2D2D; }
@@ -86,8 +88,24 @@ body, h1, h2, h3, h4, h5, h6 { font-family: 'roboto light'; }
 .table-striped tbody tr:nth-child(odd) td, .table-striped tbody tr:nth-child(odd) th { background: #333; }
 .table-striped tbody tr td, .table-striped tbody tr th { border-color: #444; }
 
-.btn.paypal { background: url(https://www.paypalobjects.com/en_US/i/btn/x-click-but20.gif) no-repeat 0 0; border: 0; height: 31px; padding: 0; text-indent: -5000em; width: 62px; }
-
+.paypal-container {
+	background-color: white;
+	display: inline-block;
+}
+.btn.paypal-logo {
+	background: url(/assets/paypal-button.png) no-repeat 0 0;
+	width: 209px;
+	height: 52px;
+	border: 0;
+	padding: 0;
+	text-indent: -5000em;
+}
+.account-alert {
+	background-color: #700;
+	/* color: yellow; */
+	border-radius: 5px;
+	padding: 10px;
+}
 /* Responsive */
 
 @media (max-width: 767px) {

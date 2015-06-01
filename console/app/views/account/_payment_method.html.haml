@@ -1,0 +1,13 @@
+%h3 Escolha o método de pagamento
+
+.row
+  .span3
+    = link_to new_account_validate_paypal_path do
+      %div PayPal
+      = image_tag('paypal-button.png')
+
+  .span3
+    = link_to new_account_validate_credit_card_path do
+      %div Cartão de Crédito
+      = image_tag('credit-card-button.png')
+

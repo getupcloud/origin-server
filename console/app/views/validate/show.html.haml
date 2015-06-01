@@ -1,0 +1,47 @@
+= content_for :title, I18n.t(:validate_title)
+= breadcrumb_for_account I18n.t(:validate_title)
+
+%h1= I18n.t :validate_title
+= flashes
+
+%hr
+
+%h2= I18n.t(:validate_caption_1)
+
+%form.form-horizontal.formtastic{:action => account_validate_path, :id => 'form-validate', :method => 'post'}
+  = token_tag(nil)
+
+  %div.credit-card-input.no-js{id: "skeuocard"}
+    %p.no-support-warning
+      = I18n.t(:validate_not_supported)
+
+    %div.flip-tab
+
+    %label.control-label{'for' => 'cc_type'}= t 'getup.credit_card.Type'
+    = select_tag :cc_type, options_for_select(credit_card_list, '')
+
+    %label.control-label{'for' => 'cc_number'}= t 'getup.credit_card.Number'
+    = text_field_tag :cc_number, nil, :placeholder => "XXXXXXXXXXXXXXXX", maxlength: "16", size: "16"
+
+    %label.control-label{'for' => 'cc_exp_month'}= t 'getup.credit_card.Expiration_Month'
+    = text_field_tag :cc_exp_month, nil, :placeholder => "00", maxlength: "2", size: "2"
+
+    %label.control-label{'for' => 'cc_exp_year'}= t 'getup.credit_card.Expiration_Year'
+    = text_field_tag :cc_exp_year, nil, :placeholder => "00", maxlength: "2", size: "2"
+
+    %label.control-label{'for' => 'cc_name'}= t 'getup.credit_card.Holder_Name'
+    = text_field_tag :cc_name, nil
+
+    %label.control-label{'for' => 'cc_cvc'}= t 'getup.credit_card.Validation_Code'
+    = text_field_tag :cc_cvc, nil, :placeholder => "XXX", maxlength: "3", size: "3"
+
+  %br
+
+  %p
+    = link_to I18n.t(:Cancel), account_path, :class => 'btn'
+    %button.btn.btn-danger.btn-validate{:type => 'button'}= I18n.t(:Validate)
+
+%span.hidden.validate_error_message=I18n.t(:validate_verify)
+
+- content_for :javascripts do
+  = javascript_include_tag 'skeuocard'
