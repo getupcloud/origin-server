@@ -4,7 +4,7 @@
 
 Name:          openshift-origin-cartridge-php
 Version: 1.26.9.1
-Release:       6%{?dist}
+Release:       12%{?dist}
 Summary:       Php cartridge
 Group:         Development/Languages
 License:       ASL 2.0
@@ -59,6 +59,38 @@ PHP cartridge for openshift. (Cartridge Format V2)
 
 
 %changelog
+* Tue May 19 2015 Builder <getup@getupcloud.com> 1.26.9.1-12
+- bump version (getup@getupcloud.com)
+- Merge branch 'getup-openshift-origin-release-4' of github.com:getupcloud
+  /origin-server into getup-openshift-origin-release-4
+  (spinolacastro@gmail.com)
+- DocumentRoot env-var (spinolacastro@gmail.com)
+
+* Tue May 19 2015 Builder <getup@getupcloud.com> 1.26.9.1-11
+- bump version (getup@getupcloud.com)
+- Merge branch 'getup-openshift-origin-release-4' of github.com:getupcloud
+  /origin-server into getup-openshift-origin-release-4
+  (spinolacastro@gmail.com)
+- Fix Composer permissions (spinolacastro@gmail.com)
+
+* Tue May 19 2015 Builder <getup@getupcloud.com> 1.26.9.1-10
+- bump version (getup@getupcloud.com)
+- Update Composer (spinolacastro@gmail.com)
+
+* Thu May 14 2015 Builder <getup@getupcloud.com> 1.26.9.1-9
+- bump version (getup@getupcloud.com)
+- Merge branch 'getup-openshift-origin-release-4' of github.com:getupcloud
+  /origin-server into getup-openshift-origin-release-4 (getup@getupcloud.com)
+- Handle both scalable and non-scalable apps (spinolacastro@gmail.com)
+
+* Thu May 14 2015 Builder <getup@getupcloud.com> 1.26.9.1-8
+- bump version (getup@getupcloud.com)
+
+* Thu May 14 2015 Builder <getup@getupcloud.com> 1.26.9.1-7
+- bump version (getup@getupcloud.com)
+- Add Support to scalable apps when using multisite option
+  (spinolacastro@gmail.com)
+
 * Wed Feb 25 2015 Builder <getup@getupcloud.com> 1.26.9.1-6
 - bump version (spinolacastro@gmail.com)
 - fix php-5.5 opcache bug (spinolacastro@gmail.com)

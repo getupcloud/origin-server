@@ -4,7 +4,8 @@ source $OPENSHIFT_CARTRIDGE_SDK_BASH
 source ${OPENSHIFT_PHP_DIR}usr/lib/php_context
 
 function select_php_document_root {
-    for dir in php public public_html web www; do
+
+    for dir in $DOCUMENT_ROOT php public public_html web www; do
         if [ -d "$1/$dir" -o -h "$1/$dir" ]; then
             export OPENSHIFT_PHP_DOCUMENT_ROOT="$1/$dir"
             echo "Application directory \"$dir/\" selected as DocumentRoot"
