@@ -10,7 +10,7 @@
 Summary:       OpenShift Origin Management Console
 Name:          rubygem-%{gem_name}
 Version: 1.26.3.1
-Release:       3%{?dist}
+Release:       4%{?dist}
 Group:         Development/Languages
 License:       ASL 2.0
 URL:           https://openshift.redhat.com
@@ -84,6 +84,7 @@ OpenShift Origin Management Console ri documentation
 %build
 %{?scl:scl enable %scl - << \EOF}
 
+set -x
 set -e
 mkdir -p .%{gem_dir}
 
@@ -166,6 +167,9 @@ cp bin/man/*.8 %{buildroot}%{_mandir}/man8/
 %{gem_dir}/doc/%{gem_name}-%{version}
 
 %changelog
+* Mon Jun 01 2015 Builder <getup@getupcloud.com> 1.26.3.1-4
+- 
+
 * Mon Jun 01 2015 Builder <getup@getupcloud.com> 1.26.3.1-3
 - 
 
