@@ -4,7 +4,7 @@ module Console
 
     included do
       helper_method :community_base_url, :community_path, :community_url if respond_to?(:helper_method)
-      helper_method :getup_zendesk_url, :getup_forums_url, :getup_forum_article_url
+      helper_method :getup_zendesk_url, :getup_forums_url, :getup_forum_article_url if respond_to?(:helper_method)
     end
 
     protected
