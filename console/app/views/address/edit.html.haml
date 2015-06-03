@@ -89,7 +89,3 @@
     %fieldset.form-actions
       = link_to I18n.t(:Cancel), account_path, :class => 'btn'
       %button.btn.btn-danger.update{:type => 'submit'}= I18n.t(:Save)
-
-- content_for :javascripts do
-  = javascript_include_tag 'jquery.maskedinput'
-  = javascript_include_tag 'address'
