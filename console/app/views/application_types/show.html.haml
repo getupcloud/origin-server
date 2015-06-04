@@ -190,7 +190,7 @@
         - can_scale = can_scale_application_type(@application_type, @domain_capabilities)
         - scale_reason = cannot_scale_title(@application_type, @domain_capabilities)
         - if can_scale
-          = f.select :scale, scale_options, {}
+          = f.input :scale, :as => :radio, :collection => scale_options, :label => false
         - else
           %h3
             %span.text-warning{:title => scale_reason}= scale_options[0][0]
@@ -229,6 +229,8 @@
 - content_for :javascripts do
   :javascript
     $(function() {
+      $("#application_scale_false:radio").prop('checked',true);
+
       var applicationTypeUrl = function(form) {
         var fields = form.serializeArray();
 

@@ -1,0 +1,14 @@
+
+#application_scale_input {
+	padding-left: 0px;
+	ol {
+		list-style: none;
+		margin-left: 18px;
+		li {
+			margin-bottom: 8px;
+			label input[type="radio"] {
+				margin-bottom: 6px;
+			}
+		}
+	}
+}
