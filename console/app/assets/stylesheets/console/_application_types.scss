@@ -1,14 +1,37 @@
 
 #application_scale_input {
 	padding-left: 0px;
+	margin-bottom: 0px;
 	ol {
 		list-style: none;
 		margin-left: 18px;
+		margin-bottom: 0px;
 		li {
-			margin-bottom: 8px;
 			label input[type="radio"] {
 				margin-bottom: 6px;
 			}
 		}
 	}
+}
+
+h5.gear-prices {
+  margin-top: 10px;
+}
+
+table.gear-prices {
+  margin-top: 10px;
+
+  tr {
+    td {
+      border-width: 1px;
+      border-color: rgb(193, 193, 193);
+      padding-right: 17px;
+    }
+    &:first-child td {
+        border-style: solid none none none;
+    }
+    &:last-child td {
+        border-style: none none solid none;
+    }
+  }
 }

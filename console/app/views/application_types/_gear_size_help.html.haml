@@ -2,5 +2,16 @@ Gears are the application containers running your code.
 - if gear_sizes.empty?
   There are no gear sizes available for this application.
 
-- if gear_sizes.length > 1
-  If you require more resources, select a larger gear size here.
+//- if gear_sizes.length > 1
+//  =popover("Gears", "Para a maioria das aplicações, o gear 'small' possui uma quantidade de recursos suficientes. If you require more resources, select a larger gear size here.")
+
+- if getup_gear_prices.length > 1
+  %h5.gear-prices Gear Prices
+  %table.gear-prices
+    - getup_gear_prices.each do |g|
+      %tr
+        %td.size
+          = g[:gear_size].titleize
+          %span.label.label-default= g[:memory]
+          %span.label.label-default= g[:storage]
+        %td.price= g[:acronym] + ' ' + g[:value] + '/' + g[:unit]

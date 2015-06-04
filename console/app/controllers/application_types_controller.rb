@@ -61,6 +61,7 @@ class ApplicationTypesController < ConsoleController
     @capabilities = user_capabilities :refresh => true
     @user_usage_rates = current_api_user.usage_rates
 
+    @domain_suffix = RestApi.application_domain_suffix
     @user_writeable_domains = user_writeable_domains :refresh => true
     @user_default_domain = user_default_domain rescue (Domain.new)
     @can_create = @capabilities.max_domains > user_owned_domains.length

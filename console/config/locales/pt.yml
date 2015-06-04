@@ -1,4 +1,5 @@
 pt:
+  CURRENCY: 'BRL'
   unknown: A system error has occurred.  If the problem persists, please contact Getup Cloud support at support@getupcloud.com.
 
   types:

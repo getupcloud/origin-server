@@ -706,7 +706,7 @@ legend + .control-group {
   .control-label {
     float: left;
     width: $horizontalComponentOffset - 20;
-    padding-top: 5px;
+    //padding-top: 5px;
     text-align: right;
   }
   // Move over all input controls and content
@@ -761,8 +761,11 @@ legend + .control-group {
   select {
     height: auto;
   }
-}
 
+  &.odd {
+    background-color: $white;
+  }
+}
 
 // FORM-IMPORTANT
 // ---------------------------
@@ -771,9 +774,13 @@ legend + .control-group {
 
   input.expand { width: auto; max-width: -moz-available; }
   input.narrow { width: 140px; }
+  .controls.first{ 
+    padding-top: 8px;
+  }
 
   .controls > h3 { 
-    margin-top: 5px; margin-bottom: 0;
+    // margin-top: 5px;
+    margin-bottom: 0;
 
     > small { margin-left: 10px; vertical-align: middle; display: inline-block; }
     > select { margin-top: -5px; }
