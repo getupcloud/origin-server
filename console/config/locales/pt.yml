@@ -67,3 +67,11 @@ pt:
       gears:
         popover_select: 'Para aplicações em <em>dev</em> ou mais leves, como nodejs, o gear small pode ser suficiente. Se você precisa de mais recursos, selecione um gear maior.'
         popover_validate: 'Para aplicações em <em>dev</em> ou mais leves, como nodejs, o gear small pode ser suficiente. Se você precisa de mais recursos, por favor <a href="%{account_url}">valide sua conta</a> para ter acesso a gears maiores.'
+
+  layouts:
+    footer:
+      developers: Desenvolvedores
+      irc_channel: 'Canal IRC'
+      get_started: 'Primeiros Passos'
+      caption: 'O código fonte do console do OpenShift Origin está %{github_available}. Leia o %{readme} para informacões de copyright e código fonte. OpenShift, OpenShift Origin e o logotipo OpenShift são marcas registradas de Red Hat, Inc.'
+      github_available: 'disponível no GitHub'
