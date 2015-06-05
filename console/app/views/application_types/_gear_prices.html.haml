@@ -1,0 +1,10 @@
+- if @gear_prices.length > 1
+  %h5.gear-prices Gear Prices
+  %table.gear-prices
+    - @gear_prices.each do |g|
+      %tr
+        %td.size
+          = g[:gear_size].titleize
+          %span.label.label-default= g[:memory]
+          %span.label.label-default= g[:storage]
+        %td.price= g[:acronym] + ' ' + g[:value] + '/' + g[:unit]

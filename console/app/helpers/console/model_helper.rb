@@ -88,6 +88,23 @@ module Console::ModelHelper
     "There are not enough free gears available to create a new application. You will either need to scale down or delete existing applications to free up resources."
   end
 
+  def getup_gear_prices
+    currency = I18n.t 'CURRENCY'
+    user_manager_subscription_prices.content.select{ |item|
+      item[:item] == "GEAR_USAGE" && ! item[:gear_size].empty? && item[:currency] == currency
+    }.each{ |item|
+      if item[:gear_size].start_with? 'small'
+        item[:memory] = '512M'
+        item[:storage] = '3G SSD'
+      elsif item[:gear_size].start_with? 'medium'
+        item[:memory] = '1G'
+        item[:storage] = '6G SSD'
+      else
+        item[:memory] = ''
+        item[:storage] = ''
+      end
+    }
+  end
   def new_application_gear_sizes(writeable_domains, user_capabilities)
     gear_sizes = user_capabilities.allowed_gear_sizes
     if writeable_domains.present?

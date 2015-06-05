@@ -1,23 +1,23 @@
-%h2= I18n.t 'getup.account.validate.Credits'
+%h2= t('.title')
 
-%p Os créditos abaixo serão utilizados em sua próxima fatura
+%p= t('.caption')
 
 %table.table.credits
   %tbody
     - if plan[:free_tier].to_i > 0
       %tr
         %td Free Tier:
-        %td #{plan[:free_tier].to_i} #{I18n.t(:hours)}/gear small
+        %td #{plan[:free_tier].to_i} #{t('.hours')}/gear small
 
     - if plan[:credit].to_f > 0
       %tr
-        %td #{I18n.t :Credit}
-        %td #{number_with_precision(plan[:credit].to_f, :precision => 2)} #{I18n.t('getup.account.validate.hours')}/gear small
+        %td= t('.credit')
+        %td #{number_with_precision(plan[:credit].to_f, :precision => 2)} #{t('.hours')}/gear small
 
     - if plan[:bonus].to_f > 0
       %tr
         %td Bonus:
-        %td #{number_with_precision(plan[:bonus].to_f, :precision => 2)} #{I18n.t('getup.account.validate.hours')}/gear small
+        %td #{number_with_precision(plan[:bonus].to_f, :precision => 2)} #{t('.hours')}/gear small
 
     - if plan[:voucher].to_f > 0
       %tr
@@ -25,5 +25,5 @@
         %td R$ #{number_with_precision(plan[:voucher].to_f, :precision => 2)}
 
     %tr
-      %td.left{:colspan => 2}
-        %a{:href=>getup_credit_url}Entenda
+      %td.right{:colspan => 2}
+        %a{:href=>getup_credit_url, :target=>'_blank'}= t('.undestand')

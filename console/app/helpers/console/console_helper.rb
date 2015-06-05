@@ -10,7 +10,7 @@ module Console::ConsoleHelper
 
   def product_branding
     [
-      image_tag(Console.config.env(:PRODUCT_LOGO, "/assets/logo-origin.png"), :alt => Console.config.env(:PRODUCT_TITLE, "Getup OpenShift"))
+      image_tag(Console.config.env(:PRODUCT_LOGO, "/assets/logo-getup.png"), :alt => Console.config.env(:PRODUCT_TITLE, "Getup OpenShift"))
     ].join.html_safe
   end
 

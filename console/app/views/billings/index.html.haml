@@ -1,53 +1,21 @@
-= content_for :title, I18n.t(:billing_title)
-= breadcrumb_for_account I18n.t(:Billing)
+= content_for :title, t('.title')
+= breadcrumb_for_account t('.title')
 
 = flashes
-
-//.row.billing-history
-//  .span6
-//    %section
-//      %h2 Recent Activity
-//
-//      %dl
-//        %dt
-//          You have no invoices yet
-//        %dd
-//
-//        %dt Payments
-//        %dd US$ 0.0
-//
-//        %dt
-//          %big Current Balance
-//        %dd US$ 0.0
-
-//.span6
-//  %section
-//    %h2 Billing Address
-//
-//    %ul.unstyled
-//        %li Nagib Couto Kanaan
-//        %li (53) 81510220 
-//        %li Rua Dr. Boaventura Leite, 191
-//        %li CEP 96080-480
-//
-//    .btn-toolbar
-//      = link_to "Edit address...", edit_address_path, :class => 'btn btn-small btn-danger'
 
 .row.billing-history
   .span12
     %section
-      %h2= I18n.t(:billing_history_title)
+      %h2= t('.title')
 
       %table.table.table-fixed
         %thead
           %tr
-            %th{:scope => 'col'}= I18n.t(:Id)
-            %th{:scope => 'col'}= I18n.t(:Month)
-            %th{:scope => 'col'}= I18n.t(:Processed)
-            //%th{:scope => 'col'}= I18n.t(:Due_Date)
-            %th{:scope => 'col'}= I18n.t(:Status)
-            %th{:scope => 'col'}= I18n.t(:Amount) + " (#{@currency})"
-            %th{:scope => 'col'} PDF
+            %th{:scope => 'col'}= t('.col.id')
+            %th{:scope => 'col'}= t('.col.month')
+            %th{:scope => 'col'}= t('.col.processed')
+            %th{:scope => 'col'}= t('.col.status')
+            %th.amount{:scope => 'col'}= t('.col.amount') + " (#{@userinfo[:currency]})"
         %tbody
           - @history.each do |h|
             %tr{:style => 'cursor: pointer; cursor: hand;', :data => {:href => account_billing_path(h[:number])}}
@@ -57,12 +25,8 @@
               %td #{ref_date}
               - proc_date = !h[:proc_date].nil? ? Date.strptime("#{h[:proc_date]}","%Y-%m-%d").strftime("%h %d, %Y") : '-'
               %td #{proc_date}
-              //- due_date = !h[:due_date].nil? ? Date.strptime("#{h[:due_date]}","%Y-%m-%d").strftime("%h %d, %Y") : '-'
-              //%td #{due_date}
               %td #{h[:status].capitalize}
-              %td #{number_with_precision(h[:amount].to_f, :precision => 2)}
-              %td
-                = link_to "PDF", account_pdf_path(h[:number])
+              %td.amount #{h[:amount]}
 
 - content_for :javascripts do
   :javascript

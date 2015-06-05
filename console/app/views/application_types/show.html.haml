@@ -27,11 +27,12 @@
     .alert This template is development only and not accessible in production
 
   %fieldset.inputs
-    .control-group.control-group-important
+    .control-group.control-group-important.odd
       %h3.control-label Based On
       .controls.first
         %h3
           #{@application_type.display_name} #{@application_type.source.to_s.humanize}
+          = popover("Description", @application_type.description)
 
           - if @application_type.cartridge?
             %span.font-icon.font-icon-size-16.font-icon-grey{"aria-hidden" => "true", "data-icon" => "\uee51", "title" => "Cartridge"}
@@ -40,8 +41,6 @@
 
       .controls
         - if @application_type.persisted?
-          = show_description(@application_type.description, :class => 'help-block')
-
           - if @application_type.learn_more_url
             %p.help-block= link_to "Learn more", @application_type.learn_more_url
           - elsif @application_type.website
@@ -83,7 +82,6 @@
             -# If you want others to see this application, #{link_to "create a quickstart in our community", create_quickstart_url}.
           %p.help-block= link_to "Share this link", application_type_url(@application_type.id, @application_type.to_params)
 
-  %fieldset.inputs
     -# This is implemented custom here rather than integrating into Formtastic because of its specific nature
     -#.control-group.control-group-important{:data => errors ? {:"server-error" => 'true'} : {}, :class => errors ? 'error' : ''}
     = control_group(e.has_key?(:name) || e.has_key?(:domain_name), :important => true) do
@@ -118,71 +116,24 @@
           OpenShift will automatically register this domain name for your application.  You can add
           your own domain name later.
 
-    = control_group(e.has_key?(:initial_git_url) || e.has_key?(:initial_git_branch), :important => true) do
-      %h3.control-label Source Code
-      .controls.first
-        = f.text_field :initial_git_url, :class => 'expand', :placeholder => 'Optional URL to a Git repository'
-        = f.text_field :initial_git_branch, :class => 'narrow', :placeholder => 'Branch/tag'
-        = f.inline_errors_for :initial_git_url
-        = f.inline_errors_for :initial_git_branch
-
-      .controls
-        %p.help-block 
-          - if @application_type.initial_git_url
-            Your application will start with an exact copy of the code and configuration provided in 
-            this Git repository. OpenShift may expect certain files to exist in certain directories,
-            which may require you to update your repository after creation.
-          - else
-            We'll create a Git code repository in the cloud, and populate it with a set of 
-            reasonable defaults. If you provide a Git URL, your application will start with an exact 
-            copy of the code and configuration provided in this Git repository. 
-
-    = control_group(e.has_key?(:gear_profile), :important => true) do
+    = control_group(e.has_key?(:gear_profile), :important => true, :class => 'odd') do
       %h3.control-label Gears
       .controls.first
         - if @gear_sizes.length > 1
           = f.select :gear_profile, @gear_sizes.map{ |size| [size.to_s.titleize, size]}, {}
+          = popover("Gears", t('.gears.popover_select'))
+
         - else
-          %h3= @gear_sizes.first.to_s.titleize
+          %h3
+            = @gear_sizes.first.to_s.titleize
+            = popover("Gears", t('.gears.popover_validate', account_url: account_url))
           = f.hidden_field :gear_profile, :value => @gear_sizes.first.to_s
         = f.inline_errors_for :gear_profile
 
       .controls
         %p.help-block
           = render :partial => 'application_types/gear_size_help', :locals => {:gear_sizes => @gear_sizes}
-
-    = control_group(e.has_key?(:cartridges), :important => true) do
-      %h3.control-label Cartridges
-      .controls.first
-        - if @unlock_cartridges
-          = text_field_tag 'application_type[cartridges]', @application_type.cartridge_specs, :class => 'expand', :placeholder => 'URL to a downloadable cartridge'
-        - elsif @cartridges.present?
-          %h3
-            = map_to_sentence(@cartridges) do |(name, carts)|
-              - if carts.length > 1
-                = select_tag 'application[cartridges][]', options_for_select(carts.sort.map{ |c| [c.display_name, c.name] }, [carts.map(&:name) & @application.cartridge_names].first ), :title => "Choose a cartridge that matches '#{name}'"
-              - elsif carts.length == 1
-                - if carts.first.url
-                  = hidden_field_tag('application[cartridges][][url]', [carts.first.url])
-                  = link_to carts.first.display_name, carts.first.url
-                - else
-                  = hidden_field_tag('application[cartridges][]', [carts.first.name])
-                  = carts.first.display_name
-              - else
-                %span.text-warning #{name}
-        - else
-          %h3
-            %span.text-warning{:title => 'All applications require at least a web cartridge'} None
-        = f.inline_errors_for :cartridges
-
-      .controls
-        %p.help-block
-          Applications are composed of cartridges - each of which exposes a service or 
-          capability to your code.  All applications must have a web cartridge.
-
-        - if @unlock_cartridges or (@cartridges and @cartridges.any?{ |(name, carts)| carts.any?{ |c| c.url } })
-          %p.help-block
-            %span.text-warning Downloaded cartridges do not receive updates automatically.
+          = render :partial => 'application_types/gear_prices', :locals => {:gear_prices => @gear_prices}
 
     .control-group.control-group-important
       %h3.control-label Scaling
@@ -190,7 +141,7 @@
         - can_scale = can_scale_application_type(@application_type, @domain_capabilities)
         - scale_reason = cannot_scale_title(@application_type, @domain_capabilities)
         - if can_scale
-          = f.select :scale, scale_options, {}
+          = f.input :scale, :as => :radio, :collection => scale_options, :label => false
         - else
           %h3
             %span.text-warning{:title => scale_reason}= scale_options[0][0]
@@ -209,6 +160,64 @@
             %span.text-warning= scale_reason
 
         = render :partial => 'application_types/application_type_notifications', :locals => { :type => @application_type }
+
+    .control-group.control-group-important
+      %a.control-label{:'data-toggle' => "collapse", :href => "#collapseMore", :'aria-expanded' => "false", :'aria-controls' => "collapseMore"}
+        [+] More
+    .collapse{:id => "collapseMore"}
+      .well
+
+        = control_group(e.has_key?(:cartridges), :important => true) do
+          %h3.control-label Cartridges
+          .controls.first
+            - if @unlock_cartridges
+              = text_field_tag 'application_type[cartridges]', @application_type.cartridge_specs, :class => 'expand', :placeholder => 'URL to a downloadable cartridge'
+            - elsif @cartridges.present?
+              %h3
+                = map_to_sentence(@cartridges) do |(name, carts)|
+                  - if carts.length > 1
+                    = select_tag 'application[cartridges][]', options_for_select(carts.sort.map{ |c| [c.display_name, c.name] }, [carts.map(&:name) & @application.cartridge_names].first ), :title => "Choose a cartridge that matches '#{name}'"
+                  - elsif carts.length == 1
+                    - if carts.first.url
+                      = hidden_field_tag('application[cartridges][][url]', [carts.first.url])
+                      = link_to carts.first.display_name, carts.first.url
+                    - else
+                      = hidden_field_tag('application[cartridges][]', [carts.first.name])
+                      = carts.first.display_name
+                  - else
+                    %span.text-warning #{name}
+            - else
+              %h3
+                %span.text-warning{:title => 'All applications require at least a web cartridge'} None
+            = f.inline_errors_for :cartridges
+
+          .controls
+            %p.help-block
+              Applications are composed of cartridges - each of which exposes a service or 
+              capability to your code.  All applications must have a web cartridge.
+
+            - if @unlock_cartridges or (@cartridges and @cartridges.any?{ |(name, carts)| carts.any?{ |c| c.url } })
+              %p.help-block
+                %span.text-warning Downloaded cartridges do not receive updates automatically.
+
+        = control_group(e.has_key?(:initial_git_url) || e.has_key?(:initial_git_branch), :important => true) do
+          %h3.control-label Source Code
+          .controls.first
+            = f.text_field :initial_git_url, :class => 'expand', :placeholder => 'Optional URL to a Git repository'
+            = f.text_field :initial_git_branch, :class => 'narrow', :placeholder => 'Branch/tag'
+            = f.inline_errors_for :initial_git_url
+            = f.inline_errors_for :initial_git_branch
+      
+          .controls
+            %p.help-block 
+              - if @application_type.initial_git_url
+                Your application will start with an exact copy of the code and configuration provided in 
+                this Git repository. OpenShift may expect certain files to exist in certain directories,
+                which may require you to update your repository after creation.
+              - else
+                We'll create a Git code repository in the cloud, and populate it with a set of 
+                reasonable defaults. If you provide a Git URL, your application will start with an exact 
+                copy of the code and configuration provided in this Git repository. 
 
   = f.buttons do
     = link_to "Back", application_types_path, :class => 'btn'
@@ -229,6 +238,9 @@
 - content_for :javascripts do
   :javascript
     $(function() {
+      $("#application_scale_false:radio").prop('checked',true);
+      $('[data-toggle="popover"]').popover();
+
       var applicationTypeUrl = function(form) {
         var fields = form.serializeArray();
 

@@ -59,3 +59,16 @@
     height: 0;
   }
 }
+
+.popover-mark {
+  &:hover {
+    background-color: #AFAFAF;
+  }
+  background-color: #CFCFCF;
+  border-radius:    50%;
+  padding:          0px 3px 0px 4px;
+  font-size:        x-small;
+  cursor:           default;
+  position:         relative;
+  top:              -5px;
+}

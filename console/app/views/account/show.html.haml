@@ -1,17 +1,14 @@
-- content_for :page_title, 'My Account'
+- content_for :page_title, t('.my_account')
 
-%h1 My Account
+%h1= t('.my_account')
 = flashes
 
-.row
+.row.account
   .span7
-    %section
+    %section.payment
       = render :partial => 'payment', :locals => { :capabilities => @capabilities, :payment => @payment, :plan => @plan }
 
   .span5
-    %section
+    %section.billing
       = render :partial => 'billing'
 
-    - if @has_credits
-      %section
-        = render :partial => 'credits', :locals => {:plan=> @plan, :getup_credit_url => @getup_credit_url}

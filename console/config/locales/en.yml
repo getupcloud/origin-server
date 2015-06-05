@@ -1,4 +1,5 @@
 en:
+  CURRENCY: 'USD'
   unknown: 'A system error has occurred.  If the problem persists, please contact Getup Cloud support at support@getupcloud.com.'
 
   types:
@@ -21,3 +22,9 @@ en:
         caption:
           primary: Fill your contact info below
           billing: Fill your billing info below
+
+  application_types:
+    show:
+      gears:
+        popover_select: 'For applications in <em>dev</em> or light ones, like nodejs, you can select the <em>small</em> gear. If you need more resources, select a larger gear size here.'
+        popover_validate: 'For applications in <em>dev</em> or light ones, like nodejs, you can select the <em>small</em> gear. If you need more resources, please <a href="%{account_url}">validate your account</a> in order to have access to larger gears.'

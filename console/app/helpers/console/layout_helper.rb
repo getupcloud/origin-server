@@ -75,6 +75,7 @@ module Console::LayoutHelper
   def control_group(*args, &block)
     opts = args.extract_options!
     classes = ['control-group']
+    classes << opts[:class] if opts.has_key? :class
     classes << 'control-group-important' if opts[:important]
     data = if opts[:errors] || args.first == true
         classes << 'error'
@@ -157,6 +158,20 @@ module Console::LayoutHelper
 
   def show_description(description, opts={})
     simple_format(truncate(description, {:length => opts[:length] || 550, :separator => "\n\n", :omission => ""}.reverse_merge!(opts)), opts)
+  end
+
+  def popover(title, content, placement="right", trigger="focus")
+    content_tag(:a, '?', {
+      "data-toggle"    => "popover",
+      "data-title"     => title,
+      "data-content"   => content_tag(:p, content).html_safe,
+      "data-trigger"   => trigger,
+      "data-placement" => placement,
+      "data-html"      => "true",
+      "role"           => "button",
+      "tabindex"       => 0,
+      "class" => "popover-mark"
+    }).html_safe
   end
 
   def wizard_steps(items, active, options={})

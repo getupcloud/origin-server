@@ -19,6 +19,7 @@
     z-index: -1;
   }
   .brand {
+    border-top: 5px solid #FF4C4D;
     display: block;
     float: left;
     position: relative;
@@ -88,7 +89,7 @@
         border-top-color: #5a5a5a;
       }
       .dropdown-menu {
-        border: 1px solid #b6b6b6;
+        border: 1px solid #707070;
         border-top: 0;
       }
       li.dropdown > .dropdown-toggle {
@@ -184,6 +185,8 @@
       margin-right: 0;
     }
     .nav li.dropdown > .username {
+      background-color: rgb(55, 55, 55);
+      border-radius: 0px 0px 5px 5px;
       padding-left: 27px;
       position: relative;
       .icon-user {
@@ -201,7 +204,12 @@
     }
   }
   .navbar-inner {
-    background: #333;
+    //background: #333;
+    //background-image: image-url("console/console-sprite.png");
+    //background-repeat: no-repeat;
+    //border-bottom: 5px solid #FF4C4D;
+    //min-height: 125px;
+    background: #fff url('https://s3-us-west-2.amazonaws.com/getupcloud/static/img/header.png') no-repeat top center;
   }
   .primary .navbar-inner {
     background-color: #333;
