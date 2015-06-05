@@ -657,6 +657,7 @@ h2 { font-weight: normal; }
 .wrap { position: relative; width: 960px; height: 100%; margin: 0 auto; }
 .content { width: 100%; height: 100%; }
 
+@import "variables";
 @import "getup";
 
 /*header { border-bottom: 5px solid #FF4C4D; height: 165px; background: #fff url(https://d14kvwo1d1egfx.cloudfront.net/static/img/header.png) no-repeat top center; }
