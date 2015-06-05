@@ -160,14 +160,16 @@ module Console::LayoutHelper
     simple_format(truncate(description, {:length => opts[:length] || 550, :separator => "\n\n", :omission => ""}.reverse_merge!(opts)), opts)
   end
 
-  def popover(title, content, placement="right", trigger="click")
-    content_tag(:span, '?', {
+  def popover(title, content, placement="right", trigger="focus")
+    content_tag(:a, '?', {
       "data-toggle"    => "popover",
       "data-title"     => title,
       "data-content"   => content_tag(:p, content).html_safe,
       "data-trigger"   => trigger,
       "data-placement" => placement,
       "data-html"      => "true",
+      "role"           => "button",
+      "tabindex"       => 0,
       "class" => "popover-mark"
     }).html_safe
   end

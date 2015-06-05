@@ -1,8 +1,8 @@
-- content_for :title, I18n.t(:Invoice)
+- content_for :title, t('.title')
 - end_date = !@period[:end].nil? ? Date.strptime("#{@period[:end]}","%Y-%m-%d").strftime("%d/%m/%Y") : '-'
 - start_date = !@period[:start].nil? ? Date.strptime("#{@period[:start]}","%Y-%m-%d").strftime("%d/%m/%Y") : '-'
-%h1= I18n.t(:Invoice) + " ##{@id}"
-%h3= I18n.t(:Period) + ": #{start_date} - #{end_date}"
+%h1= t('.invoice_no', no: @id)
+%h3= t('.period_range', start: start_date, end: end_date)
 = flashes
 
 - if @status
@@ -44,7 +44,7 @@
               //Invoice summary
               %td.top
                 %dl
-                  %dt= I18n.t(:Invoice) + ':'
+                  %dt= t('.invoice') + ':'
                   %dd ##{@id}
 
                   %dt= I18n.t(:Client) + ':'

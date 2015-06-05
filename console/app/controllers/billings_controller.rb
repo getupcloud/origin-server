@@ -18,7 +18,7 @@ class BillingsController < ConsoleController
       result = user_manager_billing_invoice(id).content
       raise result[:data][0] if result[:status] != 'ok'
     rescue Exception => e
-      return redirect_to billing_index_path, :flash => {:error => e.message}
+      return redirect_to account_billings_path, :flash => {:error => e.message}
     end
 
     @status = result ? true : false

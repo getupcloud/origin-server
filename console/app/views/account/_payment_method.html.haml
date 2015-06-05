@@ -1,4 +1,4 @@
-%h3 Escolha o método de pagamento
+%h3= t('.choose_payment_method')
 
 .row
   .span3
@@ -8,6 +8,6 @@
 
   .span3
     = link_to new_account_validate_credit_card_path do
-      %div Cartão de Crédito
+      %div= t('.credit_card')
       = image_tag('credit-card-button.png')
 

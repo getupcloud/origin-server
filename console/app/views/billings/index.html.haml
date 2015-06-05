@@ -1,21 +1,21 @@
-= content_for :title, I18n.t('getup.account.billing.invoice.Billing History')
-= breadcrumb_for_account I18n.t('getup.account.billing.invoice.Billing History')
+= content_for :title, t('.title')
+= breadcrumb_for_account t('.title')
 
 = flashes
 
 .row.billing-history
   .span12
     %section
-      %h2= I18n.t 'getup.account.billing.Billing History'
+      %h2= t('.title')
 
       %table.table.table-fixed
         %thead
           %tr
-            %th{:scope => 'col'}= I18n.t 'getup.account.billing.invoice.Id'
-            %th{:scope => 'col'}= I18n.t 'getup.account.billing.invoice.Month'
-            %th{:scope => 'col'}= I18n.t 'getup.account.billing.invoice.Processed'
-            %th{:scope => 'col'}= I18n.t 'getup.account.billing.invoice.Status'
-            %th.amount{:scope => 'col'}= I18n.t('getup.account.billing.invoice.Amount') + " (#{@userinfo[:currency]})"
+            %th{:scope => 'col'}= t('.col.id')
+            %th{:scope => 'col'}= t('.col.month')
+            %th{:scope => 'col'}= t('.col.processed')
+            %th{:scope => 'col'}= t('.col.status')
+            %th.amount{:scope => 'col'}= t('.col.amount') + " (#{@userinfo[:currency]})"
         %tbody
           - @history.each do |h|
             %tr{:style => 'cursor: pointer; cursor: hand;', :data => {:href => account_billing_path(h[:number])}}

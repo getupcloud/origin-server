@@ -1,64 +1,64 @@
-= content_for :title, t("getup.account.address.edit.title.#{@type.to_s}")
-= breadcrumb_for_account t("getup.account.address.edit.title.#{@type.to_s}")
-%h1= t "getup.account.address.edit.title.#{@type.to_s}"
+= content_for :title, t(".title.#{@type.to_s}")
+= breadcrumb_for_account t(".title.#{@type.to_s}")
+%h1= t ".title.#{@type.to_s}"
 = flashes
 
 %form.form-horizontal.formtastic.form-address{:action => @action_path, :id => 'form-address', :method => 'post'}
   = token_tag(nil)
-  %p= t("getup.account.address.edit.caption.#{@type.to_s}")
+  %p= t(".caption.#{@type.to_s}")
 
   - if @type == :billing
     %p
       .string.required.control-group
-        %label.control-label= I18n.t(:use_contact_info)
+        %label.control-label= t('.use_contact_info')
         .controls
           = check_box_tag :is_billing, !@address[:is_billing], !@address[:is_billing]
 
   %fieldset.inputs
     .string.required.control-group
-      %label.control-label= I18n.t(:Name)
+      %label.control-label= t('.name')
       .controls
-        = text_field_tag 'name', @address[:name], :placeholder => I18n.t(:Name), :class => 'input-xlarge'
+        = text_field_tag 'name', @address[:name], :placeholder => t('.name'), :class => 'input-xlarge'
 
     .string.required.control-group
-      %label.control-label= I18n.t(:Email)
+      %label.control-label= t('.email')
       .controls
-        = text_field_tag 'email', @address[:email], :placeholder => I18n.t(:Email), :class => 'input-xlarge'
+        = text_field_tag 'email', @address[:email], :placeholder => t('.email'), :class => 'input-xlarge'
 
     .string.required.control-group
-      %label.control-label= I18n.t(:Phone)
+      %label.control-label= t('.phone')
       .controls
-        = phone_field_tag 'phone', @address[:phone], :placeholder => I18n.t(:Phone), :class => 'input-medium'
+        = phone_field_tag 'phone', @address[:phone], :placeholder => t('.phone'), :class => 'input-medium'
 
     .string.required.control-group
-      %label.control-label= I18n.t(:Address)
+      %label.control-label= t('.address')
       .controls
-        = text_field_tag 'line1', @address[:line1], :placeholder => I18n.t(:Address), :class => 'input-xlarge'
+        = text_field_tag 'line1', @address[:line1], :placeholder => t('.address'), :class => 'input-xlarge'
 
     .string.required.control-group
       %label.control-label 
       .controls
-        = text_field_tag 'line2', @address[:line2], :placeholder => I18n.t(:Address), :class => 'input-xlarge'
+        = text_field_tag 'line2', @address[:line2], :placeholder => t('.address'), :class => 'input-xlarge'
 
     .string.required.control-group
-      %label.control-label= I18n.t(:City)
+      %label.control-label= t('.city')
       .controls
-        = text_field_tag 'city', @address[:city], :placeholder => I18n.t(:City), :class => 'input-xlarge'
+        = text_field_tag 'city', @address[:city], :placeholder => t('.city'), :class => 'input-xlarge'
 
     .string.required.control-group
-      %label.control-label= I18n.t(:State)
+      %label.control-label= t('.state')
       .controls
-        = text_field_tag 'state', @address[:state], :placeholder => I18n.t(:State), :class => 'input-medium'
+        = text_field_tag 'state', @address[:state], :placeholder => t('.state'), :class => 'input-medium'
 
     .string.required.control-group
-      %label.control-label= I18n.t(:Country)
+      %label.control-label= t('.country')
       .controls
         = select_tag :country_code, options_for_select(country_list, @address[:country_code])
 
     .string.required.control-group
-      %label.control-label= I18n.t(:Postal_code)
+      %label.control-label= t('.postal_code')
       .controls
-        = text_field_tag 'postal_code', @address[:postal_code], :placeholder => I18n.t(:Postal_code), :class => 'input-small'
+        = text_field_tag 'postal_code', @address[:postal_code], :placeholder => t('.postal_code'), :class => 'input-small'
 
     .string.required.control-group.br-type-control.hidden
       %label.control-label Pessoa Física
@@ -87,5 +87,5 @@
 
   %p
     %fieldset.form-actions
-      = link_to I18n.t(:Cancel), account_path, :class => 'btn'
-      %button.btn.btn-danger.update{:type => 'submit'}= I18n.t(:Save)
+      = link_to t('.cancel'), account_path, :class => 'btn'
+      %button.btn.btn-danger.update{:type => 'submit'}= t('.save')

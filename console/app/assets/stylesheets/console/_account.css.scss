@@ -1,0 +1,17 @@
+.account {
+	.payment {
+		.total-gears .label {
+			font-size: $baseFontSize;
+		}
+		.payment-type {
+			font-weight: bolder;
+		}
+		.payment-data {
+			margin-top: 8px;
+		}
+		button.btn {
+			display: block;
+			margin-top: 8px;
+		}
+	}
+}
