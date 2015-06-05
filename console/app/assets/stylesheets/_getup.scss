@@ -106,6 +106,13 @@ body, h1, h2, h3, h4, h5, h6 { font-family: 'roboto light'; }
 	border-radius: 5px;
 	padding: 10px;
 }
+.billing-history {
+	table thead tr { font-size: larger; }
+	table tbody tr:hover { background: $grayLighter; }
+	.amount {
+		text-align: right;
+	}
+}
 /* Responsive */
 
 @media (max-width: 767px) {

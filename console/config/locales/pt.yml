@@ -50,3 +50,13 @@ pt:
         Expiration_Year: Ano de expiração
         Holder_Name: Nome do proprietário
         Validation_Code: Código de validação
+      billing:
+        Billing History: Histórico de Faturas
+        invoice:
+          Invoice: Fatura
+          Invoices: Faturas
+          Id: Id
+          Month: Mês
+          Processed: Processada
+          Status: Estado
+          Amount: Valor

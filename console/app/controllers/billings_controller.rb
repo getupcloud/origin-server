@@ -4,10 +4,11 @@ class BillingsController < ConsoleController
   include Console::CountryHelper
 
   def index
-      result  = user_manager_billing_history.content
-      data = result[:data][0]
-      @currency = data[:payment_data].nil? ? '' : data[:payment_data][:currency]
-      @history  = data[:history].sort_by{|h| h[:ref_date]}.reverse
+      result   = user_manager_billing_history.content
+      history   = result[:data][0][:history]
+      @history  = history.sort_by{|h| h[:ref_date]}.reverse
+
+      @userinfo = user_manager_account_userinfo
   end
 
   def show
