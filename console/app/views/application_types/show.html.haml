@@ -121,17 +121,19 @@
       .controls.first
         - if @gear_sizes.length > 1
           = f.select :gear_profile, @gear_sizes.map{ |size| [size.to_s.titleize, size]}, {}
-          =popover("Gears", "Para a maioria das aplicações, o gear 'small' possui uma quantidade de recursos suficientes. If you require more resources, select a larger gear size here.")
+          = popover("Gears", t('.gears.popover_select'))
+
         - else
           %h3
-            =@gear_sizes.first.to_s.titleize
-            =popover("Gears", "Para a maioria das aplicações, o gear 'small' possui uma quantidade de recursos suficientes. Para habilitar outros tipos de gears basta <a href='" + account_url + "'>validar sua conta</a>.")
+            = @gear_sizes.first.to_s.titleize
+            = popover("Gears", t('.gears.popover_validate', account_url: account_url))
           = f.hidden_field :gear_profile, :value => @gear_sizes.first.to_s
         = f.inline_errors_for :gear_profile
 
       .controls
         %p.help-block
           = render :partial => 'application_types/gear_size_help', :locals => {:gear_sizes => @gear_sizes}
+          = render :partial => 'application_types/gear_prices', :locals => {:gear_prices => @gear_prices}
 
     .control-group.control-group-important
       %h3.control-label Scaling

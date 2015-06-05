@@ -67,6 +67,7 @@ class ApplicationTypesController < ConsoleController
     @can_create = @capabilities.max_domains > user_owned_domains.length
 
     @gear_sizes = new_application_gear_sizes(@user_writeable_domains, @capabilities)
+    @gear_prices = getup_gear_prices
 
     @compact = false # @domain.persisted?
 
