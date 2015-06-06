@@ -14,6 +14,14 @@ pt:
       '151': You must create a Jenkins Server application in your domain (to act as a build server) before you can add the Jenkins cartridge to an application.
       '153': You are currently using more gears than the new plan would allow.  Please scale down or delete applications before downgrading.
 
+  authentication:
+    signin:
+      authentication: 'Autenticação'
+      title: 'Console OpenShift'
+      password: 'Senha'
+      sign_in: 'Entrar'
+      lost_password: 'Perdeu sua senha?'
+
   application_types:
     show:
       gears:

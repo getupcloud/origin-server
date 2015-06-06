@@ -1,21 +1,26 @@
-- content_for :title, 'Authentication'
+- content_for :title, t('.authentication')
 
 %div.content
   %header.getup
     .wrap
       %h1.getup-sprite.logo Getup
-      %h2.app Openshift Console
 
-  %section
+  %section.auth
     %div.signin{ :id => 'signin' }
-      %h2 Dashboard Authentication
+      %h2= t('.title')
       %form{:action => auth_path, :id => 'form-authentication', :method => 'post'}
         %fieldset
           = token_tag(nil)
-          = email_field_tag 'login', '', :placeholder => "Login", :required => ''
-          = password_field_tag 'password', '', :placeholder => "Password", :required => ''
-
-          %button.getup-sprite Sign in
-          = link_to "Forgot your password?", password_reset_path, :id =>  'forgot'
+        %fieldset
+          = email_field_tag 'login', '', :placeholder => "Email", :required => ''
+        %fieldset
+          = password_field_tag 'password', '', :placeholder => t(".password"), :required => ''
+        .pull-left
+          %img{:src => image_path('astro-left.png')}
+        .pull-right
+          %fieldset
+            %button.getup-sprite= t('.sign_in')
+          %fieldset
+            = link_to t(".lost_password"), password_reset_path, :id =>  'forgot'
 
     = flashes

@@ -598,7 +598,7 @@ img {
 fieldset {
     border: 0;
     margin: 0;
-    padding: 0;
+//    padding: 0;
 }
 
 /*
@@ -664,22 +664,101 @@ h2 { font-weight: normal; }
 header h1 { width: 182px; height: 81px; margin: 0; border-top: 5px solid #FF4C4D; background-position: 0 0; }
 header h2 { margin: 10px 0 0 30px; line-height: 20px; font-family: 'ostrich black'; font-size: 20px; color: #2D2D2D; }*/
 
-section { background-color: #3D3D3D; background: -webkit-linear-gradient(top, #3D3D3D, #2E2E2E); background: -moz-linear-gradient(top, #3D3D3D, #2E2E2E); background: -ms-linear-gradient(top, #3D3D3D, #2E2E2E); background: -o-linear-gradient(top, #3D3D3D, #2E2E2E); }
-section { width: 100%; height: 143px; z-index: 10; }
-section h2 { margin: 0; font-family: 'ostrich medium'; font-size: 34px; color: #fff; text-align: center; padding: 20px 0 0; letter-spacing: 1px; text-align: center; }
-section form { width: 630px; margin: 20px auto 0; overflow: hidden; }
-section form input { float: left; width: 212px; height: 44px; padding: 0 20px; margin-right: 15px; line-height: 43px; font-family: 'roboto light'; font-size: 15px; color: #999; border: 0; background: url(https://s3-us-west-2.amazonaws.com/getupcloud/static/img/input.png) no-repeat; -webkit-border-radius: 8px; -moz-border-radius: 8px; border-radius: 8px; }
+section.auth {
+	background-color: #3D3D3D;
+	background: -webkit-linear-gradient(top, #3D3D3D, #2E2E2E);
+	background: -moz-linear-gradient(top, #3D3D3D, #2E2E2E);
+	background: -ms-linear-gradient(top, #3D3D3D, #2E2E2E);
+	background: -o-linear-gradient(top, #3D3D3D, #2E2E2E);
+	width: 100%;
+	height: 143px;
+	z-index: 10;
+	padding-top: 32px;
 
-section form input.invalid::-webkit-input-placeholder,
-section form input.invalid:-moz-placeholder,
-section form input.invalid::-moz-placeholder,
-section form input.invalid:-ms-input-placeholder
-{
-    color: #EC534C;
+	.pull-left {
+		float: left;
+		display: inline;
+	}
+	.pull-right{
+		float: right;
+		display: inline;
+	}
+	#signin {
+		margin-left: auto;
+		margin-right: auto;
+		width: 340px;
+		background-color: #3d3d3d;
+		-webkit-box-shadow: 6px 6px 14px 3px rgba(0,0,0,0.25);
+		-moz-box-shadow: 6px 6px 14px 3px rgba(0,0,0,0.25);
+		box-shadow: 6px 6px 14px 3px rgba(0,0,0,0.25);
+		padding: 16px 32px 16px 32px;
+		border: 1px solid #2f2f2f;
+
+		h2 {
+			margin: 0;
+			font-family: 'ostrich medium';
+			font-size: 34px;
+			color: #fff;
+			text-align: center;
+			padding: 20px 0 0;
+			letter-spacing: 1px;
+			text-align: center;
+		}
+		form {
+			margin: 20px auto 0;
+			overflow: hidden;
+
+			input.invalid::-webkit-input-placeholder,
+			input.invalid:-moz-placeholder,
+			input.invalid::-moz-placeholder,
+			input.invalid:-ms-input-placeholder {
+				color: #EC534C;
+			}
+
+			input {
+				float: left;
+				width: 274px;
+				height: 44px;
+				padding: 0 20px;
+				//margin-right: 15px;
+				line-height: 43px;
+				font-family: 'roboto light';
+				font-size: 15px;
+				color: #999;
+				border: 0;
+				//background: url(https://s3-us-west-2.amazonaws.com/getupcloud/static/img/input.png) no-repeat;
+				-webkit-border-radius: 2px;
+				-moz-border-radius: 2px;
+				border-radius: 2px;
+				background-color: white;
+			}
+
+			button.getup-sprite {
+				border: 0;
+				float: right;
+				padding-left: 16px;
+				text-indent: 0;
+				font-family: 'ostrich medium';
+				font-size: 38px;
+				line-height: 44px;
+				color: #00FFF5;
+				background-position: -40px -269px;
+				cursor: pointer;
+			}
+
+			a {
+				//margin: 10px 0 0 395px;
+				float: right;
+				clear: both;
+				display: inline-block;
+				color: #00FFF5;
+				font-weight: normal;
+				font-size: 12px;
+				background-color: #3d3d3d;
+			}
+		}
+	}
 }
-
-section form button.getup-sprite { border: 0; float: left; padding-left: 16px; text-indent: 0; font-family: 'ostrich medium'; font-size: 38px; line-height: 44px; color: #00FFF5; background-position: -40px -269px; cursor: pointer; }
-section form a { margin: 10px 0 0 395px; clear: both; display: inline-block; color: #00FFF5; font-weight: normal; font-size: 12px; }
 
 #flash { margin-top: 20px; }
 #flash .alert { font-size: 11px; text-align: center; text-transform: uppercase; }
