@@ -21,7 +21,7 @@ module Console::LanguageHelper
   private
    def user_browser_language
     parser = Parser.new(env["HTTP_ACCEPT_LANGUAGE"])
-    parser.preferred_language_from(["en", "pt"])
+    parser.preferred_language_from(["pt", "en"])
    end
 
   class Parser
