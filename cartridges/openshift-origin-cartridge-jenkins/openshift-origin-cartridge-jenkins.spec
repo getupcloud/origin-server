@@ -3,7 +3,7 @@
 Summary:       Provides jenkins-1.x support
 Name:          openshift-origin-cartridge-jenkins
 Version: 1.23.1.1
-Release:       1%{?dist}
+Release:       2%{?dist}
 Group:         Development/Languages
 License:       ASL 2.0
 URL:           http://www.openshift.com
