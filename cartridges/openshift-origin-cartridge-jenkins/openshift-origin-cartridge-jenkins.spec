@@ -49,6 +49,11 @@ chkconfig jenkins off
 %doc %{cartridgedir}/LICENSE
 
 %changelog
+* Mon Jun 15 2015 Builder <getup@getupcloud.com> 1.23.1.1-2
+- bump version (getup@getupcloud.com)
+- JENKINS_JAR_CACHE_PATH var (spinolacastro@gmail.com)
+- Fix jenkins default conf (spinolacastro@gmail.com)
+
 * Thu Jul 10 2014 Adam Miller <admiller@redhat.com> 1.23.1.1-1
 - 
 
