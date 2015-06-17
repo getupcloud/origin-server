@@ -3,7 +3,7 @@
 Summary:       Provides jenkins-1.x support
 Name:          openshift-origin-cartridge-jenkins
 Version: 1.23.1.1
-Release:       1%{?dist}
+Release:       2%{?dist}
 Group:         Development/Languages
 License:       ASL 2.0
 URL:           http://www.openshift.com
@@ -49,6 +49,11 @@ chkconfig jenkins off
 %doc %{cartridgedir}/LICENSE
 
 %changelog
+* Mon Jun 15 2015 Builder <getup@getupcloud.com> 1.23.1.1-2
+- bump version (getup@getupcloud.com)
+- JENKINS_JAR_CACHE_PATH var (spinolacastro@gmail.com)
+- Fix jenkins default conf (spinolacastro@gmail.com)
+
 * Thu Jul 10 2014 Adam Miller <admiller@redhat.com> 1.23.1.1-1
 - 
 
