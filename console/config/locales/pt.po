@@ -1,0 +1,3051 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the openshift-origin-console package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: openshift-origin-console 1.26.3.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-06-24 17:08-0300\n"
+"PO-Revision-Date: 2015-06-24 17:09-0300\n"
+"Last-Translator: Mateus Caruccio <mateus.caruccio@getupcloud.com>\n"
+"Language-Team: \n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 1.8.1\n"
+
+#: ../../app/controllers/aliases_controller.rb:33
+#: ../../app/controllers/aliases_controller.rb:40
+msgid "Alias '%s' has been created"
+msgstr "Alias '%s' foi criado"
+
+#: ../../app/controllers/aliases_controller.rb:52
+msgid "Alias '%s' has been removed"
+msgstr "Alias '%s' foi removido"
+
+#: ../../app/controllers/aliases_controller.rb:72
+msgid "Alias '%s' has been updated"
+msgstr "Alias '%s' foi atualizado"
+
+#: ../../app/controllers/application_types_controller.rb:20
+msgid "All web cartridges"
+msgstr "Todos os cartuchos web"
+
+#: ../../app/controllers/application_types_controller.rb:21
+msgid "All instant applications"
+msgstr "Todos os instant apps"
+
+#: ../../app/controllers/application_types_controller.rb:31
+msgid "Tagged with %s"
+msgstr "Tageado com %s"
+
+#: ../../app/controllers/application_types_controller.rb:36
+msgid "Matches search '%s'"
+msgstr "Procura bate com '%s'"
+
+#: ../../app/controllers/application_types_controller.rb:49
+msgid "Other types"
+msgstr "Outros tipos"
+
+#: ../../app/controllers/application_types_controller.rb:83
+#: ../../app/controllers/applications_controller.rb:136
+msgid ""
+"No cartridges are defined for this type - all applications require at least one web "
+"cartridge"
+msgstr ""
+"Nenhum cartucho definido para este tipo - toda aplicação necessita de pelo menos um "
+"cartucho web"
+
+#: ../../app/controllers/application_types_controller.rb:86
+#: ../../app/controllers/applications_controller.rb:139
+msgid "The cartridges defined for this type are not valid.  The %s may not be correct."
+msgstr ""
+"Os cartuchos definidos para este tipo não são válidos. A URL %s pode estar incorreta."
+
+#: ../../app/controllers/applications_controller.rb:25
+msgid "All"
+msgstr "Todos"
+
+#: ../../app/controllers/applications_controller.rb:101
+msgid "The application '%s' has been deleted"
+msgstr "A aplicação '%s' foi deletada"
+
+#: ../../app/controllers/applications_controller.rb:161
+msgid "You cannot create applications in the '%s' namespace"
+msgstr "Você não pode criar aplicações no namespace '%s'"
+
+#: ../../app/controllers/applications_controller.rb:169
+msgid "Unable to create domain, %s"
+msgstr "Impossível cria domínio, %s"
+
+#: ../../app/controllers/applications_controller.rb:188
+msgid ""
+"Application creation is taking longer than expected. Please wait a few minutes, then "
+"refresh this page."
+msgstr ""
+"A criação da aplicação está demorando mais do que o esperado. Por favor espere alguns "
+"minutos antes de recarreguar esta página."
+
+#: ../../app/controllers/async_aware.rb:60
+msgid "The thread %s (index=%s) did not complete within %s seconds."
+msgstr "A thread %s (index=%s) não completou em %s segundos."
+
+#: ../../app/controllers/authorizations_controller.rb:15
+msgid "New authorization token created"
+msgstr "Novo token de autorização criado"
+
+#: ../../app/controllers/authorizations_controller.rb:37
+msgid "Authorization updated"
+msgstr "Autorização atualizada"
+
+#: ../../app/controllers/authorizations_controller.rb:46
+msgid "The authorization has been revoked"
+msgstr "A autorização foi revogada"
+
+#: ../../app/controllers/authorizations_controller.rb:51
+msgid "All authorizations revoked"
+msgstr "Todas as autorizações foram revogadas"
+
+#: ../../app/controllers/building_controller.rb:55
+msgid "Your application is now building with Jenkins."
+msgstr "Sua aplicação agora está sendo construida com Jenkins."
+
+#: ../../app/controllers/building_controller.rb:58
+msgid ""
+"The Jenkins server is not yet registered with DNS. Please wait a few minutes before "
+"trying again."
+msgstr ""
+"O servidor Jenkins ainda não está visível no DNS. Por favor, espere alguns minutos "
+"antes de tentar novamente."
+
+#: ../../app/controllers/building_controller.rb:75
+msgid "%s is no longer building through Jenkins."
+msgstr "%s não está mais sendo construida com Jenkins."
+
+#: ../../app/controllers/console/auth/basic.rb:59
+msgid "Authenticate to %s"
+msgstr "Autenticado em %s"
+
+#: ../../app/controllers/console/rescue.rb:23
+msgid "Application %s"
+msgstr "Aplicação %s"
+
+#: ../../app/controllers/console/rescue.rb:25
+msgid "Create a new application"
+msgstr "Criar uma nova aplicação"
+
+#: ../../app/controllers/console/rescue.rb:28
+msgid "See other application types"
+msgstr "Veja outros tipos de aplicações"
+
+#: ../../app/controllers/domains_controller.rb:29
+msgid "The domain '%s' has been created"
+msgstr "O domínio '%s' foi criado"
+
+#: ../../app/controllers/domains_controller.rb:44
+msgid "The domain '%s' has been updated."
+msgstr "O domínio '%s' foi atualizado."
+
+#: ../../app/controllers/domains_controller.rb:53
+msgid "All applications must be removed from this domain before it can be deleted"
+msgstr "Todas as aplicações devem ser removidas deste domínio antes de deletá-lo"
+
+#: ../../app/controllers/domains_controller.rb:61
+msgid "The domain '%s' has been deleted"
+msgstr "O domínio '%s' foi deletado"
+
+#: ../../app/controllers/keys_controller.rb:14
+msgid "Your public key has been created"
+msgstr "Sua chave pública foi criada"
+
+#: ../../app/controllers/keys_controller.rb:35
+msgid "You have already created a key with that name"
+msgstr "Você já possui uma chave com este nome"
+
+#: ../../app/controllers/members_controller.rb:17
+msgid "Updated members"
+msgstr "Membros atualizados"
+
+#: ../../app/controllers/members_controller.rb:19
+msgid "Could not update members."
+msgstr "Impossível atualizar membros"
+
+#: ../../app/controllers/members_controller.rb:30
+msgid "You are no longer a member of '%s'"
+msgstr "Você não é mais um membro de '%s'"
+
+#: ../../app/controllers/members_controller.rb:33
+msgid "Could not leave '%s'"
+msgstr "Impossível deixar '%s'"
+
+#: ../../app/controllers/oauth_controller.rb:13
+msgid "An unexpected OAuth response (non-302, non-error) was received"
+msgstr "Uma resposta inesperada OAuth (não-302, não-erro) foi recebida"
+
+#: ../../app/controllers/oauth_controller.rb:17
+msgid "OAuth Error: Unexpected response"
+msgstr "Erro OAuth: Resposta inesperada"
+
+#: ../../app/controllers/oauth_controller.rb:30
+msgid "OAuth Error: %s"
+msgstr "Erro OAuth: %s"
+
+#: ../../app/controllers/restarts_controller.rb:11
+msgid "The application '%s' has been restarted"
+msgstr "A aplicação '%s' foi reiniciada"
+
+#: ../../app/controllers/scaling_controller.rb:30
+msgid "Updated scale settings for cartridge '%s'"
+msgstr "Configurações de escalabilidade atualizadas para o cartucho '%s'"
+
+#: ../../app/controllers/settings_controller.rb:21
+msgid "You need to set a namespace before you can create applications"
+msgstr "Você deve definir um namespace antes de criar aplicações"
+
+#: ../../app/controllers/settings_controller.rb:23
+msgid "You need to set a public key before you can work with application code"
+msgstr "Você deve definir uma chave pública antes de acessar o código da aplicação"
+
+#: ../../app/controllers/storage_controller.rb:14
+msgid "Updated storage for cartridge '%s'"
+msgstr "Storage atualizado para o cartucho '%s'"
+
+#: ../../app/controllers/teams_controller.rb:49
+msgid "The team '%s' has been created"
+msgstr "O time '%s' foi criado"
+
+#: ../../app/controllers/teams_controller.rb:62
+msgid "The team '%s' has been deleted"
+msgstr "O time '%s' foi deletado"
+
+#: ../../app/helpers/console/cost_helper.rb:7
+msgid "the domain owner's"
+msgstr "conta do dono do domínio"
+
+#: ../../app/helpers/console/cost_helper.rb:7
+msgid "your"
+msgstr "sua conta"
+
+#: ../../app/helpers/console/cost_helper.rb:10
+msgid "This will add %s to %s account and will result in additional charges."
+msgstr "Isto irá adicionar %s na %s e resultará em custos adicionais."
+
+#: ../../app/helpers/console/cost_helper.rb:12
+msgid "This will add at least %s to %s account and may result in additional charges."
+msgstr "Isto irá adicionar %s na %s e pode resultar em custos adicionais."
+
+#: ../../app/helpers/console/cost_helper.rb:14
+msgid "No gears will be added to %s account."
+msgstr "Nenhum gear será adicionado na %s"
+
+#: ../../app/helpers/console/cost_helper.rb:16
+msgid "This will add an unknown number of gears to %s account."
+msgstr "Isto irá adicionar um número desconhecido de gears na %s"
+
+#: ../../app/helpers/console/cost_helper.rb:18
+msgid "This will add between %s and %s gears to %s account."
+msgstr "Isto irá adicionar entre %s e %s gears na %s"
+
+#: ../../app/helpers/console/cost_helper.rb:20
+msgid "This will add %s to %s account."
+msgstr "Isto irá adicionar %s na %s"
+
+#: ../../app/helpers/console/cost_helper.rb:24
+msgid "%s Additional charges may be accrued for premium cartridges."
+msgstr "%s Custos adicionais podem ser incluídos para cartuchos premium."
+
+#: ../../app/helpers/console/cost_helper.rb:28
+msgid "%s The selected gear type will have additional hourly charges."
+msgstr "%s O tipo de gear selecionado terá custo por hora adicional."
+
+#: ../../app/helpers/console/cost_helper.rb:77
+#: ../../app/views/application_types/_application_type.html.haml:41
+#: ../../app/views/application_types/show.html.haml:68
+#: ../../app/views/cartridge_types/_cartridge_type.html.haml:79
+msgid "May include additional usage fees at certain levels, see plan for details."
+msgstr ""
+"Pode incluir taxas adicionais de use em certos níveis. Veja seu plano para mais "
+"detalhes."
+
+#: ../../app/helpers/console/help_helper.rb:279
+msgid "Developer Center"
+msgstr "Central do Desenvolvedor"
+
+#: ../../app/helpers/console/help_helper.rb:281
+msgid "OpenShift User Guide"
+msgstr "Guia de Usuário OpenShift"
+
+#: ../../app/helpers/console/help_helper.rb:283
+msgid "Installing OpenShift client tools on Mac OSX, Linux, and Windows"
+msgstr "Instalando OpenShift client tools no Mac OSX, Linux e Windows"
+
+#: ../../app/helpers/console/help_helper.rb:285
+msgid "Sync your OpenShift repo with an existing Git repo"
+msgstr "Sincronize seu repo Git OpenShift com um repo Git existente"
+
+#: ../../app/helpers/console/help_helper.rb:292
+msgid "How do I start a new Forum discussion?"
+msgstr "Como inicio uma nova discussão no Forum?"
+
+#: ../../app/helpers/console/help_helper.rb:294
+msgid "How do I install the rhc client tools on Windows?"
+msgstr "Como instalo o rhc client tools no Windows?"
+
+#: ../../app/helpers/console/layout_helper.rb:126
+msgid "Choose a type of application"
+msgstr "Escolha um tipo de aplicação"
+
+#: ../../app/helpers/console/layout_helper.rb:130
+msgid "Configure the application"
+msgstr "Configure a aplicação"
+
+#: ../../app/helpers/console/layout_helper.rb:133
+#: ../../app/helpers/console/layout_helper.rb:150
+msgid "Next steps"
+msgstr "Próximos passos"
+
+#: ../../app/helpers/console/layout_helper.rb:143
+msgid "Choose a cartridge type"
+msgstr "Escolha um tipo de cartucho"
+
+#: ../../app/helpers/console/layout_helper.rb:147
+msgid "Configure the cartridge"
+msgstr "Configure o cartucho"
+
+#: ../../app/helpers/console/layout_helper.rb:208
+msgid "My Applications"
+msgstr "Minha Aplicações"
+
+#: ../../app/helpers/console/layout_helper.rb:215
+#: ../../app/views/domains/index.html.haml:8
+#: ../../app/views/settings/_domains.html.haml:1
+msgid "Domains"
+msgstr "Domínios"
+
+#: ../../app/helpers/console/layout_helper.rb:222
+msgid "Create an application"
+msgstr "Criar uma aplicação"
+
+#: ../../app/helpers/console/layout_helper.rb:228
+#: ../../app/views/account/show.html.haml:3
+msgid "My Account"
+msgstr "Minha Conta"
+
+#: ../../app/helpers/console/layout_helper.rb:234
+#: ../../app/views/domains/show.html.haml:39 ../../app/views/settings/show.html.haml:3
+msgid "Settings"
+msgstr "Configurações"
+
+#: ../../app/helpers/console/layout_helper.rb:248
+msgid "Mr."
+msgstr "Sr."
+
+#: ../../app/helpers/console/layout_helper.rb:248
+msgid "Sr."
+msgstr "Sr."
+
+#: ../../app/helpers/console/layout_helper.rb:248
+msgid "Hr."
+msgstr "Hr."
+
+#: ../../app/helpers/console/layout_helper.rb:248
+msgid "Dr."
+msgstr "Dr."
+
+#: ../../app/helpers/console/layout_helper.rb:248
+msgid "Miss"
+msgstr "Srta."
+
+#: ../../app/helpers/console/layout_helper.rb:248
+msgid "Mrs."
+msgstr "Srta."
+
+#: ../../app/helpers/console/layout_helper.rb:248
+msgid "Ms."
+msgstr "Sra."
+
+#: ../../app/helpers/console/layout_helper.rb:341
+msgid "Quickstart"
+msgstr "Quickstart"
+
+#: ../../app/helpers/console/layout_helper.rb:341
+msgid "Cartridge"
+msgstr "Cartucho"
+
+#: ../../app/helpers/console/model_helper.rb:5
+msgid "Or, see the entire list of cartridges you can add"
+msgstr "Ou, veja a lista completa de cartuchos que você pode adicionar"
+
+#: ../../app/helpers/console/model_helper.rb:7
+msgid "Show other cartridges you can add to this application"
+msgstr "Mostrar outros cartuchos que você pode adicionar na aplicação."
+
+#: ../../app/helpers/console/model_helper.rb:15
+msgid "Remove or change your Jenkins configuration"
+msgstr "Remover ou alterar as configurações de seu Jenkins"
+
+#: ../../app/helpers/console/model_helper.rb:67
+msgid ""
+"The owners of the available domains have disabled all gear sizes from being created."
+msgstr ""
+"Os donos dos domínios disponíveis desabilitaram a criação de todos os tipos de gears."
+
+#: ../../app/helpers/console/model_helper.rb:69
+msgid "You have disabled all gear sizes from being created."
+msgstr "Você desabilitou a criação de todos os tipos de gears."
+
+#: ../../app/helpers/console/model_helper.rb:78
+msgid ""
+"There are not enough free gears available to create a new application. You will either "
+"need to scale down or delete existing applications to free up resources."
+msgstr ""
+"Não existem gears livres disponíveis para criar uma nova aplicação. Você precisa "
+"desescalar ou deletar aplicações existentes para liberar recursos."
+
+#: ../../app/helpers/console/model_helper.rb:127
+msgid ""
+"Your web cartridge is running on the minimum amount of gears and will scale up if needed"
+msgstr ""
+"Seu cartucho web está rodando com a quantidade mínima de gears e irá escalar se "
+"necessário"
+
+#: ../../app/helpers/console/model_helper.rb:129
+msgid ""
+"Your web cartridge is running on the maximum amount of gears and cannot scale up any "
+"further"
+msgstr ""
+"Seu cartucho web está rodando com a quantidade máxima de gears e não pode escalar mais"
+
+#: ../../app/helpers/console/model_helper.rb:131
+msgid "Your web cartridge is running multiple copies to handle increased web traffic"
+msgstr ""
+"Seu cartucho web está rodando em múltiplas copias para atender o incremento do tráfego "
+"web"
+
+#: ../../app/helpers/console/model_helper.rb:145
+msgid "Routing to %s%s"
+msgstr "Roteando para %s%s"
+
+#: ../../app/helpers/console/model_helper.rb:145
+msgid "web gear"
+msgstr "gear web"
+
+#: ../../app/helpers/console/model_helper.rb:150
+msgid "no gears"
+msgstr "nenhum gear"
+
+#: ../../app/helpers/console/model_helper.rb:155
+#: ../../app/views/application_types/show.html.haml:173
+msgid "None"
+msgstr "Nada"
+
+#: ../../app/helpers/console/model_helper.rb:160
+msgid ""
+"OpenShift runs each cartridge inside one or more gears on a server and is allocated a "
+"fixed portion of CPU time and memory use."
+msgstr ""
+"OpenShift roda cada cartucho dentro de um ou mais gears em um servidor, alocando uma "
+"porção fixa de tempo de CPU e memória."
+
+#: ../../app/helpers/console/model_helper.rb:176
+msgid "%s at maximum scale in this application.  Currently using %s."
+msgstr "%s na escala máxima nesta aplicação. Atualmente usando %s."
+
+#: ../../app/helpers/console/model_helper.rb:176
+#: ../../app/helpers/console/model_helper.rb:178
+#: ../../app/helpers/console/model_helper.rb:180
+msgid "cartridge"
+msgstr "cartucho"
+
+#: ../../app/helpers/console/model_helper.rb:178
+msgid "%s at minimum scale in this application.  Currently using %s."
+msgstr "%s na escala mínima nesta aplicação. Atualmente usando %s."
+
+#: ../../app/helpers/console/model_helper.rb:180
+msgid "%s above minimum scale in this application.  Currently using %s."
+msgstr "%s acima da escala mínima nesta aplicação. Atualmente usando %s."
+
+#: ../../app/helpers/console/model_helper.rb:183
+msgid "This application is running at a fixed scale ratio, and is using %s."
+msgstr "Esta aplicação está rodando em uma escala fixa, e está usando %s."
+
+#: ../../app/helpers/console/model_helper.rb:186
+msgid "Unscaled application using %s"
+msgstr "Aplicação não-escalável usando %s"
+
+#: ../../app/helpers/console/model_helper.rb:222
+msgid "All available"
+msgstr "Tudo disponível"
+
+#: ../../app/helpers/console/model_helper.rb:225
+msgid "Use -1 to scale to your current account limits"
+msgstr "Use -1 para escalar até os limites de sua conta"
+
+#: ../../app/helpers/console/model_helper.rb:238
+msgid "No scaling"
+msgstr "Sem escalabilidade"
+
+#: ../../app/helpers/console/model_helper.rb:238
+msgid "Scale with web traffic"
+msgstr "Escalar com tráfego web"
+
+#: ../../app/helpers/console/model_helper.rb:247
+msgid "This application shares filesystem resources and can't be scaled."
+msgstr ""
+"Esta aplicação compartilha recursos de sistema de arquivos e não pode ser escalada."
+
+#: ../../app/helpers/console/model_helper.rb:253
+msgid ""
+"This application may require additional work to scale. Please see the application's "
+"documentation for more information."
+msgstr ""
+"Esta aplicação pode requerer algum esforço adicional para escalar. Por favor consulte a "
+"documentação da aplicação para mais detalhes."
+
+#: ../../app/models/alias.rb:30
+msgid "Required if a certificate chain or private key file is selected."
+msgstr "Requerido se uma cadeia de certificados ou chave privada for selecionada."
+
+#: ../../app/models/alias.rb:33
+msgid "Required if a certificate or certificate chain file is selected."
+msgstr "Requerido se um certificado ou cadeia de certificados for selecionada."
+
+#: ../../app/models/alias.rb:34
+msgid "Certificate private key file was empty."
+msgstr "O arquivo da chave privada do certificado estava vazio."
+
+#: ../../app/models/alias.rb:36
+msgid "SSL certificate chain file was empty."
+msgstr "O arquivo da cadeia de certificados SSL estava vazio."
+
+#: ../../app/models/application.rb:81
+msgid "Namespace is required"
+msgstr "Namespace requerido"
+
+#: ../../app/models/member.rb:67
+msgid "Can administer (+ team access)"
+msgstr "Pode administrar (+ acesso ao time)"
+
+#: ../../app/models/member.rb:67
+msgid "Can administer"
+msgstr "Pode administrar"
+
+#: ../../app/models/member.rb:69
+msgid "Can edit (+ team access)"
+msgstr "Pode editar (+ acesso ao time)"
+
+#: ../../app/models/member.rb:69
+msgid "Can edit"
+msgstr "Pode editar"
+
+#: ../../app/models/member.rb:71
+msgid "Can view (+ team access)"
+msgstr "Pode ver (+ acesso ao time)"
+
+#: ../../app/models/member.rb:71
+msgid "Can view"
+msgstr "Pode ver"
+
+#: ../../app/models/member.rb:73
+msgid "No role"
+msgstr "Sem papel"
+
+#: ../../app/models/member.rb:73
+msgid "Team access only"
+msgstr "Somente acesso ao time"
+
+#: ../../app/models/membership.rb:83
+msgid "The %s members could not be updated."
+msgstr "Os membros de %s não podem ser atualizados."
+
+#: ../../app/models/team.rb:20
+msgid "Remove from team"
+msgstr "Remover do time"
+
+#: ../../app/models/team.rb:21
+msgid "Team member"
+msgstr "Membro do time"
+
+#: ../../app/views/account/_user.html.haml:2 ../../app/views/settings/_user.html.haml:2
+msgid "Personal Information"
+msgstr "Dados Pessoais"
+
+#: ../../app/views/aliases/_certificate_not_allowed.html.haml:3
+msgid "Your account does not allow custom SSL certificates."
+msgstr "Sua conta não permite certificados SSL personalizados."
+
+#: ../../app/views/aliases/_certificate_not_allowed.html.haml:6
+msgid "Custom SSL certificates are not allowed for this application."
+msgstr "Certificados SSL personalizados não são permitidos para esta aplicação."
+
+#: ../../app/views/aliases/_form.html.haml:4
+msgid ""
+"Aliases allow you to use your own domain names for your apps on OpenShift. To set up "
+"your own domain name for"
+msgstr ""
+"Aliases permitem que você use seus próprios domínios para seus aplicativos OpenShift. "
+"Para configurar seu próprio nome de domínio para"
+
+#: ../../app/views/aliases/_form.html.haml:7
+msgid "Set up the CNAME record with your DNS provider"
+msgstr "Configure o CNAME em seu provedor DNS"
+
+#: ../../app/views/aliases/_form.html.haml:8
+msgid "Tell us about your alias using the form on this page"
+msgstr "Informe-nos sobre seu alias usando o formulário nesta página"
+
+#: ../../app/views/aliases/_form.html.haml:17 ../../app/views/aliases/_form.html.haml:42
+#: ../../app/views/aliases/edit.html.haml:45 ../../app/views/aliases/edit.html.haml:63
+#: ../../app/views/aliases/edit.html.haml:79 ../../app/views/aliases/new.html.haml:28
+#: ../../app/views/aliases/new.html.haml:38
+msgid "SSL Certificate"
+msgstr "Certificado SSL"
+
+#: ../../app/views/aliases/_form.html.haml:21
+msgid "Your plan doesn't allow custom SSL certificates."
+msgstr "Seu plano não permite certificados SSL personalizados."
+
+#: ../../app/views/aliases/_form.html.haml:27
+msgid "This alias already has a certificate. You can"
+msgstr "Este alias já possui um certificado. Você pode"
+
+#: ../../app/views/aliases/_form.html.haml:29
+msgid "or override it uploading a new one."
+msgstr "ou substitui-lo usando um novo certificado."
+
+#: ../../app/views/aliases/_form.html.haml:32 ../../app/views/aliases/edit.html.haml:52
+msgid ""
+"If you delete this certificate, your users will not be able to browse your site "
+"securely."
+msgstr ""
+"Se você deletar este certificado, seus usuários não poderão acessar seu site de forma "
+"segura."
+
+#: ../../app/views/aliases/_form.html.haml:34 ../../app/views/aliases/edit.html.haml:54
+msgid "Are you sure you wish to delete the certificate?"
+msgstr "Você tem certeza que deseja remover este certificado?"
+
+#: ../../app/views/aliases/_form.html.haml:45
+msgid ""
+"Upload an SSL certificate for your domain if you want your users to be able to browser "
+"your app securely. Accepted files are X509 certificates in .crt format."
+msgstr ""
+"Envie um certificado SSL para seu domínio se quiser que seus usuários acessem sua "
+"aplicação de forma segura. Os arquivos aceitos são certificados X509 no formato .crt."
+
+#: ../../app/views/aliases/_form.html.haml:49
+msgid "Certificate private key"
+msgstr "Chave privada do certificado"
+
+#: ../../app/views/aliases/_form.html.haml:52
+msgid "Private key required if adding a certificate."
+msgstr "Chave privada requerida se estiver incluindo um certificado."
+
+#: ../../app/views/aliases/_form.html.haml:56
+msgid "Certificate pass phrase"
+msgstr "Frase segura (senha) do certificado"
+
+#: ../../app/views/aliases/_form.html.haml:59
+msgid "Optional pass phrase for the certificate private key."
+msgstr "Frase segura (senha) opcional para a chave privada do certificado."
+
+#: ../../app/views/aliases/delete.html.haml:3
+msgid "Delete Alias from %s"
+msgstr "Deletar alias de %s"
+
+#: ../../app/views/aliases/delete.html.haml:9
+msgid ""
+"If you delete the alias <code>%s</code>, your app will not be accessible from this URL. "
+"Deleting this alias will also delete the certificate."
+msgstr ""
+"Se você deletar o alias <code>%s</code>, sua aplicação não será mais acessível desta "
+"URL. Deletar este alias irá deletar também seu certificado."
+
+#: ../../app/views/aliases/delete.html.haml:11
+msgid "Are you sure you wish to delete the alias?"
+msgstr "Você tem certeza que deseja remover este alias?"
+
+#: ../../app/views/aliases/edit.html.haml:3
+msgid "Alias '%s' from %s"
+msgstr "Alias '%s' de %s"
+
+#: ../../app/views/aliases/edit.html.haml:9
+msgid "The alias is"
+msgstr "O alias é"
+
+#: ../../app/views/aliases/edit.html.haml:11
+msgid "and the destination app is"
+msgstr "e o app destino é"
+
+#: ../../app/views/aliases/edit.html.haml:20
+msgid "Domain Name"
+msgstr "Nome do Domínio"
+
+#: ../../app/views/aliases/edit.html.haml:23
+msgid ""
+"If you need to change the domain name, please delete the alias and create a new one."
+msgstr ""
+"Se você precisa alterar o nome do domínio, por favor delete o alias e crie um novo."
+
+#: ../../app/views/aliases/edit.html.haml:27
+msgid ""
+"If you delete this alias, your app will not be accessible from this URL. Deleting this "
+"alias will also delete the certificate."
+msgstr ""
+"Se você deletar este alias, sua aplicação não será mais acessível a partir desta URL. "
+"Deletar este alias também irá deletar o certificado."
+
+#: ../../app/views/aliases/edit.html.haml:29
+msgid "Are you sure you wish to delete the alias"
+msgstr "Você tem certeza que deseja remover este alias"
+
+#: ../../app/views/aliases/edit.html.haml:31
+msgid "?"
+msgstr "?"
+
+#: ../../app/views/aliases/edit.html.haml:48
+msgid "Date and time the existing certificate was added to this alias."
+msgstr "Data e hora que este certificado foi incluído neste alias."
+
+#: ../../app/views/aliases/edit.html.haml:72
+msgid ""
+"Your alias already has an SSL Certificate attached. Uploading a new certificate will "
+"override the existing one."
+msgstr ""
+"Seu alias já possui um certificado SSL instalado. Enviar um novo certificado irá "
+"substituir o existente."
+
+#: ../../app/views/aliases/edit.html.haml:75 ../../app/views/aliases/new.html.haml:34
+msgid ""
+"Optionally upload an SSL certificate for your custom domain alias to allow secure HTTPS "
+"communication with your app."
+msgstr ""
+"Opcionalmente envie um certificado SSL para seu domínio customizado para habilitar "
+"comunicação segura via HTTPS com sua aplicação."
+
+#: ../../app/views/aliases/edit.html.haml:81 ../../app/views/aliases/edit.html.haml:101
+#: ../../app/views/aliases/new.html.haml:40 ../../app/views/aliases/new.html.haml:60
+msgid "*"
+msgstr "*"
+
+#: ../../app/views/aliases/edit.html.haml:86 ../../app/views/aliases/new.html.haml:45
+msgid ""
+"Certificate files must be Base64 PEM-encoded and typically have a .crt or .pem "
+"extension. You may combine multiple certificates and certificate chains in a single "
+"file, but the RSA or DSA private key must always be provided in a separate file."
+msgstr ""
+"Arquivos de certificado devem ser codificados em Base64 PEM, tipicamente com uma "
+"extensão .crt ou .pem. Você pode combinar múltiplos certificados e cadeias de "
+"certificados em um único arquivo, mas a chave privada RSA ou DSA deve ser submetida em "
+"um arquivo separado."
+
+#: ../../app/views/aliases/edit.html.haml:90 ../../app/views/aliases/new.html.haml:49
+msgid "SSL Certificate Chain"
+msgstr "Cadeia de certificados SSL"
+
+#: ../../app/views/aliases/edit.html.haml:95
+msgid ""
+"Optionally you can provide a certificate chain/bundle in a separate PEM-encoded file."
+msgstr ""
+"Opcionalmente você pode fornecer uma cadeia de certificados (chain/bundle) em um "
+"arquivo codificado PEM separadamente."
+
+#: ../../app/views/aliases/edit.html.haml:99 ../../app/views/aliases/new.html.haml:58
+msgid "Certificate Private Key"
+msgstr "Chave Privada do Certificado"
+
+#: ../../app/views/aliases/edit.html.haml:106 ../../app/views/aliases/new.html.haml:65
+msgid "RSA or DSA private key file for the root certificate in PEM-encoded format."
+msgstr "Arquivo de chave privada RSA ou DSA para o certificado raiz, no formato PEM."
+
+#: ../../app/views/aliases/edit.html.haml:110 ../../app/views/aliases/new.html.haml:69
+msgid "Private Key Pass Phrase"
+msgstr "Frase segura (senha)  da chave privada"
+
+#: ../../app/views/aliases/edit.html.haml:113 ../../app/views/aliases/new.html.haml:72
+msgid ""
+"Pass phrase for the certificate private key, required if the provided private key is "
+"encrypted."
+msgstr ""
+"Frase segura (senha) para a chave privada do certificado, requerido se a chave privada "
+"fornecida estiver criptografada."
+
+#: ../../app/views/aliases/index.html.haml:3
+msgid "Aliases for %s"
+msgstr "Aliases para %s"
+
+#: ../../app/views/aliases/index.html.haml:8
+msgid "Aliases allow you to use your own domain names for your applications on OpenShift."
+msgstr ""
+"Aliases permitem que você use seu próprio nome de domínio em sua aplicação OpenShift."
+
+#: ../../app/views/aliases/index.html.haml:11
+msgid "No aliases exist. %s"
+msgstr "Nenhum alias cadastrado. %s"
+
+#: ../../app/views/aliases/index.html.haml:19
+msgid "Name"
+msgstr "Nome"
+
+#: ../../app/views/aliases/index.html.haml:44
+msgid "edit"
+msgstr "editar"
+
+#: ../../app/views/aliases/index.html.haml:47
+msgid "delete"
+msgstr "deletar"
+
+#: ../../app/views/aliases/index.html.haml:61
+msgid "Note: In order to route traffic on your domain to OpenShift, you must %s."
+msgstr "Nota: Para rotear tráfego para seu domínio no OpenShift, você deve %s."
+
+#: ../../app/views/aliases/new.html.haml:3
+msgid "New Alias for %s"
+msgstr "Novo Alias para %s"
+
+#: ../../app/views/aliases/new.html.haml:10
+msgid ""
+"Aliases allow you to use your own domain names for your apps on OpenShift. To set up "
+"your own domain name for app"
+msgstr ""
+"Aliases permitem que você use seus próprios domínios para seus aplicativos OpenShift. "
+"Para configurar seu próprio nome de domínio para o app"
+
+#: ../../app/views/aliases/new.html.haml:14
+msgid "Configure OpenShift to use your alias:"
+msgstr "Configure o OpenShift para usar seu alias:"
+
+#: ../../app/views/aliases/new.html.haml:20
+msgid "Application URL"
+msgstr "URL da Aplicação"
+
+#: ../../app/views/aliases/new.html.haml:23
+msgid ""
+"The current application URL. Set up a CNAME record with your DNS provider pointing to "
+"this URL."
+msgstr ""
+"A URL atual da aplicação. Configure um registro CNAME em seu provedor de DNS apontando "
+"para esta URL."
+
+#: ../../app/views/aliases/new.html.haml:54
+msgid "Optionally you can provide a certificate chain in a separate PEM-encoded file."
+msgstr ""
+"Opcionalmente você pode fornecer uma cadeia de certificados (chain/bundle) em um "
+"arquivo codificado PEM separadamente."
+
+#: ../../app/views/application_types/_application_type.html.haml:29
+#: ../../app/views/application_types/show.html.haml:56
+#: ../../app/views/cartridge_types/_cartridge_type.html.haml:64
+msgid "OpenShift maintained"
+msgstr "Mantido pelo OpenShift"
+
+#: ../../app/views/application_types/_application_type.html.haml:35
+#: ../../app/views/application_types/index.html.haml:45
+#: ../../app/views/application_types/search.html.haml:45
+#: ../../app/views/application_types/show.html.haml:62
+#: ../../app/views/cartridge_types/_cartridge_type.html.haml:70
+msgid "Receives automatic security updates"
+msgstr "Recebe atualizações de segurança automáticas"
+
+#: ../../app/views/application_types/_application_type.html.haml:45
+#: ../../app/views/application_types/show.html.haml:72
+msgid "Partner created"
+msgstr "Criado por parceiro"
+
+#: ../../app/views/application_types/_application_type.html.haml:47
+msgid "Created by a community member and not maintained by OpenShift"
+msgstr "Criado por uma comunidade de membros e não mantido pelo OpenShift"
+
+#: ../../app/views/application_types/_application_type.html.haml:47
+#: ../../app/views/application_types/show.html.haml:74
+msgid "Community created"
+msgstr "Criado pela comunidade"
+
+#: ../../app/views/application_types/_application_type.html.haml:50
+msgid ""
+"When you create a QuickStart or a community cartridge, you are copying code from "
+"another repository. You are responsible for applying security fixes and updates."
+msgstr ""
+"Quando você utiliza um QuickStart ou um cartucho de comunidade, está copiando código de "
+"outro repositório. Você é responsável por aplicar correções de segurança e atualizações."
+
+#: ../../app/views/application_types/_application_type.html.haml:51
+msgid "Does not receive automatic security updates"
+msgstr "Não recebe atualizaçòes de segurança automaticamente"
+
+#: ../../app/views/application_types/_application_type.html.haml:54
+msgid "This type is development only and will not be accessible in production"
+msgstr "Este tipo é apenas para desenvolvimento e não será acessível em produção"
+
+#: ../../app/views/application_types/_gear_size_help.html.haml:1
+msgid "Gears are the application containers running your code."
+msgstr "Gears são os containers de aplicação que rodam o seu código."
+
+#: ../../app/views/application_types/_gear_size_help.html.haml:3
+msgid "There are no gear sizes available for this application."
+msgstr "Não existem gears disponíveis para esta aplicação."
+
+#: ../../app/views/application_types/_gear_size_help.html.haml:6
+msgid "If you require more resources, select a larger gear size here."
+msgstr "Se você necessita de mais recursos, selecione um gear maior aqui."
+
+#: ../../app/views/application_types/_persisted.html.haml:5
+msgid "Website: %s"
+msgstr "Website: %s"
+
+#: ../../app/views/application_types/_persisted.html.haml:9
+msgid "Cartridges:"
+msgstr "Cartuchos:"
+
+#: ../../app/views/application_types/_persisted.html.haml:17
+msgid "none"
+msgstr "nada"
+
+#: ../../app/views/application_types/_tile.html.haml:13
+msgid "This type is in development and will not be visible in production."
+msgstr "Este tipo é apenas para desenvolvimento e não será acessível em produção."
+
+#: ../../app/views/application_types/index.html.haml:4
+#: ../../app/views/application_types/search.html.haml:4
+msgid "Create a New Application"
+msgstr "Crie uma Nova Aplicação"
+
+#: ../../app/views/application_types/index.html.haml:12
+#: ../../app/views/application_types/search.html.haml:12
+msgid "Choose a web programming cartridge or kick the tires with a quickstart."
+msgstr "Escolha um cartucho web para programar ou inicie com um quickstart."
+
+#: ../../app/views/application_types/index.html.haml:13
+msgid ""
+"After you create the application you can <strong>add cartridges to enable additional "
+"capabilities</strong> like databases, metrics, and continuous build support with "
+"Jenkins."
+msgstr ""
+"Após criar a aplicação você pode <strong>adicionar cartuchos para habilitar "
+"funcionalidades</strong> como bases de dados, metricas e suporte a continuous build com "
+"Jenkins."
+
+#: ../../app/views/application_types/index.html.haml:16
+#: ../../app/views/application_types/index.html.haml:17
+#: ../../app/views/application_types/search.html.haml:16
+#: ../../app/views/application_types/search.html.haml:17
+msgid "Search by keyword or tag"
+msgstr "Procure por palavra-chave ou tag"
+
+#: ../../app/views/application_types/index.html.haml:20
+#: ../../app/views/application_types/search.html.haml:21
+msgid "or"
+msgstr "ou"
+
+#: ../../app/views/application_types/index.html.haml:23
+#: ../../app/views/application_types/search.html.haml:24
+msgid "Browse by tag..."
+msgstr "Navegue por tag..."
+
+#: ../../app/views/application_types/index.html.haml:36
+#: ../../app/views/application_types/search.html.haml:37
+msgid "<b>Cartridge</b> &ndash; A managed runtime for your application."
+msgstr "<b>Cartridge</b> &ndash; Um runtime básico para sua aplicação."
+
+#: ../../app/views/application_types/index.html.haml:40
+msgid ""
+"<b>QuickStart</b> &ndash; A quick way to try out a new technology with code and "
+"libraries preconfigured."
+msgstr ""
+"<b>QuickStart</b> &ndash; Uma forma rápida de experimentar uma nova tecnologia com "
+"código e bibliotecas pré-configuradas."
+
+#: ../../app/views/application_types/index.html.haml:41
+msgid "You are responsible for updating core libraries for security updates."
+msgstr "Você é responsável por atualizações de segurança."
+
+#: ../../app/views/application_types/index.html.haml:50
+msgid "Featured"
+msgstr "Em Destaque"
+
+#: ../../app/views/application_types/index.html.haml:58
+msgid "There are no applications available to install"
+msgstr "Não existem aplicações disponíveis para instalar"
+
+#: ../../app/views/application_types/index.html.haml:89
+msgid ""
+"Can't find what you're looking for?  Try searching for a specific quickstart or "
+"filtering by tag."
+msgstr ""
+"Não encontra o que busca? Experimente procurar por um quickstart específico ou filtrar "
+"por tag."
+
+#: ../../app/views/application_types/index.html.haml:90
+msgid "Or, browse the entire list in our %s."
+msgstr "Ou, navegue pela lista completa em nossa %s."
+
+#: ../../app/views/application_types/index.html.haml:90
+msgid "QuickStart gallery"
+msgstr "galeria de Quickstarts"
+
+#: ../../app/views/application_types/index.html.haml:93
+msgid "Code Anything"
+msgstr "Codifique Qualquer Coisa"
+
+#: ../../app/views/application_types/index.html.haml:97
+msgid ""
+"Have your own framework?  Provide the %s here, and OpenShift will download and "
+"provision it automatically into your new app!"
+msgstr ""
+"Possui seu próprio framework? Forneça a %s aqui, e o OpenShift vai baixar e provisionar "
+"automaticamente a informação da origem."
+
+#: ../../app/views/application_types/index.html.haml:97
+msgid "URL of a cartridge"
+msgstr "URL de um cartucho"
+
+#: ../../app/views/application_types/index.html.haml:99
+#: ../../app/views/cartridge_types/index.html.haml:26
+msgid "URL to a cartridge definition"
+msgstr "URL para um cartucho"
+
+#: ../../app/views/application_types/index.html.haml:100
+msgid "Base a new app on a cartridge you provide"
+msgstr "Baseie uma nova aplicação em um cartucho fornecido por você"
+
+#: ../../app/views/application_types/index.html.haml:103
+msgid "Want to build your own cartridge? Get started with the DIY cart."
+msgstr "Quer construir seu próprio cartucho? Inicie com o cartucho DIY."
+
+#: ../../app/views/application_types/search.html.haml:13
+msgid ""
+"After you create the application  you can <strong>add cartridges to enable additional "
+"capabilities</strong> like databases, metrics, and continuous build support with "
+"Jenkins."
+msgstr ""
+"Após criar a aplicação você pode <strong>adicionar cartuchos para habilitar "
+"funcionalidades</strong> como bases de dados, metricas e suporte a continuous build com "
+"Jenkins."
+
+#: ../../app/views/application_types/search.html.haml:41
+msgid ""
+"<b>QuickStart</b> &ndash; A quick way to try out a new technology with code and "
+"libraries preconfigured. You are responsible for updating core libraries for security "
+"updates."
+msgstr ""
+"<b>QuickStart</b> &ndash; Uma forma rápida de experimentar uma nova tecnologia com "
+"código e bibliotecas pré-configuradas. Você é responsável por atualizações de segurança."
+
+#: ../../app/views/application_types/search.html.haml:73
+msgid ""
+"Can't find what you're looking for? Try broadening your search or filtering by another "
+"tag."
+msgstr "Não encontra o que busca? Experimente ampliar a procura ou filtrar por outra tag."
+
+#: ../../app/views/application_types/show.html.haml:3
+msgid "Configure New Application"
+msgstr "Configurar Nova Aplicação"
+
+#: ../../app/views/application_types/show.html.haml:27
+msgid "This template is development only and not accessible in production"
+msgstr "Este template é apenas para desenvolvimento e não será acessível em produção"
+
+#: ../../app/views/application_types/show.html.haml:31
+msgid "Based On"
+msgstr "Baseado Em"
+
+#: ../../app/views/application_types/show.html.haml:82
+msgid "This application is based on a URL."
+msgstr "Esta aplicação é baseada em uma URL."
+
+#: ../../app/views/application_types/show.html.haml:90
+#: ../../app/views/building/new.html.haml:34
+msgid "Public URL"
+msgstr "URL Pública"
+
+#: ../../app/views/application_types/show.html.haml:118
+msgid "OpenShift will automatically register this domain name for your application."
+msgstr "OpenShift vai registrar automaticamente este domínio para sua aplicação."
+
+#: ../../app/views/application_types/show.html.haml:119
+msgid "You can add your own domain name later."
+msgstr "Você pode incluir seu domínio depois."
+
+#: ../../app/views/application_types/show.html.haml:122
+#: ../../app/views/applications/show.html.haml:226
+#: ../../app/views/applications/show.html.haml:241
+msgid "Source Code"
+msgstr "Código Fonte"
+
+#: ../../app/views/application_types/show.html.haml:132
+msgid ""
+"Your application will start with an exact copy of the code and configuration provided "
+"in this Git repository."
+msgstr ""
+"Sua aplicação vai iniciar com uma cópia exata de código e configuração fornecidos neste "
+"repositório Git."
+
+#: ../../app/views/application_types/show.html.haml:133
+msgid ""
+"OpenShift may expect certain files to exist in certain directories, which may require "
+"you to update your repository after creation."
+msgstr ""
+"OpenShift pode esperar que certos arquivos existam em certos diretórios, o que pode "
+"requerer que você atualize seu repositório após a criação."
+
+#: ../../app/views/application_types/show.html.haml:135
+msgid ""
+"We'll create a Git code repository in the cloud, and populate it with a set of "
+"reasonable defaults."
+msgstr ""
+"Vamos criar um repositório Git na nuvem, e populá-lo com um conjunto de padrões "
+"razoável."
+
+#: ../../app/views/application_types/show.html.haml:136
+msgid ""
+"If you provide a Git URL, your application will start with an exact copy of the code "
+"and configuration provided in this Git repository."
+msgstr ""
+"Se você fornecer uma URL Git, sua aplicação irá iniciar com uma cópia exata de código e "
+"configurações existentes neste repositório Git."
+
+#: ../../app/views/application_types/show.html.haml:139
+#: ../../app/views/applications/show.html.haml:116
+msgid "Gears"
+msgstr "Gears"
+
+#: ../../app/views/application_types/show.html.haml:153
+#: ../../app/views/applications/show.html.haml:70
+msgid "Cartridges"
+msgstr "Cartuchos"
+
+#: ../../app/views/application_types/show.html.haml:178
+msgid ""
+"Applications are composed of cartridges - each of which exposes a service or capability "
+"to your code.  All applications must have a web cartridge."
+msgstr ""
+"Aplicações são compostas de cartuchos - cada um expões um serviço ou capacidade para "
+"seu código. Toda aplicação deve ter no mínimo um cartucho web."
+
+#: ../../app/views/application_types/show.html.haml:182
+msgid "Downloaded cartridges do not receive updates automatically."
+msgstr "Cartuchos baixáveis não recebem atualização automaticamente."
+
+#: ../../app/views/application_types/show.html.haml:185
+msgid "Scaling"
+msgstr "Escalabilidade"
+
+#: ../../app/views/application_types/show.html.haml:200
+msgid "OpenShift automatically routes web requests to your web gear."
+msgstr "OpenShift roteia requisições web automaticamente para seu gear."
+
+#: ../../app/views/application_types/show.html.haml:202
+msgid ""
+"If you allow your application to scale, we'll set up a load balancer and allocate more "
+"gears to handle traffic as you need it."
+msgstr ""
+"Se você permitir sua aplicação escalar, iremos criar um balanceador de carga e alocar "
+"mais gears para atender o tráfego de acordo com a demanda."
+
+#: ../../app/views/applications/_account_state.html.haml:2
+#: ../../app/views/scaling/show.html.haml:15
+msgid "using"
+msgstr "usando"
+
+#: ../../app/views/applications/_account_state.html.haml:4
+msgid "of %s"
+msgstr "de %s"
+
+#: ../../app/views/applications/_application.html.haml:21
+msgid "<!--.span1.web_icon-->"
+msgstr ""
+
+#: ../../app/views/applications/_application.html.haml:26
+msgid "<!--.span1.git_icon-->"
+msgstr ""
+
+#: ../../app/views/applications/_application.html.haml:30
+msgid "Created"
+msgstr "Criado"
+
+#: ../../app/views/applications/_application2.html.haml:23
+#: ../../app/views/applications/_application2.html.haml:24
+#: ../../app/views/applications/_application2.html.haml:25
+#: ../../app/views/applications/_application2.html.haml:28
+#: ../../app/views/applications/_application2.html.haml:29
+#: ../../app/views/applications/_application2.html.haml:30
+#: ../../app/views/applications/_application2.html.haml:33
+#: ../../app/views/applications/_application2.html.haml:34
+#: ../../app/views/applications/_application2.html.haml:35
+#: ../../app/views/applications/_application2.html.haml:38
+#: ../../app/views/applications/_application2.html.haml:39
+#: ../../app/views/applications/_application2.html.haml:40
+msgid "."
+msgstr "."
+
+#: ../../app/views/applications/_cartridge_type_details.html.haml:9
+msgid "Version"
+msgstr "Versão"
+
+#: ../../app/views/applications/_cartridge_type_details.html.haml:15
+msgid "License"
+msgstr "Licensa"
+
+#: ../../app/views/applications/_cartridge_type_details.html.haml:25
+msgid "Website"
+msgstr "Website"
+
+#: ../../app/views/applications/_cartridge_type_details_link.html.haml:6
+msgid "details"
+msgstr "detalhes"
+
+#: ../../app/views/applications/_name.html.haml:9
+msgid "http://"
+msgstr "http://"
+
+#: ../../app/views/applications/_name.html.haml:11
+msgid "Application name"
+msgstr "Nome da aplicação"
+
+#: ../../app/views/applications/_name.html.haml:22
+msgid "-%s.%s"
+msgstr "-%s.%s"
+
+#: ../../app/views/applications/_name.html.haml:28
+#: ../../app/views/applications/_name.html.haml:39
+msgid "&ndash;"
+msgstr "&ndash;"
+
+#: ../../app/views/applications/_name.html.haml:49
+msgid "Error, can't create domain"
+msgstr "Erro, não pôde criar domínio"
+
+#: ../../app/views/applications/_name.html.haml:53
+msgid ""
+"Because this is your first application, you need to provide a domain under which your "
+"applications will be grouped"
+msgstr ""
+"Por ser sua primeira aplicação, você deve fornecer um domínio sob o qual suas "
+"aplicações serão agrupadas"
+
+#: ../../app/views/applications/_name.html.haml:57
+msgid "You can also %s."
+msgstr "Você também pode "
+
+#: ../../app/views/applications/delete.html.haml:3
+msgid "Delete Application"
+msgstr "Deletar Aplicação"
+
+#: ../../app/views/applications/delete.html.haml:10
+msgid ""
+"This will delete all the code and data associated with the app, and cannot be undone."
+msgstr ""
+"Isso irá deletar todo o código e dados associados com a aplicação, e não pode ser "
+"desfeito."
+
+#: ../../app/views/applications/delete.html.haml:11
+msgid "Make sure this is something you really want to do!"
+msgstr "Certifique-se que é isso mesmo que você quer fazer!"
+
+#: ../../app/views/applications/first_steps.html.haml:9
+msgid "Welcome to OpenShift"
+msgstr "Bem-vindo ao OpenShift"
+
+#: ../../app/views/applications/first_steps.html.haml:12
+msgid ""
+"OpenShift helps you build and deploy web applications, mobile backends, service "
+"oriented architectures, and host your favorite services."
+msgstr ""
+"OpenShift ajuda você a criar e publicar aplicações web, backends de mobile, "
+"arquiteturas orientadas a serviços, e hospedar suas aplicações favoritas."
+
+#: ../../app/views/applications/first_steps.html.haml:17
+msgid "Choose a web framework or codebase to start from"
+msgstr "Escolha um framework web ou aplicação para iniciar"
+
+#: ../../app/views/applications/first_steps.html.haml:18
+msgid ""
+"Try JBoss, PHP, Python, Ruby, Node.js, or create a new Drupal or Wordpress site "
+"instantly."
+msgstr ""
+"Experimente JBoss, PHP, Python, Ruby, Node.js ou crie um novo site Drupal ou Wordpress "
+"instantaneamente."
+
+#: ../../app/views/applications/first_steps.html.haml:21
+msgid "Add cartridges like MySQL or MongoDB to your application"
+msgstr "Adicione cartuchos como MySQL ou MongoDB em sua aplicação"
+
+#: ../../app/views/applications/first_steps.html.haml:22
+msgid ""
+"OpenShift lets you add services and tools to your application through "
+"<strong>cartridges</strong> - including databases, cache servers, management tools, and "
+"continuous integration servers."
+msgstr ""
+"OpenShift permite que você adicione serviços e ferramentas em sua aplicaçao através de "
+"<strong>cartuchos</strong> - incluindo bases de dados, serviços de cache, ferramentas "
+"de gerenciamento e servidores de integração contínua."
+
+#: ../../app/views/applications/first_steps.html.haml:24
+msgid "Upload your code to OpenShift via Git"
+msgstr "Envie seu código para o OpenShift via Git"
+
+#: ../../app/views/applications/first_steps.html.haml:25
+msgid ""
+"Your source code is stored with your application in a Git version control repository."
+msgstr ""
+"Seu código fonte é armazenado junto a sua aplicação em um repositório de controle de "
+"versão Git."
+
+#: ../../app/views/applications/get_started.html.haml:5
+#: ../../app/views/applications/get_started.html.haml:11
+#: ../../app/views/layouts/_footer.html.haml:8
+msgid "Get Started"
+msgstr "Inicie"
+
+#: ../../app/views/applications/get_started.html.haml:8
+msgid "Your application has been created. %s."
+msgstr "Sua aplicação foi criada. %s"
+
+#: ../../app/views/applications/get_started.html.haml:14
+msgid ""
+"Looking for tips on what to build or where to go next?  We've organized some helpful "
+"hints for you."
+msgstr ""
+"Procurando por dicas sobre o fazer ou onde ir depois? Nós organizamos algumas idéias "
+"para você."
+
+#: ../../app/views/applications/get_started.html.haml:20
+msgid "Making code changes"
+msgstr "Fazendo mudanças no código"
+
+#: ../../app/views/applications/get_started.html.haml:22
+msgid "You must %s before you can access application source code."
+msgstr "Você deve primeiro %s antes de acessar o código fonte da aplicação."
+
+#: ../../app/views/applications/get_started.html.haml:24
+msgid "Install the Git client for your operating system, and from your command line run"
+msgstr ""
+"Instale o cliente Git para seu Sistema Operacional, e execute a partir da linha de "
+"comando"
+
+#: ../../app/views/applications/get_started.html.haml:31
+msgid ""
+"This will create a folder with the source code of your application. After making a "
+"change,"
+msgstr ""
+"Isto irá criar uma pasta com o código fonte de sua aplicação. Após fazer uma alteração,"
+
+#: ../../app/views/applications/get_started.html.haml:32
+msgid "add,"
+msgstr "e"
+
+#: ../../app/views/applications/get_started.html.haml:33
+msgid "commit,"
+msgstr "commit,"
+
+#: ../../app/views/applications/get_started.html.haml:34
+#: ../../app/views/scaling/show.html.haml:38
+msgid "and"
+msgstr "e"
+
+#: ../../app/views/applications/get_started.html.haml:35
+msgid "push"
+msgstr "push"
+
+#: ../../app/views/applications/get_started.html.haml:36
+msgid "your changes."
+msgstr "suas mudanças."
+
+#: ../../app/views/applications/get_started.html.haml:45
+msgid ""
+"When you push changes the OpenShift server will report back its status on deploying "
+"your code."
+msgstr ""
+"Enquanto você envia mudanças, o servidor do OpenShift irá reportar o status de deploy "
+"do seu código."
+
+#: ../../app/views/applications/get_started.html.haml:50
+msgid "Manage your app"
+msgstr "Gerencie seu app"
+
+#: ../../app/views/applications/get_started.html.haml:51
+msgid ""
+"The console is convenient, but if you need deeper control try our other client tools"
+msgstr ""
+"O console é conveniente, mas se você precisa de maior controle experimente outra "
+"ferramenta cliente"
+
+#: ../../app/views/applications/get_started.html.haml:53
+msgid "Command-Line"
+msgstr "Linha de Comando"
+
+#: ../../app/views/applications/get_started.html.haml:56
+msgid "All of the capabilities of OpenShift are exposed through our command line tool,"
+msgstr ""
+"Todo o poder do OpenShift é exposto através de nossa ferramenta de linha de comando,"
+
+#: ../../app/views/applications/get_started.html.haml:57
+msgid "rhc."
+msgstr "rhc."
+
+#: ../../app/views/applications/get_started.html.haml:62
+msgid "JBoss Developer Studio"
+msgstr "JBoss Developer Studio"
+
+#: ../../app/views/applications/get_started.html.haml:65
+msgid ""
+"The JBoss Developer Studio is a full featured IDE with OpenShift integration built in."
+msgstr "O JBoss Developer Studio é uma IDE completa com integração OpenShift built in."
+
+#: ../../app/views/applications/get_started.html.haml:66
+msgid ""
+"It gives you the ability to create, edit and deploy applications without having to "
+"leave the IDE."
+msgstr "Ele permite criar, editar e publicar aplicações sem ter que deixar a IDE."
+
+#: ../../app/views/applications/index.html.haml:11
+#: ../../app/views/domains/show.html.haml:34
+msgid "Applications"
+msgstr "Aplicações"
+
+#: ../../app/views/applications/index.html.haml:37
+msgid "Available in domain"
+msgstr "Disponível no domínio"
+
+#: ../../app/views/applications/index.html.haml:41
+msgid "shared by %s"
+msgstr "compartilhado por %s"
+
+#: ../../app/views/applications/index.html.haml:48
+#: ../../app/views/domains/index.html.haml:36 ../../app/views/teams/index.html.haml:41
+msgid "Add"
+msgstr "Adicionar"
+
+#: ../../app/views/applications/index.html.haml:49
+msgid "Application&hellip;"
+msgstr "Aplicação&hellip;"
+
+#: ../../app/views/applications/index.html.haml:53
+msgid "You may want to..."
+msgstr "Talvez você queria..."
+
+#: ../../app/views/applications/index.html.haml:61
+msgid "Set your first key"
+msgstr "Defina sua primeira chave"
+
+#: ../../app/views/applications/index.html.haml:62
+msgid "Access source code or SSH to your gears"
+msgstr "Acessar código fonte ou SSH em seus gears"
+
+#: ../../app/views/applications/index.html.haml:67
+msgid "Use an empty domain"
+msgstr "Usar um domínio vazio"
+
+#: ../../app/views/applications/index.html.haml:73
+msgid "%s another domain"
+msgstr "%s outro domínio"
+
+#: ../../app/views/applications/index.html.haml:77
+msgid "Collaborate on someone else's domain"
+msgstr "Colaborar no domínio de alguém"
+
+#: ../../app/views/applications/index.html.haml:87
+msgid "Add a Database"
+msgstr "Adicione uma base de dados"
+
+#: ../../app/views/applications/index.html.haml:88
+msgid "Add a database to an app"
+msgstr "Adicionar uma base de dados em uma aplicação"
+
+#: ../../app/views/applications/index.html.haml:94
+msgid "Add a collaborator"
+msgstr "Adicionar um colaborador"
+
+#: ../../app/views/applications/index.html.haml:99
+msgid "Customize your URL"
+msgstr "Customize sua URL"
+
+#: ../../app/views/applications/index.html.haml:100
+msgid "Use your own domain name"
+msgstr "Usar seu próprio domínio"
+
+#: ../../app/views/applications/index.html.haml:106
+msgid "Scale with traffic"
+msgstr "Escale com o tráfego"
+
+#: ../../app/views/applications/index.html.haml:107
+msgid "Create a scalable application"
+msgstr "Criar uma aplicação escalável"
+
+#: ../../app/views/applications/index.html.haml:111
+msgid "From the command line"
+msgstr "A partir da linha de comando"
+
+#: ../../app/views/applications/index.html.haml:112
+msgid "The <code>rhc</code> client lets you:"
+msgstr "O cliente <code>rhc</code> permite que você:"
+
+#: ../../app/views/applications/index.html.haml:115
+msgid "Watching logs"
+msgstr "Inspecionando logs"
+
+#: ../../app/views/applications/index.html.haml:116
+msgid "Access logs"
+msgstr "Acesse logs"
+
+#: ../../app/views/applications/index.html.haml:119
+msgid "Backup and Restore"
+msgstr "Backup e Restore"
+
+#: ../../app/views/applications/index.html.haml:120
+msgid "Save and restore backups"
+msgstr "Salve e restaure backups"
+
+#: ../../app/views/applications/index.html.haml:123
+msgid "Forwarding ports"
+msgstr "Redirecionamento de portas"
+
+#: ../../app/views/applications/index.html.haml:124
+msgid "Connect directly to internal services"
+msgstr "Conecte diretamente a serviços internos"
+
+#: ../../app/views/applications/show.html.haml:51
+msgid "%s started /"
+msgstr "% inciado /"
+
+#: ../../app/views/applications/show.html.haml:96
+msgid "Scales"
+msgstr "Escalabilidade"
+
+#: ../../app/views/applications/show.html.haml:107
+msgid "Status"
+msgstr "Estado"
+
+#: ../../app/views/applications/show.html.haml:121
+msgid "Storage"
+msgstr "Storage"
+
+#: ../../app/views/applications/show.html.haml:175
+msgid "Environment Variables"
+msgstr "Variáveis de Ambiente"
+
+#: ../../app/views/applications/show.html.haml:193
+msgid "Databases"
+msgstr "Bases de Dados"
+
+#: ../../app/views/applications/show.html.haml:201
+msgid "Continuous Integration"
+msgstr "Integração Contínua"
+
+#: ../../app/views/applications/show.html.haml:214
+msgid "Tools and Support"
+msgstr "Ferramentas e Suporte"
+
+#: ../../app/views/applications/show.html.haml:229
+msgid "Pass this URL to 'git clone' to copy the repository locally."
+msgstr "Passe esta URL ao 'git clone' para copiar o repositório localmente."
+
+#: ../../app/views/applications/show.html.haml:231
+#: ../../app/views/applications/show.html.haml:245
+msgid "Remote Access"
+msgstr "Acesso Remoto"
+
+#: ../../app/views/applications/show.html.haml:252
+msgid "Members from domain"
+msgstr "Membros do domínio"
+
+#: ../../app/views/applications/upload_key.html.haml:6
+#: ../../app/views/cartridges/next_steps.html.haml:5
+#: ../../app/views/cartridges/next_steps.html.haml:7
+msgid "Next Steps"
+msgstr "Próximos Passos"
+
+#: ../../app/views/applications/upload_key.html.haml:9
+msgid "Will you be changing the code of this application?"
+msgstr "Você pretende alterar o código desta aplicação?"
+
+#: ../../app/views/applications/upload_key.html.haml:13
+msgid "Yes, help me get started"
+msgstr "Sim, ajude-me a iniciar"
+
+#: ../../app/views/applications/upload_key.html.haml:25
+msgid "Or %s"
+msgstr "Ou %s"
+
+#: ../../app/views/authorizations/_usage.html.haml:1
+msgid "How to use your token"
+msgstr "Como usar seu token"
+
+#: ../../app/views/authorizations/_usage.html.haml:3
+msgid ""
+"To make a request to the OpenShift REST API, pass the token as an Authorization header"
+msgstr ""
+"Para fazer uma requisição na API REST do OpenShift, passe o token como um cabeçalho "
+"'Authorization'"
+
+#: ../../app/views/authorizations/_usage.html.haml:7
+msgid "For example, from the command line program cURL use the <code>-H</code> option"
+msgstr "Por exemplo, com o programa de linha de comando cURL, use a opção <code>-H</code>"
+
+#: ../../app/views/authorizations/_usage.html.haml:11
+msgid ""
+"You can pass this token directly to the <code>rhc</code> command with the <code>--"
+"token</code> option:"
+msgstr ""
+"Você pode passar este token diretamente ao comando <code>rhc</code> com a opção <code>--"
+"token</code>:"
+
+#: ../../app/views/authorizations/edit.html.haml:2
+msgid "Edit Authorization Token"
+msgstr "Editar Token de Autorização"
+
+#: ../../app/views/authorizations/edit.html.haml:12
+#: ../../app/views/authorizations/show.html.haml:13
+msgid "The token will allow clients to perform these operations on your behalf:"
+msgstr "O token vai permitir que clientes realizem estas operações em seu nome:"
+
+#: ../../app/views/authorizations/edit.html.haml:19
+#: ../../app/views/authorizations/new.html.haml:18
+#: ../../app/views/authorizations/show.html.haml:20
+#: ../../app/views/settings/_authorizations.html.haml:11
+msgid "Scope"
+msgstr "Escopo"
+
+#: ../../app/views/authorizations/edit.html.haml:20
+#: ../../app/views/authorizations/new.html.haml:19
+#: ../../app/views/authorizations/show.html.haml:21
+msgid "Description"
+msgstr "Descrição"
+
+#: ../../app/views/authorizations/new.html.haml:2
+msgid "Add Authorization"
+msgstr "Adicionar Autorização"
+
+#: ../../app/views/authorizations/new.html.haml:11
+msgid ""
+"Select which rights you want to allow clients to have. You may select multiple scopes, "
+"or if you select none the server will choose a default scope. Note: If you select "
+"several scopes, you'll be able to perform actions that any of your scopes allow, but "
+"your token will expire after the shortest scope expires."
+msgstr ""
+"Selecione quais direitos você quer que os clientes possuam. Você pode selecionar "
+"múltiplos escopos, ou se não selecionar nenhum o servidor vai escolher um escopo "
+"padrão. Nota: Caso selecione múltiplos escopos, será possível executar ações de todos "
+"eles, mas o token irá expirar de acordo com o escopo mais curto."
+
+#: ../../app/views/authorizations/new.html.haml:29
+msgid "(default)"
+msgstr "(padrão)"
+
+#: ../../app/views/authorizations/new.html.haml:32
+msgid ""
+"Or, you can enter scopes directly for those that require a parameter.  Separate "
+"multiple scopes with a space or comma."
+msgstr ""
+"Ou, você pode inserir escopos diretamente para aqueles que requerem um parâmetro. "
+"Separe múltiplos escopos com um espaço ou vírgula"
+
+#: ../../app/views/authorizations/show.html.haml:3
+msgid "Authorization Token"
+msgstr "Token de Autorização"
+
+#: ../../app/views/building/delete.html.haml:3
+msgid "Disable Jenkins Builds"
+msgstr "Desabilitar Builds Jenkins"
+
+#: ../../app/views/building/delete.html.haml:8
+msgid ""
+"If you remove the Jenkins cartridge your build history and results are preserved, but "
+"new changes to Git will no longer start builds."
+msgstr ""
+"Se você remover o cartuchos Jenkins seu histórico de builds e os resultados serão "
+"preservados, mas novas mudança no Git não irão mais iniciar builds."
+
+#: ../../app/views/building/delete.html.haml:11
+msgid "Are you sure you wish to disable builds for this application?"
+msgstr "Tem certeza que você deseja desabilitar builds para esta aplicação?"
+
+#: ../../app/views/building/new.html.haml:3
+msgid "Enable Jenkins Builds for %s"
+msgstr "Habilitar Builds Jenkins para %s"
+
+#: ../../app/views/building/new.html.haml:9
+msgid ""
+"To build with Jenkins, OpenShift needs a server (created as a separate application) and "
+"a Jenkins client cartridge attached to each buildable application."
+msgstr ""
+"Para fazer build com Jenkins, OpenShift necessita de um servidor (criado como uma "
+"aplicação separada) e um cliente Jenkins incluído em cada aplicação alvo."
+
+#: ../../app/views/building/new.html.haml:10
+msgid ""
+"Build jobs execute on the gear that contains the client cartridge, while the Jenkins "
+"server schedules jobs and stores history and other build results."
+msgstr ""
+"Builds de jobs executam no gear que contém o cartucho cliente, enquanto o servidor "
+"Jenkins agenda jobs e armazena o histórico e outros resultados dos builds."
+
+#: ../../app/views/building/new.html.haml:17
+msgid "Build server available"
+msgstr "Servidor de build disponível"
+
+#: ../../app/views/building/new.html.haml:20
+msgid "You can log in to Jenkins at:"
+msgstr "Você pode entrar no Jenkins em:"
+
+#: ../../app/views/building/new.html.haml:26
+msgid "Create server"
+msgstr "Criar servidor"
+
+#: ../../app/views/building/new.html.haml:28
+msgid ""
+"You must create a Jenkins server to store build history.  You can customize the name of "
+"the application within your domain:"
+msgstr ""
+"Você deve criar um servidor Jenkins para guardar o histórico de builds. Se desejar, "
+"customize o nome da aplicação em seu domínio:"
+
+#: ../../app/views/building/new.html.haml:38
+msgid "Create cartridge"
+msgstr "Criar cartucho"
+
+#: ../../app/views/building/new.html.haml:40
+msgid ""
+"The Jenkins client cartridge listens for changes to your Git source code repository and "
+"triggers new builds."
+msgstr ""
+"O cartucho cliente Jenkins espera por mudanças no seu repositório Git de código fonte e "
+"dispara um novo build."
+
+#: ../../app/views/building/new.html.haml:41
+msgid ""
+"If you remove the cartridge later, your build history will remain but the job will be "
+"disabled."
+msgstr ""
+"Se você remover o cartucho, o histórico de builds irá permanecer, mas o jobs desaparece."
+
+#: ../../app/views/building/new.html.haml:46
+msgid ""
+"Enabling the Jenkins server and configuring your build job may take a few minutes to "
+"complete while we wait for your new application to become available through DNS."
+msgstr ""
+"Habilitar o servidor Jenkins ou configurar seu job de build pode demorar alguns minutos "
+"até que sua nova aplicação esteja visível no DNS."
+
+#: ../../app/views/building/new.html.haml:48
+msgid "Do you want to enable Jenkins for your application?"
+msgstr "Você quer habilitar Jenkins para suas aplicações?"
+
+#: ../../app/views/building/show.html.haml:3
+msgid "Building your Application"
+msgstr "Construindo sua Aplicação"
+
+#: ../../app/views/building/show.html.haml:7
+msgid ""
+"OpenShift is configured to build this application with %s when you make changes through "
+"Git. You can track the progress of builds through the following Jenkins job:"
+msgstr ""
+"OpenShift está configurado para fazer o build desta aplicação com %s quando você fizer "
+"mudanças através do Git. Rastreie o progresso dos builds através do seguinte job no "
+"Jenkins:"
+
+#: ../../app/views/building/show.html.haml:12
+msgid "If you no longer wish to run Jenkins builds, you can %s."
+msgstr "Se não quiser mais rodar builds no Jenkins, você pode %s."
+
+#: ../../app/views/cartridge_types/_cartridge_type.html.haml:12
+msgid "Experimental"
+msgstr "Experimental"
+
+#: ../../app/views/cartridge_types/_cartridge_type.html.haml:37
+msgid "URL:"
+msgstr "URL"
+
+#: ../../app/views/cartridge_types/_cartridge_type.html.haml:52
+msgid "Website:"
+msgstr "Website:"
+
+#: ../../app/views/cartridge_types/_cartridge_type.html.haml:73
+msgid "Downloaded cartridges do not receive updates automatically"
+msgstr "Cartuchos baixáveis não recebem atualizações automáticas"
+
+#: ../../app/views/cartridge_types/_cartridge_type.html.haml:83
+msgid "What you get:"
+msgstr "O que você recebe:"
+
+#: ../../app/views/cartridge_types/_cartridge_type.html.haml:94
+msgid "Requires %s"
+msgstr "Requer %s"
+
+#: ../../app/views/cartridge_types/_cartridge_type.html.haml:96
+msgid "Conflicts with %s"
+msgstr "Conflita com %s"
+
+#: ../../app/views/cartridge_types/_cartridge_type.html.haml:98
+msgid "Cannot be added to %s"
+msgstr "Não pode ser adicionado ao %s"
+
+#: ../../app/views/cartridge_types/index.html.haml:4
+#: ../../app/views/cartridge_types/show.html.haml:8
+msgid "Add a Cartridge"
+msgstr "Adicionar um Cartucho"
+
+#: ../../app/views/cartridge_types/index.html.haml:9
+msgid "There are no cartridges that can be installed"
+msgstr "Não existem cartuchos que possam ser instalados"
+
+#: ../../app/views/cartridge_types/index.html.haml:13
+msgid "Choose a cartridge to add to your application."
+msgstr "Escolha um cartucho para adicionar em sua aplicação."
+
+#: ../../app/views/cartridge_types/index.html.haml:22
+msgid "Install your own cartridge"
+msgstr "Instale seu próprio cartucho"
+
+#: ../../app/views/cartridge_types/index.html.haml:24
+msgid ""
+"You may also add your own cartridges by providing a link to a %s.  OpenShift will "
+"download and install the cart into your application.  Remember that downloaded "
+"cartridges will not automatically receive updates."
+msgstr ""
+"Você também pode adicionar seu próprio cartucho fornecendo o link para um %s. OpenShift "
+"vai baixar e instalar o cartucho em sua aplicação. Lembre-se que cartuchos baixáveis "
+"não recebem atualização automática."
+
+#: ../../app/views/cartridge_types/index.html.haml:27
+msgid "Download a cartridge into this app"
+msgstr "Baixar um cartucho nesta aplicação"
+
+#: ../../app/views/cartridge_types/index.html.haml:32
+msgid "Installed"
+msgstr "Instalados"
+
+#: ../../app/views/cartridge_types/index.html.haml:36
+msgid "Has Dependencies"
+msgstr "Possui Dependências"
+
+#: ../../app/views/cartridge_types/show.html.haml:11
+msgid "Add Cartridge to %s"
+msgstr "Adicionar Cartucho em %s"
+
+#: ../../app/views/cartridge_types/show.html.haml:21
+msgid "This cartridge will be downloaded into your application."
+msgstr "Este cartucho será baixado em sua aplicação."
+
+#: ../../app/views/cartridge_types/show.html.haml:22
+msgid ""
+"The cart will have access to all of your application data - be sure this is what you "
+"really want to do!"
+msgstr ""
+"O cartucho terá acesso a todos os dados de sua aplicação - certifique-se que é isso "
+"mesmo que você deseja fazer!"
+
+#: ../../app/views/cartridge_types/show.html.haml:30
+msgid "Using Gear Size"
+msgstr "Usando Tamanho de Gear"
+
+#: ../../app/views/cartridge_types/show.html.haml:38
+msgid "Do you want to add the"
+msgstr "Você quer incluir o cartucho"
+
+#: ../../app/views/cartridge_types/show.html.haml:44
+msgid "cartridge to your application?"
+msgstr "em sua aplicação?"
+
+#: ../../app/views/cartridges/next_steps.html.haml:9
+msgid "Your cartridge has been added. %s."
+msgstr "Seu cartucho foi incluído. %s."
+
+#: ../../app/views/cartridges/next_steps.html.haml:16
+msgid "Managing your cartridge"
+msgstr "Gerenciando seu cartucho"
+
+#: ../../app/views/cartridges/next_steps.html.haml:18
+msgid ""
+"Most of the capabilities of OpenShift are exposed through our command line tool, "
+"<code>rhc</code>."
+msgstr ""
+"Todo o poder do OpenShift é exposto através de nossa ferramenta de linha de comando,"
+
+#: ../../app/views/cartridges/next_steps.html.haml:19
+msgid ""
+"Whether it's adding cartridges, checking uptime, or pulling log files from the server, "
+"you can quickly put a finger on the pulse of your application."
+msgstr ""
+"Tanto ao adicionar cartuchos, verificar uptime ou analizar arquivos de log do servidor "
+"em tempo real, você pode rapidamente dar uma olhadinha no que está acontecendo com sua "
+"aplicação."
+
+#: ../../app/views/cartridges/next_steps.html.haml:23
+msgid "You can get a list of cartridges by running"
+msgstr "Você consegue uma lista de cartuchos ao executar"
+
+#: ../../app/views/cartridges/next_steps.html.haml:30
+msgid "You can manage the cartridge by running one of these commands"
+msgstr "Você pode gerenciar o cartucho executando um desses comandos"
+
+#: ../../app/views/cartridges/next_steps.html.haml:41
+msgid "You can remove the cartridge by running the following command."
+msgstr "Você pode remover o cartucho executando o seguinte comando."
+
+#: ../../app/views/cartridges/next_steps.html.haml:43
+msgid ""
+"Warning: make sure you've backed up any data you wish to keep before running this "
+"command"
+msgstr ""
+"Aviso: Certifique-se de que você fez backup de quaisquer dados que deseja manter antes "
+"de executar este comando"
+
+#: ../../app/views/cartridges/next_steps.html.haml:50
+msgid "Cartridge info"
+msgstr "Informação de cartucho"
+
+#: ../../app/views/cartridges/next_steps.html.haml:53
+msgid "Accessing your application"
+msgstr "Acessando sua aplicação"
+
+#: ../../app/views/console/error.html.haml:5
+msgid ""
+"You can try <a href=\"javascript:window.location.reload();\">refreshing the page</a>, "
+"if the problem is temporary."
+msgstr ""
+"Você pode tentar <a href=\"javascript:window.location.reload();\">atualizar a página</"
+"a>, se o problema for temporário."
+
+#: ../../app/views/console/error.html.haml:7
+msgid "You can also try the following:"
+msgstr "Você também pode tentar o seguinte:"
+
+#: ../../app/views/console/error.html.haml:10
+msgid "Seek assistance in one of our %s."
+msgstr "Busque ajuda em um de nossos %s."
+
+#: ../../app/views/console/error.html.haml:11
+msgid "Join %s on Freenode."
+msgstr "Junte-se %s na Freenode."
+
+#: ../../app/views/console/error.html.haml:12
+#: ../../app/views/console/server_unavailable.html.haml:11
+msgid "If you are experiencing a repeatable error not related to a service outage, %s."
+msgstr ""
+"Se estiver passando por um error repetidamente, não relacionado a queda de serviço, %s."
+
+#: ../../app/views/console/error.html.haml:15
+#: ../../app/views/console/not_found.html.haml:23
+msgid "Reference \\#%s"
+msgstr "Referência \\#%s."
+
+#: ../../app/views/console/help.html.haml:3
+msgid "Help"
+msgstr "Ajuda"
+
+#: ../../app/views/console/help/_create.html.haml:1
+msgid "Create"
+msgstr "Criar"
+
+#: ../../app/views/console/help/_create.html.haml:2
+msgid "Just starting with OpenShift?"
+msgstr "Recém iniciando com OpenShift?"
+
+#: ../../app/views/console/help/_create.html.haml:3
+msgid ""
+"Get your first application up off the ground through the application creation wizard."
+msgstr "Decole sua primeira aplicação a partir do wizard de criação."
+
+#: ../../app/views/console/help/_create.html.haml:4
+msgid "Create an app now"
+msgstr "Crie uma aplicação agora"
+
+#: ../../app/views/console/help/_create.html.haml:5
+msgid ""
+"If you prefer the command line, %s will help you install the client tools, create your "
+"application, and make your first change."
+msgstr ""
+"Se você prefere a linha de comando, %s irá ajudá-lo a instalar nossa ferramenta "
+"cliente, criar sua aplicação e fazer sua primeira publicação."
+
+#: ../../app/views/console/help/_create.html.haml:6
+msgid ""
+"Our %s has tutorials for creating apps based many different technologies like %s, "
+"%s, and %s. If you don't see your favorite framework, %s."
+msgstr ""
+"Nossa %s possui tutoriais para criar aplicações baseadas em diversas tecnologias diferentes como %s, "
+"%s e %s. Se você não encontra seu framwork favorito, %s."
+
+#: ../../app/views/console/help/_create.html.haml:6
+msgid "Get Started Fast page"
+msgstr "página Get Started Fast"
+
+#: ../../app/views/console/help/_create.html.haml:6
+msgid "let us know"
+msgstr "avise-nos"
+
+#: ../../app/views/console/help/_engage.html.haml:1
+msgid "Engage"
+msgstr "Envolva-se"
+
+#: ../../app/views/console/help/_engage.html.haml:2
+msgid "Need to know what's new?"
+msgstr "Quer saber o que vem a seguir?"
+
+#: ../../app/views/console/help/_engage.html.haml:3
+msgid "The OpenShift newsletter is a great way to track the latest news."
+msgstr "A newsletter OpenShift é um ótimo jeito de conhecer as últimas novidades."
+
+#: ../../app/views/console/help/_engage.html.haml:4
+msgid "Subscribe today"
+msgstr "Assine hoje"
+
+#: ../../app/views/console/help/_engage.html.haml:5
+msgid "OpenShift is %s and can be %s. %s and help drive our evolution."
+msgstr "OpenShift é %s e pode ser %s. %s e ajude a direcionar nossa evolução."
+
+#: ../../app/views/console/help/_engage.html.haml:6
+msgid "Follow us on Twitter at %s or read the %s."
+msgstr "Siga-nos no Twitter em %s ou leia o %s."
+
+#: ../../app/views/console/help/_learn.html.haml:1
+msgid "Learn"
+msgstr "Aprender"
+
+#: ../../app/views/console/help/_learn.html.haml:2
+msgid "Want to explore our platform?"
+msgstr "Quer explorar nossa plataforma?"
+
+#: ../../app/views/console/help/_learn.html.haml:3
+msgid ""
+"%s is the first destination for new developers to find the information you need about "
+"OpenShift."
+msgstr ""
+"%s é o primeiro destino para novos desenvolvedores encontrarem informações sobre "
+"OpenShift."
+
+#: ../../app/views/console/help/_learn.html.haml:4
+msgid ""
+"When you're looking for a great reference for understanding OpenShift, look no further "
+"than the %s.  It covers the entire experience and can be downloaded as HTML or PDF when "
+"you're on the go."
+msgstr ""
+"Se estiver procurando por uma ótima referência para entender o OpenShift, não procure "
+"além do %s. Ele cobre a experiência completa e pode ser baixado como HTML ou PDF."
+
+#: ../../app/views/console/help/_learn.html.haml:5
+msgid ""
+"Our technology highlight pages bring together what you need to know - %s and %s are up "
+"now, with more to come."
+msgstr ""
+"Nossa página de tecnologias agrupa tudo aquilo que você precisa saber - %s e %s estão "
+"em alta no momento, com mais para chegar."
+
+#: ../../app/views/console/help/_learn.html.haml:6
+msgid "For some great technology dives %s."
+msgstr "Para mergulhar profundamente na tecnologia, %s."
+
+#: ../../app/views/console/help/_troubleshoot.html.haml:1
+msgid "Troubleshoot"
+msgstr "Solucionando Problemas"
+
+#: ../../app/views/console/help/_troubleshoot.html.haml:2
+msgid "Hit a bump in the road?"
+msgstr "Ficou trancado no meio do caminho?"
+
+#: ../../app/views/console/help/_troubleshoot.html.haml:3
+msgid ""
+"Our %s is watched round the clock by an army of developers, evangelists, and OpenShift "
+"devotees."
+msgstr ""
+"Nosso %s é vigiado constantemente por um exército de desenvolvedores e evangelistas "
+"OpenShift devotos."
+
+#: ../../app/views/console/help/_troubleshoot.html.haml:7
+msgid "Check out the %s for known headaches and %s for more general questions"
+msgstr "Confira nossa %s para dores de cabeça conhecidas e a %s para questões mais gerais"
+
+#: ../../app/views/console/help/_troubleshoot.html.haml:8
+msgid "Talk directly to the team on IRC - %s."
+msgstr "Fale diretamente com a equipe no IRC - %s."
+
+#: ../../app/views/console/help/_troubleshoot.html.haml:9
+msgid ""
+"If you've found a real humdinger of a problem with the console, site, or community - %s "
+"and we'll try to make it right."
+msgstr ""
+"Se você encontrou um problema com o console, site ou comunidade - %s e vamos tentar "
+"consertar."
+
+#: ../../app/views/console/not_found.html.haml:7
+msgid "The page you requested was not found or may no longer exist"
+msgstr "A página que você solicitou não foi encontrada ou talvez não exista mais"
+
+#: ../../app/views/console/not_found.html.haml:10
+msgid "Were you looking for any of the following?"
+msgstr "Está procurando por algum destes?"
+
+#: ../../app/views/console/not_found.html.haml:20
+msgid "%s if you feel you have reached this page in error."
+msgstr "%s se você acredita que chegou a esta página por um erro."
+
+#: ../../app/views/console/server_unavailable.html.haml:5
+msgid ""
+"The OpenShift service is temporarily unavailable while we perform server maintenance."
+msgstr ""
+"OpenShift está temporariamente indisponível enquanto realizamos a manutenção do "
+"servidor."
+
+#: ../../app/views/console/unauthorized.html.haml:3
+msgid "Unauthorized"
+msgstr "Não autorizado"
+
+#: ../../app/views/console/unauthorized.html.haml:5
+msgid "The console was unable to authenticate you with the OpenShift server."
+msgstr "O console não conseguiu autenticar você com o servidor OpenShift."
+
+#: ../../app/views/console/unauthorized.html.haml:7
+msgid "You may need to verify that your system configuration is accurate."
+msgstr "Talvez você precise verificar se a configuração do sistema está correta."
+
+#: ../../app/views/domains/_domain.html.haml:5 ../../app/views/domains/_form.html.haml:8
+msgid "http://applicationname&ndash;"
+msgstr "http://aplicação&ndash;"
+
+#: ../../app/views/domains/_domain.html.haml:6 ../../app/views/domains/_form.html.haml:9
+msgid "Domain name"
+msgstr "Nome do Domínio"
+
+#: ../../app/views/domains/_domain.html.haml:11
+msgid "Your domain name must be letters or numbers with no spaces or symbols."
+msgstr ""
+"Seu nome de domínio deve conter apenas letras ou números, sem espaços ou símbolos."
+
+#: ../../app/views/domains/delete.html.haml:3
+msgid "Delete Domain"
+msgstr "Deletar Domínio"
+
+#: ../../app/views/domains/delete.html.haml:7
+msgid "Are you sure you want to delete the domain"
+msgstr "Você tem certeza que deseja remover o domínio"
+
+#: ../../app/views/domains/delete.html.haml:11 ../../app/views/teams/delete.html.haml:11
+msgid "This cannot be undone. Make sure this is something you really want to do!"
+msgstr ""
+"Esta operação não pode ser desfeita. Certifique-se que é isso mesmo que você quer fazer!"
+
+#: ../../app/views/domains/edit.html.haml:2
+msgid "Change your Namespace"
+msgstr "Mude seu Namespace"
+
+#: ../../app/views/domains/edit.html.haml:5
+msgid ""
+"Warning - Changing your domain name will alter the public URLs of your applications."
+msgstr "Cuidado - Mudar seu domínio irá alterar as URLs públicas de suas aplicações."
+
+#: ../../app/views/domains/edit.html.haml:6
+msgid ""
+"If you change your domain name you will need to update any bookmarks or external links "
+"to your applications."
+msgstr ""
+"Se você mudar o nome de seu domínio, será necessário atualizar bookmarks ou links "
+"externas para suas aplicações."
+
+#: ../../app/views/domains/index.html.haml:19
+msgid "Your domains"
+msgstr "Seus domínios"
+
+#: ../../app/views/domains/index.html.haml:21
+msgid "Domains shared with you"
+msgstr "Domínios compartilhados com você"
+
+#: ../../app/views/domains/index.html.haml:37
+msgid "Domain&hellip;"
+msgstr "Domínio&hellip;"
+
+#: ../../app/views/domains/new.html.haml:3
+msgid "Create a Domain"
+msgstr "Criar um Domínio"
+
+#: ../../app/views/domains/new.html.haml:5
+msgid "Domains group applications for collaboration and logical organization."
+msgstr "Domínios agrupam aplicações para colaboração e organização lógica."
+
+#: ../../app/views/domains/new.html.haml:6
+msgid ""
+"Each domain name must be unique, and is the suffix of the public URLs we assign to your "
+"applications."
+msgstr ""
+"Cada nome de domínio deve ser único, usado como sufixo das URLs pública que atribuímos "
+"a suas aplicações."
+
+#: ../../app/views/domains/show.html.haml:63
+msgid "Allows %s gears"
+msgstr "Permite gears %s"
+
+#: ../../app/views/domains/show.html.haml:65
+msgid "The owner has disabled creation - no gear sizes allowed"
+msgstr "O dono desabilitou a criação - nenhum gear é permitido"
+
+#: ../../app/views/domains/show.html.haml:67 ../../app/views/teams/show.html.haml:25
+msgid "Members"
+msgstr "Membros"
+
+#: ../../app/views/keys/_form.html.haml:15
+msgid ""
+"Before you can upload and download code, you need to upload a <strong>public key</"
+"strong> to identify you to our servers."
+msgstr ""
+"Antes de publicar e baixar código, é necessário subir uma <strong>chave pública</"
+"strong> para identificar você em nossos servidores."
+
+#: ../../app/views/keys/_form.html.haml:19
+msgid ""
+"Each gear in your application will have a copy of your public key - this allows you to "
+"read and write to your Git repository as well as to access your application gears via "
+"SSH."
+msgstr ""
+"Cada gear em sua aplicação terá um cópia da sua chave pública - isto permite que você "
+"leia e escreva em seu repositório Git, assim como acesse os gears de sua aplicação via "
+"SSH."
+
+#: ../../app/views/keys/new.html.haml:2
+msgid "Add a public key"
+msgstr "Adicionar uma chave pública"
+
+#: ../../app/views/layouts/_footer.html.haml:6
+msgid "Developers"
+msgstr "Desenvolvedores"
+
+#: ../../app/views/layouts/_footer.html.haml:9
+msgid "User Guide"
+msgstr "Guia do Usuário"
+
+#: ../../app/views/layouts/_footer.html.haml:10
+msgid "FAQ"
+msgstr "FAQ"
+
+#: ../../app/views/layouts/_footer.html.haml:11
+msgid "Ask on StackOverflow"
+msgstr "Pergunte no StackOverflow"
+
+#: ../../app/views/layouts/_footer.html.haml:15
+msgid "Community"
+msgstr "Comunidade"
+
+#: ../../app/views/layouts/_footer.html.haml:17
+msgid "Blog"
+msgstr "Blog"
+
+#: ../../app/views/layouts/_footer.html.haml:18
+msgid "Support"
+msgstr "Suporte"
+
+#: ../../app/views/layouts/_footer.html.haml:19
+msgid "IRC Channel"
+msgstr "Canal IRC"
+
+#: ../../app/views/layouts/_footer.html.haml:20
+msgid "Feedback"
+msgstr "Feedback"
+
+#: ../../app/views/layouts/_footer.html.haml:24
+msgid "OpenShift Origin"
+msgstr "OpenShift Origin"
+
+#: ../../app/views/layouts/_footer.html.haml:26
+msgid "Get the Source"
+msgstr "Código Fonte"
+
+#: ../../app/views/layouts/_footer.html.haml:27
+msgid "Community Process"
+msgstr "Processo de Comunidade"
+
+#: ../../app/views/layouts/_footer.html.haml:28
+msgid "Make it Better"
+msgstr "Ajude a Melhorar"
+
+#: ../../app/views/layouts/_footer.html.haml:29
+msgid "OpenShift on GitHub"
+msgstr "OpenShift no GitHub"
+
+#: ../../app/views/layouts/_footer.html.haml:32
+msgid ""
+"Source code for the OpenShift Origin management console is %s. %s for copyright and "
+"source information. OpenShift, OpenShift Origin and the OpenShift Logo are trademarks "
+"of Red Hat, Inc."
+msgstr ""
+"O código fonte do console OpenShift Origin está %s. %s para informações de copyright e "
+"fonte. OpenShift, OpenShift Origin e o logotipo OpenShift são marcas registradas de Red "
+"Hat, Inc."
+
+#: ../../app/views/layouts/_footer.html.haml:32
+msgid "available on Github"
+msgstr "disponível no GitHub"
+
+#: ../../app/views/layouts/console.html.haml:15
+msgid "Skip to main content"
+msgstr "Pular para o conteúdo principal"
+
+#: ../../app/views/layouts/console/_header.html.haml:32
+msgid "My Account ("
+msgstr "Minha Conta ("
+
+#: ../../app/views/layouts/console/_header.html.haml:34
+msgid ")"
+msgstr ")"
+
+#: ../../app/views/layouts/console/_identity.html.haml:2
+msgid "Logged in with:"
+msgstr "Logado como:"
+
+#: ../../app/views/layouts/console/_identity.html.haml:6
+msgid "On:"
+msgstr "Em:"
+
+#: ../../app/views/members/_leave_domain_form.html.haml:3
+msgid "Once you remove yourself, you will not have access to this domain."
+msgstr "Uma vez que remover-se, não terá mais acesso a este domínio."
+
+#: ../../app/views/members/_leave_domain_form.html.haml:5
+msgid "Confirm leaving the domain"
+msgstr "Confirme a saida deste domínio"
+
+#: ../../app/views/members/_leave_team_form.html.haml:3
+msgid "Once you remove yourself, you will not have access to this team."
+msgstr "Uma vez que remover-se, não terá mais acesso a este time."
+
+#: ../../app/views/members/_leave_team_form.html.haml:5
+msgid "Confirm leaving the team"
+msgstr "Confirme a saida deste time"
+
+#: ../../app/views/members/_members_form.html.haml:29
+#: ../../app/views/members/_members_form.html.haml:70
+msgid "Owner"
+msgstr "Dono"
+
+#: ../../app/views/members/_members_form.html.haml:86
+msgid "via"
+msgstr "via"
+
+#: ../../app/views/members/_members_form.html.haml:108
+msgid "Contains the team members"
+msgstr "Contém os membros do time"
+
+#: ../../app/views/members/_members_form.html.haml:112
+msgid "Contains no team members."
+msgstr "Não contém membros de times."
+
+#: ../../app/views/members/_members_form.html.haml:160
+msgid "|"
+msgstr "|"
+
+#: ../../app/views/members/_members_form.html.haml:171
+msgid "What can members do?"
+msgstr "O que os membros podem fazer?"
+
+#: ../../app/views/members/_members_form.html.haml:174
+msgid "View"
+msgstr "Ver"
+
+#: ../../app/views/members/_members_form.html.haml:175
+msgid "&ndash; Read-only access to the domain and its applications."
+msgstr "&ndash; Acesso somente-leitura ao domínio e suas aplicações."
+
+#: ../../app/views/members/_members_form.html.haml:178
+msgid "Edit"
+msgstr "Editar"
+
+#: ../../app/views/members/_members_form.html.haml:179
+msgid ""
+"&ndash; Add, edit, control and delete applications in the domain, including SSH and Git "
+"access"
+msgstr ""
+"&ndash; Adicionar, editar controlar e deletar aplicações no domínio, incluindo acesso "
+"SSH e Git."
+
+#: ../../app/views/members/_members_form.html.haml:182
+msgid "Administer"
+msgstr "Administrar"
+
+#: ../../app/views/members/_members_form.html.haml:183
+msgid "&ndash; Everything except change allowed gear sizes and the domain name."
+msgstr "&ndash; Tudo, exceto mudar tamanhos de gears permitidos e o nome do domínio."
+
+#: ../../app/views/members/leave_domain.html.haml:3
+msgid "Leave Domain"
+msgstr "Sair do Domínio"
+
+#: ../../app/views/members/leave_team.html.haml:3
+msgid "Leave Team"
+msgstr "Sair"
+
+#: ../../app/views/restarts/_form.html.haml:5
+msgid ""
+"Depending on the size of your application it may take up to several minutes to restart."
+msgstr "Dependendo do tamanho de sua aplicação, pode levar alguns minutos para reiniciar."
+
+#: ../../app/views/restarts/_form.html.haml:7
+msgid "Confirm restart of application"
+msgstr "Confirme o reinício da aplicação"
+
+#: ../../app/views/restarts/show.html.haml:3
+msgid "Restart Application"
+msgstr "Reiniciar aplicação"
+
+#: ../../app/views/scaling/delete.html.haml:3
+msgid "Disable Scaling for %s"
+msgstr "Desabilitar Escalabilidade de %s"
+
+#: ../../app/views/scaling/delete.html.haml:7
+msgid "Your application is currently set to scale the web cartridge."
+msgstr "Sua aplicação está configurada para escalar o cartucho web."
+
+#: ../../app/views/scaling/delete.html.haml:8
+msgid "At this time applications that scale cannot have scaling disabled."
+msgstr "Atualmente não é possível desabilitar a escalabilidade em aplicações escaláveis."
+
+#: ../../app/views/scaling/delete.html.haml:9
+msgid ""
+"You must create a new application and migrate your source code if you wish to remove "
+"the high availability proxy cartridge that provides scaling."
+msgstr ""
+"Você deve criar uma nova aplicação e migrar seu código se quiser remover o cartucho do "
+"proxy de alta disponibilidade que permite escalar."
+
+#: ../../app/views/scaling/new.html.haml:3
+msgid "%s is not scalable"
+msgstr "%s não é escalável"
+
+#: ../../app/views/scaling/new.html.haml:8
+msgid "This application is not currently scalable."
+msgstr "Esta aplicação não é escalável."
+
+#: ../../app/views/scaling/new.html.haml:9
+msgid "For the time being applications must be set to scale when they are created."
+msgstr ""
+"Por enquanto, aplicações devem ser configuradas como escalável no momento de sua "
+"criação."
+
+#: ../../app/views/scaling/new.html.haml:10
+msgid ""
+"To make a new application scalable you will need to pass the command line option "
+"<code>--scaling</code>:"
+msgstr ""
+"Para criar uma aplicação escalável você precisa passar a opções de linha de comando "
+"<code>--scaling</code>:"
+
+#: ../../app/views/scaling/new.html.haml:13
+msgid "rhc create-app --scaling -a &lt;your application&gt; ..."
+msgstr "rhc create-app --scaling -a &lt;sua aplicação&gt; ..."
+
+#: ../../app/views/scaling/new.html.haml:16
+msgid "or select \"scaling\" from the advanced options on the Create Application page."
+msgstr "ou selecione \"scaling\" nas opções avançadas da página Criar Aplicação."
+
+#: ../../app/views/scaling/show.html.haml:4
+msgid "Scale %s"
+msgstr "Escalar %s"
+
+#: ../../app/views/scaling/show.html.haml:30
+msgid ""
+"OpenShift monitors the incoming web traffic to your application and automatically adds "
+"or removes copies of your cartridge (each running on their own gears) to serve requests "
+"as needed."
+msgstr ""
+"OpenShift monitora o tráfego web entrante em sua aplicação e automaticamente adiciona "
+"ou remove cópias de seu cartucho web (cada uma rodando em seu próprio gear) para servir "
+"requisições a medida do necessário."
+
+#: ../../app/views/scaling/show.html.haml:32
+msgid "Control the number of gears OpenShift will use for your cartridge:"
+msgstr "Controle o número de gear que o OpenShift irá usar para seu cartucho:"
+
+#: ../../app/views/scaling/show.html.haml:36
+msgid "Minimum"
+msgstr "Mínimo"
+
+#: ../../app/views/scaling/show.html.haml:40
+msgid "Maximum"
+msgstr "Máximo"
+
+#: ../../app/views/scaling/show.html.haml:58
+msgid ""
+"Each scaled gear is created the same way - the normal post, pre, and deploy hooks are "
+"executed."
+msgstr ""
+"Cada gear escalado é criado da mesma forma - os hooks de post, pre e deploy são "
+"executados normalmente."
+
+#: ../../app/views/scaling/show.html.haml:59
+msgid ""
+"Each cartridge will have its own copy of runtime data, so be sure to use a database if "
+"you need to share data across your web cartridges."
+msgstr ""
+"Cada cartucho terá sua própria cópia dos dados de runtime, portanto certifique-se de "
+"usar um banco de dados para compartilhar dados entre gears de sua aplicação."
+
+#: ../../app/views/scaling/show.html.haml:62
+msgid ""
+"For status information about traffic to your application, see the HAProxy status page:"
+msgstr ""
+"Para informações sobre o tráfego para sua aplicação, veja a página de status do HAProxy:"
+
+#: ../../app/views/scaling/show.html.haml:68
+msgid "This cartridge assists other cartridges in scaling, but does not itself scale."
+msgstr ""
+"Este cartucho ajuda outros cartuchos na escalabilidade, mas não escala ele próprio."
+
+#: ../../app/views/scaling/show.html.haml:70
+msgid "This cartridge does not scale."
+msgstr "Este cartucho não escala."
+
+#: ../../app/views/settings/_add_domain.html.haml:1
+msgid "Namespace"
+msgstr "Namespace"
+
+#: ../../app/views/settings/_add_domain.html.haml:3
+msgid ""
+"Your namespace is unique to your account and is the suffix of the public URLs we assign "
+"to your applications."
+msgstr ""
+"Seu namespace é único para sua conta, usado como sufixo das URLs pública que atribuímos "
+"a suas aplicações."
+
+#: ../../app/views/settings/_add_key.html.haml:1
+#: ../../app/views/settings/_keys.html.haml:1
+msgid "Public Keys"
+msgstr "Chaves Públicas"
+
+#: ../../app/views/settings/_add_key.html.haml:5
+#: ../../app/views/settings/_keys.html.haml:3
+msgid ""
+"OpenShift uses a public key to securely encrypt the connection between your local "
+"machine and your application and to authorize you to upload code."
+msgstr ""
+"OpenShift usa uma chave pública para criptografar a conexão entre sua máquina local e "
+"sua aplicação, além de autorizar o upload do seu código."
+
+#: ../../app/views/settings/_add_key.html.haml:6
+msgid ""
+"You must create a private and public key on your local machine and then upload the "
+"public key before you can connect to your applications' Git repositories or remotely "
+"access your applications."
+msgstr ""
+"Você deve criar uma chave privada e uma pública em sua máquina local, e então subir a "
+"chave pública antes de conectar no repositório Git ou acessar remotamente sua aplicação."
+
+#: ../../app/views/settings/_authorizations.html.haml:1
+msgid "Authorizations"
+msgstr "Autorizações"
+
+#: ../../app/views/settings/_authorizations.html.haml:3
+msgid "Allow clients and 3rd parties to access your account via a secret token."
+msgstr "Permite clientes e terceiros acessarem sua conta utilizando um token secreto."
+
+#: ../../app/views/settings/_authorizations.html.haml:10
+msgid "Note"
+msgstr "Nota"
+
+#: ../../app/views/settings/_authorizations.html.haml:12
+msgid "Expires in"
+msgstr "Expira em"
+
+#: ../../app/views/settings/_domains.html.haml:16
+#: ../../app/views/settings/_teams.html.haml:14
+msgid "No other members"
+msgstr "Nenhum outro membro"
+
+#: ../../app/views/settings/_keys.html.haml:10
+msgid "Key name"
+msgstr "Nome da chave"
+
+#: ../../app/views/settings/_keys.html.haml:11
+msgid "Type"
+msgstr "Tipo"
+
+#: ../../app/views/settings/_keys.html.haml:12
+msgid "Contents"
+msgstr "Conteúdo"
+
+#: ../../app/views/settings/_teams.html.haml:1 ../../app/views/teams/index.html.haml:8
+msgid "Teams"
+msgstr "Times"
+
+#: ../../app/views/settings/_teams.html.haml:3
+msgid "Organize users into teams to make domain member management easier."
+msgstr ""
+"Organiza usuários em times para fazer o gerenciamento de membros de domínio mais facil."
+
+#: ../../app/views/storage/show.html.haml:3
+msgid "Change Gear Storage for %s"
+msgstr "Mudar Storage do Gear %s"
+
+#: ../../app/views/storage/show.html.haml:9
+msgid "Gear storage space is used for code, logs, cache, config files, and databases."
+msgstr ""
+"O espaço do storage do gear é usado para código, logs, cache, arquivos de configurações "
+"e bases de dados."
+
+#: ../../app/views/storage/show.html.haml:10
+msgid ""
+"Gear storage is only accessible to the gear it's associated with, and isn't able to be "
+"shared between gears."
+msgstr ""
+"O storage do gear só é acessível ao gear em que estiver associado, e não é possível "
+"compartilhar entre gears."
+
+#: ../../app/views/storage/show.html.haml:11
+msgid "User files should be kept in shared storage."
+msgstr "Arquivos de usuários devem ser mantidos em storage compartilhado."
+
+#: ../../app/views/storage/show.html.haml:14
+msgid ""
+"If you are decreasing your storage, make sure to check your usage to ensure you will "
+"still have sufficient disk space."
+msgstr ""
+"Se estiver diminuindo seu storage, certifique-se de checar o consumo antes para "
+"garantir que terá espaço suficiente."
+
+#: ../../app/views/storage/show.html.haml:17
+msgid "Check Your Usage"
+msgstr "Checar Seu Consumo"
+
+#: ../../app/views/storage/show.html.haml:19
+msgid "You can check your usage with the RHC command line:"
+msgstr "Você pode verificar o consumo com o comando RHC:"
+
+#: ../../app/views/storage/show.html.haml:44
+msgid "This cartridge is scalable."
+msgstr "Este cartucho é escalável."
+
+#: ../../app/views/storage/show.html.haml:45
+msgid "The additional storage will apply to each extra gear."
+msgstr "O storage adicional será aplicado para cada gear extra."
+
+#: ../../app/views/storage/show.html.haml:48
+msgid "This storage will also be shared by:"
+msgstr "Este storage também será compartilhado com:"
+
+#: ../../app/views/storage/show.html.haml:63
+msgid "Additional Storage Per Gear"
+msgstr "Storage Adicional Por Gear"
+
+#: ../../app/views/teams/delete.html.haml:3
+msgid "Delete Team"
+msgstr "Deletar Time"
+
+#: ../../app/views/teams/delete.html.haml:7
+msgid "Are you sure you want to delete the team"
+msgstr "Você tem certeza que deseja remover o time"
+
+#: ../../app/views/teams/index.html.haml:14
+msgid "You are not a member of any teams"
+msgstr "Você não é membro de nenhum time"
+
+#: ../../app/views/teams/index.html.haml:20
+msgid "Teams you own"
+msgstr "Time pertencentes a você"
+
+#: ../../app/views/teams/index.html.haml:22
+msgid "Teams you are a member of"
+msgstr "Times que você é membro"
+
+#: ../../app/views/teams/index.html.haml:31
+msgid "Shared team"
+msgstr "Time compartilhados"
+
+#: ../../app/views/teams/index.html.haml:42
+msgid "Team&hellip;"
+msgstr "Time&hellip;"
+
+#: ../../app/views/teams/index.html.haml:47 ../../app/views/teams/show.html.haml:30
+msgid ""
+"People who typically share the same role can be added to a team. The team can then be "
+"added as a member of a domain, and all of the people in the team will inherit the "
+"team's role on the domain."
+msgstr ""
+"Pessoas que tipicamente desempenham o mesmo papel podem ser adicionadas ao mesmo time. "
+"O time pode então ser adicionado como membro de um domínio, e todas as pessoas do time "
+"irão herdar as permissões deste time no domínio."
+
+#: ../../app/views/teams/index.html.haml:49 ../../app/views/teams/show.html.haml:32
+msgid ""
+"If a person is a member of multiple teams which are members of a domain, or is also "
+"added as a domain member individually, their effective role is the higher of their "
+"individual role or their teams' roles on the domain."
+msgstr ""
+"Se uma pessoa é membro de múltiplos times que são membros de um domínio, ou está "
+"inclusa como um membro individual do domínio, suas permissões efetivas são as mais "
+"altas dentre o conjunto de permissões dentro daquele domínio."
+
+#: ../../app/views/teams/new.html.haml:3
+msgid "Create a Team"
+msgstr "Criar um Time"
+
+msgid "See the %s for information about adding a custom domain names to an application."
+msgstr "Consulte o %s para informações sobre adicionar um domínio customizado em sua aplicação"
+
+msgid "See the %s for information about adding your own domain names to an application."
+msgstr "Consulte o %s para informações sobre adicionar seu próprio domínio customizado em sua aplicação"
+
+msgid "See the %s for information about adding your own domain names to an application."
+msgstr "Consulte o %s para informações sobre adicionar seu próprio domínio em uma aplicação"
+
+msgid "Learn more about SSH keys."
+msgstr "Saiba mais sobre chaves SSH."
+
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgid "Delete"
+msgstr "Deletar"
+
+msgid "Add a new key..."
+msgstr "Adicionar chave..."
+
+msgid "Add authorization..."
+msgstr "Adicionar autorização..."
+
+msgid "Revoke all"
+msgstr "Revogar tudo"
+
+msgid ""
+"Are you sure you want to revoke all authorizations for this "
+"account? This will end any active sessions immediately."
+msgstr ""
+"Você tem certeza que deseja revogar todas as autorizações desta conta? "
+"Isto irá terminar imediatamente qualquer sessão ativa."
+
+msgid "Description of what this authorization is for"
+msgstr "Descreva para que serve esta autorização"
+
+msgid "Create another domain"
+msgstr "Criar outro domínio"
+
+msgid "See other domains"
+msgstr "Veja outros domínios"
+
+msgid "Create another domain"
+msgstr "Criar outro domínio"
+
+msgid "Add a user..."
+msgstr "Incluir um usuário..."
+
+msgid "Add members..."
+msgstr "Incluir membros..."
+
+msgid "Add a team..."
+msgstr "Incluir um time..."
+
+msgid "Edit members..."
+msgstr "Editar membros..."
+
+msgid "Save"
+msgstr "Salvar"
+
+msgid "Delete this domain..."
+msgstr "Deletar este domínio..."
+
+msgid "Leave Domain"
+msgstr "Deixar Domínio"
+
+msgid "Domain"
+msgstr "Domínio"
+
+msgid "Domain %s"
+msgstr "Domínio %s"
+
+msgid "This domain is using %s and can use up to %s more"
+msgstr "Este domínio está usando %s e pode usar até %s mais"
+
+msgid "change"
+msgstr "mudar"
+
+msgid "Allow %s gears"
+msgstr "Permite gears %s"
+
+msgid "application"
+msgstr "aplicação"
+
+msgid "applications"
+msgstr "aplicações"
+
+msgid "Key name"
+msgstr "Nome da chave"
+
+msgid "A name for your key"
+msgstr "Um nome para sua chave"
+
+msgid "Paste the contents of your public key file"
+msgstr "Cole o conteúdo do seu arquivo da chave pública"
+
+msgid "The contents of your public key file"
+msgstr "O conteúdo do arquivo da chave publica"
+
+msgid ""
+"Your SSH key will start with a short prefix that describes its type, followed "
+"by a long string of numbers and characters.  Some keys have a bit of text at "
+"the end to describe who generated the key. Example:\n\nssh-rsa AAAAB3NzaC1yc....HcLJ bob@smith"
+msgstr ""
+"Sua chave SSH deve iniciar com um pequeno prefixo que descreve seu tipo, "
+"seguido de uma sequência longa de números e letras. Algumas chaves possuem um pequeno "
+"texto no final que descreve quem gerou a chave. Exemplo:\n\nssh-rsa AAAAB3NzaC1yc....HcLJ bob@smith"
+
+msgid "Are you sure you want to delete your key '%s'?"
+msgstr "Você tem certeza que deseja deletar a chave '%s'?"
+
+msgid "freenode.net on channel #openshift"
+msgstr "freenode.net no canal #openshift"
+
+msgid "file a bug"
+msgstr "reporte um bug"
+
+msgid "Search OpenShift and StackOverflow"
+msgstr "Busca OpenShift e StackOverflow"
+
+msgid "community forum"
+msgstr "forum da comunidade"
+
+msgid "Knowledge Base"
+msgstr "Base de Conhecimento"
+
+msgid "The Developer Center"
+msgstr "A Central do Desenvolvedor"
+
+msgid "see our Videos page"
+msgstr "veja nossa página de Videos"
+
+msgid "member"
+msgstr "membro"
+
+msgid "members"
+msgstr "membros"
+
+msgid ""
+"<p>OpenShift supports several database types out of the box (MySQL, PostgreSQL, and MongoDB)."
+"</p><p>Click on your application, and then at the bottom of the list of cartridges on the next "
+"page you'll see databases you can add.</p>"
+msgstr ""
+"<p>OpenShift suporte diversas bases de dados <em>out of the box</em> (MySQL, PostgreSQL, and MongoDB)."
+"</p><p>Clique em sua aplicação e então no final da lista de cartuchos na próxima página você verá as "
+"bases de dados que pode adicionar.</p>"
+
+msgid "Membership"
+msgstr "Membros"
+
+msgid ""
+"<p>You can give a collaborator access to your domains and applications.  "
+"Adding someone as an editor on a domain gives them the ability to create or "
+"update your applications.</p><p>To add a collaborator, click on a domain name, "
+"and then in the Members section enter the login of another OpenShift member.</p>"
+msgstr ""
+"<p>Você pode dar a colaboradores acesso aos seus domínios e aplicações. "
+"Adicionar alguem como um editor em um domínio dá a eles a habilidade de criar ou "
+"atualizar suas aplicações.</p><p>Para adicionar um colaborador, clique em um domínio "
+"e então na seção Membros entre o login de outro membro OpenShift.</p>"
+
+msgid ""
+"<p>OpenShift gives you a public domain for each of your applications.  If you "
+"have your own domain name, you can set it as an <strong>alias</strong> on your "
+"application.</p><p>Click on your application name to the left, and then select "
+"the 'change' link next to the application URL at the top of the overview page.</p>"
+msgstr ""
+"<p>OpenShift fornece um domínio público para cada aplicação sua. Se você possui "
+"seu próprio domínio, você pode incluí-lo como um <strong>alias</strong> em sua "
+"aplicação.</p><p>Clique no nome da sua aplicação a esquerda e então selecione o link 'mudar' "
+"próximo a URL da aplicação no topo da página de visão geral."
+
+msgid ""
+"<p>Scalable applications can run multiple copies of your web code in parallel on "
+"different servers.  This allows you to handle more web traffic, and to react to "
+"changing levels of demand.</p><p>To create a scalable app, choose an application "
+"type to create and change the 'Scaling' option on the 'Create Application' page.</p>"
+msgstr ""
+"<p>Aplicações escaláveis podem rodar múltiplas cópias do seu código web em paralelo, em "
+"diferentes servidores. Isto permite que atendam um maior tráfego web, e reajam a "
+"mudanças na demanda.</p><p>Para criar uma aplicação escalável, escolha um tipo de "
+"aplicação e mude a opção 'Escalabilidade' na página 'Criar Aplicação'.</p>"
+
+msgid ""
+"<p>From the command line, run <code>rhc tail &lt;app_name&gt;</code> to view "
+"your logs in realtime.</p>"
+msgstr ""
+"A partir da linha de comando, execute <code>rhc tail &lt;app_name&gt;</code> "
+"para ver seus logs em tempo real.</p>"
+
+msgid ""
+"<p>Each application can be backed up by using the snapshot command - run <code>rhc "
+"save-snapshot &lt;app_name&gt;</code> to download a tar file containing your code, "
+"databases, and other relevant data.  Use <code>rhc restore-snapshot</code> to restore "
+"the state of an app.</p><p>Note that snapshot will stop your application as it runs.</p>"
+msgstr ""
+"<p>Cada aplicação pode ter um backup usando o comando snapshot - execute <code>rhc "
+"save-snapshot &lt;app_name&gt;</code> para baixar um arquivo tar contendo seu código, "
+"base de dados e outros dados relevantes. Use <code>rhc restore-snapshot</code> para "
+"restaurar o estado da aplicação.</p><p>Note que o snapshot irá parar a aplicação "
+"enquanto é executado.</p>"
+
+msgid ""
+"<p>From the command line, run <code>rhc port-forward</code> to access databases "
+"or internal ports directly.</p>"
+msgstr ""
+"<p>A artir da linha de comando, execute <code>rhc port-forward</code> para acessar a "
+"base de dados ou ports internas diretamente.</p>"
+
+msgid "Back"
+msgstr "Voltar"
+
+msgid "Create Application"
+msgstr "Criar Aplicação"
+
+msgid "Optional URL to a Git repository"
+msgstr "URL opcional de um repo Git"
+
+msgid "Want to log in to your application?"
+msgstr "Quer logar em sua aplicação?"
+
+msgid "Delete this application..."
+msgstr "Deletar esta aplicação..."
+
+msgid ""
+"The command below will open a Secure Shell (SSH) session to your application "
+"on most operating systems.  See our %s for information about connecting with "
+"Windows, Mac, and Linux computers."
+msgstr ""
+"O comando abaixo irá abrir uma sessão de Shell Seguro (SSH) com sua aplicação "
+"na maioria dos sistemas operacionais. Veja nossa %s para informações de conexão "
+"com Windows, Mac e Linux."
+
+msgid "SSH help page"
+msgstr "página de ajuda SSH"
+
+msgid "Enable Jenkins"
+msgstr "Habilitar Jenkins"
+
+msgid "Add %s"
+msgstr "Adicionar %s"
+
+msgid "Created %s ago in domain %s"
+msgstr "Criado %s atras no domínio %s"
+
+msgid "change alias"
+msgstr "mudar alias"
+
+msgid "For more information about scaling your applications see %s."
+msgstr "Para mais informações sobre como escalar suas aplicações veja %s."
+
+msgid "our scaling guide in the Developer Center"
+msgstr "nosso guia na Central do Desenvolvedor"
+
+msgid "We hope to add the ability to enable scaling on existing applications in the future - you can provide feedback about this and other features in OpenShift via our %s."
+msgstr "Esperamos adicionar a habilidade de escalar aplicações esxistentes no futuro - você pode fornece seu feedback sobre o assunto e outras solicitações de OpenShift via nossa %s."
+
+msgid "feature request page"
+msgstr "página de sugestão de features"
+
+msgid "See all domains"
+msgstr "ver todos os domínios"
+
+msgid "Each gear this cartridge is deployed to has %sGB of included storage."
+msgstr "Cada gear em que este cartucho está instalado possui %sGB de storage."
+
+msgid "For more information about storage for your application see %s."
+msgstr "Para mais informações sobre storage para sua aplicação veja %s."
+
+msgid "our FAQ on storage"
+msgstr "nosso FAQ sobre storage"
+
+msgid "After installing the RHC read more %s."
+msgstr "Após instalar o RHC leia mais %s."
+
+msgid "on how to manage your application from the command line in our User Guide"
+msgstr "sobre como gerenciar sua aplicação a partir da linha de comando em nosso Guia do Usuário"
+
+msgid "Links to download, install and use the JBoss Developer Studio for Linux, Mac OS X, or Windows can be found on the %s."
+msgstr "Links para baixar, instalar e usar o JBoss Developer Studio para Linux, Mac OS X, ou Windows podem ser encontrados na %s."
+
+msgid "JBoss Developer Studio tools page"
+msgstr "página JBoss Developer Studio tools"
+
+msgid "The server will run any of your configured %s and then restart the application."
+msgstr "O servidor irá rodar seus %s configurados e então reiniciar a aplicação."
+
+msgid "deploy hooks"
+msgstr "hooks de deploy"
+
+msgid "Follow these steps to install the client"
+msgstr "Siga estes passos para instalar o cliente"
+
+msgid "%s on Linux, Mac OS X, or Windows."
+msgstr "no Linux, Mac OS X ou Windows."
+
+msgid "OpenShift is configured to scale this cartridge with %s."
+msgstr "OpenShift está configurado para escalar este cartucho com %s."
+
+msgid "the web proxy HAProxy"
+msgstr "o proxy web HAProxy"
+
+msgid "For more information about scaling your application see %s."
+msgstr "Para mais informações sobre escalar sua aplicação consulte %s."
+
+msgid "our scaling guide in the Developer Center"
+msgstr "nosso guia de escalabilidade na Central do Desenvolvedor"
+
+msgid "New Alias"
+msgstr "Novo Alias"
+
+msgid "Set up the CNAME record with your DNS provider"
+msgstr "Configure o registro CNAME em seu provedor DNS"
+
+msgid "Enter your custom domain name. e.g. <em>www.example.com</em> or <em>something.example.com</em>"
+msgstr "Entre seu domínio customizado. Ex: <em>www.exemplo.com</em> ou <em>algo.exemplo.com</em>"
+
+msgid "%s gears"
+msgstr "gears %s"
+
+msgid "Minimum gears"
+msgstr "Minimo de gears"
+
+msgid "Maximum gears"
+msgstr "Maximo de gears"
+
+msgid "Create a Team"
+msgstr "Crie um Time"
+
+msgid "Team name"
+msgstr "Nome do time"
+
+msgid "Team %s"
+msgstr "Time %s"
+
+msgid "There are no other members in this %s. %s"
+msgstr "Não existem outros membros neste %s. %s"
+
+msgid "team"
+msgstr "time"
+
+msgid "Team member"
+msgstr "Membro do time"
+
+msgid "Has access via these teams:\n%s"
+msgstr "Possui acesso via estes times:\n%s"
+
+msgid "View this team"
+msgstr "Ver este time"
+
+msgid "User Login"
+msgstr "Login do Usuário"
+
+msgid "Delete this team..."
+msgstr "Deletar este time..."
+
+msgid "other member"
+msgstr "outro membro"
+
+msgid "other members"
+msgstr "outros membros"
+
+msgid "Owned by %s"
+msgstr "Pertencente a %s"
+
+msgid "See other teams"
+msgstr "Ver outros times"
+
+msgid "Create a new team"
+msgstr "Crie um novo time"

@@ -129,3 +129,10 @@ CONSOLE_SECURITY=basic
 # Optional
 #
 # SYSLOG_ENABLED=true
+
+#
+# Comma-separated list of Supported locales
+#
+# Optional
+#
+# LOCALES=en,pt,es

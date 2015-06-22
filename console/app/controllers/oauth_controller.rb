@@ -10,11 +10,11 @@ class OauthController < ConsoleController
     connection.get(uri.to_s)
 
     # Should return a 302 redirect or an error. If we get a regular response, that's a problem.
-    raise UnexpectedOAuthResponse.new("An unexpected OAuth response (non-302, non-error) was received")
+    raise UnexpectedOAuthResponse.new(_("An unexpected OAuth response (non-302, non-error) was received"))
 
   rescue UnexpectedOAuthResponse => e
     log_error(e)
-    @message = "OAuth Error: Unexpected response"
+    @message = _("OAuth Error: Unexpected response")
     render :error
 
   rescue ActiveResource::Redirection => e
@@ -27,7 +27,7 @@ class OauthController < ConsoleController
       # Handles error cases which are supposed to alert the user of bad OAuth requests
       json = JSON.parse(e.response.body)
       raise e unless (details = json['error_description'] || json['error'])
-      @message = "OAuth Error: #{details}"
+      @message = _("OAuth Error: %s") % details
       render :error
     rescue
       # If we didn't get an error format we recognize, raise the original exception

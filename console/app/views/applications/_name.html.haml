@@ -25,7 +25,7 @@
 
   - elsif domains.present?
     -# Select
-    %span.add-on.middle> &ndash;
+    %span.add-on.middle>! &ndash;
     = form.select :domain_name,
       domains_for_select(domains),
       {:include_blank => !domains.find {|d| d.name == application.domain_name }},
@@ -36,7 +36,7 @@
 
   - elsif can_create
     -# Text
-    %span.add-on.middle> &ndash;
+    %span.add-on.middle>! &ndash;
     = form.text_field :domain_name, 
       :placeholder => 'Namespace', 
       :size => nil, 
@@ -54,4 +54,4 @@
 
 - if show_create
   %p.help-block
-    %span= "You can also #{link_to "create a new domain", create_domain_url, {:class => 'create_domain', :data => {:submit_domain => true}}}.".html_safe
+    %span! You can also #{link_to(_("create a new domain"), create_domain_url, {:class => 'create_domain', :data => {:submit_domain => true}})}.

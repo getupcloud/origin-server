@@ -16,10 +16,10 @@
         = usage_rate_indicator
 
       - if type.automatic_updates?
-        %span.font-icon{"aria-hidden" => "true", "data-icon" => "\uee50", "title" => "Receives automatic security updates"}
+        %span.font-icon{"aria-hidden" => "true", "data-icon" => "\uee50", "title" => _("Receives automatic security updates")}
       
       - if show_small_app_type_icon?
         - if type.cartridge?
-          %span.font-icon{"aria-hidden" => "true", "data-icon" => "\uee51", "title" => "Cartridge"}
+          %span.font-icon{"aria-hidden" => "true", "data-icon" => "\uee51", "title" => _("Cartridge")}
         - elsif type.quickstart?
-          %span.font-icon{"aria-hidden" => "true", "data-icon" => "\ue029", "title" => "QuickStart"}
+          %span.font-icon{"aria-hidden" => "true", "data-icon" => "\ue029", "title" => _("QuickStart")}

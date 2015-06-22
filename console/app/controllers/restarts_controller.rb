@@ -8,7 +8,7 @@ class RestartsController < ConsoleController
     @application = Application.find(params[:application_id], :as => current_user)
 
     if @application.restart!
-      redirect_to @application, :flash => flash_messages(@application.messages, {:success => "The application '#{@application.name}' has been restarted"})
+      redirect_to @application, :flash => flash_messages(@application.messages, {:success => _("The application '%s' has been restarted") % @application.name})
     else
       render :show
     end

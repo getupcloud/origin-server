@@ -8,7 +8,7 @@
   %h1.invisible Add a Cartridge
   = cartridge_wizard_steps_create 1
 - else
-  %h1 Add Cartridge to #{link_to @application.name, application_path(@application)}
+  %h1! Add Cartridge to #{link_to(@application.name, application_path(@application))}
 
 = semantic_form_for @cartridge, :url => application_cartridges_path(@application), :html => {:class => 'form form-important'} do |f|
   = f.hidden_field :name, :value => @cartridge_type.name
@@ -18,7 +18,8 @@
 
   - if @cartridge_type.custom?
     .alert.alert-info
-      This cartridge will be downloaded into your application.  The cart will have access to all of your application data - be sure this is what you really want to do!
+      This cartridge will be downloaded into your application.
+      The cart will have access to all of your application data - be sure this is what you really want to do!
       = link_to "Learn more", downloadable_cartridges_help_url
 
   = render :partial => @cartridge_type, :locals => {:hide_link => true, :extra_info => true, :application => @application}

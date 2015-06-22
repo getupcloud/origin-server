@@ -1,10 +1,6 @@
 %h2 Public Keys
-%p
-  OpenShift uses a public key to securely encrypt the connection between
-  your local machine and your application and to authorize you to upload
-  code.
-
-  = link_to "Learn more about SSH keys.", ssh_keys_help_path
+%p OpenShift uses a public key to securely encrypt the connection between your local machine and your application and to authorize you to upload code.
+%p= link_to _("Learn more about SSH keys."), ssh_keys_help_path
 
 %table.table.table-condensed.table-fixed
   %thead
@@ -18,6 +14,6 @@
       %td.sshkey-name{:scope => 'row'}= key.name
       %td.sshkey-type= key.type
       %td.code.sshkey= key.display_content
-      %td= link_to 'Delete', key_path(key), :class => 'btn btn-mini btn-delete nowrap', :method => :delete, :confirm => "Are you sure you want to delete your key '#{key.name}'?"
+      %td= link_to _('Delete'), key_path(key), :class => 'btn btn-mini btn-delete nowrap', :method => :delete, :confirm => (_("Are you sure you want to delete your key '%s'?") % key.name)
 .btn-toolbar
-  = link_to "Add a new key...", new_key_path, :class => 'btn btn-small'
+  = link_to _("Add a new key..."), new_key_path, :class => 'btn btn-small'

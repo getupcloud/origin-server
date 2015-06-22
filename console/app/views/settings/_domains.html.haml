@@ -1,25 +1,24 @@
 %h2 Domains
 %p
-  See the #{link_to 'User Guide', add_domains_user_guide_topic_url}
-  for information about adding your own domain names to an application.
+  See the #{link_to(_('User Guide'), add_domains_user_guide_topic_url)} for information about adding your own domain names to an application.
 
 %table.table.table-condensed.table-fixed
   - @domains.first(3).each do |d|
     %tr
       %td= link_to d.name, domain_path(d)
-      %td.nowrap= pluralize(d.application_count, 'application')
+      %td.nowrap= pluralize(d.application_count, _('application'), _('applications'))
       %td
         - if !d.owner?
-          = "Shared by #{d.members.find(&:owner?).name}" rescue "Shared with you"
+          = _("Shared by %s") % d.members.find(&:owner?).name rescue _("Shared with you")
         - elsif d.members.count > 1
           = pluralize(d.members.count - 1, 'other member')
         - else
           No other members
 
 - if @domains.length > 3
-  %p= link_to "See other domains", domains_path
+  %p= link_to _("See other domains"), domains_path
 - elsif @domains.count(&:owner?) < @capabilities.max_domains
-  %p= link_to "Create another domain", new_domain_path
+  %p= link_to _("Create another domain"), new_domain_path
 
 -#.btn-toolbar
   = link_to "Change your namespace...", edit_domain_path(@domain), :class => 'btn btn-small'

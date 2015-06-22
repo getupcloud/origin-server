@@ -2,6 +2,10 @@ source 'https://rubygems.org'
 
 gemspec
 
+gem 'gettext', '~> 3.1.6'
+gem 'haml-magic-translations', '~> 4.1.0'
+gem 'ruby_parser', '~> 3.7.0'
+
 gem 'pry', :require => 'pry' if ENV['PRY']
 gem 'perftools.rb', :require => 'perftools' if ENV['PERFTOOLS']
 gem 'syslog-logger', '~> 1.6.8', :require => false
@@ -15,7 +19,7 @@ gem 'syslog-logger', '~> 1.6.8', :require => false
 
 group :test do
   gem 'ci_reporter',   '>= 1.7.0', :require => false
-  gem 'minitest',      '>= 3.5.0', :require => false
+  gem 'minitest',      '~> 3.5.0', :require => false
   gem 'mocha',         '~> 0.13.3', :require => false
   gem 'simplecov',     '~> 0.6.4', :require => false
   gem 'webmock',       '~> 1.8.0', :require => false

@@ -27,13 +27,13 @@ class Alias < RestApi::Base
   alias_attribute :certificate_private_key, :private_key
   alias_attribute :certificate_pass_phrase, :pass_phrase
 
-  validates_presence_of :certificate_file, :message => "Required if a certificate chain or private key file is selected.", :if => lambda { |a| a.certificate_chain_file.present? || a.certificate_private_key_file.present? }
+  validates_presence_of :certificate_file, :message => _("Required if a certificate chain or private key file is selected."), :if => lambda { |a| a.certificate_chain_file.present? || a.certificate_private_key_file.present? }
   validates :certificate_file, :length => {:minimum => 1, :message => "SSL certificate file was empty."}, :allow_nil => true
 
-  validates_presence_of :certificate_private_key_file, :message => "Required if a certificate or certificate chain file is selected.", :if => lambda { |a| a.certificate_chain_file.present? || a.certificate_file.present? }
-  validates :certificate_private_key_file, :length => {:minimum => 1, :message => "Certificate private key file was empty."}, :allow_nil => true
+  validates_presence_of :certificate_private_key_file, :message => _("Required if a certificate or certificate chain file is selected."), :if => lambda { |a| a.certificate_chain_file.present? || a.certificate_file.present? }
+  validates :certificate_private_key_file, :length => {:minimum => 1, :message => _("Certificate private key file was empty.")}, :allow_nil => true
 
-  validates :certificate_chain_file, :length => {:minimum => 1, :message => "SSL certificate chain file was empty."}, :allow_nil => true
+  validates :certificate_chain_file, :length => {:minimum => 1, :message => _("SSL certificate chain file was empty.")}, :allow_nil => true
 
   def certificate_file=(value)
     @certificate_file = value.present? ? File.read(value.path) : nil;

@@ -1,0 +1,36 @@
+# https://github.com/glebm/i18n-tasks
+
+#base_locale: pt
+locales: [pt]
+
+data:
+  read:
+    - <%= ENV['PWD'] + '/../../config/locales/**/*.{rb,yml}' %>
+#  write:
+#    - ['layouts.*', '/Users/mateus/getup/git/origin-server-rh/console/config/locales/views/layouts/%{locale}.yml' ]
+
+search:
+  paths:
+    - <%= ENV['PWD'] + '/../../app/controllers' %>
+    - <%= ENV['PWD'] + '/../../app/helpers' %>
+    - <%= ENV['PWD'] + '/../../app/models' %>
+    - <%= ENV['PWD'] + '/../../app/views' %>
+  include: ["*.rb", "*.html.haml"]
+  relative_roots:
+    - ../../app/views
+    - ../../app/controllers
+    - ../../app/helpers
+
+ignore:
+  - unknown
+  - rest_api.*
+  - types.*
+  - activemodel.*
+  - activerecord.*
+  - helpers.*
+  - date.*
+  - datetime.*
+  - errors.*
+  - number.*
+  - support.*
+  - time.*

@@ -9,15 +9,12 @@
   .span6
     .gutter-bottom
       %p.larger
-        Choose a web programming cartridge or kick the tires with a
-        quickstart. After you create the application 
-        you can <strong>add cartridges to enable additional 
-        capabilities</strong> like databases, metrics, and continuous build 
-        support with Jenkins.
+        Choose a web programming cartridge or kick the tires with a quickstart.
+        After you create the application you can <strong>add cartridges to enable additional capabilities</strong> like databases, metrics, and continuous build support with Jenkins.
     
       %form.form-search.form-search-block{:id => 'form-search-create-apps', :method => 'get'}
         %label.invisible{:for => 'search'} Search by keyword or tag
-        %input.search-query{:type => 'text', :id => 'search', :name => 'search', :placeholder => 'Search by keyword or tag'}
+        %input.search-query{:type => 'text', :id => 'search', :name => 'search', :placeholder => _('Search by keyword or tag')}
         %button.search.font-icon{:type => 'submit', "aria-hidden" => "true", "data-icon" => "\uee03"}
       - if @browse_tags.present?
         or 
@@ -40,8 +37,8 @@
       %dt
         %span.font-icon{"aria-hidden" => "true", "data-icon" => "\ue029", "title" => 'QuickStart icon'}
       %dd
-        <b>QuickStart</b> &ndash; A quick way to try out a new technology with code and libraries preconfigured. You are 
-        responsible for updating core libraries for security updates.
+        <b>QuickStart</b> &ndash; A quick way to try out a new technology with code and libraries preconfigured.
+        You are responsible for updating core libraries for security updates.
       %dt
         %span.font-icon{"aria-hidden" => "true", "data-icon" => "\uee50", "title" => 'Security icon'}
       %dd
@@ -90,19 +87,17 @@
     - unless Quickstart.disabled?
       %p
         Can't find what you're looking for?  Try searching for a specific quickstart or filtering by tag.
-        Or, browse the entire list in our #{link_to "QuickStart gallery", community_quickstarts_url}.
+        Or, browse the entire list in our #{link_to(_("QuickStart gallery"), community_quickstarts_url)}.
 
     - if RestApi.download_cartridges_enabled?
       %h3.divide Code Anything
       
       %form.form-inline.row#download_cartridge_form{:method => :get, :action => application_type_path('custom')}
         .span6
-          %p
-            Have your own framework?  Provide the #{link_to 'URL of a cartridge', downloadable_cartridges_help_url} here, and OpenShift will download and 
-            provision it automatically into your new app!
+          %p! Have your own framework?  Provide the #{link_to(_('URL of a cartridge'), downloadable_cartridges_help_url)} here, and OpenShift will download and provision it automatically into your new app!
           %input{:type => :hidden, :name => :unlock, :value => 'true'}
-          %input{:type => :text, :name => 'application_type[cartridges]', :placeholder => 'URL to a cartridge definition'}
-          %input.btn{:type => :submit, :value => 'Next', :title => 'Base a new app on a cartridge you provide'}
+          %input{:type => :text, :name => 'application_type[cartridges]', :placeholder => _('URL to a cartridge definition')}
+          %input.btn{:type => :submit, :value => 'Next', :title => _('Base a new app on a cartridge you provide')}
           
         .span6
           %p Want to build your own cartridge? Get started with the DIY cart.

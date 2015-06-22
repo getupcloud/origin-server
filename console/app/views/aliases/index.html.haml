@@ -1,6 +1,6 @@
 - content_for :page_title, "Aliases for #{@application.name}"
 
-%h1 Aliases for #{link_to @application.name, application_path(@application)}
+%h1! Aliases for #{link_to(@application.name, application_path(@application))}
 
 =flashes
 
@@ -8,7 +8,7 @@
   Aliases allow you to use your own domain names for your applications on OpenShift.
 
 - if @application.aliases.empty?
-  %p.larger No aliases exist. #{link_to "Add your first alias now", new_application_alias_path(@application)}
+  %p.larger! No aliases exist. #{link_to(_("Add your first alias now"), new_application_alias_path(@application))}
 
 - else
   - alias_scheme = @application.web_url.split(':').first
@@ -58,4 +58,4 @@
 
   %p
 
-%p Note: In order to route traffic on your domain to OpenShift, you must #{link_to("set up a CNAME record with your DNS provider", alias_docs_url)}.
+%p! Note: In order to route traffic on your domain to OpenShift, you must #{link_to(_("set up a CNAME record with your DNS provider"), alias_docs_url)}.

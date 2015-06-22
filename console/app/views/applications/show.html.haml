@@ -26,14 +26,14 @@
       %h1.flow
         - if @application.aliases.present?
           .name= @application.name
-          = link_to @application.aliases.first.name, URI::HTTP.new('http', nil, @application.aliases.first.name, nil, nil, nil, nil, nil, nil).to_s, :class => 'url url-alias'
+          = link_to(@application.aliases.first.name, URI::HTTP.new('http', nil, @application.aliases.first.name, nil, nil, nil, nil, nil, nil).to_s, :class => 'url url-alias')
           - if @application.aliases.length > 1
             = link_to "#{pluralize(@application.aliases.length - 1, 'other alias')}", application_aliases_path(@application), :class => 'url-alter'
           - else
-            = link_to "change alias", application_aliases_path(@application), :class => 'url-alter'
+            = link_to _("change alias"), application_aliases_path(@application), :class => 'url-alter'
 
         - else
-          = link_to @application.web_url, :class => 'url-default' do
+          = link_to(@application.web_url, :class => 'url-default') do
             %span.name>= @application.name
             %span.url>= URI.parse(@application.web_url).hostname.gsub(/\A#{Regexp.escape(@application.name)}/, '')
           = link_to "change", new_application_alias_path(@application), :class => 'url-alter'
@@ -56,13 +56,12 @@
 
           %span.restart.confirm-container
             = link_to application_restart_path(@application), { 'data-placement' => 'bottom', :class => 'font-icon-link confirm-link', :title => 'Restart Application'} do
-              %span.font-icon{:alt => 'Restart', :title =>"Restart application", "aria-hidden" => "true", "data-icon" => "\ue020"}
+              %span.font-icon{:alt => 'Restart', :title => _("Restart application"), "aria-hidden" => "true", "data-icon" => "\ue020"}
             .confirm-popover.hide
               = render 'restarts/form'
 
       %p.created
-        Created #{time_ago_in_words(@application.creation_time)} ago in domain
-        #{link_to @application.domain_id, domain_path(@application.domain_id)}
+        Created #{time_ago_in_words(@application.creation_time)} ago in domain #{link_to(@application.domain_id, domain_path(@application.domain_id))}
 
 .row
 
@@ -196,7 +195,7 @@
               - databases.each do |c|
                 %li
                   %span{:'data-icon' => "\uee49"}
-                  = link_to "Add #{c.display_name}", application_cartridge_type_path(@application, c, :direct => true)
+                  = link_to _("Add %s") % c.display_name, application_cartridge_type_path(@application, c, :direct => true)
         - if jenkins.present? or builders.present?
           .span5
             %h3 Continuous Integration
@@ -204,11 +203,11 @@
               - if jenkins.present?
                 %li
                   %span{:'data-icon' => "\ue023"}
-                  = link_to "Enable Jenkins", application_building_path(@application)
+                  = link_to _("Enable Jenkins"), application_building_path(@application)
               - builders.each do |c|
                 %li
                   %span{:'data-icon' => "\ue023"}
-                  = link_to "Add #{c.display_name}", application_cartridge_type_path(@application, c, :direct => true)
+                  = link_to _("Add %s") % c.display_name, application_cartridge_type_path(@application, c, :direct => true)
 
         - if useful
           .span4
@@ -217,7 +216,7 @@
               - useful.each do |c|
                 %li
                   %span{:'data-icon' => "\uee51"}
-                  = link_to "Add #{c.display_name}", application_cartridge_type_path(@application, c, :direct => true)
+                  = link_to _("Add %s") % c.display_name, application_cartridge_type_path(@application, c, :direct => true)
 
       %p= other_cartridges_link((databases or jenkins.present? or builders.present? or useful), @application)
 
@@ -231,28 +230,26 @@
 
       %h2 Remote Access
       %ul.unstyled
-        %li= link_to 'Want to log in to your application?', '#', :'data-unhide' => '.ssh.hidden'
+        %li= link_to _('Want to log in to your application?'), '#', :'data-unhide' => '.ssh.hidden'
         %li.ssh.hidden
-          %p
-            The command below will open a Secure Shell (SSH) session to your application on most operating systems.  See our #{link_to 'SSH help page', ssh_help_url} for information about connecting with Windows, Mac, and Linux computers.
+          %p! The command below will open a Secure Shell (SSH) session to your application on most operating systems.  See our #{link_to(_('SSH help page'), ssh_help_url)} for information about connecting with Windows, Mac, and Linux computers.
           %p
             %input#application_ssh_url.git-url.span4{:readonly => 'readonly', :'data-text-copy' => true, :value => "ssh #{@application.ssh_string}", :title => 'Copy and paste this command into a command shell to access your OpenShift application.'}
 
     - else
       %h2 Source Code
       %p.small
-        You must #{link_to "add an SSH public key to your account", new_key_path}
-        before you can upload code or remotely access your application.
+        You must #{link_to(_("add an SSH public key to your account"), new_key_path)} before you can upload code or remotely access your application.
 
       %h2 Remote Access
       %p.small
-        Requires a #{link_to "public key", new_key_path}.
+        Requires a #{link_to(_("public key"), new_key_path)}.
 
     - members = @application.members
     - if members.size > 1
       %h2
         Members from domain
-        #{link_to @application.domain_id, domain_path(@application.domain_id)}
+        #{link_to(@application.domain_id, domain_path(@application.domain_id))}
       %table.table.table-condensed.table-no-borders.table-fixed
         %colgroup
           %col{:width => "50%"}
@@ -273,7 +270,7 @@
               = member.owner? ? "Owner" : member.role_description
 
     .btn-toolbar
-      = link_to "Delete this application\u2026", delete_application_path(@application), :class => 'btn btn-small'
+      = link_to _("Delete this application..."), delete_application_path(@application), :class => 'btn btn-small'
 
 - content_for :javascripts do
   :javascript

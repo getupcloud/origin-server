@@ -80,7 +80,7 @@ module Membership
     if e.respond_to? :response
       @remote_errors = e.response
       load_remote_errors(e.response, false, true, members, :members)
-      errors[:members] = "The #{self.class.model_name.humanize.downcase} members could not be updated." if errors.empty?
+      errors[:members] = _("The %s members could not be updated.") % self.class.model_name.humanize.downcase if errors.empty?
     end
     false
   end

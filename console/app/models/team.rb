@@ -17,8 +17,8 @@ class Team < RestApi::Base
     end
 
     def role_description(role=role)
-      return 'Remove from team' if role.to_s == 'none'
-      return 'Team member' if role.to_s == 'view'
+      return _('Remove from team') if role.to_s == 'none'
+      return _('Team member') if role.to_s == 'view'
       super
     end
 

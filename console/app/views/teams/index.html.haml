@@ -1,5 +1,5 @@
 - content_for :page_style, 'highlight'
-- content_for :page_title, 'Teams'
+- content_for :page_title, _('Teams')
 - content_for :top do
   .grid-wrapper.section-header
     %nav.span12.teams
@@ -27,19 +27,19 @@
               = link_to team.name, team_path(team), :class => 'tile-target'
 
             - if team.global?
-              %span{:title => 'Owner'}
+              %span{:title => _('Owner')}
                 Shared team
             - elsif owner = team.members.find(&:owner?)
-              %span{:title => 'Owner'}
+              %span{:title => _('Owner')}
                 Owned by #{owner.name}
           
-            %span{:title => 'Members'}= pluralize(team.members.count, 'member')
+            %span{:title => _('Members')}= pluralize(team.members.count, 'member')
 
       - if @can_create
         .btn-toolbar.base
           = link_to new_team_path, :class => 'btn btn-primary' do
             Add
-            %strong Team&hellip;
+            %strong! Team&hellip;
             %i.icon-add
 
     .span4#team-member-list.sidebar

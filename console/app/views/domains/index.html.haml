@@ -26,13 +26,13 @@
               = link_to domain.name, domain_path(domain), :class => 'tile-target'
 
               %span.flow-block.right
-                %span{:title => 'Applications'}= pluralize(domain.application_count, 'application')
+                %span{:title => 'Applications'}= pluralize(domain.application_count, _('application'), _('applications'))
                 %span{:title => 'Gears'}= pluralize(domain.gear_counts.values.sum, 'gear')
-                %span{:title => 'Members'}= pluralize(domain.members.count, 'member')
+                %span{:title => 'Members'}= pluralize(domain.members.count, _('member'), _('members'))
 
       - if @can_create
         .btn-toolbar.base
           = link_to new_domain_path, :class => 'btn btn-primary' do
             Add
-            %strong Domain&hellip;
+            %strong! Domain&hellip;
             %i.icon-add

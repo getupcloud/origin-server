@@ -1,6 +1,6 @@
 - content_for :page_title, 'New Alias'
 
-%h1 New Alias for #{link_to @application.name, application_path(@application)}
+%h1! New Alias for #{link_to(@application.name, application_path(@application))}
 =flashes
 
 %section
@@ -10,7 +10,7 @@
       Aliases allow you to use your own domain names for your apps on OpenShift. To set up your own domain name for app 
       %strong= @application.name
     %ol
-      %li= link_to 'Set up the CNAME record with your DNS provider', alias_docs_url, :target => '_blank', :class => 'external'
+      %li= link_to _('Set up the CNAME record with your DNS provider'), alias_docs_url, :target => '_blank', :class => 'external'
       %li Configure OpenShift to use your alias:
     - e = @alias.errors
     = f.semantic_errors :except => [:id, :name, :certificate_file, :certificate_chain_file, :certificate_private_key_file]
@@ -21,7 +21,7 @@
         .controls
           %h3= "#{URI::parse(@application.web_url).host}"
           %p.help-block The current application URL. Set up a CNAME record with your DNS provider pointing to this URL.
-      = f.input :id, :label => 'Domain name', :required => true, :input_html => {:placeholder => 'www.example.com'}, :hint => 'Enter your custom domain name. e.g. <em>www.example.com</em> or <em>something.example.com</em>'.html_safe
+      = f.input :id, :label => _('Domain name'), :required => true, :input_html => {:placeholder => 'www.example.com'}, :hint => _('Enter your custom domain name. e.g. <em>www.example.com</em> or <em>something.example.com</em>').html_safe
 
       .platform
 
@@ -72,8 +72,8 @@
             %p.help-block Pass phrase for the certificate private key, required if the provided private key is encrypted.
 
     = f.buttons do
-      = link_to "Cancel", application_path(@application), :class => 'btn'
-      = f.commit_button :label => 'Save'
+      = link_to _("Cancel"), application_path(@application), :class => 'btn'
+      = f.commit_button :label => _('Save')
       = f.loading
 
   - content_for :javascripts do

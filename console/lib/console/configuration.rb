@@ -40,6 +40,8 @@ module Console
     config_accessor :prohibited_email_domains
     config_accessor :syslog_enabled
 
+    config_accessor :locales
+
     #
     # A class that represents the capabilities object
     #
@@ -185,6 +187,12 @@ module Console
           end
         when String
           self.security_controller = config[:CONSOLE_SECURITY]
+        end
+
+        if locales = config[:LOCALES]
+          Rails.configuration.locales = locales.split(',').each{|item| item.strip}
+        else
+          Rails.configuration.locales = ['en']
         end
       end
 

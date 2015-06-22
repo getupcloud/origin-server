@@ -64,13 +64,13 @@ class Member < RestApi::Base
 
     case role.to_s
     when 'admin'
-      in_team ? 'Can administer (+ team access)' : 'Can administer'
+      in_team ? _('Can administer (+ team access)') : _('Can administer')
     when 'edit'
-      in_team ? 'Can edit (+ team access)' : 'Can edit'
+      in_team ? _('Can edit (+ team access)') : _('Can edit')
     when 'view'
-      in_team ? 'Can view (+ team access)' : 'Can view'
+      in_team ? _('Can view (+ team access)') : _('Can view')
     when 'none'
-      in_team ? 'Team access only' : 'No role'
+      in_team ? _('Team access only') : _('No role')
     else
       role.to_s.humanize
     end

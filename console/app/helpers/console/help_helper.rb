@@ -276,22 +276,22 @@ module Console::HelpHelper
   def console_help_links
     [
       {:href => developers_url,
-       :name => 'Developer Center'},
+       :name => _('Developer Center')},
       {:href => user_guide_url,
-       :name => 'OpenShift User Guide'},
+       :name => _('OpenShift User Guide')},
       {:href => getting_started_path,
-       :name => 'Installing OpenShift client tools on Mac OSX, Linux, and Windows'},
+       :name => _('Installing OpenShift client tools on Mac OSX, Linux, and Windows')},
       {:href => sync_git_with_remote_repo_knowledge_base_url,
-       :name => 'Sync your OpenShift repo with an existing Git repo'}
+       :name => _('Sync your OpenShift repo with an existing Git repo')}
     ]
   end
 
   def console_faq_links
     [
       {:href => community_base_url('faq/how-do-i-start-a-new-forum-discussion'),
-       :name => 'How do I start a new Forum discussion?'},
+       :name => _('How do I start a new Forum discussion?')},
       {:href => community_base_url('faq/how-do-i-install-the-rhc-client-tools-on-windows'),
-       :name => 'How do I install the rhc client tools on Windows?'}
+       :name => _('How do I install the rhc client tools on Windows?')}
     ]
   end
 
