@@ -60,12 +60,12 @@
 
         - if cartridge_type.support_type == :openshift
           %dt
-            %span.icon-star-empty{"aria-hidden" => "true", :title => "OpenShift maintained"}
+            %span.icon-star-empty{"aria-hidden" => "true", :title => _("OpenShift maintained")}
           %dd{:title => 'Updated and maintained by the OpenShift team'} OpenShift maintained
 
         - if cartridge_type.automatic_updates?
           %dt
-            %span.icon-shield{"aria-hidden" => "true", "title" => "Security updates"}
+            %span.icon-shield{"aria-hidden" => "true", "title" => _("Security updates")}
           %dd
             Receives automatic security updates
         - elsif cartridge_type.custom?

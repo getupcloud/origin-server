@@ -46,7 +46,7 @@
       .btn-toolbar.base
         = link_to application_types_path, :class => 'btn btn-primary' do
           Add
-          %strong Application&hellip;
+          %strong! Application&hellip;
           %i.icon-add
 
     .span4.sidebar
@@ -55,10 +55,10 @@
       %ul.unstyled
         - unless @has_key
           %li
-            #{link_to "Set an SSH key", new_key_path} to
+            #{link_to(_("Set an SSH key"), new_key_path)} to
             %ul
               %li
-                %a{href: 'javascript:;', title: 'Set your first key', 'data-content' => "<p>OpenShift uses the Secure Shell protocol to protect direct access to your application.  In order to upload or download source code from Git or to remotely access the gears in your app, you'll need to create and upload a public SSH key.</p>"} 
+                %a{href: 'javascript:;', title: _('Set your first key'), 'data-content' => _("<p>OpenShift uses the Secure Shell protocol to protect direct access to your application.  In order to upload or download source code from Git or to remotely access the gears in your app, you'll need to create and upload a public SSH key.</p>")} 
                   Access source code or SSH to your gears
                 %span{'data-icon' => "\uee02"}
 
@@ -67,10 +67,10 @@
             Use an empty domain
             %ul
               - empty_domains.each do |d|
-                %li= link_to d.name, domain_path(d.name)
+                %li= link_to(d.name, domain_path(d.name))
 
         - elsif @user_owned_domains.length < @capabilities.max_domains
-          %li #{link_to "Create", new_domain_path} another domain
+          %li! #{link_to(t("Create"), new_domain_path)} another domain
 
         - if empty_domains = @empty_unowned_domains.presence
           %li
@@ -80,30 +80,30 @@
                 %li= link_to d.name, domain_path(d.name)
 
         - if @domains.length > 1
-          %li #{link_to "See all domains", domains_path}
+          %li= link_to(_("See all domains"), domains_path)
 
         - if @applications.length < 3 && @applications.none?{ |a| a.cartridges.any?(&:database?) }
           %li
-            %a{href: 'javascript:;', title: 'Add a Database', 'data-content' => "<p>OpenShift supports several database types out of the box (MySQL, PostgreSQL, and MongoDB).</p><p>Click on your application, and then at the bottom of the list of cartridges on the next page you'll see databases you can add.</p>"} 
+            %a{href: 'javascript:;', title: _('Add a Database'), 'data-content' => _("<p>OpenShift supports several database types out of the box (MySQL, PostgreSQL, and MongoDB).</p><p>Click on your application, and then at the bottom of the list of cartridges on the next page you'll see databases you can add.</p>")} 
               Add a database to an app
             %span{'data-icon' => "\uee02"}
 
         - if @applications.map{ |a| a.members.length }.max < 2
           %li
-            %a{href: 'javascript:;', title: 'Membership', 'data-content' => '<p>You can give a collaborator access to your domains and applications.  Adding someone as an editor on a domain gives them the ability to create or update your applications.</p><p>To add a collaborator, click on a domain name, and then in the Members section enter the login of another OpenShift member.</p>'} 
+            %a{href: 'javascript:;', title: _('Membership'), 'data-content' => _('<p>You can give a collaborator access to your domains and applications.  Adding someone as an editor on a domain gives them the ability to create or update your applications.</p><p>To add a collaborator, click on a domain name, and then in the Members section enter the login of another OpenShift member.</p>')} 
               Add a collaborator 
             %span{'data-icon' => "\uee02"}
 
         - if @applications.all?{ |a| a.aliases.blank? }
           %li
-            %a{href: 'javascript:;', title: 'Customize your URL', 'data-content' => "<p>OpenShift gives you a public domain for each of your applications.  If you have your own domain name, you can set it as an <strong>alias</strong> on your application.</p><p>Click on your application name to the left, and then select the 'change' link next to the application URL at the top of the overview page.</p>"} 
+            %a{href: 'javascript:;', title: _('Customize your URL'), 'data-content' => _("<p>OpenShift gives you a public domain for each of your applications.  If you have your own domain name, you can set it as an <strong>alias</strong> on your application.</p><p>Click on your application name to the left, and then select the 'change' link next to the application URL at the top of the overview page.</p>")} 
               Use your own domain name
             %span{'data-icon' => "\uee02"}
 
 
         - if @applications.none?(&:scales?)
           %li
-            %a{href: 'javascript:;', title: 'Scale with traffic', 'data-content' => "<p>Scalable applications can run multiple copies of your web code in parallel on different servers.  This allows you to handle more web traffic, and to react to changing levels of demand.</p><p>To create a scalable app, choose an application type to create and change the 'Scaling' option on the 'Create Application' page.</p>"} 
+            %a{href: 'javascript:;', title: _('Scale with traffic'), 'data-content' => _("<p>Scalable applications can run multiple copies of your web code in parallel on different servers.  This allows you to handle more web traffic, and to react to changing levels of demand.</p><p>To create a scalable app, choose an application type to create and change the 'Scaling' option on the 'Create Application' page.</p>")} 
               Create a scalable application
             %span{'data-icon' => "\uee02"}
 
@@ -112,15 +112,15 @@
         The <code>rhc</code> client lets you:
         %ul.unstyled
           %li
-            %a{href: 'javascript:;', title: 'Watching logs', 'data-content' => "<p>From the command line, run <code>rhc tail &lt;app_name&gt;</code> to view your logs in realtime.</p>"} 
+            %a{href: 'javascript:;', title: _('Watching logs'), 'data-content' => _("<p>From the command line, run <code>rhc tail &lt;app_name&gt;</code> to view your logs in realtime.</p>")} 
               Access logs
             %span{'data-icon' => "\uee02"}
           %li
-            %a{href: 'javascript:;', title: 'Backup and Restore', 'data-content' => "<p>Each application can be backed up by using the snapshot command - run <code>rhc save-snapshot &lt;app_name&gt;</code> to download a tar file containing your code, databases, and other relevant data.  Use <code>rhc restore-snapshot</code> to restore the state of an app.</p><p>Note that snapshot will stop your application as it runs.</p>"} 
+            %a{href: 'javascript:;', title: _('Backup and Restore'), 'data-content' => _("<p>Each application can be backed up by using the snapshot command - run <code>rhc save-snapshot &lt;app_name&gt;</code> to download a tar file containing your code, databases, and other relevant data.  Use <code>rhc restore-snapshot</code> to restore the state of an app.</p><p>Note that snapshot will stop your application as it runs.</p>")} 
               Save and restore backups
             %span{'data-icon' => "\uee02"}
           %li
-            %a{href: 'javascript:;', title: 'Forwarding ports', 'data-content' => "<p>From the command line, run <code>rhc port-forward</code> to access databases or internal ports directly.</p>"} 
+            %a{href: 'javascript:;', title: _('Forwarding ports'), 'data-content' => _("<p>From the command line, run <code>rhc port-forward</code> to access databases or internal ports directly.</p>")} 
               Connect directly to internal services
             %span{'data-icon' => "\uee02"}
 

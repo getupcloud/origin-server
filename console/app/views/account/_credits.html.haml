@@ -1,23 +1,23 @@
-%h2= t('.title')
+%h2 Credit
 
-%p= t('.caption')
+%p Below are you current credit, used on your next invoice.
 
 %table.table.credits
   %tbody
     - if plan[:free_tier].to_i > 0
       %tr
         %td Free Tier:
-        %td #{plan[:free_tier].to_i} #{t('.hours')}/gear small
+        %td #{plan[:free_tier].to_i} #{_('hours')}/gear small
 
     - if plan[:credit].to_f > 0
       %tr
-        %td= t('.credit')
-        %td #{number_with_precision(plan[:credit].to_f, :precision => 2)} #{t('.hours')}/gear small
+        %td Credit:
+        %td #{number_with_precision(plan[:credit].to_f, :precision => 2)} #{_('hours')}/gear small
 
     - if plan[:bonus].to_f > 0
       %tr
         %td Bonus:
-        %td #{number_with_precision(plan[:bonus].to_f, :precision => 2)} #{t('.hours')}/gear small
+        %td #{number_with_precision(plan[:bonus].to_f, :precision => 2)} #{_('hours')}/gear small
 
     - if plan[:voucher].to_f > 0
       %tr
@@ -26,4 +26,4 @@
 
     %tr
       %td.right{:colspan => 2}
-        %a{:href=>getup_credit_url, :target=>'_blank'}= t('.undestand')
+        %a{:href=>getup_credit_url, :target=>'_blank'} Undestand

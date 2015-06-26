@@ -3,9 +3,9 @@ module Console::ModelHelper
 
   def other_cartridges_link(has_suggestions, application)
     if has_suggestions
-      link_to "Or, see the entire list of cartridges you can add", application_cartridge_types_path(application)
+      link_to _("Or, see the entire list of cartridges you can add"), application_cartridge_types_path(application)
     else
-      link_to "Show other cartridges you can add to this application", application_cartridge_types_path(application)
+      link_to _("Show other cartridges you can add to this application"), application_cartridge_types_path(application)
     end
   end
 
@@ -13,11 +13,11 @@ module Console::ModelHelper
     case
     when cartridge.jenkins_client?
       [
-        link_to('configure', application_building_path(application), :title => 'Remove or change your Jenkins configuration'),
-        "<span class=\"url\"><a href=\"#{application.build_job_url}\" target=\"_blank\" title=\"Go to Jenkins Build jobs\" class=\"font-icon-link\"><span class=\"font-icon url-icon\" aria-hidden=\"true\" data-icon=\"\ue002\"></span></a></span>"
+        link_to('configure', application_building_path(application), :title => _('Remove or change your Jenkins configuration')),
+        "<span class=\"url\"><a href=\"#{application.build_job_url}\" target=\"_blank\" title=\"#{_("Go to Jenkins Build jobs")}\" class=\"font-icon-link\"><span class=\"font-icon url-icon\" aria-hidden=\"true\" data-icon=\"\ue002\"></span></a></span>"
       ].join(' ').html_safe
     when cartridge.haproxy_balancer?
-      "<span class=\"url\"><a href=\"#{application.scale_status_url}\" target=\"_blank\" title=\"Go to HAProxy status page\" class=\"font-icon-link\"><span class=\"font-icon url-icon\" aria-hidden=\"true\" data-icon=\"\ue002\"></span></a></span>".html_safe
+      "<span class=\"url\"><a href=\"#{application.scale_status_url}\" target=\"_blank\" title=\"#{_("Go to HAProxy status page")}\" class=\"font-icon-link\"><span class=\"font-icon url-icon\" aria-hidden=\"true\" data-icon=\"\ue002\"></span></a></span>".html_safe
     when cartridge.database?
       name, _ = cartridge.data(:database_name)
       if name
@@ -28,7 +28,7 @@ module Console::ModelHelper
             (@info_id ||= 0)
             link_id = "db_link_#{@info_id += 1}"
             span_id = "db_link_#{@info_id += 1}"
-            "Database: <strong>#{h name}</strong> User: <strong>#{h user}</strong> Password: <strong><a href=\"javascript:;\" id=\"#{link_id}\" data-unhide=\"##{span_id}\" data-hide-parent=\"##{link_id}\">show</a><span id=\"#{span_id}\" class=\"hidden\"> #{h password}</span></strong>".html_safe
+            "Database: <strong>#{h name}</strong> User: <strong>#{h user}</strong> Password: <strong><a href=\"javascript:;\" id=\"#{link_id}\" data-unhide=\"##{span_id}\" data-hide-parent=\"##{link_id}\">#{_("show")}</a><span id=\"#{span_id}\" class=\"hidden\"> #{h password}</span></strong>".html_safe
           else
             "Database: <strong>#{h name}</strong>"
           end
@@ -70,9 +70,9 @@ module Console::ModelHelper
       if !writeable_domains.find(&:allows_gears?)
         has_shared = writeable_domains.find {|d| !d.owner? }
         if has_shared
-          "The owners of the available domains have disabled all gear sizes from being created."
+          _("The owners of the available domains have disabled all gear sizes from being created.")
         else
-          "You have disabled all gear sizes from being created."
+          _("You have disabled all gear sizes from being created.")
         end
       elsif !writeable_domains.find(&:has_available_gears?)
         if not plan[:payment][:valid]
@@ -85,7 +85,7 @@ module Console::ModelHelper
   end
 
   def out_of_gears_message
-    "There are not enough free gears available to create a new application. You will either need to scale down or delete existing applications to free up resources."
+    _("There are not enough free gears available to create a new application. You will either need to scale down or delete existing applications to free up resources.")
   end
 
   def getup_gear_prices
@@ -151,11 +151,11 @@ module Console::ModelHelper
 
   def web_cartridge_scale_title(cartridge)
     if cartridge.current_scale == cartridge.scales_from
-      'Your web cartridge is running on the minimum amount of gears and will scale up if needed'
+      _('Your web cartridge is running on the minimum amount of gears and will scale up if needed')
     elsif cartridge.current_scale == cartridge.scales_to
-      'Your web cartridge is running on the maximum amount of gears and cannot scale up any further'
+      _('Your web cartridge is running on the maximum amount of gears and cannot scale up any further')
     else
-      'Your web cartridge is running multiple copies to handle increased web traffic'
+      _('Your web cartridge is running multiple copies to handle increased web traffic')
     end
   end
 
@@ -163,28 +163,28 @@ module Console::ModelHelper
     suffix = case
       when cartridge.scales_from == cartridge.scales_to
       when cartridge.current_scale == cartridge.scales_from
-        " (max #{cartridge.scales_to})"
+        " (#{_('max')} #{cartridge.scales_to})"
       when cartridge.current_scale == cartridge.scales_to
-        " (min #{cartridge.scales_from})"
+        " (#{_('min')} #{cartridge.scales_from})"
       else
-        " (min #{cartridge.scales_to}, max #{cartridge.scales_to})"
+        " (#{_('min')} #{cartridge.scales_to}, #{_('max')} #{cartridge.scales_to})"
       end
-    "Routing to #{pluralize(cartridge.current_scale, 'web gear')}#{suffix}"
+    _("Routing to %s%s") % [pluralize(cartridge.current_scale, _('web gear')), suffix]
   end
 
   def application_gear_count(application)
     count = application.gear_count
-    return 'no gears' if count == 0
+    return _('no gears') if count == 0
     "#{count} #{application.gear_profile.to_s.humanize.downcase} #{count == 1 ? 'gear' : 'gears'}"
   end
 
   def cartridge_gear_group_count(group)
-    return 'None' if group.gears.empty?
+    return _('None') if group.gears.empty?
     "#{group.gears.length} #{group.gear_profile.to_s.humanize.downcase}"
   end
 
   def gear_group_count_title(total_gears)
-    "OpenShift runs each cartridge inside one or more gears on a server and is allocated a fixed portion of CPU time and memory use."
+    _("OpenShift runs each cartridge inside one or more gears on a server and is allocated a fixed portion of CPU time and memory use.")
   end
 
   def cartridge_storage(cart)
@@ -200,17 +200,17 @@ module Console::ModelHelper
     if (scales = application.cartridges.select(&:scales?)) and scales.present?
       if scales.any?(&:has_scale_range?)
         if scales.none?(&:can_scale_up?)
-          [:max, "#{pluralize(scales.count, 'cartridge')} at maximum scale in this application.  Currently using #{application_gear_count(application)}."]
+          [:max, _("%s at maximum scale in this application.  Currently using %s.") % [pluralize(scales.count, _('cartridge')), application_gear_count(application)]]
         elsif scales.none?(&:can_scale_down?)
-          [:min, "#{pluralize(scales.count, 'cartridge')} at minimum scale in this application.  Currently using #{application_gear_count(application)}."]
+          [:min, _("%s at minimum scale in this application.  Currently using %s.") % [pluralize(scales.count, _('cartridge')), application_gear_count(application)]]
         else
-          [:mid, "#{pluralize(scales.count, 'cartridge')} above minimum scale in this application.  Currently using #{application_gear_count(application)}."]
+          [:mid, _("%s above minimum scale in this application.  Currently using %s.") % [pluralize(scales.count, _('cartridge')), application_gear_count(application)]]
         end
       else
-        [:fixed, "This application running at a fixed scale ratio, and is using #{application_gear_count(application)}."]
+        [:fixed, _("This application is running at a fixed scale ratio, and is using %s.") % application_gear_count(application)]
       end
     else
-      [nil, "Unscaled application using #{application_gear_count(application)}"]
+      [nil, _("Unscaled application using %s") % application_gear_count(application)]
     end
   end
 
@@ -246,10 +246,10 @@ module Console::ModelHelper
   end
   def scale_to_options(obj, max, max_choices=20)
     if range = scale_range(obj.supported_scales_from, obj.supported_scales_to, max, max_choices)
-      range << ['All available', -1] if obj.supported_scales_to == -1
+      range << [_('All available'), -1] if obj.supported_scales_to == -1
       {:as => :select, :collection => range, :include_blank => false}
     else
-      {:as => :string, :hint => 'Use -1 to scale to your current account limits'}
+      {:as => :string, :hint => _('Use -1 to scale to your current account limits')}
     end
   end
 
@@ -262,7 +262,7 @@ module Console::ModelHelper
   end
 
   def scale_options
-    [['No scaling',false],['Scale with web traffic',true]]
+    [[_('No scaling'),false],[_('Scale with web traffic'),true]]
   end
 
   def can_scale_application_type(type, capabilities=nil)
@@ -271,13 +271,13 @@ module Console::ModelHelper
 
   def cannot_scale_title(type, capabilities=nil)
     unless can_scale_application_type(type, capabilities)
-      "This application shares filesystem resources and can't be scaled."
+      _("This application shares filesystem resources and can't be scaled.")
     end
   end
 
   def warn_may_not_scale(type, capabilities=nil)
     if type.may_not_scale?
-      "This application may require additional work to scale. Please see the application's documentation for more information."
+      _("This application may require additional work to scale. Please see the application's documentation for more information.")
     end
   end
 

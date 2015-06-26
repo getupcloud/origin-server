@@ -1,64 +1,68 @@
-= content_for :title, t(".title.#{@type.to_s}")
-= breadcrumb_for_account t(".title.#{@type.to_s}")
-%h1= t ".title.#{@type.to_s}"
+= content_for :title, _("#{@type.to_s.capitalize} Contact")
+= breadcrumb_for_account _("#{@type.to_s.capitalize} Contact")
+%h1= _("#{@type.to_s.capitalize} Contact")
 = flashes
 
 %form.form-horizontal.formtastic.form-address{:action => @action_path, :id => 'form-address', :method => 'post'}
   = token_tag(nil)
-  %p= t(".caption.#{@type.to_s}")
+  - if @type == :billing
+    %p
+    %p We use this information to contact you regarding any billing issue regarding your account.
+  - else
+    %p We use this information to contact you regarding any technical issue we may found in your apps.
 
   - if @type == :billing
     %p
       .string.required.control-group
-        %label.control-label= t('.use_contact_info')
+        %label.control-label Use Primary Contact
         .controls
           = check_box_tag :is_billing, !@address[:is_billing], !@address[:is_billing]
 
   %fieldset.inputs
     .string.required.control-group
-      %label.control-label= t('.name')
+      %label.control-label Name
       .controls
-        = text_field_tag 'name', @address[:name], :placeholder => t('.name'), :class => 'input-xlarge'
+        = text_field_tag 'name', @address[:name], :placeholder => _('Name'), :class => 'input-xlarge'
 
     .string.required.control-group
-      %label.control-label= t('.email')
+      %label.control-label Email
       .controls
-        = text_field_tag 'email', @address[:email], :placeholder => t('.email'), :class => 'input-xlarge'
+        = text_field_tag 'email', @address[:email], :placeholder => _('Email'), :class => 'input-xlarge'
 
     .string.required.control-group
-      %label.control-label= t('.phone')
+      %label.control-label Phone
       .controls
-        = phone_field_tag 'phone', @address[:phone], :placeholder => t('.phone'), :class => 'input-medium'
+        = phone_field_tag 'phone', @address[:phone], :placeholder => _('Phone'), :class => 'input-medium'
 
     .string.required.control-group
-      %label.control-label= t('.address')
+      %label.control-label Address
       .controls
-        = text_field_tag 'line1', @address[:line1], :placeholder => t('.address'), :class => 'input-xlarge'
+        = text_field_tag 'line1', @address[:line1], :placeholder => _('Address'), :class => 'input-xlarge'
 
     .string.required.control-group
       %label.control-label 
       .controls
-        = text_field_tag 'line2', @address[:line2], :placeholder => t('.address'), :class => 'input-xlarge'
+        = text_field_tag 'line2', @address[:line2], :placeholder => _('Address'), :class => 'input-xlarge'
 
     .string.required.control-group
-      %label.control-label= t('.city')
+      %label.control-label City
       .controls
-        = text_field_tag 'city', @address[:city], :placeholder => t('.city'), :class => 'input-xlarge'
+        = text_field_tag 'city', @address[:city], :placeholder => _('City'), :class => 'input-xlarge'
 
     .string.required.control-group
-      %label.control-label= t('.state')
+      %label.control-label State
       .controls
-        = text_field_tag 'state', @address[:state], :placeholder => t('.state'), :class => 'input-medium'
+        = text_field_tag 'state', @address[:state], :placeholder => _('State'), :class => 'input-xlarge'
 
     .string.required.control-group
-      %label.control-label= t('.country')
+      %label.control-label Country
       .controls
         = select_tag :country_code, options_for_select(country_list, @address[:country_code])
 
     .string.required.control-group
-      %label.control-label= t('.postal_code')
+      %label.control-label ZIP Code
       .controls
-        = text_field_tag 'postal_code', @address[:postal_code], :placeholder => t('.postal_code'), :class => 'input-small'
+        = text_field_tag 'postal_code', @address[:postal_code], :placeholder => _('ZIP Code'), :class => 'input-medium'
 
     .string.required.control-group.br-type-control.hidden
       %label.control-label Pessoa Física
@@ -87,5 +91,5 @@
 
   %p
     %fieldset.form-actions
-      = link_to t('.cancel'), account_path, :class => 'btn'
-      %button.btn.btn-danger.update{:type => 'submit'}= t('.save')
+      = link_to _('Cancel'), account_path, :class => 'btn'
+      %button.btn.btn-danger.update{:type => 'submit'}= _('Save')

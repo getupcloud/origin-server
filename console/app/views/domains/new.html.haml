@@ -2,7 +2,7 @@
 
 %h1 Create a Domain
 %p 
-  Domains group applications for collaboration and logical organization.  Each domain name must be unique, and is the suffix of the public URLs we assign to your applications.
-  See #{link_to 'the User Guide', add_domains_user_guide_topic_url}
-  for information about adding a custom domain names to an application.
+  Domains group applications for collaboration and logical organization.
+  Each domain name must be unique, and is the suffix of the public URLs we assign to your applications.
+  See the #{link_to(_('User Guide'), add_domains_user_guide_topic_url)} for information about adding a custom domain names to an application.
 = render :partial => 'form', :locals => { :domain => @domain }

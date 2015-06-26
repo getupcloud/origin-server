@@ -8,6 +8,8 @@ require "rails/test_unit/railtie"
 Bundler.require(*Rails.groups(:default, :assets => %w(development test))) if defined?(Bundler)
 require "console/engine"
 
+Haml::MagicTranslations.enable(:i18n)
+
 module RailsApp
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
@@ -31,6 +33,7 @@ module RailsApp
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
+    config.i18n.load_path += Dir['../../config/locales/*.po']
 
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"

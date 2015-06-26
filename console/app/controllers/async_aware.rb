@@ -57,7 +57,7 @@ module AsyncAware
       @thread, @timeout = thread, timeout
     end
     def to_s
-      "The thread #{thread.inspect} (index=#{thread[:index]}) did not complete within #{@timeout} seconds."
+      _("The thread %s (index=%s) did not complete within %s seconds.") % [thread.inspect, thread[:index], @timeout]
     end
   end
 end

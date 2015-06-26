@@ -1,4 +1,4 @@
-- content_for :page_title, "Create a New Application"
+- content_for :page_title, _("Create a New Application")
 
 %h1.invisible Configure New Application
 = app_wizard_steps_create 1
@@ -35,28 +35,28 @@
           = popover("Description", @application_type.description)
 
           - if @application_type.cartridge?
-            %span.font-icon.font-icon-size-16.font-icon-grey{"aria-hidden" => "true", "data-icon" => "\uee51", "title" => "Cartridge"}
+            %span.font-icon.font-icon-size-16.font-icon-grey{"aria-hidden" => "true", "data-icon" => "\uee51", "title" => _("Cartridge")}
           - elsif @application_type.quickstart?
-            %span.font-icon.font-icon-size-16.font-icon-grey{"aria-hidden" => "true", "data-icon" => "\ue029", "title" => "QuickStart"}
+            %span.font-icon.font-icon-size-16.font-icon-grey{"aria-hidden" => "true", "data-icon" => "\ue029", "title" => _("QuickStart")}
 
       .controls
         - if @application_type.persisted?
           - if @application_type.learn_more_url
             %p.help-block= link_to "Learn more", @application_type.learn_more_url
           - elsif @application_type.website
-            %p.help-block= link_to @application_type.website, @application_type.website
+            %p.help-block= link_to(@application_type.website, @application_type.website)
 
 
           .help-block
             %dl.font-icon-legend
               - if @application_type.support_type == :openshift
                 %dt
-                  %span.icon-star-empty{"aria-hidden" => "true", :title => "OpenShift maintained"}
+                  %span.icon-star-empty{"aria-hidden" => "true", :title => _("OpenShift maintained")}
                 %dd{:title => 'Updated and maintained by the OpenShift team'} OpenShift maintained
             
               - if @application_type.automatic_updates?
                 %dt
-                  %span.icon-shield{"aria-hidden" => "true", "title" => "Security updates"}
+                  %span.icon-shield{"aria-hidden" => "true", "title" => _("Security updates")}
                 %dd 
                   Receives automatic security updates
 
@@ -79,7 +79,7 @@
         - else
           %p.help-block 
             This application is based on a URL.
-            -# If you want others to see this application, #{link_to "create a quickstart in our community", create_quickstart_url}.
+            -# If you want others to see this application, #{link_to(_("create a quickstart in our community"), create_quickstart_url)}.
           %p.help-block= link_to "Share this link", application_type_url(@application_type.id, @application_type.to_params)
 
     -# This is implemented custom here rather than integrating into Formtastic because of its specific nature
@@ -113,20 +113,20 @@
         = f.inline_errors_for :domain_name
       .controls
         %p.help-block
-          OpenShift will automatically register this domain name for your application.  You can add
-          your own domain name later.
+          OpenShift will automatically register this domain name for your application.
+          You can add your own domain name later.
 
     = control_group(e.has_key?(:gear_profile), :important => true, :class => 'odd') do
       %h3.control-label Gears
       .controls.first
         - if @gear_sizes.length > 1
           = f.select :gear_profile, @gear_sizes.map{ |size| [size.to_s.titleize, size]}, {}
-          = popover("Gears", t('.gears.popover_select'))
+          = popover("Gears", _('For applications in dev stage or the light ones (e.g. node.js), you can use the small gear.\nIf you require more resources, select a larger gear size."))
 
         - else
           %h3
             = @gear_sizes.first.to_s.titleize
-            = popover("Gears", t('.gears.popover_validate', account_url: account_url))
+            = popover("Gears", _("In order to have access to more gear sizes, please %s.") % link_to(_('validate your account'), account_url))
           = f.hidden_field :gear_profile, :value => @gear_sizes.first.to_s
         = f.inline_errors_for :gear_profile
 
@@ -153,8 +153,7 @@
         %p.help-block
           OpenShift automatically routes web requests to your web gear.
           - if can_scale
-            If you allow your application to scale, we'll set up a load balancer and
-            allocate more gears to handle traffic as you need it.
+            If you allow your application to scale, we'll set up a load balancer and allocate more gears to handle traffic as you need it.
 
           - else
             %span.text-warning= scale_reason
@@ -220,8 +219,8 @@
                 copy of the code and configuration provided in this Git repository. 
 
   = f.buttons do
-    = link_to "Back", application_types_path, :class => 'btn'
-    = f.commit_button :button_html => { :disabled => @disabled }
+    = link_to _("Back"), application_types_path, :class => 'btn'
+    = f.commit_button :button_html => { :disabled => @disabled }, :label => _("Create Application")
     %span#gear_increase
       = gear_increase_indicator(@cartridges, @application.scales?, @application.gear_profile, false, @domain_capabilities, @domain_usage_rates, @is_domain_owner)
     = f.loading

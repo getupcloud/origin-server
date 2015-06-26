@@ -279,24 +279,24 @@ module Console::HelpHelper
   def console_help_links
     [
       {:href => developers_url,
-       :name => 'Developer Center'},
+       :name => _('Developer Center')},
       {:href => user_guide_url,
-       :name => 'OpenShift User Guide'},
+       :name => _('OpenShift User Guide')},
       {:href => getting_started_path,
-       :name => 'Installing OpenShift client tools on Mac OSX, Linux, and Windows'},
+       :name => _('Installing OpenShift client tools on Mac OSX, Linux, and Windows')},
       {:href => sync_git_with_remote_repo_knowledge_base_url,
-       :name => 'Sync your OpenShift repo with an existing Git repo'}
+       :name => _('Sync your OpenShift repo with an existing Git repo')}
     ]
   end
 
   def console_faq_links
     [
       {:href => getup_forum_article_url('23608756'),
-       :name => :faq_own_domain},
+       :name => _("How to use my own domain?")},
       {:href => cli_on_windows_user_guide_topic_url,
-       :name => :faq_install_win},
+       :name => _("How to install rhc client tool for Windows?")},
       {:href => getup_forum_article_url('23042806'),
-       :name => :faq_pub_site}
+       :name => _("How to publish my site files? which tools shoud I use?")}
     ]
   end
 

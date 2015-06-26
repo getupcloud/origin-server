@@ -6,7 +6,7 @@
 - else
   %h1 Next Steps
 
-%p.larger Your cartridge has been added. #{link_to "Return to the application overview page", application_path(@application)}.
+%p.larger! Your cartridge has been added. #{link_to(_("Return to the application overview page"), application_path(@application))}.
 
 = flashes
 
@@ -16,10 +16,8 @@
     %h2 Managing your cartridge
     %p
       Most of the capabilities of OpenShift are exposed through our command line tool, <code>rhc</code>.
-      Whether it's adding cartridges, checking uptime, or pulling log files from
-      the server, you can quickly put a finger on the pulse of your application.
-      #{link_to "Follow these steps to install the client", getting_started_guide_url}
-      on Linux, Mac OS X, or Windows.
+      Whether it's adding cartridges, checking uptime, or pulling log files from the server, you can quickly put a finger on the pulse of your application.
+      #{link_to(_("Follow these steps to install the client"), getting_started_guide_url)} on Linux, Mac OS X, or Windows.
 
     %p
       You can get a list of cartridges by running
@@ -54,6 +52,4 @@
 
     %h2 Accessing your application
     %p 
-      The 
-      = link_to "application overview page", application_path(@application)
-      provides a summary of your application and its cartridges.
+      The #{link_to(_("application overview page"), application_path(@application))} provides a summary of your application and its cartridges.

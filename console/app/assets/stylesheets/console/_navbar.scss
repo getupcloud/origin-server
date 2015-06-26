@@ -168,13 +168,13 @@
             border-top-color: #333 !important;
           }
           &:hover, &:active {
-            background: transparent;
+            //background: transparent;
             opacity: 1;
           }
         }
       }
       > .active > a, > .active > a:hover, > .active > a:focus, > .open > a, > .open > a:hover, > .open > a:focus {
-        background: transparent;
+        //background: transparent;
         opacity: 1;
       }
     }

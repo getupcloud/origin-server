@@ -17,8 +17,8 @@ class ApplicationTypesController < ConsoleController
       ['Node.js', :nodejs],
       ['Perl', :perl],
       nil,
-      ['All web cartridges', :cartridge],
-      ['All instant applications', :instant_app],
+      [_('All web cartridges'), :cartridge],
+      [_('All instant applications'), :instant_app],
       nil,
       #['xPaaS', :xpaas],
       ['Blogs', :blog],
@@ -30,12 +30,12 @@ class ApplicationTypesController < ConsoleController
 
     if @tag = params[:tag].presence
       types = ApplicationType.tagged(@tag)
-      @type_groups = [["Tagged with #{Array(@tag).to_sentence}", types.sort!]]
+      @type_groups = [[_("Tagged with %s") % Array(@tag).to_sentence, types.sort!]]
 
       render :search
     elsif @search = params[:search].presence
       types = ApplicationType.search(@search)
-      @type_groups = [["Matches search '#{@search}'", types]]
+      @type_groups = [[_("Matches search '%s'") % @search, types]]
 
       render :search
     else
@@ -48,7 +48,7 @@ class ApplicationTypesController < ConsoleController
         g[0] = I18n.t(g[0], :scope => :types, :default => g[0].to_s.titleize)
       end
       @custom_types, other = other.partition{ |t| t.tags.include?(:custom) } if RestApi.download_cartridges_enabled?
-      groups << ['Other types', other.sort!] unless other.empty?
+      groups << [_('Other types'), other.sort!] unless other.empty?
       @type_groups = groups
     end
   end
@@ -84,10 +84,10 @@ class ApplicationTypesController < ConsoleController
     unless @unlock_cartridges
       begin
         @cartridges, @missing_cartridges = @application_type.matching_cartridges
-        flash.now[:error] = "No cartridges are defined for this type - all applications require at least one web cartridge" unless @cartridges.present?
+        flash.now[:error] = _("No cartridges are defined for this type - all applications require at least one web cartridge") unless @cartridges.present?
       rescue ApplicationType::CartridgeSpecInvalid
         logger.debug $!
-        flash.now[:error] = "The cartridges defined for this type are not valid.  The #{@application_type.source} may not be correct."
+        flash.now[:error] = _("The cartridges defined for this type are not valid.  The %s may not be correct.") % @application_type.source
       end
       @disabled = @missing_cartridges.present? || @cartridges.blank?
     end

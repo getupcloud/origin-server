@@ -1,75 +1,74 @@
-%h2= t('.authorization')
+%h2 Payment
 
-//%pre
-//  = payment
+//%p.total-gears You have #{pluralize(capabilities.gears_free, _('gear available'), _('gears available'))} of #{capabilities.max_gears} total.
 
 - if plan[:status] == 'te' or plan[:status] == 'tf'
-  %p= t('.trial_finished')
+  %p
+    Your trial period has finished.
+    Please validate your account below in order to have access to more resources.
 
-%p.total-gears= t('.available_gears', gears_free: capabilities.gears_free, max_gears: capabilities.max_gears).html_safe
-
-- if payment[:valid]
+- if not payment[:valid]
 
   %table.table.payment-data
     %body
       - if payment[:type] == 'paypal_reftrans'
         %tr
-          %td= t('.current_payment_method') + ':'
+          %td Current Payment Method:
           %td PayPal (Express Checkout)
         %tr
-          %td{:scope => 'col'}= t('.paypal_account') + ':'
+          %td{:scope => 'col'} Paypal Account:
           %td{:scope => 'row'}= payment[:email]
         %tr
-          %td{:scope => 'col'}= t('.date') + ':'
+          %td{:scope => 'col'} Date:
           %td{:scope => 'row'}= payment[:create_date]
         %tr
-          %td{:scope => 'col'}= t('.id') + ':'
+          %td{:scope => 'col'} Id:
           %td{:scope => 'row'}= payment[:billing_agreement_id]
 
       - elsif payment[:type] == 'paypal'
         %tr
-          %td= t('.current_payment_method')
+          %td Current Payment Method:
           %td PayPal (PreApproval Key)
         %tr
-          %th{:scope => 'col'}= t('.paypal_account') + ':'
+          %th{:scope => 'col'} Paypal Account:
           %td{:scope => 'row'}= payment[:email]
         %tr
-          %th{:scope => 'col'}= t('.amount') + ':'
+          %th{:scope => 'col'} Amount
           %td{:scope => 'row'}= payment[:amount]
         %tr
-          %th{:scope => 'col'}= t('.date') + ':'
+          %th{:scope => 'col'} Date:
           %td{:scope => 'row'}= payment[:create_date]
         %tr
-          %th{:scope => 'col'}= t('.pa_key') + ':'
+          %th{:scope => 'col'} Key:
           %td{:scope => 'row'}= payment[:key]
 
       - elsif payment[:type] == 'creditcard'
         %tr
-          %td= t('.current_payment_method') + ':'
+          %td Current Payment Method:
           %td Credit Card
         %tr
-          %th{:scope => 'col'}= t('.brand') + ':'
+          %th{:scope => 'col'} Brand:
           %td{:scope => 'row'}= payment[:brand]
         %tr
-          %th{:scope => 'col'}= t('.last_digits') + ':'
+          %th{:scope => 'col'} Last Digits:
           %td{:scope => 'row'}= '**** **** **** ' + payment[:last_digits]
         %tr
-          %th{:scope => 'col'}= t('.holder_hame') + ':'
+          %th{:scope => 'col'} Holder Name:
           %td{:scope => 'row'}= payment[:holder_name]
         %tr
-          %th{:scope => 'col'}= t('.date') + ':'
+          %th{:scope => 'col'} Date:
           %td{:scope => 'row'}= payment[:create_date]
       - elsif payment[:type] == 'boleto'
         %tr
-          %td= t('.current_payment_method') + ':'
+          %td Current Payment Method:
           %td Boleto Bancário
 
-  %button.btn.btn-primary{:type => 'button', 'data-toggle' => 'collapse', 'data-target' => "#collapsePayment", 'aria-expanded' => "false", 'aria-controls' => "collapsePayment"}= t('.change_payment_method')
+  %button.btn.btn-primary{:type => 'button', 'data-toggle' => 'collapse', 'data-target' => "#collapsePayment", 'aria-expanded' => "false", 'aria-controls' => "collapsePayment"} Change Payment Method
 
   .collapse{:id => 'collapsePayment'}
     .well
       = render :partial => 'payment_method'
 
 - else
-  %p= t('validate_your_account')
+  %p Please validate your account below in order to have access to more resources.
   = render :partial => 'payment_method'

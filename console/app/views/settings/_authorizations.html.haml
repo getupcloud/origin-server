@@ -20,6 +20,6 @@
         %td{:title => authorization.expires_at.to_s(:rfc822)}= distance_of_time_in_words(authorization.expires_at, Time.now)
 
 .btn-toolbar
-  = link_to "Add authorization...", new_authorization_path, :class => 'btn btn-small'
+  = link_to _("Add authorization..."), new_authorization_path, :class => 'btn btn-small'
   - if authorizations.present?
-    = link_to "Revoke all", authorizations_path, :class => 'btn btn-small', :method => :delete, :confirm => "Are you sure you want to revoke all authorizations for this account? This will end any active sessions immediately."
+    = link_to _("Revoke all"), authorizations_path, :class => 'btn btn-small', :method => :delete, :confirm => _("Are you sure you want to revoke all authorizations for this account? This will end any active sessions immediately.")

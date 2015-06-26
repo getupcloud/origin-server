@@ -1,6 +1,6 @@
-- content_for :page_title, I18n.t('getup.account.credit_card.Credit_Card')
+- content_for :page_title, _("Credit Card")
 
-%h1= I18n.t('getup.account.credit_card.Provide_your_Credit_Card_Information')
+%h1 Fill in your Credit Card Information
 = flashes
 
 %section
@@ -9,33 +9,33 @@
 
     %div.credit-card-input.no-js{id: "skeuocard"}
       %p.no-support-warning
-        = I18n.t(:validate_not_supported)
+        Your browser doesn't seams to support JavaScript
 
       %div.flip-tab
 
-      %label.control-label{'for' => 'cc_type'}= t 'getup.credit_card.Type'
+      %label.control-label{'for' => 'cc_type'} Type
       = select_tag :cc_type, options_for_select(credit_card_list, '')
 
-      %label.control-label{'for' => 'cc_number'}= t 'getup.credit_card.Number'
+      %label.control-label{'for' => 'cc_number'} Number
       = text_field_tag :cc_number, nil, :placeholder => "XXXXXXXXXXXXXXXX", maxlength: "16", size: "16"
 
-      %label.control-label{'for' => 'cc_exp_month'}= t 'getup.credit_card.Expiration_Month'
+      %label.control-label{'for' => 'cc_exp_month'} Expiration Month
       = text_field_tag :cc_exp_month, nil, :placeholder => "00", maxlength: "2", size: "2"
 
-      %label.control-label{'for' => 'cc_exp_year'}= t 'getup.credit_card.Expiration_Year'
+      %label.control-label{'for' => 'cc_exp_year'} Expiration Year
       = text_field_tag :cc_exp_year, nil, :placeholder => "00", maxlength: "2", size: "2"
 
-      %label.control-label{'for' => 'cc_name'}= t 'getup.credit_card.Holder_Name'
-      = text_field_tag :cc_name, nil
+      %label.control-label{'for' => 'cc_name'} Holder Name
+      = text_field_tag :cc_name, nil, :placeholder => _('Your Name')
 
-      %label.control-label{'for' => 'cc_cvc'}= t 'getup.credit_card.Validation_Code'
+      %label.control-label{'for' => 'cc_cvc'} Validation Code
       = text_field_tag :cc_cvc, nil, :placeholder => "XXX", maxlength: "3", size: "3"
 
     %br
 
     %p
       = link_to I18n.t(:Cancel), account_path, :class => 'btn'
-      %button.btn.btn-danger.btn-validate{:type => 'submit'}= I18n.t(:Validate)
+      %button.btn.btn-danger.btn-validate{:type => 'submit'} Validate
 
   %span.hidden.validate_error_message=I18n.t(:validate_verify)
 

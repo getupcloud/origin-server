@@ -4,28 +4,28 @@ module Console::CostHelper
     min = range.begin
     max = range.end
     increasing = (min > 0 || max > 0)
-    owner = yours ? "your" : "the domain owner's"
+    owner = yours ? _("your") : _("the domain owner's")
     cost, title =
       if gear_increase_cost(min, capabilities, usage_rates)
-        [true, "This will add #{pluralize(min, 'gear')} to #{owner} account and will result in additional charges."]
+        [true, _("This will add %s to %s account and will result in additional charges.") % [pluralize(min, 'gear'), owner]]
       elsif gear_increase_cost(max, capabilities, usage_rates)
-        [true, "This will add at least #{pluralize(min, 'gear')} to #{owner} account and may result in additional charges."]
+        [true, _("This will add at least %s to %s account and may result in additional charges.") % [pluralize(min, 'gear'), owner]]
       elsif !increasing
-        [false, "No gears will be added to #{owner} account."]
+        [false, _("No gears will be added to %s account.") % owner]
       elsif max == Float::INFINITY
-        [false, "This will add an unknown number of gears to #{owner} account."]
+        [false, _("This will add an unknown number of gears to %s account.") % owner]
       elsif min != max
-        [false, "This will add between #{min} and #{max} gears to #{owner} account."]
+        [false, _("This will add between %s and %s gears to %s account.") % [min, max, owner]]
       else
-        [false, "This will add #{pluralize(min, 'gear')} to #{owner} account."]
+        [false, _("This will add %s to %s account.") % [pluralize(min, 'gear'), owner]]
       end
     if cartridges_premium(cartridges, usage_rates)
       cost = true
-      title = "#{title} Additional charges may be accrued for premium cartridges."
+      title = _("%s Additional charges may be accrued for premium cartridges.") % title
     end
     if increasing && gear_types_with_cost(usage_rates).include?(gear_type)
       cost = true
-      title = "#{title} The selected gear type will have additional hourly charges."
+      title = _("%s The selected gear type will have additional hourly charges.") % title
     end
 
     content_tag(:span,
@@ -74,6 +74,6 @@ module Console::CostHelper
   end
 
   def usage_rate_indicator
-    content_tag :span, user_currency_symbol, :class => "label label-premium", :title => 'May include additional usage fees at certain levels, see plan for details.'
+    content_tag :span, user_currency_symbol, :class => "label label-premium", :title => _('May include additional usage fees at certain levels, see plan for details.')
   end
 end

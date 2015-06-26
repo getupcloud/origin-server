@@ -18,9 +18,9 @@ class SettingsController < ConsoleController
     update_sshkey_uploaded(@keys)
 
     if @domains.blank?
-      flash.now[:info] = "You need to set a namespace before you can create applications"
+      flash.now[:info] = _("You need to set a namespace before you can create applications")
     elsif @keys.blank?
-      flash.now[:info] = "You need to set a public key before you can work with application code"
+      flash.now[:info] = _("You need to set a public key before you can work with application code")
     end
   end
 

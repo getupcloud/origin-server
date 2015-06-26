@@ -8,10 +8,8 @@
 %title
   - if content_for? :page_title
     = yield :page_title
-    |
   - elsif content_for? :title
     = yield :title
-    |
   = product_title
 
 -#%meta{ :name => "description", :content => "" }/

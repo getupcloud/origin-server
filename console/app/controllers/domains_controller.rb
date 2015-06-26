@@ -26,7 +26,7 @@ class DomainsController < ConsoleController
       if @referrer and (domain_param = params[:domain_param]).present?
         @referrer = rewrite_url(@referrer, { domain_param => @domain.name }) rescue nil
       end
-      redirect_to @referrer || settings_path, :flash => {:success => "The domain '#{@domain.name}' has been created"}
+      redirect_to @referrer || settings_path, :flash => {:success => _("The domain '%s' has been created") % @domain.name}
     else
       render :new
     end
@@ -41,7 +41,7 @@ class DomainsController < ConsoleController
     @domain.attributes.merge!(params[:domain]) if params[:domain]
 
     if @domain.save or @domain.has_exit_code?(133)
-      redirect_to domain_path(@domain), :flash => {:success => @domain.messages.first.presence || "The domain '#{@domain.name}' has been updated."}
+      redirect_to domain_path(@domain), :flash => {:success => @domain.messages.first.presence || _("The domain '%s' has been updated.") % @domain.name}
     else
       render :edit
     end
@@ -50,7 +50,7 @@ class DomainsController < ConsoleController
   def delete
     @domain = Domain.find(params[:id].to_s, :params => {:include => :application_info}, :as => current_user)
     if @domain.application_count > 0
-      flash[:info] = "All applications must be removed from this domain before it can be deleted"
+      flash[:info] = _("All applications must be removed from this domain before it can be deleted")
       redirect_to domain_path(@domain)
     end
   end
@@ -58,7 +58,7 @@ class DomainsController < ConsoleController
   def destroy
     @domain = Domain.find(params[:id].to_s, :params => {:include => :application_info}, :as => current_user)
     if @domain.destroy
-      redirect_to settings_path, :flash => {:success => "The domain '#{@domain.name}' has been deleted"}
+      redirect_to settings_path, :flash => {:success => _("The domain '%s' has been deleted") % @domain.name}
     else
       render :delete
     end

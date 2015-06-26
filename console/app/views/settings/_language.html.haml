@@ -1,4 +1,4 @@
-%h2= I18n.t(:Language)
+%h2= _("Idiom")
 
 .btn-toolbar
   = semantic_form_for :lang,
@@ -7,8 +7,8 @@
                       :url => language_path do |f|
     = f.inputs :inline => true, :without_errors => true do
       .input-prepend
-        %span.add-on= I18n.t(:select_language)
-        = f.input :select, {collection: options_for_select({I18n.t(:en) => 'en-us', I18n.t(:pt) => 'pt-br'}, session[:lang]), :include_blank => false, :input_html => {:style => 'width: auto', :title => I18n.t(:select_language) }}
+        %span.add-on Select console idiom
+        = f.input :select, {collection: options_for_select({_('en') => 'en-us', _('pt-br') => 'pt-br'}, session[:lang]), :include_blank => false, :input_html => {:style => 'width: auto', :title => I18n.t(:select_language) }}
 
 - content_for :javascripts do
   :javascript

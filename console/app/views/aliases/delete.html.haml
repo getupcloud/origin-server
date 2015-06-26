@@ -1,12 +1,12 @@
-- content_for :page_title, "Delete Alias from " + @application.name
+- content_for :page_title, _("Delete Alias from %s") % @application.name
 
-%h1 Delete Alias from #{link_to @application.name, application_path(@application)}
+%h1! Delete Alias from #{link_to(@application.name, application_path(@application))}
 =flashes
 
 - url = application_alias_path(@alias, :application_id => @application.id)
 = semantic_form_for @application, :url => url, :html => {:method => :delete, :class => 'form'} do |f|
 
-  %p If you delete the alias <code>#{@alias.name}</code>, your app will not be accessible from this URL. Deleting this alias will also delete the certificate.
+  %p! If you delete the alias <code>#{@alias.name}</code>, your app will not be accessible from this URL. Deleting this alias will also delete the certificate.
 
   %p Are you sure you wish to delete the alias?
 
@@ -14,6 +14,6 @@
     = a.semantic_errors
 
   = f.buttons do
-    = link_to 'Cancel', @referer || application_path(@application), :class => 'btn'
-    = f.commit_button :label => "Delete Alias", :button_html => {:class => 'btn btn-danger'}
+    = link_to(_('Cancel'), @referer || application_path(@application), :class => 'btn')
+    = f.commit_button :label => _("Delete Alias"), :button_html => {:class => 'btn btn-danger'}
     = f.loading

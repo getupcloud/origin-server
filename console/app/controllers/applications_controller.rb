@@ -22,7 +22,7 @@ class ApplicationsFilter
 
   def apply(applications)
     @filtered = !applications.empty?
-    @type_options = [['All','']]
+    @type_options = [[_('All'),'']]
 
     types = {}
     applications.select do |application|
@@ -98,7 +98,7 @@ class ApplicationsController < ConsoleController
   def destroy
     @application = Application.find(params[:id], :as => current_user)
     if @application.destroy
-      redirect_to applications_path, :flash => {:success => "The application '#{@application.name}' has been deleted"}
+      redirect_to applications_path, :flash => {:success => _("The application '%s' has been deleted") % @application.name}
     else
       render :delete
     end
@@ -133,10 +133,10 @@ class ApplicationsController < ConsoleController
     unless @unlock_cartridges
       begin
         @cartridges, @missing_cartridges = @application_type.matching_cartridges
-        flash.now[:error] = "No cartridges are defined for this type - all applications require at least one web cartridge" unless @cartridges.present?
+        flash.now[:error] = _("No cartridges are defined for this type - all applications require at least one web cartridge") unless @cartridges.present?
       rescue ApplicationType::CartridgeSpecInvalid
         logger.debug $!
-        flash.now[:error] = "The cartridges defined for this type are not valid.  The #{@application_type.source} may not be correct."
+        flash.now[:error] = _("The cartridges defined for this type are not valid.  The %s may not be correct.") % @application_type.source
       end
       @disabled = @missing_cartridges.present? || @cartridges.blank?
     end
@@ -159,7 +159,7 @@ class ApplicationsController < ConsoleController
         if @domain.editor?
           @application.domain = @domain
         else
-          @application.errors.add(:domain_name, "You cannot create applications in the '#{domain_name}' namespace")
+          @application.errors.add(:domain_name, _("You cannot create applications in the '%s' namespace") % domain_name)
           valid = false
         end
       rescue RestApi::ResourceNotFound
@@ -186,7 +186,7 @@ class ApplicationsController < ConsoleController
         render 'application_types/show'
       end
     rescue ActiveResource::TimeoutError
-      redirect_to applications_path, :flash => {:error => "Application creation is taking longer than expected. Please wait a few minutes, then refresh this page."}
+      redirect_to applications_path, :flash => {:error => _("Application creation is taking longer than expected. Please wait a few minutes, then refresh this page.")}
     end
   end
 

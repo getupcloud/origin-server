@@ -41,10 +41,10 @@
                   %td.span3= scope[:id]
                   %td= scope[:description]
 
-    = f.input :note, :as => :text, :label => 'Description of what this authorization is for', :input_html => {:class => 'span8', :rows => 2}
+    = f.input :note, :as => :text, :label => _('Description of what this authorization is for'), :input_html => {:class => 'span8', :rows => 2}
 
   = f.buttons do
-    = link_to "Cancel", settings_path, :class => 'btn'
-    = f.commit_button :label => 'Create'
+    = link_to _("Cancel"), settings_path, :class => 'btn'
+    = f.commit_button :label => _('Create')
     = f.loading
 

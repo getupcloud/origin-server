@@ -20,12 +20,12 @@ module Console
         alternatives = begin
             if Application == e.model
               @domain.applications.map do |app|
-                ["Application #{app.name}", application_path(app)]
+                [_("Application %s") % app.name, application_path(app)]
               end.tap do |links|
-                links << ['Create a new application', new_application_path] if links.empty?
+                links << [_('Create a new application'), new_application_path] if links.empty?
               end if @domain rescue nil
             elsif ApplicationType == e.model
-              [['See other application types', application_types_path]]
+              [[_('See other application types'), application_types_path]]
             end
           end if e.respond_to? :model
 

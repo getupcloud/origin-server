@@ -1,21 +1,21 @@
-= content_for :title, t('.title')
-= breadcrumb_for_account t('.title')
+= content_for :title, _("Invoices")
+= breadcrumb_for_account _("Invoices")
 
 = flashes
 
 .row.billing-history
   .span12
     %section
-      %h2= t('.title')
+      %h2 Invoice History
 
       %table.table.table-fixed
         %thead
           %tr
-            %th{:scope => 'col'}= t('.col.id')
-            %th{:scope => 'col'}= t('.col.month')
-            %th{:scope => 'col'}= t('.col.processed')
-            %th{:scope => 'col'}= t('.col.status')
-            %th.amount{:scope => 'col'}= t('.col.amount') + " (#{@userinfo[:currency]})"
+            %th{:scope => 'col'} Number
+            %th{:scope => 'col'} Reference Month
+            %th{:scope => 'col'} Processing Date
+            %th{:scope => 'col'} Status
+            %th.amount{:scope => 'col'} #{_("Amount")} (#{@userinfo[:currency]})
         %tbody
           - @history.each do |h|
             %tr{:style => 'cursor: pointer; cursor: hand;', :data => {:href => account_billing_path(h[:number])}}
@@ -25,7 +25,7 @@
               %td #{ref_date}
               - proc_date = !h[:proc_date].nil? ? Date.strptime("#{h[:proc_date]}","%Y-%m-%d").strftime("%h %d, %Y") : '-'
               %td #{proc_date}
-              %td #{h[:status].capitalize}
+              %td #{_(h[:status]).capitalize}
               %td.amount #{h[:amount]}
 
 - content_for :javascripts do

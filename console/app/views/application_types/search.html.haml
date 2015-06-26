@@ -9,15 +9,12 @@
   .span6
     .gutter-bottom
       %p.larger
-        Choose a web programming cartridge or kick the tires with a
-        quickstart. After you create the application 
-        you can <strong>add cartridges to enable additional 
-        capabilities</strong> like databases, metrics, and continuous build 
-        support with Jenkins.
+        Choose a web programming cartridge or kick the tires with a quickstart.
+        After you create the application  you can <strong>add cartridges to enable additional capabilities</strong> like databases, metrics, and continuous build support with Jenkins.
 
       %form.form-search.form-search-block{:id => 'form-search-create-apps', :method => 'get'}
         %label.invisible{:for => 'search'} Search by keyword or tag
-        %input.search-query{:type => 'text', :id => 'search', :name => 'search', :placeholder => 'Search by keyword or tag', :value => @search}    
+        %input.search-query{:type => 'text', :id => 'search', :name => 'search', :placeholder => _('Search by keyword or tag'), :value => @search}    
         %button.search.font-icon{:type => 'submit', "aria-hidden" => "true", "data-icon" => "\uee03"} 
 
       - if @browse_tags.present?
@@ -41,8 +38,7 @@
       %dt
         %span.font-icon{"aria-hidden" => "true", "data-icon" => "\ue029", "title" => 'QuickStart icon'}
       %dd
-        <b>QuickStart</b> &ndash; A quick way to try out a new technology with code and libraries preconfigured. You are 
-        responsible for updating core libraries for security updates.
+        <b>QuickStart</b> &ndash; A quick way to try out a new technology with code and libraries preconfigured. You are responsible for updating core libraries for security updates.
       %dt
         %span.font-icon{"aria-hidden" => "true", "data-icon" => "\uee50", "title" => 'Security icon'}
       %dd
@@ -70,11 +66,11 @@
             %h3.divide= title
             = render :collection => types, :locals => {:excluded_tags => []}
 
-  %p #{link_to "See all application types", application_types_path}
+  %p= link_to(_("See all application types"), application_types_path)
 
 %section
   %p
     Can't find what you're looking for? Try broadening your search or filtering by another tag.
     -#%p
-      Can't find what you're looking for? #{link_to "Browse the Quickstarts", community_quickstarts_url} 
-      on our community, or #{link_to "create your own!", create_quickstart_url}
+      Can't find what you're looking for? #{link_to(_("Browse the Quickstarts"), community_quickstarts_url)} 
+      on our community, or #{link_to(_("create your own!"), create_quickstart_url)}

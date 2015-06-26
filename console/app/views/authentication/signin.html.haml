@@ -1,4 +1,4 @@
-- content_for :title, t('.authentication')
+- content_for :title, _("Welcome to Getup Cloud")
 
 %div.content
   %header.getup
@@ -7,20 +7,20 @@
 
   %section.auth
     %div.signin{ :id => 'signin' }
-      %h2= t('.title')
+      %h2= _("Welcome to Getup Cloud")
       %form{:action => auth_path, :id => 'form-authentication', :method => 'post'}
         %fieldset
           = token_tag(nil)
         %fieldset
-          = email_field_tag 'login', '', :placeholder => "Email", :required => ''
+          = email_field_tag 'login', '', :placeholder => _("Email"), :required => ''
         %fieldset
-          = password_field_tag 'password', '', :placeholder => t(".password"), :required => ''
+          = password_field_tag 'password', '', :placeholder => _("Password"), :required => ''
         .pull-left
           %img{:src => image_path('astro-left.png')}
         .pull-right
           %fieldset
-            %button.getup-sprite= t('.sign_in')
+            %button.getup-sprite Sign In
           %fieldset
-            = link_to t(".lost_password"), password_reset_path, :id =>  'forgot'
+            = link_to _("Forgot your password?"), password_reset_path, :id => 'forgot'
 
     = flashes

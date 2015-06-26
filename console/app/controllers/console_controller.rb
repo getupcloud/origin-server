@@ -4,6 +4,7 @@ class ConsoleController < Console.config.parent_controller.constantize
   include DomainAware
   include SshkeyAware
   include CostAware
+  include LocaleAware
   include Console::CommunityAware
   include Console::LogHelper
   include Console::ErrorsHelper

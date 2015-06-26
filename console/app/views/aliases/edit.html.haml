@@ -1,12 +1,11 @@
 - content_for :page_title, "Alias '#{@alias.name}'"
 
-%h1 Alias '#{@alias.name}' from #{link_to @application.name, application_path(@application)}
+%h1! Alias '#{@alias.name}' from #{link_to(@application.name, application_path(@application))}
 =flashes
 
 %section
   %p
-    To successfully use this alias, you must have an active 
-    = link_to('CNAME record with your DNS provider', alias_docs_url) << '.'
+    To successfully use this alias, you must have an active #{link_to(_('CNAME record with your DNS provider'), alias_docs_url)}.
     The alias is
     %strong= @alias.name
     and the destination app is

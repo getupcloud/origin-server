@@ -1,6 +1,6 @@
 - content_for :page_title, 'Change Gear Storage'
 
-%h1 Change Gear Storage for #{link_to @application.name, application_path(@application)}
+%h1! Change Gear Storage for #{link_to(@application.name, application_path(@application))}
 = flashes
 
 %section#storage-gear-groups
@@ -71,8 +71,7 @@
             = f.loading
 
   %p
-    For more information about storage for your application see
-    #{link_to 'our FAQ on storage', storage_help_url}.
+    For more information about storage for your application see #{link_to(_('our FAQ on storage'), storage_help_url)}.
 
 - content_for :javascripts do
   - if @can_modify_storage

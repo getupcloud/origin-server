@@ -37,12 +37,22 @@ module Console::LayoutHelper
       })
     end
 
-    content_tag(
-      :li,
+    link = if options[:target]
       link_to(
         options[:name] || (!block.nil? ? capture(&block) : nil) || ActiveSupport::Inflector.humanize(name),
-        url
-      ),
+        url,
+        :target => options[:target]
+      )
+    else
+      link_to(
+        options[:name] || (!block.nil? ? capture(&block) : nil) || ActiveSupport::Inflector.humanize(name),
+        url,
+      )
+    end
+
+    content_tag(
+      :li,
+      link,
       {:class => classes.compact.join(' ')})
   end
 
@@ -136,7 +146,10 @@ module Console::LayoutHelper
   ]
 
   def app_wizard_steps_create(active, options={})
-    wizard_steps(AppWizardStepsCreate, active, options)
+    wizard_steps(AppWizardStepsCreate.map!{|item| begin
+      item[:name] = _(item[:name])
+      item
+    end }, active, options)
   end
 
   CartridgeWizardStepsCreate = [
@@ -153,7 +166,10 @@ module Console::LayoutHelper
   ]
 
   def cartridge_wizard_steps_create(active, options={})
-    wizard_steps(CartridgeWizardStepsCreate, active, options)
+    wizard_steps(CartridgeWizardStepsCreate.map!{|item| begin
+      item[:name] = _(item[:name])
+      item
+    end }, active, options)
   end
 
   def show_description(description, opts={})
@@ -220,33 +236,33 @@ module Console::LayoutHelper
 
   def breadcrumb_for_application(application, *args)
     breadcrumbs_for_each [
-      link_to('My Applications', :applications, :action => :index),
+      link_to(_('My Applications'), :applications, :action => :index),
       link_to(application.name, application),
     ] + args
   end
 
   def breadcrumb_for_domain(domain, *args)
     breadcrumbs_for_each [
-      link_to('Domains', :domains, :action => :index),
+      link_to(_('Domains'), :domains, :action => :index),
       link_to(domain.name, domain),
     ] + args
   end
 
   def breadcrumb_for_create_application(*args)
     breadcrumbs_for_each [
-      link_to('Create an application', application_types_path), 
+      link_to(_('Create an application'), application_types_path), 
     ] + args
   end
 
   def breadcrumb_for_account(*args)
     breadcrumbs_for_each [
-      link_to('My Account', account_path),
+      link_to(_('My Account'), account_path),
     ] + args
   end
 
   def breadcrumb_for_settings(*args)
     breadcrumbs_for_each [
-      link_to('Settings', settings_path),
+      link_to(_('Settings'), settings_path),
     ] + args
   end
 
@@ -260,7 +276,7 @@ module Console::LayoutHelper
   end
 
   def greetings_for_select
-    [ 'Mr.', 'Mrs.', 'Ms.', 'Miss', 'Dr.', 'Hr.', 'Sr.' ]
+    [ _('Mr.'), _('Mrs.'), _('Ms.'), _('Miss'), _('Dr.'), _('Hr.'), _('Sr.') ]
   end
 
   def map_to_sentence(items, &block)
@@ -353,7 +369,7 @@ module Console::LayoutHelper
   def logo_data_icon_for(item)
     {
       :class => "font-icon",
-      :title => item.cartridge?  || item.class.name == "CartridgeType" ? "Cartridge" : "Quickstart",
+      :title => item.cartridge?  || item.class.name == "CartridgeType" ? _("Cartridge") : _("Quickstart"),
       :data_icon => 
         if item.cartridge? || item.class.name == "CartridgeType"
           if (item.external? rescue false)

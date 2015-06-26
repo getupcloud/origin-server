@@ -46,6 +46,8 @@ module Console
 
     config_accessor :user_manager
 
+    config_accessor :locales
+
     #
     # A class that represents the capabilities object
     #
@@ -183,7 +185,7 @@ module Console
 
         case config[:CONSOLE_SECURITY]
         when 'session'
-          raise InvalidConfiguration, "SESSION_KEY not specified in #{file}" unless config[:AUTH_SESSION_KEY]
+          raise InvalidConfiguration, "AUTH_SESSION_KEY not specified in #{file}" unless config[:AUTH_SESSION_KEY]
 
           self.authentication_session_key = config[:AUTH_SESSION_KEY]
           self.authentication_session_expire = config[:AUTH_SESSION_EXPIRE] || 3600
@@ -200,6 +202,12 @@ module Console
           end
         when String
           self.security_controller = config[:CONSOLE_SECURITY]
+        end
+
+        if locales = config[:LOCALES]
+          Rails.configuration.locales = locales.split(',').each{|item| item.strip}
+        else
+          Rails.configuration.locales = ['en']
         end
       end
 

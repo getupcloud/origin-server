@@ -13,14 +13,13 @@
     %a{:class => 'expand', :data => {:toggle => 'collapse', :target => '#ssh'}, :href => "javascript:;"} Yes, help me get started
   #ssh{:class => @key.errors.size > 0 ? "" : "collapse"}
     %p
-      OpenShift uses the #{link_to "Git version control system", git_homepage_url, :target => '_blank'} for your source code, and grants you access to it via
-      the Secure Shell (SSH) protocol.  In order to upload and download code to your application you need
-      to give us your #{link_to "public SSH key", ssh_keys_help_path, :target => '_blank'}.
+      OpenShift uses the #{link_to(_("Git version control system"), git_homepage_url, :target => '_blank')} for your source code, and grants you access to it via the Secure Shell (SSH) protocol.
+      In order to upload and download code to your application you need to give us your #{link_to(_("public SSH key"), ssh_keys_help_path, :target => '_blank')}.
 
     = render :partial => 'keys/simple_form', :locals => { :key => @key, :input_class => 'span6', :to => upload_key_application_path(@application, :wizard => @wizard) }
 
     %p
-      Note: You can also #{link_to "install the RHC command line tool", client_tools_install_help_url} and run <code>rhc setup</code> to generate and upload your key automatically.
+      Note: You can also #{link_to(_("install the RHC command line tool"), client_tools_install_help_url)} and run <code>rhc setup</code> to generate and upload your key automatically.
 
   %h3= link_to "Not now, continue", application_path(@application)
-  %p Or #{link_to "visit app in the browser", @application.web_url, :target => '_blank'}
+  %p! Or #{link_to(_("visit app in the browser"), @application.web_url, :target => '_blank')}

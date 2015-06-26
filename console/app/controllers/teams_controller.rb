@@ -46,7 +46,7 @@ class TeamsController < ConsoleController
       if @referrer and (team_param = params[:team_param]).present?
         @referrer = rewrite_url(@referrer, { team_param => @team.id }) rescue nil
       end
-      redirect_to @referrer || team_path(@team), :flash => {:success => "The team '#{@team.name}' has been created"}
+      redirect_to @referrer || team_path(@team), :flash => {:success => _("The team '%s' has been created") % @team.name}
     else
       render :new
     end
@@ -59,7 +59,7 @@ class TeamsController < ConsoleController
   def destroy
     @team = Team.find(params[:id].to_s, :as => current_user)
     if @team.destroy
-      redirect_to teams_path, :flash => {:success => "The team '#{@team.name}' has been deleted"}
+      redirect_to teams_path, :flash => {:success => _("The team '%s' has been deleted") % @team.name}
     else
       render :delete
     end

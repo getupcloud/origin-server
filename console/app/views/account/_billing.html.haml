@@ -1,20 +1,20 @@
-%h2= t('.addr_title')
+%h2 Contact Info
 
-%p= t('.addr_caption')
+%p Provide your technical and billing contact information.
 
 .btn-toolbar
   %p
-    = link_to t('.tech_info'), edit_account_address_primary_path, :class => 'btn btn-small btn-danger'
-    = link_to t('.bill_info'), edit_account_address_billing_path, :class => 'btn btn-small btn-danger'
+    = link_to _('Technical Info'), edit_account_address_primary_path, :class => 'btn btn-small btn-danger'
+    = link_to _('Billing Info'), edit_account_address_billing_path, :class => 'btn btn-small btn-danger'
 
 ///////////////////
 
-%h2= t('.billing_title')
+%h2 Invoices
 
-%p= t('.billing_caption')
+%p Access your monthly invoice.
 
 .btn-toolbar
-  = link_to t('.invoices'), account_billings_path, :class => 'btn btn-small btn-danger'
+  = link_to _('Invoices') + '...', account_billings_path, :class => 'btn btn-small btn-danger'
 
 ///////////////////
 

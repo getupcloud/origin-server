@@ -1,7 +1,5 @@
 pt:
-
-  CURRENCY: 'BRL'
-  unknown: A system error has occurred.  If the problem persists, please contact Getup Cloud support at support@getupcloud.com.
+  unknown: 'Ocorreu um erro de sistema. se o problema persistir, por favor contate o suporte da RedHat.'
 
   types:
     php: PHP
@@ -9,99 +7,219 @@ pt:
 
   rest_api:
     errors:
-      '116': Your SSH public key appears to be invalid.  Keys should start with a type (usually ssh-rsa or ssh-dss), a blank space, and then a long string of numbers and letters.
-      '121': You have already saved this public key with a different name. Provide a different key here.
-      '151': You must create a Jenkins Server application in your domain (to act as a build server) before you can add the Jenkins cartridge to an application.
-      '153': You are currently using more gears than the new plan would allow.  Please scale down or delete applications before downgrading.
-
-  authentication:
-    signin:
-      authentication: 'Autenticação'
-      title: 'Console OpenShift'
-      password: 'Senha'
-      sign_in: 'Entrar'
-      lost_password: 'Perdeu sua senha?'
-
-  application_types:
-    show:
-      gears:
-        popover_select: 'Para aplicações em <em>dev</em> ou mais leves, como nodejs, o gear small pode ser suficiente. Se você precisa de mais recursos, selecione um gear maior.'
-        popover_validate: 'Para aplicações em <em>dev</em> ou mais leves, como nodejs, o gear small pode ser suficiente. Se você precisa de mais recursos, por favor <a href="%{account_url}">valide sua conta</a> para ter acesso a gears maiores.'
-
-  account:
-    show:
-      my_account: 'Minha Conta'
-    payment:
-      authorization: 'Pagamento'
-      trial_finished: 'Seu período de testes expirou. Por favor, valide sua conta abaixo.'
-      current_payment_method: 'Forma de pagamento'
-      paypal_account: 'Conta PayPal'
-      date: 'Data'
-      id: 'ID'
-      amount: 'Valor'
-      pa_key: 'Acordo de Pagamento (PA-Key)'
-      brand: 'Bandeira'
-      last_digits: 'Últimos dígitos'
-      holder_name: 'Nome do titular'
-      validate_your_account: 'Valide sua conta'
-      change_payment_method: 'Alterar método de pagamento'
-      available_gears: 'Você possui <span class="label label-warning">%{gears_free}</span> gear(s) disponívei(s) de %{max_gears} autorizado(s).'
-    payment_method:
-      choose_payment_method: 'Escolha o método de pagamento'
-      credit_card: 'Cartão de Crédito'
-    billing:
-      billing_title: 'Faturas'
-      billing_caption: 'Acesse seu histórico de faturas'
-      invoices: 'Faturas'
-      addr_title: 'Dados de contato'
-      addr_caption: 'Altere seus dados de contato.'
-      tech_info: 'Técnico'
-      bill_info: 'Cobrança'
-    credits:
-      title: 'Créditos'
-      caption: 'Os créditos abaixo serão utilizados em sua próxima fatura'
-      credit: 'Crédito recorrente'
-      hours: 'horas'
-      undestand: 'Entenda'
-
-  address:
-    edit:
-      title:
-        primary: 'Contato Técnico'
-        billing: 'Contato de Cobrança'
-      caption:
-        primary: 'Usaremos as informações abaixo para entrar em contato sobre novidades técnicas, newsletter, atualizações e possíveis problemas técnicos em suas aplicações.'
-        billing: 'Usaremos as informações abaixo para entrar em contato sobre assuntos referentes a pagamentos e cobranças.'
-      use_contact_info: 'Usar contato técnico'
-      name: Nome
-      email: Email
-      phone: Telefone
-      address: Endereço
-      city: Cidade
-      state: Estado
-      country: País
-      postal_code: CEP
-      save: Salvar
-      cancel: Cancelar
-
-  billings:
-    index:
-      title: 'Histórico de Faturas'
-      col:
-        id: Id
-        month: Mês
-        processed: Processada
-        status: Estado
-        amount: Valor
-    show:
-      title: Faturas
-      invoice: Fatura
-      invoice_no: 'Fatura #%{no}'
-      period_range: 'Período: %{start} - %{end}'
-  layouts:
-    footer:
-      developers: Desenvolvedores
-      irc_channel: 'Canal IRC'
-      get_started: 'Primeiros Passos'
-      caption: 'O código fonte do console do OpenShift Origin está %{github_available}. Leia o %{readme} para informacões de copyright e código fonte. OpenShift, OpenShift Origin e o logotipo OpenShift são marcas registradas de Red Hat, Inc.'
-      github_available: 'disponível no GitHub'
+      '116': Sua chave pública SSH parece inválida. chaves devem iniciar com um tipo (geralmente ssh-rsa ou ssh-dss), um espaço em branco, e então uma longa cadeia de números e letras.
+      '121': Você já salvou esta chave pública com outro nome. Forneça uma chave diferente aqui.
+      '151': Você deve criar uma aplicação Jenkins Server em seu domínio (para agir como um servidor de build) antes de adicionar o cartucho Jenkins em uma aplicação.
+      '153': Você está utilizando mais gears do que seu plano permite. Por favor des-escale ou delete aplicações antes.
+  date:
+    abbr_day_names:
+    - Dom
+    - Seg
+    - Ter
+    - Qua
+    - Qui
+    - Sex
+    - Sáb
+    abbr_month_names:
+    -
+    - Jan
+    - Fev
+    - Mar
+    - Abr
+    - Mai
+    - Jun
+    - Jul
+    - Ago
+    - Set
+    - Out
+    - Nov
+    - Dez
+    day_names:
+    - Domingo
+    - Segunda
+    - Terça
+    - Quarta
+    - Quinta
+    - Sexta
+    - Sábado
+    formats:
+      default: ! '%d/%m/%Y'
+      long: ! '%d de %B de %Y'
+      short: ! '%d de %B'
+    month_names:
+    -
+    - Janeiro
+    - Fevereiro
+    - Março
+    - Abril
+    - Maio
+    - Junho
+    - Julho
+    - Agosto
+    - Setembro
+    - Outubro
+    - Novembro
+    - Dezembro
+    order:
+    - :day
+    - :month
+    - :year
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one: aproximadamente 1 hora
+        other: aproximadamente %{count} horas
+      about_x_months:
+        one: aproximadamente 1 mês
+        other: aproximadamente %{count} meses
+      about_x_years:
+        one: aproximadamente 1 ano
+        other: aproximadamente %{count} anos
+      almost_x_years:
+        one: quase 1 ano
+        other: quase %{count} anos
+      half_a_minute: meio minuto
+      less_than_x_minutes:
+        one: menos de um minuto
+        other: menos de %{count} minutos
+      less_than_x_seconds:
+        one: menos de 1 segundo
+        other: menos de %{count} segundos
+      over_x_years:
+        one: mais de 1 ano
+        other: mais de %{count} anos
+      x_days:
+        one: 1 dia
+        other: ! '%{count} dias'
+      x_minutes:
+        one: 1 minuto
+        other: ! '%{count} minutos'
+      x_months:
+        one: 1 mês
+        other: ! '%{count} meses'
+      x_seconds:
+        one: 1 segundo
+        other: ! '%{count} segundos'
+    prompts:
+      day: Dia
+      hour: Hora
+      minute: Minuto
+      month: Mês
+      second: Segundo
+      year: Ano
+  errors: &errors
+    format: ! '%{attribute} %{message}'
+    messages:
+      accepted: deve ser aceito
+      blank: não pode ficar em branco
+      present: deve ficar em branco
+      confirmation: não está de acordo com a confirmação
+      empty: não pode ficar vazio
+      equal_to: deve ser igual a %{count}
+      even: deve ser par
+      exclusion: não está disponível
+      greater_than: deve ser maior que %{count}
+      greater_than_or_equal_to: deve ser maior ou igual a %{count}
+      inclusion: não está incluído na lista
+      invalid: não é válido
+      less_than: deve ser menor que %{count}
+      less_than_or_equal_to: deve ser menor ou igual a %{count}
+      not_a_number: não é um número
+      not_an_integer: não é um número inteiro
+      odd: deve ser ímpar
+      record_invalid: ! 'A validação falhou: %{errors}'
+      restrict_dependent_destroy:
+        one: "Não é possível excluir o registro pois existe um %{record} dependente"
+        many: "Não é possível excluir o registro pois existem %{record} dependentes"
+      taken: já está em uso
+      too_long: ! 'é muito longo (máximo: %{count} caracteres)'
+      too_short: ! 'é muito curto (mínimo: %{count} caracteres)'
+      wrong_length: não possui o tamanho esperado (%{count} caracteres)
+    template:
+      body: ! 'Por favor, verifique o(s) seguinte(s) campo(s):'
+      header:
+        one: ! 'Não foi possível gravar %{model}: 1 erro'
+        other: ! 'Não foi possível gravar %{model}: %{count} erros.'
+  helpers:
+    select:
+      prompt: Por favor selecione
+    submit:
+      create: Criar %{model}
+      submit: Salvar %{model}
+      update: Atualizar %{model}
+  number:
+    currency:
+      format:
+        delimiter: .
+        format: ! '%u %n'
+        precision: 2
+        separator: ! ','
+        significant: false
+        strip_insignificant_zeros: false
+        unit: R$
+    format:
+      delimiter: .
+      precision: 3
+      separator: ! ','
+      significant: false
+      strip_insignificant_zeros: false
+    human:
+      decimal_units:
+        format: ! '%n %u'
+        units:
+          billion:
+            one: bilhão
+            other: bilhões
+          million:
+            one: milhão
+            other: milhões
+          quadrillion:
+            one: quatrilhão
+            other: quatrilhões
+          thousand: mil
+          trillion:
+            one: trilhão
+            other: trilhões
+          unit: ''
+      format:
+        delimiter: .
+        precision: 2
+        significant: true
+        strip_insignificant_zeros: true
+      storage_units:
+        format: ! '%n %u'
+        units:
+          byte:
+            one: Byte
+            other: Bytes
+          gb: GB
+          kb: KB
+          mb: MB
+          tb: TB
+    percentage:
+      format:
+        delimiter: .
+    precision:
+      format:
+        delimiter: .
+  support:
+    array:
+      last_word_connector: ! ' e '
+      two_words_connector: ! ' e '
+      words_connector: ! ', '
+  time:
+    am: ''
+    formats:
+      default: ! '%a, %d de %B de %Y, %H:%M:%S %z'
+      long: ! '%d de %B de %Y, %H:%M'
+      short: ! '%d de %B, %H:%M'
+      pretty_date: ! '%d de %B'
+      pretty_time: ! '%d de %B, %A'
+    pm: ''
+  # remove these aliases after 'activemodel' and 'activerecord' namespaces are removed from Rails repository
+  activemodel:
+    errors:
+      <<: *errors
+  activerecord:
+    errors:
+      <<: *errors

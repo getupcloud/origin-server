@@ -38,12 +38,12 @@
               %span.icon-user{:'aria-hidden' => "true"}
               = member.name
           %td
-            = member.role_description
+            = _(member.role_description)
 
 - else
   - if members.count <= 1 && new_members.blank?
     %p.script-only{:'data-hide-parent' => '1'}
-      There are no other members in this #{membership.class.name.downcase}. #{link_to "Add members...", "javascript:;", :'data-unhide' => '.members'}
+      There are no other members in this #{_(membership.class.name.downcase)}. #{link_to(_("Add members..."), "javascript:;", :'data-unhide' => '.members')}
 
   :ruby
     form_classes = [
@@ -81,10 +81,10 @@
                 = member.name
             %td.nowrap
               .read-only
-                = member.role_description
+                = _(member.role_description)
                 - if member.explicit_role != member.role && (member_teams = member.teams(members)).present?
                   via 
-                  %span.icon-users{:'aria-hidden' => "true", :title => "Has access via these teams:\n#{member_teams.map(&:name).join(", \n")}"}
+                  %span.icon-users{:'aria-hidden' => "true", :title => _("Has access via these teams:\n#{member_teams.map(&:name).join(", \n")}")}
               .edit-only
                 -# Always start with a common field to make param hashes group correctly
                 = hidden_field_tag('members[][type]', member.type)
@@ -110,7 +110,7 @@
                     = team_members.map(&:name).to_sentence
                 - else
                   Contains no team members.
-                = link_to "View this team", team_path(member.id)
+                = link_to _("View this team"), team_path(member.id)
 
         :ruby
           member_class = membership.class.member_resource
@@ -127,7 +127,7 @@
               = hidden_field_tag('members[][type]', new_member.type)
               = hidden_field_tag('members[][adding]', 'true')
               - if new_member.type == 'user'
-                = text_field_tag('members[][login]', new_member.login, {:placeholder => 'User Login', :title => 'User Login', :autocomplete => 'off', :class => ('error' if error)})
+                = text_field_tag('members[][login]', new_member.login, {:placeholder => _('User Login'), :title => _('User Login'), :autocomplete => 'off', :class => ('error' if error)})
               - elsif new_member.type == 'team'
                 = hidden_field_tag('members[][id]', new_member.id)
                 - if new_member.id.present?
@@ -135,7 +135,7 @@
                   %span.icon-users{:'aria-hidden' => "true"}
                   = new_member.name
                 - else
-                  = text_field_tag('members[][name]', new_member.name, {:placeholder => 'Team Name', :title => 'Team Name', :autocomplete => 'off', :class => "team-typeahead #{'error' if error}"})
+                  = text_field_tag('members[][name]', new_member.name, {:placeholder => _('Team Name'), :title => _('Team Name'), :autocomplete => 'off', :class => "team-typeahead #{'error' if error}"})
             %td
               - roles = new_member.allowed_role_descriptions(false)
               - if roles.length == 1 && roles[0][1] == new_member.role.to_s
@@ -155,16 +155,15 @@
         %tr.borderless
           %td{:colspan => 3}
             .form-actions.edit-only.script-only
-              = link_to 'Add a user...', 'javascript:;', :class => 'add-member add-user'
+              = link_to _('Add a user...'), 'javascript:;', :class => 'add-member add-user'
               - if owned_teams || global_teams
-                |
-                = link_to 'Add a team...', 'javascript:;', :class => 'add-member add-team'
+                = link_to _('Add a team...'), 'javascript:;', :class => 'add-member add-team'
             .form-actions.read-only.script-only
-              = link_to "Edit members...", "javascript:;", :class => 'edit-members'
+              = link_to _("Edit members..."), "javascript:;", :class => 'edit-members'
 
     .form-actions.edit-only
-      = link_to "Cancel", url_for(membership), :class => 'btn btn-small cancel script-only'
-      = button_tag "Save", :type => :submit, :class => 'btn btn-primary-when-dirty btn-small'
+      = link_to _("Cancel"), url_for(membership), :class => 'btn btn-small cancel script-only'
+      = button_tag _("Save"), :type => :submit, :class => 'btn btn-primary-when-dirty btn-small'
 
     - if show_help
       .edit-only

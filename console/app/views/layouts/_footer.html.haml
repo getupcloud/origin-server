@@ -5,10 +5,10 @@
         %header
           %h3= t('.developers')
         %ul.unstyled
-          %li= link_to t('.get_started'), getting_started_path
-          //%li= link_to 'User Guide', user_guide_url
-          %li= link_to 'FAQ', faq_url
-          %li!= link_to(t('.irc_channel'), irc_web_url)
+          %li= link_to _('Get Started'), getting_started_path
+          //%li= link_to _('User Guide'), user_guide_url
+          %li= link_to _('FAQ'), faq_url
+          %li!= link_to(_("ICR Channel"), irc_web_url)
 
       %nav.span8
         %address
@@ -18,4 +18,4 @@
 
 
 %section#copyright
-  .container!= t('.caption', github_available: link_to(t('.github_available'), origin_server_url), readme: link_to('README.md', origin_server_source_path_url('README.md')))
+  .container! Source code for the OpenShift Origin management console is #{link_to(_('available on Github'), openshift_github_project_url('origin-server/tree/master/console'))}. #{link_to('README.md', openshift_github_project_url('origin-server/blob/master/README.md'))} for copyright and source information. OpenShift, OpenShift Origin and the OpenShift Logo are trademarks of Red Hat, Inc.

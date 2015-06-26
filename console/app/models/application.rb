@@ -78,7 +78,7 @@ class Application < RestApi::Base
   def valid?
     valid = super
     if id.blank? and domain_name.blank? and errors[:domain_name].blank?
-      errors.add(:domain_name, 'Namespace is required')
+      errors.add(:domain_name, _('Namespace is required'))
       false
     else
       valid

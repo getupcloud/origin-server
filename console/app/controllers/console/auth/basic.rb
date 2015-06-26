@@ -56,7 +56,7 @@ module Console::Auth::Basic
 
   protected
     def auth_realm
-      "Authenticate to #{RestApi.site.host}"
+      _("Authenticate to %s") % RestApi.site.host
     end
 
     def console_access_denied

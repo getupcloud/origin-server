@@ -14,9 +14,9 @@ class MembersController < ConsoleController
 
     if members.present?
       if membership.update_members(members)
-        flash[:success] = membership.messages.first.presence || "Updated members"
+        flash[:success] = membership.messages.first.presence || _("Updated members")
       else
-        flash.now[:error] = membership.errors[:members].first || "Could not update members."
+        flash.now[:error] = membership.errors[:members].first || _("Could not update members.")
         show_edit_with_errors(members)
         return
       end
@@ -27,10 +27,10 @@ class MembersController < ConsoleController
   def leave
     if request.post?
       if membership.leave
-        flash[:success] = membership.messages.first.presence || "You are no longer a member of '#{membership.name}'"
+        flash[:success] = membership.messages.first.presence || _("You are no longer a member of '%s'") % membership.name
         redirect_to left_path
       else
-        flash[:error] = membership.errors[:base].first.presence || membership.messages.first.presence || "Could not leave '#{membership.name}'"
+        flash[:error] = membership.errors[:base].first.presence || membership.messages.first.presence || _("Could not leave '%s'") % membership.name
         redirect_to url_for(membership)
       end
     else

@@ -9,5 +9,5 @@
   = hidden_field_tag(:id, team.me.id)
   = hidden_field_tag(:role, :none)
   .form-actions
-    = link_to 'Cancel', team_path(team), :class => 'btn cancel'
-    = submit_tag "Leave Team", :class => 'btn btn-danger'
+    = link_to _('Cancel'), team_path(team), :class => 'btn cancel'
+    = submit_tag _("Leave Team"), :class => 'btn btn-danger'

@@ -12,18 +12,18 @@
   .js .hidden-scripted { display: none; }
 
 - content_for :page_style, 'highlight'
-- content_for :page_title, "Domain " + @domain.name
+- content_for :page_title, _("Domain") + " " + @domain.name
 - content_for :top do
   .grid-wrapper.section-header.span12
     %nav.domain.tile
       %h1.flow
-        = "Domain #{@domain.name}"
+        Domain #{@domain.name}
         - if @domain.can_rename?
-          = link_to 'change', edit_domain_path(@domain), :class => 'url-alter'
+          = link_to _('change'), edit_domain_path(@domain), :class => 'url-alter'
 
         - count = @domain.gear_counts.values.sum
-        .flow-block.right{:title => "This domain is using #{pluralize(count, 'gear')} and can use up to #{@domain.available_gears} more"}
-          %span.count #{count}
+        .flow-block.right{:title => _("This domain is using %s and can use up to %s more") % [pluralize(count, 'gear'), @domain.available_gears]}
+          %span.count= count
           %span.gear-icon{'aria-hidden'=>"true", 'data-icon' => "\ue014"}
 
 %section
@@ -45,9 +45,9 @@
           - @capabilities.gear_sizes.each do |size|
             %label.checkbox{:for => "#{field}_#{size}"}
               = check_box_tag field, size, @domain.allowed_gear_sizes.include?(size), :id => "#{field}_#{size}"
-              = "Allow #{size.to_s.humanize.downcase} gears"
+              Allow #{size.to_s.humanize.downcase} gears
           = f.buttons :class => 'hidden-scripted' do
-            = f.commit_button :label => 'Save', :button_html => {:class => 'btn btn-small btn-primary'}
+            = f.commit_button :label => _('Save'), :button_html => {:class => 'btn btn-small btn-primary'}
             = f.loading
 
           - content_for :javascripts do
@@ -69,9 +69,9 @@
 
       - if @domain.owner?
         .btn-toolbar
-          = link_to "Delete this domain\u2026", delete_domain_path(@domain), :class => 'btn btn-small'
+          = link_to _("Delete this domain..."), delete_domain_path(@domain), :class => 'btn btn-small'
       - elsif @domain.me.explicit_role?
         %div.leave.confirm-container
-          = link_to "Leave Domain", domain_leave_path(@domain), { :class => 'btn btn-small confirm-link', :title => 'Leave Domain', 'data-placement' => 'bottom'}
+          = link_to _("Leave Domain"), domain_leave_path(@domain), { :class => 'btn btn-small confirm-link', :title => _('Leave Domain'), 'data-placement' => 'bottom'}
           .confirm-popover.hide
             = render :partial => 'members/leave_domain_form', :locals => {:domain => @domain}
