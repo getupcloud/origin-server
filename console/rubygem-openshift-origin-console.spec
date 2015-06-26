@@ -60,9 +60,9 @@ BuildRequires: %{?scl:%scl_prefix}rubygem(sprockets)
 BuildRequires: %{?scl:%scl_prefix}rubygem(therubyracer)
 BuildRequires: %{?scl:%scl_prefix}rubygem(uglifier)
 BuildRequires: %{?scl:%scl_prefix}rubygem(syslog-logger)
-BuildRequires: %{?scl:%scl_prefix}rubygem(gettext)
-BuildRequires: %{?scl:%scl_prefix}rubygem(haml-magic-translations)
-BuildRequires: %{?scl:%scl_prefix}rubygem(ruby_parser)
+#BuildRequires: %{?scl:%scl_prefix}rubygem(gettext)
+#BuildRequires: %{?scl:%scl_prefix}rubygem(haml-magic-translations)
+#BuildRequires: %{?scl:%scl_prefix}rubygem(ruby_parser)
 
 
 BuildRequires: %{?scl:%scl_prefix}rubygems-devel
