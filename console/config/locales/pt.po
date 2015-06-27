@@ -3364,3 +3364,9 @@ msgstr "Hora/gear grátis (voucher)"
 
 msgid "Final Total"
 msgstr "Total Final"
+
+msgid "The console was unable to authenticate you with the OpenShift server."
+msgstr "O console não conseguiu autenticar você no servidor OpenShift."
+
+msgid "Your session expired."
+msgstr "Sua sessão expirou."
