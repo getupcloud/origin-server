@@ -36,6 +36,10 @@ Requires:      %{?scl:%scl_prefix}rubygem(sass-rails)
 Requires:      %{?scl:%scl_prefix}rubygem(sass-twitter-bootstrap)
 Requires:      %{?scl:%scl_prefix}rubygem(uglifier)
 Requires:      %{?scl:%scl_prefix}rubygem(syslog-logger)
+# For now you must install below gems by hand. There is no scl for these gems.
+#Requires:      %{?scl:%scl_prefix}rubygem(gettext)
+#Requires:      %{?scl:%scl_prefix}rubygem(haml-magic-translations)
+#Requires:      %{?scl:%scl_prefix}rubygem(ruby_parser)
 
 %if 0%{?fedora}%{?rhel} <= 6
 BuildRequires: %{?scl:%scl_prefix}build
@@ -57,6 +61,10 @@ BuildRequires: %{?scl:%scl_prefix}rubygem(sprockets)
 BuildRequires: %{?scl:%scl_prefix}rubygem(therubyracer)
 BuildRequires: %{?scl:%scl_prefix}rubygem(uglifier)
 BuildRequires: %{?scl:%scl_prefix}rubygem(syslog-logger)
+# For now you must install below gems by hand. There is no scl for these gems.
+#BuildRequires: %{?scl:%scl_prefix}rubygem(gettext)
+#BuildRequires: %{?scl:%scl_prefix}rubygem(haml-magic-translations)
+#BuildRequires: %{?scl:%scl_prefix}rubygem(ruby_parser)
 
 
 BuildRequires: %{?scl:%scl_prefix}rubygems-devel
