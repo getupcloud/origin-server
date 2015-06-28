@@ -68,12 +68,12 @@ module Console::Auth::Session
 
   protected
     def console_access_denied
-      flash[:error] = "The console was unable to authenticate you with the OpenShift server."
+      flash[:error] = _("The console was unable to authenticate you with the OpenShift server.")
       console_authentication
     end
 
     def console_access_expired
-      flash[:error] = "Your session expired."
+      flash[:error] = _("Your session expired.")
       console_authentication
     end
 
