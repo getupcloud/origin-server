@@ -9,8 +9,8 @@
 
 Summary:       OpenShift Origin Management Console
 Name:          rubygem-%{gem_name}
-Version: 1.26.3.1
-Release:       20%{?dist}
+Version: 1.26.3.2
+Release:       1%{?dist}
 Group:         Development/Languages
 License:       ASL 2.0
 URL:           https://openshift.redhat.com
@@ -175,6 +175,36 @@ cp bin/man/*.8 %{buildroot}%{_mandir}/man8/
 %{gem_dir}/doc/%{gem_name}-%{version}
 
 %changelog
+* Sun Jun 28 2015 Builder <getup@getupcloud.com> 1.26.3.2-1
+- Define gettext rake task for non-production only
+  (mateus.caruccio@getupcloud.com)
+- Update haml (mateus.caruccio@getupcloud.com)
+- Remove config I18n.enforce_available_locales (mateus.caruccio@getupcloud.com)
+- Missing translations (mateus.caruccio@getupcloud.com)
+- Merge branch 'translation-r4' into console-r4
+  (mateus.caruccio@getupcloud.com)
+- Support for gettext (mateus.caruccio@getupcloud.com)
+- bump version (mateus.caruccio@getupcloud.com)
+* Sun Jun 28 2015 Builder <getup@getupcloud.com>
+- Define gettext rake task for non-production only
+  (mateus.caruccio@getupcloud.com)
+- Update haml (mateus.caruccio@getupcloud.com)
+- Remove config I18n.enforce_available_locales (mateus.caruccio@getupcloud.com)
+- Missing translations (mateus.caruccio@getupcloud.com)
+- Merge branch 'translation-r4' into console-r4
+  (mateus.caruccio@getupcloud.com)
+- Support for gettext (mateus.caruccio@getupcloud.com)
+
+* Sun Jun 28 2015 Builder <getup@getupcloud.com>
+- Define gettext rake task for non-production only
+  (mateus.caruccio@getupcloud.com)
+- Update haml (mateus.caruccio@getupcloud.com)
+- Remove config I18n.enforce_available_locales (mateus.caruccio@getupcloud.com)
+- Missing translations (mateus.caruccio@getupcloud.com)
+- Merge branch 'translation-r4' into console-r4
+  (mateus.caruccio@getupcloud.com)
+- Support for gettext (mateus.caruccio@getupcloud.com)
+
 * Fri Jun 05 2015 Builder <getup@getupcloud.com> 1.26.3.1-20
 - rebuild
 * Fri Jun 05 2015 Builder <getup@getupcloud.com> 1.26.3.1-19
