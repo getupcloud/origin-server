@@ -93,7 +93,7 @@ This includes the configuration necessary to run the console with mod_passenger.
 %build
 %{?scl:scl enable %scl - << \EOF}
 
-set -e
+set -xe
 # Remove dependencies not needed at runtime
 sed -i -e '/NON-RUNTIME BEGIN/,/NON-RUNTIME END/d' Gemfile
 
