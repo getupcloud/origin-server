@@ -2918,6 +2918,9 @@ msgstr "página de ajuda SSH"
 msgid "Enable Jenkins"
 msgstr "Habilitar Jenkins"
 
+msgid "Enable Jenkins Builds"
+msgstr "Habilitar Builds Jenkins"
+
 msgid "Add %s"
 msgstr "Adicionar %s"
 
@@ -3370,3 +3373,27 @@ msgstr "O console não conseguiu autenticar você no servidor OpenShift."
 
 msgid "Your session expired."
 msgstr "Sua sessão expirou."
+
+msgid "An error occurred"
+msgstr "Ocorreu um Erro"
+
+msgid "Page not found"
+msgstr "Página não encontrada"
+
+msgid "Maintenance in progress"
+msgstr "Manutenção em progresso"
+
+msgid "Disable Scaling"
+msgstr "Desabilitar Escalabilidade"
+
+msgid "Não Escalável"
+msgstr ""
+
+msgid "Scale your Application"
+msgstr "Escale sua Aplicação"
+
+msgid "Change Gear Storage"
+msgstr "Mudar Storage do Gear"
+
+msgid "Are you sure you want to delete the application <strong>'%s'</strong> from domain <strong>'%s'</strong>?"
+msgstr "Você tem certeza que deseja deletar a aplicação <strong>'%s'</strong> do domain <strong>'%s'</strong>?"

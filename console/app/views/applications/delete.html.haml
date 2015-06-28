@@ -1,4 +1,4 @@
-- content_for :page_title, "Delete Application"
+- content_for :page_title, _("Delete Application")
 
 %h1 Delete Application
 
@@ -12,6 +12,6 @@
 
   = f.semantic_errors
   = f.buttons do
-    = link_to 'Cancel', @referer || application_path(@application), :class => 'btn'
-    = f.commit_button :label => "Delete", :button_html => {:class => 'btn btn-danger'}
+    = link_to _('Cancel'), @referer || application_path(@application), :class => 'btn'
+    = f.commit_button :label => _("Delete", :button_html => {:class => 'btn btn-danger')}
     = f.loading
