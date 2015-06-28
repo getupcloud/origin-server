@@ -16,7 +16,7 @@
 Summary:       The OpenShift Management Console
 Name:          openshift-origin-console
 Version:       1.16.2.1
-Release:       10%{?dist}test
+Release:       1%{?dist}getup
 Group:         Network/Daemons
 License:       ASL 2.0
 URL:           http://www.openshift.com
@@ -250,6 +250,11 @@ _EOF
 /sbin/fixfiles -R %{?scl:%scl_prefix}mod_passenger restore
 /sbin/restorecon -R -v /var/run
 %changelog
+* Sat Jun 27 2015 Builder <getup@getupcloud.com> 1.16.2.1-1getup
+- Merge branch 'console-r4' of github.com:getupcloud/origin-server into
+  console-r4 (getup@getupcloud.com)
+- Fix po load path (mateus.caruccio@getupcloud.com)
+
 * Fri Jun 26 2015 Builder <getup@getupcloud.com> 1.16.2.1-10test
 - 
 
