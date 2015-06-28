@@ -2738,6 +2738,9 @@ msgstr ""
 msgid "Enable Jenkins"
 msgstr ""
 
+msgid "Enable Jenkins Builds"
+msgstr ""
+
 msgid "Add %s"
 msgstr ""
 
@@ -3168,47 +3171,32 @@ msgstr ""
 msgid "Final Total"
 msgstr ""
 
-msgid ""
+msgid "The console was unable to authenticate you with the OpenShift server."
 msgstr ""
 
-msgid ""
+msgid "Your session expired."
 msgstr ""
 
-msgid ""
+msgid "An error occurred"
 msgstr ""
 
-msgid ""
+msgid "Page not found"
 msgstr ""
 
-msgid ""
+msgid "Maintenance in progress"
 msgstr ""
 
-msgid ""
+msgid "Disable Scaling"
 msgstr ""
 
-msgid ""
+msgid "Not Scalable"
 msgstr ""
 
-msgid ""
+msgid "Scale your Application"
 msgstr ""
 
-msgid ""
+msgid "Change Gear Storage"
 msgstr ""
 
-msgid ""
-msgstr ""
-
-msgid ""
-msgstr ""
-
-msgid ""
-msgstr ""
-
-msgid ""
-msgstr ""
-
-msgid ""
-msgstr ""
-
-msgid ""
+msgid "Are you sure you want to delete the application <strong>'%s'</strong> from domain <strong>'%s'</strong>?"
 msgstr ""
