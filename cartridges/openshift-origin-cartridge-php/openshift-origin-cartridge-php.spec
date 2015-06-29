@@ -4,7 +4,7 @@
 
 Name:          openshift-origin-cartridge-php
 Version: 1.26.9.1
-Release:       12%{?dist}
+Release:       13%{?dist}
 Summary:       Php cartridge
 Group:         Development/Languages
 License:       ASL 2.0
@@ -59,6 +59,10 @@ PHP cartridge for openshift. (Cartridge Format V2)
 
 
 %changelog
+* Wed Jun 17 2015 Builder <getup@getupcloud.com> 1.26.9.1-13
+- bump version (getup@getupcloud.com)
+- Little hack to the NewRelic agent (spinolacastro@gmail.com)
+
 * Tue May 19 2015 Builder <getup@getupcloud.com> 1.26.9.1-12
 - bump version (getup@getupcloud.com)
 - Merge branch 'getup-openshift-origin-release-4' of github.com:getupcloud
