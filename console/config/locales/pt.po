@@ -3445,3 +3445,6 @@ msgstr "Por favor, revise os dados de seu cartão de crédito e tente novamente.
 
 msgid "Select language"
 msgstr "Selecione o idioma"
+
+msgid "Change Payment Method"
+msgstr "Mudar o Método de Pagamento"

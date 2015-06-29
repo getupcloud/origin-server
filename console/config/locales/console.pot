@@ -3281,3 +3281,6 @@ msgstr ""
 
 msgid "Select language"
 msgstr ""
+
+msgid "Change Payment Method"
+msgstr ""
