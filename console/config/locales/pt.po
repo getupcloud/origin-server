@@ -592,7 +592,7 @@ msgstr ""
 
 #: ../../app/views/aliases/_form.html.haml:7
 msgid "Set up the CNAME record with your DNS provider"
-msgstr "Configure o CNAME em seu provedor DNS"
+msgstr "Configure o registro CNAME em seu provedor DNS"
 
 #: ../../app/views/aliases/_form.html.haml:8
 msgid "Tell us about your alias using the form on this page"
@@ -2684,9 +2684,6 @@ msgstr "Consulte o %s para informações sobre comos adicionar um domínio custo
 msgid "See the %s for information about adding your own domain names to an application."
 msgstr "Consulte o %s para informações sobre como adicionar seu próprio domínio customizado em sua aplicação"
 
-msgid "See the %s for information about adding your own domain names to an application."
-msgstr "Consulte o %s para informações sobre como adicionar seu próprio domínio em uma aplicação"
-
 msgid "Learn more about SSH keys."
 msgstr "Saiba mais sobre chaves SSH."
 
@@ -2721,9 +2718,6 @@ msgstr "Criar outro domínio"
 msgid "See other domains"
 msgstr "Veja outros domínios"
 
-msgid "Create another domain"
-msgstr "Criar outro domínio"
-
 msgid "Add a user..."
 msgstr "Incluir um usuário..."
 
@@ -2741,9 +2735,6 @@ msgstr "Salvar"
 
 msgid "Delete this domain..."
 msgstr "Deletar este domínio..."
-
-msgid "Leave Domain"
-msgstr "Deixar Domínio"
 
 msgid "Domain"
 msgstr "Domínio"
@@ -2765,9 +2756,6 @@ msgstr "aplicação"
 
 msgid "applications"
 msgstr "aplicações"
-
-msgid "Key name"
-msgstr "Nome da chave"
 
 msgid "A name for your key"
 msgstr "Um nome para sua chave"
@@ -2933,9 +2921,6 @@ msgstr "mudar alias"
 msgid "For more information about scaling your applications see %s."
 msgstr "Para mais informações sobre como escalar suas aplicações veja %s."
 
-msgid "our scaling guide in the Developer Center"
-msgstr "nosso guia na Central do Desenvolvedor"
-
 msgid "We hope to add the ability to enable scaling on existing applications in the future - you can provide feedback about this and other features in OpenShift via our %s."
 msgstr "Esperamos adicionar a habilidade de escalar aplicações esxistentes no futuro - você pode fornece seu feedback sobre o assunto e outras solicitações de OpenShift via nossa %s."
 
@@ -2993,9 +2978,6 @@ msgstr "nosso guia de escalabilidade na Central do Desenvolvedor"
 msgid "New Alias"
 msgstr "Novo Alias"
 
-msgid "Set up the CNAME record with your DNS provider"
-msgstr "Configure o registro CNAME em seu provedor DNS"
-
 msgid "Enter your custom domain name. e.g. <em>www.example.com</em> or <em>something.example.com</em>"
 msgstr "Entre seu domínio customizado. Ex: <em>www.exemplo.com</em> ou <em>algo.exemplo.com</em>"
 
@@ -3008,9 +2990,6 @@ msgstr "Minimo de gears"
 msgid "Maximum gears"
 msgstr "Maximo de gears"
 
-msgid "Create a Team"
-msgstr "Crie um Time"
-
 msgid "Team name"
 msgstr "Nome do time"
 
@@ -3022,9 +3001,6 @@ msgstr "Não existem outros membros neste %s. %s"
 
 msgid "team"
 msgstr "time"
-
-msgid "Team member"
-msgstr "Membro do time"
 
 msgid "Has access via these teams:\n%s"
 msgstr "Possui acesso via estes times:\n%s"
@@ -3226,9 +3202,6 @@ msgstr "Preencha seus dados de Cartão de Crédito"
 msgid "Your browser doesn't seams to support JavaScript"
 msgstr "Aparentemtne seu navegador não suporta JavaScript"
 
-msgid "Type"
-msgstr "Tipo"
-
 msgid "Number"
 msgstr "Número"
 
@@ -3246,9 +3219,6 @@ msgstr "Código de Validação"
 
 msgid "Validate"
 msgstr "Validar"
-
-msgid "Primary Contact"
-msgstr "Contato Técnico"
 
 msgid "Primary Contact"
 msgstr "Contato Técnico"
@@ -3368,9 +3338,6 @@ msgstr "Hora/gear grátis (voucher)"
 msgid "Final Total"
 msgstr "Total Final"
 
-msgid "The console was unable to authenticate you with the OpenShift server."
-msgstr "O console não conseguiu autenticar você no servidor OpenShift."
-
 msgid "Your session expired."
 msgstr "Sua sessão expirou."
 
@@ -3427,3 +3394,9 @@ msgstr ""
 
 msgid "ver tudo"
 msgstr ""
+
+msgid "Cartridge&hellip;"
+msgstr "Cartucho&hellip;"
+
+msgid "Next"
+msgstr "Próximo"

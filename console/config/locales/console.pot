@@ -3231,14 +3231,8 @@ msgstr ""
 msgid "see all"
 msgstr ""
 
-msgid ""
+msgid "Cartridge&hellip;"
 msgstr ""
 
-msgid ""
-msgstr ""
-
-msgid ""
-msgstr ""
-
-msgid ""
+msgid "Next"
 msgstr ""
