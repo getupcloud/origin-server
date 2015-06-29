@@ -2877,7 +2877,7 @@ msgstr ""
 
 msgid ""
 "An namespace forms part of an application's URL and is unique to your account. The syntax for "
-"an application URL is <em>application–namespace.#{@domain_suffix}</em>."
+"an application URL is <em>application–namespace.%s</em>."
 msgstr ""
 
 msgid "create a new namespace"
@@ -3199,4 +3199,46 @@ msgid "Change Gear Storage"
 msgstr ""
 
 msgid "Are you sure you want to delete the application <strong>'%s'</strong> from domain <strong>'%s'</strong>?"
+msgstr ""
+
+msgid "Click here"
+msgstr ""
+
+msgid "to validate your account in order to receive your credit."
+msgstr ""
+
+msgid "There are no available gears."
+msgstr ""
+
+msgid "Please, validate your account."
+msgstr ""
+
+msgid "Gear Prices"
+msgstr ""
+
+msgid "[+] More"
+msgstr ""
+
+msgid "Add Cartridge"
+msgstr ""
+
+msgid "See all application types"
+msgstr ""
+
+msgid "(show all)"
+msgstr ""
+
+msgid "see all"
+msgstr ""
+
+msgid ""
+msgstr ""
+
+msgid ""
+msgstr ""
+
+msgid ""
+msgstr ""
+
+msgid ""
 msgstr ""

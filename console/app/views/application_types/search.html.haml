@@ -26,7 +26,7 @@
           %ul.dropdown-menu#tag-filter
             - @browse_tags.each do |(name, tag)|
               - if name
-                %li= link_to name, application_types_path(:tag => tag)
+                %li= link_to _(name), application_types_path(:tag => tag)
               - else
                 %hr
   .span6
@@ -52,7 +52,7 @@
     %h3.divide
       #{title}
       - if types.length > 4
-        %small= link_to '(show all)', application_types_path
+        %small= link_to _('(show all)'), application_types_path
     .row
       - in_columns_of(2, types).each do |types|
         .span6

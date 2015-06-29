@@ -27,7 +27,7 @@
 
   = f.inputs :class => 'inputs form-horizontal add-cartridge' do
     = control_group(false) do
-      .control-label Using Gear Size
+      .control-label{:style => 'float: none;'} Using Gear Size
       .controls.cartridge_gear_size
         - if @gear_sizes.length > 1
           = f.select :gear_size, @gear_sizes.map{ |size| [size.to_s.titleize, size]}, {}
@@ -44,8 +44,8 @@
     cartridge to your application?
 
   = f.buttons do
-    = link_to "Back", @wizard ? application_cartridge_types_path(@application) : application_path(@application), :class => 'btn'
-    = f.commit_button("Add Cartridge")
+    = link_to _("Back"), @wizard ? application_cartridge_types_path(@application) : application_path(@application), :class => 'btn'
+    = f.commit_button(_("Add Cartridge"))
     %span#gear_increase
       = gear_increase_indicator({'1' => [@cartridge_type]}, @application.scales?, @application.gear_profile, true, @application.domain.capabilities, @application.domain.usage_rates, @application.owner?)
     = f.loading
