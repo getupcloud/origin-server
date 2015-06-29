@@ -34,8 +34,8 @@
     %br
 
     %p
-      = link_to I18n.t(:Cancel), account_path, :class => 'btn'
+      = link_to _('Cancel'), account_path, :class => 'btn'
       %button.btn.btn-danger.btn-validate{:type => 'submit'} Validate
 
-  %span.hidden.validate_error_message=I18n.t(:validate_verify)
+  %span.hidden.validate_error_message= _('Please, review your credit card information and try again.')
 

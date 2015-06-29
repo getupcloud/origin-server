@@ -218,7 +218,13 @@
                   %span{:'data-icon' => "\uee51"}
                   = link_to _("Add %s") % c.display_name, application_cartridge_type_path(@application, c, :direct => true)
 
-      %p= other_cartridges_link((databases or jenkins.present? or builders.present? or useful), @application)
+      //%p= other_cartridges_link((databases or jenkins.present? or builders.present? or useful), @application)
+      %p
+        = link_to application_cartridge_types_path(@application), :class => 'btn btn-primary' do
+          Add
+          %strong! Cartridge&hellip;
+          %i.icon-add
+
 
   %div.sidebar.span4
     #source-code

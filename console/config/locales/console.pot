@@ -3231,14 +3231,53 @@ msgstr ""
 msgid "see all"
 msgstr ""
 
-msgid ""
+msgid "Cartridge&hellip;"
 msgstr ""
 
-msgid ""
+msgid "Next"
 msgstr ""
 
-msgid ""
+msgid "day"
 msgstr ""
 
-msgid ""
+msgid "month"
+msgstr ""
+
+msgid "year"
+msgstr ""
+
+msgid "gigabyte"
+msgstr ""
+
+msgid "Account updated with success."
+msgstr ""
+
+msgid "Old password can't be blank."
+msgstr ""
+
+msgid "New password can't be blank."
+msgstr ""
+
+msgid "Password doesn't match confirmation."
+msgstr ""
+
+msgid "Invalid password."
+msgstr ""
+
+msgid "Your password cloudn't be changed."
+msgstr ""
+
+msgid "Your password has been changed."
+msgstr ""
+
+msgid "Your account is validated. Thank you!"
+msgstr ""
+
+msgid "Subscription canceled"
+msgstr ""
+
+msgid "Please, review your credit card information and try again."
+msgstr ""
+
+msgid "Select language"
 msgstr ""

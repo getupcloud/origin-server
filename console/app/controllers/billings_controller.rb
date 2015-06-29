@@ -62,7 +62,7 @@ class BillingsController < ConsoleController
       end
 
       @acronym      = @prices.select{|i| i if i[:item]=="GEAR_USAGE" and i[:currency]=='BRL' }.first[:acronym]
-      @unit         = {'h' => I18n.t(:hour), 'd' => I18n.t(:day), 'm' => I18n.t(:month), 'y' => I18n.t(:year), 'g' => 'gigabyte'}
+      @unit         = {'h' => _('hour'), 'd' => _('day'), 'm' => _('month'), 'y' => _('year'), 'g' => 'gigabyte'}
       @getup[:country_name]   = country_name(@getup[:country_code])
       @address[:country_name] = country_name(@address[:country_code])
     end

@@ -21,14 +21,14 @@ class ValidateController < ConsoleController
     if result.code != 200
       redirect_to account_path, :flash => {:error => result.message}
     else
-      redirect_to account_path, :flash => {:success => I18n.t(:validate_success)}
+      redirect_to account_path, :flash => {:success => _("Your account is validated. Thank you!")}
     end
   end
 
   def cancel
     result = user_manager_subscription_cancel
     if result.code === 200 and result.content[:success]
-      redirect_to account_path, :flash => {:warning => I18n.t(:Subscription_canceled)}
+      redirect_to account_path, :flash => {:warning => _("Subscription canceled")}
     else
       redirect_to account_path, :flash => {:error => result.content[:message]}
     end
