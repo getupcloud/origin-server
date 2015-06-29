@@ -25,7 +25,7 @@
           %ul.dropdown-menu#tag-filter
             - @browse_tags.each do |(name, tag)|
               - if name
-                %li= link_to name, application_types_path(:tag => tag)
+                %li= link_to _(name), application_types_path(:tag => tag)
               - else
                 %hr
   .span6
@@ -78,7 +78,7 @@
               %h3.divide
                 = title
                 - if link
-                  %small.pull-right= link_to "see all", link
+                  %small.pull-right= link_to _("see all"), link
               - excluded_tags = common_tags_for(types)
               - types.sort!.each do |type|
                 = render :partial => 'tile', :locals => {:type => type, :excluded_tags => excluded_tags}
@@ -97,7 +97,7 @@
           %p! Have your own framework?  Provide the #{link_to(_('URL of a cartridge'), downloadable_cartridges_help_url)} here, and OpenShift will download and provision it automatically into your new app!
           %input{:type => :hidden, :name => :unlock, :value => 'true'}
           %input{:type => :text, :name => 'application_type[cartridges]', :placeholder => _('URL to a cartridge definition')}
-          %input.btn{:type => :submit, :value => 'Next', :title => _('Base a new app on a cartridge you provide')}
+          %input.btn{:type => :submit, :value => _('Next'), :title => _('Base a new app on a cartridge you provide')}
           
         .span6
           %p Want to build your own cartridge? Get started with the DIY cart.

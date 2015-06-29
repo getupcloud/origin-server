@@ -74,7 +74,7 @@
 
             - unless @application_type.automatic_updates?
               %div.text-warning{:title => 'When you create a QuickStart or a community cartridge, you are copying code from another repository. You are responsible for applying security fixes and updates.'}
-                =" Does not receive automatic security updates"
+                Does not receive automatic security updates
 
         - else
           %p.help-block 
@@ -121,7 +121,7 @@
       .controls.first
         - if @gear_sizes.length > 1
           = f.select :gear_profile, @gear_sizes.map{ |size| [size.to_s.titleize, size]}, {}
-          = popover("Gears", _('For applications in dev stage or the light ones (e.g. node.js), you can use the small gear.\nIf you require more resources, select a larger gear size."))
+          = popover("Gears", _('For applications in dev stage or the light ones (e.g. node.js), you can use the small gear.\nIf you require more resources, select a larger gear size.'))
 
         - else
           %h3

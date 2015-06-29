@@ -63,7 +63,7 @@ module Console::ModelHelper
   def available_gears_warning(writeable_domains)
     plan = user_manager_account_plan.content
     if plan[:status] == 'bt'
-      return ("<a href='#{account_path}'>#{I18n.t :unlock_your_account_click_here}</a> #{I18n.t :unlock_your_account_text}").html_safe
+      return ("<a href='#{account_path}'>#{_('Click here')}</a> #{_('to validate your account in order to receive your credit.')}").html_safe
     end
 
     if writeable_domains.present?
@@ -76,7 +76,7 @@ module Console::ModelHelper
         end
       elsif !writeable_domains.find(&:has_available_gears?)
         if not plan[:payment][:valid]
-          (I18n.t('getup.account.no_available_gears') + " <a href='#{account_path}'>" + I18n.t('getup.account.please_validate_your_account') + '</a>.').html_safe
+          (_('There are no available gears.') + " <a href='#{account_path}'>" + _('Please, validate your account.') + '</a>.').html_safe
         else
           out_of_gears_message
         end
@@ -89,9 +89,9 @@ module Console::ModelHelper
   end
 
   def getup_gear_prices
-    currency = I18n.t 'CURRENCY'
+    #currency = _('CURRENCY')
     user_manager_subscription_prices.content.select{ |item|
-      item[:item] == "GEAR_USAGE" && ! item[:gear_size].empty? && item[:currency] == currency
+      item[:item] == "GEAR_USAGE" && ! item[:gear_size].empty? # && item[:currency] == currency
     }.each{ |item|
       if item[:gear_size].start_with? 'small'
         item[:memory] = '512M'

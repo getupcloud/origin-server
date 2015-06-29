@@ -72,7 +72,7 @@ class Member < RestApi::Base
     when 'none'
       in_team ? _('Team access only') : _('No role')
     else
-      role.to_s.humanize
+      _(role).to_s.humanize
     end
   end
 

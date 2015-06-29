@@ -54,5 +54,5 @@
 
 - if show_create
   %p.help-block
-    %span=! "You can also #{link_to "create a new namespace", create_domain_url, {:class => 'create_domain', :data => {:submit_domain => true}}}."
-    = popover("Namespace", _("An namespace forms part of an application's URL and is unique to your account. The syntax for an application URL is <em>application–namespace.#{@domain_suffix}</em>."))
+    %span! You can also #{link_to(_("create a new namespace"), create_domain_url, {:class => 'create_domain', :data => {:submit_domain => true}})}.
+    = popover("Namespace", _("An namespace forms part of an application's URL and is unique to your account. The syntax for an application URL is <em>application–namespace.%s</em>.") % @domain_suffix)
