@@ -4,7 +4,7 @@ $(function($) {
 	//
 	// Pagar.me
 	//
-	PagarMe.encryption_key = "ek_test_y5S0NnXEMirqfLoUe1mYwAzLd3VJKZ";
+	PagarMe.encryption_key = "ek_live_gZmCZr6KQhydNYGiDFaEba5FAE1PQw";
 
 	var $form = $("#payment_form");
 
