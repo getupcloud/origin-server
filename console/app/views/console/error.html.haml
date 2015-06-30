@@ -2,13 +2,13 @@
 
 %h1!= @message || "An error has occurred"
 
-%p You can try <a href="javascript:window.location.reload();">refreshing the page</a>, if the problem is temporary.
+%p! You can try <a href="javascript:window.location.reload();">refreshing the page</a>, if the problem is temporary.
 
 %p You can also try the following:
 
 %ul
   %li! Seek assistance in one of our #{link_to(_("support resources"), support_path)}.
-  %li! Join #{link_to(_("IRC channel #openshift"), irc_web_url )} on Freenode.
+  %li! Join #{link_to(_("IRC channel #getupcloud"), irc_web_url )} on Freenode.
   %li! If you are experiencing a repeatable error not related to a service outage, #{link_to(_("report it as a bug"), open_bug_url )}.
 
 - if @reference_id

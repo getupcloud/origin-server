@@ -3284,3 +3284,6 @@ msgstr ""
 
 msgid "Change Payment Method"
 msgstr ""
+
+msgid "IRC Channel #getupcloud"
+msgstr ""

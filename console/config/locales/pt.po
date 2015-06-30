@@ -3448,3 +3448,6 @@ msgstr "Selecione o idioma"
 
 msgid "Change Payment Method"
 msgstr "Mudar o Método de Pagamento"
+
+msgid "IRC Channel #getupcloud"
+msgstr "Canal IRC #getupcloud"
