@@ -13,5 +13,5 @@
   = f.semantic_errors
   = f.buttons do
     = link_to _('Cancel'), @referer || application_path(@application), :class => 'btn'
-    = f.commit_button :label => _("Delete", :button_html => {:class => 'btn btn-danger')}
+    = f.commit_button :label => _("Delete"), :button_html => {:class => 'btn btn-danger'}
     = f.loading
