@@ -1,6 +1,6 @@
 - content_for :page_title, @message || _("An error occurred")
 
-%h1= @message || "An error has occurred"
+%h1!= @message || "An error has occurred"
 
 %p You can try <a href="javascript:window.location.reload();">refreshing the page</a>, if the problem is temporary.
 

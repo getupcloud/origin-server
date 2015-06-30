@@ -2910,7 +2910,7 @@ msgstr ""
 msgid "Idiom"
 msgstr ""
 
-msgid "Select web console idiom"
+msgid "Select console idiom"
 msgstr ""
 
 msgid "Change password of your Getup account"

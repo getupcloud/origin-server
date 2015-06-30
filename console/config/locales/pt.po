@@ -3079,8 +3079,8 @@ msgstr "Esqueçeu sua senha?"
 msgid "Idiom"
 msgstr "Idioma"
 
-msgid "Select web console idiom"
-msgstr "Selectione o idioma do console web"
+msgid "Select console idiom"
+msgstr "Selectione o idioma do console"
 
 msgid "Change password of your Getup account"
 msgstr "Troque a senha de sua conta Getup"
