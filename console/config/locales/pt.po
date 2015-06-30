@@ -3324,7 +3324,7 @@ msgid "Credits"
 msgstr "Créditos"
 
 msgid "Discount"
-msgstr "Disconto"
+msgstr "Desconto"
 
 msgid "Free hour/gear (recurring credit)"
 msgstr "Hora/gear grátis (crédito recorrente)"
