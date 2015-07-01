@@ -18,7 +18,7 @@
 Summary:       Cloud Development Node
 Name:          rubygem-%{gem_name}
 Version: 1.26.8.1
-Release:       1%{?dist}
+Release:       3%{?dist}
 Group:         Development/Languages
 License:       ASL 2.0
 URL:           http://www.openshift.com
@@ -283,6 +283,24 @@ fi
 %attr(0755,-,-) /etc/cron.daily/openshift-origin-stale-lockfiles
 
 %changelog
+* Mon Jun 29 2015 Builder <getup@getupcloud.com> 1.26.8.1-3
+- make ident less restrictive (spinolacastro@gmail.com)
+- Bug 1163910 - Rename watchman log files (jhonce@redhat.com)
+- Bug 1121217 - Symbol leak in Throttler cgroup code (jhonce@redhat.com)
+- Bug 1024531 - /proc/net provides too much information (jhonce@redhat.com)
+
+* Mon Jun 29 2015 Builder <getup@getupcloud.com>
+- make ident less restrictive (spinolacastro@gmail.com)
+- Bug 1163910 - Rename watchman log files (jhonce@redhat.com)
+- Bug 1121217 - Symbol leak in Throttler cgroup code (jhonce@redhat.com)
+- Bug 1024531 - /proc/net provides too much information (jhonce@redhat.com)
+
+* Mon Jun 29 2015 Builder <getup@getupcloud.com>
+- make ident less restrictive (spinolacastro@gmail.com)
+- Bug 1163910 - Rename watchman log files (jhonce@redhat.com)
+- Bug 1121217 - Symbol leak in Throttler cgroup code (jhonce@redhat.com)
+- Bug 1024531 - /proc/net provides too much information (jhonce@redhat.com)
+
 * Thu Jul 10 2014 Adam Miller <admiller@redhat.com> 1.26.8.1-1
 - 
 
