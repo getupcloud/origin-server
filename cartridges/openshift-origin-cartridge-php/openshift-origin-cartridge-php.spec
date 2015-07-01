@@ -59,6 +59,11 @@ PHP cartridge for openshift. (Cartridge Format V2)
 
 
 %changelog
+* Wed Jul 01 2015 Builder <getup@getupcloud.com> 1.26.9.1-14
+- bump version (getup@getupcloud.com)
+- Fix template (spinolacastro@gmail.com)
+- Better Regex (spinolacastro@gmail.com)
+
 * Wed Jun 17 2015 Builder <getup@getupcloud.com> 1.26.9.1-13
 - bump version (getup@getupcloud.com)
 - Little hack to the NewRelic agent (spinolacastro@gmail.com)
