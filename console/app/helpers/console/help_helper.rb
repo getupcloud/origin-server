@@ -202,7 +202,7 @@ module Console::HelpHelper
   end
 
   def getting_started_path(opts=nil)
-    community_base_url "get-started", opts
+    community_base_url "entries/38835698"
   end
 
   def product_overview_path(opts=nil)
