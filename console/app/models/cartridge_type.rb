@@ -56,10 +56,10 @@ class CartridgeType < RestApi::Base
   def description
     begin
       return @description if @description.is_a? String
-      return @description[Console::LanguageHelper.locale] if @description.key? Console::LanguageHelper.locale
+      return @description[I18n.locale] if @description.respond_to?('key?') and @description.key?(I18n.locale)
       return @description['en-us'] || @description['en'] || @description.first
     rescue
-      ''
+      @description.to_s rescue ''
     end
   end
 

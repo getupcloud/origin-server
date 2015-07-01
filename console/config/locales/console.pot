@@ -3290,3 +3290,9 @@ msgstr ""
 
 msgid "set up a CNAME record with your DNS provider"
 msgstr ""
+
+msgid "English"
+msgstr ""
+
+msgid "Portuguese (Brazil)"
+msgstr ""

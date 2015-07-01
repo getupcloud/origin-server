@@ -1,5 +1,6 @@
 module LocaleAware
   extend ActiveSupport::Concern
+  include Console::UserManagerHelper
 
   included do
     before_filter :set_locale
@@ -13,12 +14,17 @@ module LocaleAware
 
   def set_locale
     lang = nil
+    from_param = false
     if params.key? :lang
-      lang = params[:lang] if params[:lang].is_a?(String)
-      lang = params[:lang][:select] unless params[:lang].is_a? String
+      if params[:lang].is_a?(String)
+        lang = params[:lang]
+        from_param = true
+      else
+        lang = params[:lang][:select] unless params[:lang].is_a? String
+      end
     end
-    @@locale = (lang || session[:lang] || user_browser_language || I18n.default_locale.to_s)
-    I18n.locale = @@locale
+    I18n.locale = @@locale = (lang || session[:lang] || user_manager_account_lang || user_browser_language || I18n.default_locale.to_s).split(/[_-]/)[0]
+    session[:lang] = @@locale unless from_param
     GetText.bindtextdomain "console", :path => "../../config/locales"
   end
 
