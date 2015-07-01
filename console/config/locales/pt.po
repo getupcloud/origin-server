@@ -3324,7 +3324,7 @@ msgid "Credits"
 msgstr "Créditos"
 
 msgid "Discount"
-msgstr "Disconto"
+msgstr "Desconto"
 
 msgid "Free hour/gear (recurring credit)"
 msgstr "Hora/gear grátis (crédito recorrente)"
@@ -3451,3 +3451,6 @@ msgstr "Mudar o Método de Pagamento"
 
 msgid "IRC Channel #getupcloud"
 msgstr "Canal IRC #getupcloud"
+
+msgid "set up a CNAME record with your DNS provider"
+msgstr "configurar um registro CNAME em seu provedor DNS"

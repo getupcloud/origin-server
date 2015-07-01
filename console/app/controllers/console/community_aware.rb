@@ -17,7 +17,7 @@ module Console
       end
 
       def community_base_url(path, opts=nil)
-        "#{Console.config.community_url || "#{request.scheme}://#{request.host}:8118/"}#{path}#{opts && opts[:anchor] ? "##{opts[:anchor]}" : ""}"
+        "#{Console.config.community_url || "#{request.scheme}://#{request.host}/"}#{path}#{opts && opts[:anchor] ? "##{opts[:anchor]}" : ""}"
       end
 
       def getup_zendesk_url
