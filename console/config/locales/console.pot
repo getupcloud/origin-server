@@ -3287,3 +3287,6 @@ msgstr ""
 
 msgid "IRC Channel #getupcloud"
 msgstr ""
+
+msgid "set up a CNAME record with your DNS provider"
+msgstr ""
