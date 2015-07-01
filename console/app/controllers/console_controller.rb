@@ -8,12 +8,10 @@ class ConsoleController < Console.config.parent_controller.constantize
   include Console::CommunityAware
   include Console::LogHelper
   include Console::ErrorsHelper
-  include Console::LanguageHelper
 
   layout 'console'
 
   before_filter :authenticate_user!
-  before_filter :set_locale
 
   protected
     def active_tab

@@ -88,10 +88,9 @@ module Console::ModelHelper
     _("There are not enough free gears available to create a new application. You will either need to scale down or delete existing applications to free up resources.")
   end
 
-  def getup_gear_prices
-    #currency = _('CURRENCY')
+  def getup_gear_prices(currency=:BRL, ascending=true)
     user_manager_subscription_prices.content.select{ |item|
-      item[:item] == "GEAR_USAGE" && ! item[:gear_size].empty? # && item[:currency] == currency
+      item[:item] == "GEAR_USAGE" && ! item[:gear_size].empty? && item[:currency] == currency.to_s
     }.each{ |item|
       if item[:gear_size].start_with? 'small'
         item[:memory] = '512M'
@@ -102,6 +101,12 @@ module Console::ModelHelper
       else
         item[:memory] = ''
         item[:storage] = ''
+      end
+    }.sort!{ |a, b|
+      if ascending
+        a[:gear_size] <=> b[:gear_size]
+      else
+        b[:gear_size] <=> a[:gear_size]
       end
     }
   end

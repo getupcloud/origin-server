@@ -3454,3 +3454,9 @@ msgstr "Canal IRC #getupcloud"
 
 msgid "set up a CNAME record with your DNS provider"
 msgstr "configurar um registro CNAME em seu provedor DNS"
+
+msgid "English"
+msgstr "Inglês"
+
+msgid "Portuguese (Brazil)"
+msgstr "Português (Brasil)"

@@ -1,11 +1,9 @@
 class AuthenticationController < Console.config.parent_controller.constantize
   include Console::UserManagerHelper
   include Console::HelpHelper
-  include Console::LanguageHelper
+  include Console::LocaleAware
 
   layout 'authentication'
-
-  before_filter :set_locale
 
   def signin
   end

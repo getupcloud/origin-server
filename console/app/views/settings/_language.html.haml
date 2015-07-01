@@ -8,7 +8,7 @@
     = f.inputs :inline => true, :without_errors => true do
       .input-prepend
         %span.add-on Select console idiom
-        = f.input :select, {collection: options_for_select({_('en') => 'en-us', _('pt-br') => 'pt-br'}, session[:lang]), :include_blank => false, :input_html => {:style => 'width: auto', :title => _('Select language') }}
+        = f.input :select, {collection: options_for_select({_('English') => 'en', _('Portuguese (Brazil)') => 'pt'}, session[:lang]), :include_blank => false, :input_html => {:style => 'width: auto', :title => _('Select language') }}
 
 - content_for :javascripts do
   :javascript
