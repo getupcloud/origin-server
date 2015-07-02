@@ -1073,7 +1073,7 @@ msgstr ""
 #: ../../app/views/application_types/show.html.haml:178
 msgid ""
 "Applications are composed of cartridges - each of which exposes a service or c"
-"apability to your code.  All applications must have a web cartridge."
+"apability to your code. All applications must have a web cartridge."
 msgstr ""
 
 #: ../../app/views/application_types/show.html.haml:182
@@ -2865,7 +2865,7 @@ msgid "Create a new team"
 msgstr ""
 
 msgid ""
-"For applications in dev stage or the light ones (e.g. node.js), you can use the small gear.\n"
+"For applications in dev stage or the light ones (e.g. node.js), you can use the small gear. "
 "If you require more resources, select a larger gear size."
 msgstr ""
 
