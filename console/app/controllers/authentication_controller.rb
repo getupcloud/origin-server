@@ -1,7 +1,7 @@
 class AuthenticationController < Console.config.parent_controller.constantize
   include Console::UserManagerHelper
   include Console::HelpHelper
-  include Console::LocaleAware
+  include LocaleAware
 
   layout 'authentication'
 
