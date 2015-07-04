@@ -10,7 +10,7 @@
 Summary:       OpenShift Origin Management Console
 Name:          rubygem-%{gem_name}
 Version:       1.26.3.2
-Release:       10%{?dist}
+Release:       11%{?dist}
 Group:         Development/Languages
 License:       ASL 2.0
 URL:           https://openshift.redhat.com
@@ -175,6 +175,13 @@ cp bin/man/*.8 %{buildroot}%{_mandir}/man8/
 %{gem_dir}/doc/%{gem_name}-%{version}
 
 %changelog
+* Sat Jul 04 2015 Builder <getup@getupcloud.com> 1.26.3.2-11
+- Merge branch 'console-r4' of github.com:getupcloud/origin-server into
+  console-r4 (getup@getupcloud.com)
+- Revert signin field type (mateus.caruccio@getupcloud.com)
+- fix auth include javascript (mateus.caruccio@getupcloud.com)
+- missing translations (mateus.caruccio@getupcloud.com)
+
 * Fri Jul 03 2015 Builder <getup@getupcloud.com> 1.26.3.2-10
 - Merge branch 'console-r4' of github.com:getupcloud/origin-server into
   console-r4 (getup@getupcloud.com)
