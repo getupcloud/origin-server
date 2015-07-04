@@ -42,7 +42,6 @@ class Authentication < ActiveResource::Base
 
   def change_password(password, new_password)
 
-Rails.logger.debug "Auth.change_password:: #{password}/#{new_password}"
     response = user_manager_account_password_change @login, password, new_password
     response_code = response.code.to_i
 

@@ -1078,8 +1078,8 @@ msgstr "Código Fonte"
 
 #: ../../app/views/application_types/show.html.haml:132
 msgid ""
-"Your application will start with an exact copy of the code and configuration provided "
-"in this Git repository."
+"Your application will start with an exact copy of the code and configuration "
+"provided in this Git repository."
 msgstr ""
 "Sua aplicação vai iniciar com uma cópia exata de código e configuração fornecidos neste "
 "repositório Git."
@@ -1119,11 +1119,10 @@ msgid "Cartridges"
 msgstr "Cartuchos"
 
 #: ../../app/views/application_types/show.html.haml:178
-msgid ""
-"Applications are composed of cartridges - each of which exposes a service or capability "
-"to your code.  All applications must have a web cartridge."
+msgid "Applications are composed of cartridges - each of which exposes a service or "
+"capability to your code.  All applications must have a web cartridge."
 msgstr ""
-"Aplicações são compostas de cartuchos - cada um expões um serviço ou capacidade para "
+"Aplicações são compostas de cartuchos - cada um expõe um serviço ou capacidade para "
 "seu código. Toda aplicação deve ter no mínimo um cartucho web."
 
 #: ../../app/views/application_types/show.html.haml:182
@@ -3030,7 +3029,7 @@ msgid "Create a new team"
 msgstr "Crie um novo time"
 
 msgid ""
-"For applications in dev stage or the light ones (e.g. node.js), you can use the small gear.\n"
+"For applications in dev stage or the light ones (e.g. node.js), you can use the small gear. "
 "If you require more resources, select a larger gear size."
 msgstr ""
 "Aplicações em DEV ou +leves como node.js por exemplo, o gear small pode ser suficiente.\n"
