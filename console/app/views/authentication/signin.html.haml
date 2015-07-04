@@ -12,7 +12,7 @@
         %fieldset
           = token_tag(nil)
         %fieldset
-          = text_field_tag 'login', '', :placeholder => _("Email"), :required => ''
+          = email_field_tag 'login', '', :placeholder => _("Email"), :required => ''
         %fieldset
           = password_field_tag 'password', '', :placeholder => _("Password"), :required => ''
         .pull-left
