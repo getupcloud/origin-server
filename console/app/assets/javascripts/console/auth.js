@@ -4,8 +4,9 @@
 	var validation = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
 	var forgot = $('#forgot');
 
-	forgot.click(function() {
+	forgot.on('click', function(ev) {
 
+		ev.preventDefault();
 		var form = $('#form-authentication'),
 			login = $('#login'),
 			flashes = $('#flash');			
@@ -21,7 +22,10 @@
 			return false;
 		} else {
 			flashes.fadeOut();
-			form.attr('action', forgot.attr('href')).submit();
+			var reset_form = form.clone();
+			$('#password', reset_form).remove();
+			reset_form.attr('action', forgot.attr('href'));
+			reset_form.submit();
 		}
 
 		return false;
