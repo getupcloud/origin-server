@@ -9,5 +9,5 @@
   = hidden_field_tag(:id, domain.me.id)
   = hidden_field_tag(:role, :none)
   .form-actions
-    = link_to 'Cancel', domain_path(domain), :class => 'btn cancel'
-    = submit_tag "Leave Domain", :class => 'btn btn-danger'
+    = link_to _('Cancel'), domain_path(domain), :class => 'btn cancel'
+    = submit_tag _("Leave Domain"), :class => 'btn btn-danger'
