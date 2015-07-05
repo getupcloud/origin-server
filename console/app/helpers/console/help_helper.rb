@@ -1,4 +1,6 @@
 module Console::HelpHelper
+  include CommunityAware
+
   def getup_community_path
     getup_forums_url
   end

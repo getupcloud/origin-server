@@ -10,7 +10,6 @@ class AuthenticationController < Console.config.parent_controller.constantize
 
   def signout
     reset_session
-
     redirect_to signin_path
   end
 
@@ -22,7 +21,7 @@ class AuthenticationController < Console.config.parent_controller.constantize
     redirect_to applications_path
   end
 
-  def change_password
+  def reset_password
     session[:token] = params[:token]
   end
 
@@ -30,10 +29,35 @@ class AuthenticationController < Console.config.parent_controller.constantize
     authentication = Authentication.new
     begin
         authentication.reset_password params[:login]
-        flash[:success] = "Password reset sent."
+        flash[:success] = _("Password reset sent.")
     rescue
-        flash[:error] = "Error reseting password. Please contact suporte@getupcloud.com."
+        flash[:error] = _("Error reseting password: %s") % _("Please contact support@getupcloud.com")
     end
     redirect_to signin_path
+  end
+
+  def update_password
+    password = params[:password].to_s
+    if password.length < 6
+       flash[:error] = _('Password too short (min 6 characteres)')
+       redirect_to :back
+       return
+    end
+
+    authentication = Authentication.new
+    res = authentication.update_password params[:password], session[:token]
+
+    if res.content
+      if res.content[:status] == 'ok'
+        flash[:success] = res.content[:message]
+        redirect_to signin_path
+        return
+      end
+      flash[:error] = _('Unable to reset your password: %s') % res.content[:message]
+    else
+      flash[:error] = _('Unable to reset your password: %s') % _("Please contact support@getupcloud.com")
+    end
+
+    redirect_to :back
   end
 end

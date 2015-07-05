@@ -6,7 +6,7 @@ module Console::UserManagerApiHelper
       @body = response.body
       @message = response.message
       @header = response.header
-      @content = JSON.parse response.body, :symbolize_names => true rescue nil
+      @content = JSON.parse(response.body, :symbolize_names => true) rescue nil
     end
 
     def code
