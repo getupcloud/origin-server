@@ -1,6 +1,6 @@
 class AccountController < ConsoleController
   include Console::UserManagerHelper
-  include CommunityAware
+  include Console::CommunityAware
 
   def show
     @user = current_user
