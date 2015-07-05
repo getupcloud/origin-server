@@ -1,5 +1,6 @@
 module Console
   module CommunityAware
+    include CommunityHelper
     extend ActiveSupport::Concern
 
     included do
