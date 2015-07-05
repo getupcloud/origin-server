@@ -55,10 +55,7 @@ class Authentication < ActiveResource::Base
   end
 
   def update_password(password, token)
-    response = user_manager_account_password_reset_key token, password
-    response_code = response.code.to_i
-
-    response_code >= 200 and response_code < 400
+    user_manager_account_password_reset_key token, password
   end
 
   def login

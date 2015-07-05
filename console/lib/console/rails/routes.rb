@@ -121,7 +121,8 @@ module ActionDispatch::Routing
         match 'auth' => 'authentication#auth', :via => :post, :format => false
         match 'password_reset' => 'authentication#send_reset_token', :format => false
 
-#        match 'password_reset/*token' => 'authentication#change_password', :via => :get, :format => false
+        match 'password_reset/*token' => 'authentication#reset_password', :via => :get, :format => false
+        post  'update_password' => 'authentication#update_password', :format => false, :as => 'password_update'
       end
 
   end

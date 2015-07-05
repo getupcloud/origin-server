@@ -3296,3 +3296,24 @@ msgstr ""
 
 msgid "Portuguese (Brazil)"
 msgstr ""
+
+msgid "Reset Your Password"
+msgstr ""
+
+msgid "Password reset sent."
+msgstr ""
+
+msgid "Unable to reset your password: %s"
+msgstr ""
+
+msgid "Password too short (min 6 characteres)"
+msgstr ""
+
+msgid "Please contact support@getupcloud.com"
+msgstr ""
+
+msgid "Bad Token"
+msgstr ""
+
+msgid "Your password is now changed."
+msgstr ""

@@ -3459,3 +3459,24 @@ msgstr "Inglês"
 
 msgid "Portuguese (Brazil)"
 msgstr "Português (Brasil)"
+
+msgid "Reset Your Password"
+msgstr "Redefina sua Senha"
+
+msgid "Password reset sent."
+msgstr "Redefinição de senha enviada"
+
+msgid "Unable to reset your password: %s"
+msgstr "Erro ao redefinir sua senha: %s"
+
+msgid "Please contact support@getupcloud.com"
+msgstr "Por favor contate suporte@getupcloud.com"
+
+msgid "Password too short (min 6 characteres)"
+msgstr "Senha muito curta (mínino 6 caracteres)"
+
+msgid "Bad Token"
+msgstr "Token inválido"
+
+msgid "Your password is now changed."
+msgstr "Sua senha foi alterada."
