@@ -31,12 +31,12 @@ function ensure_multisite() {
     if [ "${OPENSHIFT_HAPROXY_DIR}" ]; then
         select_php_document_root ${OPENSHIFT_REPO_DIR}
         oo-erb ${HTTPD_CFG_DIR}/multisite.conf.erb.hidden > ${HTTPD_CFG_DIR}/multisite.conf
-        sed -i "s|\s\+option httpchk GET /|    option httpchk GET / HTTP/1.0\\\r\\\nHost:\\\ $OPENSHIFT_APP_DNS|" ${OPENSHIFT_HAPROXY_DIR}conf/haproxy.cfg
+        sed -i "s|^\s\+option httpchk GET /$|    option httpchk GET / HTTP/1.0\\\r\\\nHost:\\\ $OPENSHIFT_APP_DNS|" ${OPENSHIFT_HAPROXY_DIR}conf/haproxy.cfg
     fi
   else
     echo > ${HTTPD_CFG_DIR}/multisite.conf
     if [ "${OPENSHIFT_HAPROXY_DIR}" ]; then
-        sed -i "s|\s\+option httpchk GET / HTTP/1.0\\\r\\\nHost:\\\ $OPENSHIFT_APP_DNS|    option httpchk GET /|" ${OPENSHIFT_HAPROXY_DIR}conf/haproxy.cfg
+        sed -i "s|^\s\+option httpchk GET / HTTP/1.0\\\r\\\nHost:\\\ $OPENSHIFT_APP_DNS$|    option httpchk GET /|" ${OPENSHIFT_HAPROXY_DIR}conf/haproxy.cfg
     fi
   fi
   return $? 
