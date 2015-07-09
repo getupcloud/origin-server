@@ -3480,3 +3480,21 @@ msgstr "Token inválido"
 
 msgid "Your password is now changed."
 msgstr "Sua senha foi alterada."
+
+msgid "Not now, continue"
+msgstr "Agora não, continue"
+
+msgid "visit app in the browser"
+msgstr "visite a aplicação no navegador"
+
+msgid "Requires a %s."
+msgstr "Requer uma"
+
+msgid "public key"
+msgstr "chave pública"
+
+msgid "You must %s before you can upload code or remotely access your application."
+msgstr "Primeiro você deve %s antes de publicar código remotamente ou acessar o servidor da aplicação."
+
+msgid "add an SSH public key to your account"
+msgstr "enviar uma chave pública para sua conta"

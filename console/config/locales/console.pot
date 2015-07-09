@@ -3317,3 +3317,21 @@ msgstr ""
 
 msgid "Your password is now changed."
 msgstr ""
+
+msgid "Not now, continue"
+msgstr ""
+
+msgid "visit app in the browser"
+msgstr ""
+
+msgid "Requires a %s."
+msgstr ""
+
+msgid "public key"
+msgstr ""
+
+msgid "You must %s before you can upload code or remotely access your application."
+msgstr ""
+
+msgid "add an SSH public key to your account"
+msgstr ""
