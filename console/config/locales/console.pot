@@ -3335,3 +3335,12 @@ msgstr ""
 
 msgid "add an SSH public key to your account"
 msgstr ""
+
+msgid "For pricing and more information about storage for your application see %s."
+msgstr ""
+
+msgid "our pricing page"
+msgstr ""
+
+msgid "For pricing consult %s."
+msgstr ""

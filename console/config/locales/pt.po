@@ -3498,3 +3498,12 @@ msgstr "Primeiro você deve %s antes de publicar código remotamente ou acessar 
 
 msgid "add an SSH public key to your account"
 msgstr "enviar uma chave pública para sua conta"
+
+msgid "For pricing and more information about storage for your application see %s."
+msgstr "Para mais informações sobre storage para sua aplicação, %s."
+
+msgid "our pricing page"
+msgstr "veja nossa página de preços"
+
+msgid "For pricing consult %s."
+msgstr "Para preços %s."

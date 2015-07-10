@@ -196,7 +196,7 @@ module Console::HelpHelper
   end
 
   def storage_help_url
-    community_base_url 'faq/what-is-add-on-storage'
+    community_base_url 'hc/pt-br/articles/205361075'
   end
 
   def user_guide_url
@@ -239,7 +239,7 @@ module Console::HelpHelper
   end
 
   def pricing_url(opts = nil)
-    community_base_url 'developers/pricing', opts
+    community_base_url 'hc/pt-br/articles/205361075'
   end
 
   def legal_url
