@@ -2618,6 +2618,9 @@ msgstr ""
 msgid "Paste the contents of your public key file"
 msgstr ""
 
+msgid "Paste the contents of your public key file (.pub)"
+msgstr ""
+
 msgid "The contents of your public key file"
 msgstr ""
 
@@ -3343,4 +3346,10 @@ msgid "our pricing page"
 msgstr ""
 
 msgid "For pricing consult %s."
+msgstr ""
+
+msgid "Set an SSH key"
+msgstr ""
+
+msgid "%s to"
 msgstr ""

@@ -6,7 +6,7 @@
       You must create a private and public key on your local machine and then upload the public key before you can connect to your applications' Git repositories or remotely access your applications.
 
     %p
-      = link_to "Learn more about SSH keys.", ssh_keys_help_path
+      = link_to _("Learn more about SSH keys."), ssh_keys_help_path
 
   .span6
     = render :partial => 'keys/simple_form', :locals => { :key => Key.new, :input_class => 'span4' }
