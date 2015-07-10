@@ -2,6 +2,7 @@ $:.push File.expand_path("../lib", __FILE__)
 
 Gem::Specification.new do |s|
   spec_file = IO.read(File.expand_path("../rubygem-#{File.basename(__FILE__, '.gemspec')}.spec", __FILE__))
+  spec_file.force_encoding('UTF-8')
 
   s.name = 'openshift-origin-console'
   s.version = spec_file.match(/^Version:\s*(.*?)$/mi)[1].chomp 
