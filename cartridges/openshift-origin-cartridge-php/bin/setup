@@ -1,4 +1,4 @@
-new#!/bin/bash -eu
+#!/bin/bash -eu
 
 case "$1" in
   -v|--version)
