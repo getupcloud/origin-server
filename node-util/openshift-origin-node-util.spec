@@ -11,7 +11,7 @@
 Summary:       Utility scripts for the OpenShift Origin node
 Name:          openshift-origin-node-util
 Version: 1.25.5.1
-Release:       4%{?dist}
+Release:       5%{?dist}
 Group:         Network/Daemons
 License:       ASL 2.0
 URL:           http://www.openshift.com
@@ -168,6 +168,9 @@ cp -p init.d/openshift-gears %{buildroot}%{_initddir}/
 %endif
 
 %changelog
+* Thu Jul 09 2015 Builder <getup@getupcloud.com> 1.25.5.1-5
+- Avoid skipping jenkins builders in gear ps list (jolamb@redhat.com)
+
 * Sat Feb 28 2015 Builder <getup@getupcloud.com> 1.25.5.1-4
 - bump version (spinolacastro@gmail.com)
 - Watchman retry delay delta is in seconds (mateus@caruccio.com)

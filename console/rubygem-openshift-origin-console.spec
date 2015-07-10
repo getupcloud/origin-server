@@ -9,8 +9,8 @@
 
 Summary:       OpenShift Origin Management Console
 Name:          rubygem-%{gem_name}
-Version: 1.26.3.1
-Release:       20%{?dist}
+Version:       1.26.3.2
+Release:       16%{?dist}
 Group:         Development/Languages
 License:       ASL 2.0
 URL:           https://openshift.redhat.com
@@ -175,6 +175,133 @@ cp bin/man/*.8 %{buildroot}%{_mandir}/man8/
 %{gem_dir}/doc/%{gem_name}-%{version}
 
 %changelog
+* Thu Jul 09 2015 Builder <getup@getupcloud.com> 1.26.3.2-16
+- missing translations (mateus.caruccio@getupcloud.com)
+- fix haml syntax (mateus.caruccio@getupcloud.com)
+- fix includes (mateus.caruccio@getupcloud.com)
+- fix credit listing (mateus.caruccio@getupcloud.com)
+- Password reset form (mateus.caruccio@getupcloud.com)
+- Revert signin field type (mateus.caruccio@getupcloud.com)
+- fix auth include javascript (mateus.caruccio@getupcloud.com)
+- missing translations (mateus.caruccio@getupcloud.com)
+- Fix reset password (mateus.caruccio@getupcloud.com)
+- missing translation (mateus.caruccio@getupcloud.com)
+- fix include LocaleAware (mateus.caruccio@getupcloud.com)
+- Sort and filter gear prices (mateus.caruccio@getupcloud.com)
+- Using LocaleAware (mateus.caruccio@getupcloud.com)
+- fix community url (mateus.caruccio@getupcloud.com)
+- missing translation (mateus.caruccio@getupcloud.com)
+- typo (mateus.caruccio@getupcloud.com)
+- update pagarme enc key (mateus.caruccio@getupcloud.com)
+- missing translations (mateus.caruccio@getupcloud.com)
+- recompile pt.po (mateus.caruccio@getupcloud.com)
+- Fix translation (mateus.caruccio@getupcloud.com)
+- fix payment view (mateus.caruccio@getupcloud.com)
+- Translation cleanups; pt.mo (mateus.caruccio@getupcloud.com)
+- Missing translations (mateus.caruccio@getupcloud.com)
+- Define gettext rake task for non-production only
+  (mateus.caruccio@getupcloud.com)
+- Update haml (mateus.caruccio@getupcloud.com)
+- Remove config I18n.enforce_available_locales (mateus.caruccio@getupcloud.com)
+- Missing translations (mateus.caruccio@getupcloud.com)
+- Merge branch 'translation-r4' into console-r4
+  (mateus.caruccio@getupcloud.com)
+- Support for gettext (mateus.caruccio@getupcloud.com)
+
+* Thu Jul 09 2015 Builder <getup@getupcloud.com> 1.26.3.2-15
+- Merge branch 'console-r4' of github.com:getupcloud/origin-server into
+  console-r4 (getup@getupcloud.com)
+- missing translations (mateus.caruccio@getupcloud.com)
+
+* Sun Jul 05 2015 Builder <getup@getupcloud.com> 1.26.3.2-14
+- Merge branch 'console-r4' of github.com:getupcloud/origin-server into
+  console-r4 (getup@getupcloud.com)
+- fix haml syntax (mateus.caruccio@getupcloud.com)
+- fix includes (mateus.caruccio@getupcloud.com)
+
+* Sat Jul 04 2015 Builder <getup@getupcloud.com> 1.26.3.2-13
+- Merge branch 'console-r4' of github.com:getupcloud/origin-server into
+  console-r4 (getup@getupcloud.com)
+- fix credit listing (mateus.caruccio@getupcloud.com)
+
+* Sat Jul 04 2015 Builder <getup@getupcloud.com> 1.26.3.2-12
+- Merge branch 'console-r4' of github.com:getupcloud/origin-server into
+  console-r4 (getup@getupcloud.com)
+- Password reset form (mateus.caruccio@getupcloud.com)
+
+* Sat Jul 04 2015 Builder <getup@getupcloud.com> 1.26.3.2-11
+- Merge branch 'console-r4' of github.com:getupcloud/origin-server into
+  console-r4 (getup@getupcloud.com)
+- Revert signin field type (mateus.caruccio@getupcloud.com)
+- fix auth include javascript (mateus.caruccio@getupcloud.com)
+- missing translations (mateus.caruccio@getupcloud.com)
+
+* Fri Jul 03 2015 Builder <getup@getupcloud.com> 1.26.3.2-10
+- Merge branch 'console-r4' of github.com:getupcloud/origin-server into
+  console-r4 (getup@getupcloud.com)
+- Fix reset password (mateus.caruccio@getupcloud.com)
+- missing translation (mateus.caruccio@getupcloud.com)
+
+* Thu Jul 02 2015 Builder <getup@getupcloud.com> 1.26.3.2-9
+- Merge branch 'console-r4' of github.com:getupcloud/origin-server into
+  console-r4 (getup@getupcloud.com)
+- fix include LocaleAware (mateus.caruccio@getupcloud.com)
+
+* Wed Jul 01 2015 Builder <getup@getupcloud.com> 1.26.3.2-8
+- Merge branch 'console-r4' of github.com:getupcloud/origin-server into
+  console-r4 (getup@getupcloud.com)
+- Sort and filter gear prices (mateus.caruccio@getupcloud.com)
+- Using LocaleAware (mateus.caruccio@getupcloud.com)
+
+* Tue Jun 30 2015 Builder <getup@getupcloud.com> 1.26.3.2-7
+- Merge branch 'console-r4' of github.com:getupcloud/origin-server into
+  console-r4 (getup@getupcloud.com)
+- fix community url (mateus.caruccio@getupcloud.com)
+- missing translation (mateus.caruccio@getupcloud.com)
+- typo (mateus.caruccio@getupcloud.com)
+
+* Tue Jun 30 2015 Builder <getup@getupcloud.com> 1.26.3.2-6
+- Merge branch 'console-r4' of github.com:getupcloud/origin-server into
+  console-r4 (getup@getupcloud.com)
+- update pagarme enc key (mateus.caruccio@getupcloud.com)
+- missing translations (mateus.caruccio@getupcloud.com)
+
+* Tue Jun 30 2015 Builder <getup@getupcloud.com> 1.26.3.2-5
+- Merge branch 'console-r4' of github.com:getupcloud/origin-server into
+  console-r4 (getup@getupcloud.com)
+- recompile pt.po (mateus.caruccio@getupcloud.com)
+
+* Tue Jun 30 2015 Builder <getup@getupcloud.com> 1.26.3.2-4
+- Merge branch 'console-r4' of github.com:getupcloud/origin-server into
+  console-r4 (getup@getupcloud.com)
+- Fix translation (mateus.caruccio@getupcloud.com)
+
+* Mon Jun 29 2015 Builder <getup@getupcloud.com> 1.26.3.2-3
+- fix payment view (mateus.caruccio@getupcloud.com)
+- Translation cleanups; pt.mo (mateus.caruccio@getupcloud.com)
+- Missing translations (mateus.caruccio@getupcloud.com)
+- Define gettext rake task for non-production only
+  (mateus.caruccio@getupcloud.com)
+- Update haml (mateus.caruccio@getupcloud.com)
+- Remove config I18n.enforce_available_locales (mateus.caruccio@getupcloud.com)
+- Missing translations (mateus.caruccio@getupcloud.com)
+- Merge branch 'translation-r4' into console-r4
+  (mateus.caruccio@getupcloud.com)
+- Support for gettext (mateus.caruccio@getupcloud.com)
+
+* Mon Jun 29 2015 Builder <getup@getupcloud.com>
+- fix payment view (mateus.caruccio@getupcloud.com)
+- Translation cleanups; pt.mo (mateus.caruccio@getupcloud.com)
+- Missing translations (mateus.caruccio@getupcloud.com)
+- Define gettext rake task for non-production only
+  (mateus.caruccio@getupcloud.com)
+- Update haml (mateus.caruccio@getupcloud.com)
+- Remove config I18n.enforce_available_locales (mateus.caruccio@getupcloud.com)
+- Missing translations (mateus.caruccio@getupcloud.com)
+- Merge branch 'translation-r4' into console-r4
+  (mateus.caruccio@getupcloud.com)
+- Support for gettext (mateus.caruccio@getupcloud.com)
+
 * Fri Jun 05 2015 Builder <getup@getupcloud.com> 1.26.3.1-20
 - rebuild
 * Fri Jun 05 2015 Builder <getup@getupcloud.com> 1.26.3.1-19
