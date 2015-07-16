@@ -18,7 +18,7 @@ apc.enabled=1
 apc.shm_size=<%= (ENV['OPENSHIFT_PHP_APC_SHM_SIZE'] =~ /^[0-9]+[MG]$/) ? ENV['OPENSHIFT_PHP_APC_SHM_SIZE'] : ((ENV['OPENSHIFT_GEAR_MEMORY_MB'].to_i/8).to_i.to_s+"M") %>
 
 ; The shared memory size reserved for strings, with M/G suffixe
-apc.shm_strings_buffer=8M
+apc.shm_strings_buffer=0
 
 ; A "hint" about the number of distinct source files that will be included or 
 ; requested on your web server. Set to zero or omit if you are not sure;
@@ -63,7 +63,7 @@ apc.mmap_file_mask=/tmp/apc.XXXXXX
 ;apc.max_file_size=1M
 
 ; Whether to stat the main script file and the fullpath includes.
-apc.stat=<%= (ENV['APPLICATION_ENV'] == "development") ? "1" : "0" %>
+apc.stat=1
 
 ; Vertification with ctime will avoid problems caused by programs such as svn or rsync by making 
 ; sure inodes have not changed since the last stat. APC will normally only check mtime.
