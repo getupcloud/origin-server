@@ -18,7 +18,7 @@ apc.enabled=1
 apc.shm_size=<%= (ENV['OPENSHIFT_PHP_APC_SHM_SIZE'] =~ /^[0-9]+[MG]$/) ? ENV['OPENSHIFT_PHP_APC_SHM_SIZE'] : ((ENV['OPENSHIFT_GEAR_MEMORY_MB'].to_i/8).to_i.to_s+"M") %>
 
 ; The shared memory size reserved for strings, with M/G suffixe
-apc.shm_strings_buffer=0
+apc.shm_strings_buffer=8M
 
 ; A "hint" about the number of distinct source files that will be included or 
 ; requested on your web server. Set to zero or omit if you are not sure;
