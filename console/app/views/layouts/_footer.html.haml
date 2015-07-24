@@ -2,13 +2,11 @@
   .container
     .row
       %nav.span4
-        %header
-          %h3= t('.developers')
         %ul.unstyled
-          %li= link_to _('Get Started'), getting_started_path
-          //%li= link_to _('User Guide'), user_guide_url
-          %li= link_to _('FAQ'), faq_url
-          %li!= link_to(_("IRC Channel"), irc_web_url)
+          %li! #{link_to(_('Get Started'), getting_started_path)} | #{link_to(_('FAQ'), faq_url)}
+          %li! #{link_to(_('Blog'), getup_blog_url)} | #{link_to(_('Forum'), getup_forums_url)} | #{link_to(_("IRC"), irc_web_url)}
+          %li! #{link_to(_("YouTube Channel"), videos_url)}
+          %li! #{link_to("@GetupCloud", openshift_twitter_url)} | #{link_to("@GetupStatus", openshift_ops_twitter_url)}
 
       %nav.span8
         %address

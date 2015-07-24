@@ -1258,8 +1258,11 @@ msgstr ""
 
 #: ../../app/views/applications/get_started.html.haml:24
 msgid ""
-"Install the Git client for your operating system, and from your command line r"
+"%s for your operating system, and from your command line r"
 "un"
+msgstr ""
+
+msgid "Install the Git client"
 msgstr ""
 
 #: ../../app/views/applications/get_started.html.haml:31
@@ -3352,4 +3355,49 @@ msgid "Set an SSH key"
 msgstr ""
 
 msgid "%s to"
+msgstr ""
+
+msgid "<p>OpenShift uses the Secure Shell protocol to protect direct access to your application.  In order to upload or download source code from Git or to remotely access the gears in your app, you'll need to create and upload a public SSH key.</p>"
+msgstr ""
+
+msgid "OpenShift uses the %s for your source code, and grants you access to it via the Secure Shell (SSH) protocol."
+msgstr ""
+
+msgid "In order to upload and download code to your application you need to give us your %s."
+msgstr ""
+
+msgid "Git version control system"
+msgstr ""
+
+msgid "public SSH key"
+msgstr ""
+
+msgid "Note: You can also %s and run <code>rhc setup</code> to generate and upload your key automatically."
+msgstr ""
+
+msgid "install the RHC command line tool"
+msgstr ""
+
+msgid "Add alias"
+msgstr ""
+
+msgid "If this is your first time creating a public key %s."
+msgstr ""
+
+msgid "read more about SSH keys and remote access"
+msgstr ""
+
+msgid "YouTube Channel"
+msgstr ""
+
+msgid "Sign Out"
+msgstr ""
+
+msgid "Can't find what you're looking for? %s on our community, or %s"
+msgstr ""
+
+msgid "create your own!"
+msgstr ""
+
+msgid "Browse the Quickstarts"
 msgstr ""

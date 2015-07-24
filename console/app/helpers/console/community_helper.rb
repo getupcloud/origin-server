@@ -4,14 +4,6 @@ module Console::CommunityHelper
     Console.config.env(:IRC_WEB_URL, 'http://webchat.freenode.net/?randomnick=1&channels=openshift&uio=d4')
   end
 
-  def link_to_irc
-    link_to "IRC", irc_web_url
-  end
-
-  def openshift_twitter_hashtag_url
-    Console.config.env(:OPENSHIFT_TWITTER_HASHTAG_URL, 'http://twitter.com/search/%23OpenShift')
-  end
-
   def openshift_twitter_url
     Console.config.env(:OPENSHIFT_TWITTER_URL, 'http://twitter.com/openshift')
   end
@@ -28,52 +20,16 @@ module Console::CommunityHelper
     Console.config.env(:OPENSHIFT_GITHUB_URL, 'https://github.com/openshift')
   end
 
-  def stack_overflow_url
-    Console.config.env(:STACK_OVERFLOW_URL, 'http://stackoverflow.com/questions/tagged/openshift/')
-  end
-
-  def stack_overflow_link
-    link_to "StackOverflow", stack_overflow_url
-  end
-
-  def client_tools_url
-    openshift_github_project_url Console.config.env(:GITHUB_CLIENT_TOOLS_REPO, 'rhc')
-  end
-
-  def origin_server_url
-    openshift_github_project_url Console.config.env(:GITHUB_ORIGIN_SERVER_REPO, 'origin-server')
-  end
-
-  def origin_server_source_path_url(path)
-    "#{openshift_github_project_url('origin-server')}/tree/master/#{path}"
-  end
-
-  def cartridges_source_url
-    origin_server_source_path_url 'cartridges'
-  end
-
-  def origin_server_srpm_url
-   Console.config.env(:ORIGIN_SERVER_SRPM_URL, 'http://mirror.openshift.com/pub/openshift-origin/nightly/fedora-latest/latest/SRPMS/')
-  end
-
   def openshift_github_project_url(project)
-    "#{openshift_github_url}/#{project}"  
-  end
-
-  def red_hat_account_url
-    Console.config.env(:RED_HAT_ACCOUNT_URL, 'https://www.redhat.com/wapps/ugc')
+    "#{openshift_github_url}/#{project}"
   end
 
   def contact_mail
-    Console.config.env(:CONTACT_MAIL, 'getup@getupcloud.com')
+    Console.config.env(:CONTACT_MAIL, 'suporte@getupcloud.com')
   end 
 
   def mailto_openshift_url
     'mailto:'+contact_mail
-  end
-
-  def link_to_account_mailto
-    link_to contact_mail, mailto_openshift_url
   end
 
   def status_jsonp_url(id)
@@ -86,14 +42,6 @@ module Console::CommunityHelper
 
   def getup_credit_url
     getup_forum_article_url '61852715'
-  end
-
-  def openshift_twitter_status_url
-    'http://twitter.com/GetupStatus'
-  end
-
-  def getup_facebook_url
-    'http://fb.com/getupcloud'
   end
 
   def getup_youtube_url

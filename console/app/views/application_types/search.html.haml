@@ -69,8 +69,4 @@
   %p= link_to(_("See all application types"), application_types_path)
 
 %section
-  %p
-    Can't find what you're looking for? Try broadening your search or filtering by another tag.
-    -#%p
-      Can't find what you're looking for? #{link_to(_("Browse the Quickstarts"), community_quickstarts_url)} 
-      on our community, or #{link_to(_("create your own!"), create_quickstart_url)}
+  %p! Can't find what you're looking for? #{link_to(_("Browse the Quickstarts"), community_quickstarts_url)} on our community, or #{link_to(_("create your own!"), create_quickstart_url)}

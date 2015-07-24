@@ -21,7 +21,7 @@
     - unless @has_keys
       .alert.alert-info! You must #{link_to(_("upload a public key"), new_key_path)} before you can access application source code.
 
-    %p Install the Git client for your operating system, and from your command line run
+    %p! #{link_to(_("Install the Git client"), git_homepage_url)} for your operating system, and from your command line run
     %pre.cli
       = preserve do
         :escaped
@@ -54,14 +54,14 @@
     %p
       All of the capabilities of OpenShift are exposed through our command line tool,
       %strong rhc.
-      #{link_to(_("Follow these steps to install the client"), client_tools_install_help_url)} on Linux, Mac OS X, or Windows.
+      ! #{link_to(_("Follow these steps to install the client"), client_tools_install_help_url)} on Linux, Mac OS X, or Windows.
     %p
       After installing the RHC read more #{link_to(_("on how to manage your application from the command line in our User Guide"), user_guide_url )}.
 
-    %h3 JBoss Developer Studio
+    //%h3 JBoss Developer Studio
 
-    %p
-      The JBoss Developer Studio is a full featured IDE with OpenShift integration built in.
-      It gives you the ability to create, edit and deploy applications without having to leave the IDE.
-      Links to download, install and use the JBoss Developer Studio for Linux, Mac OS X, or Windows can be found on the #{link_to(_("JBoss Developer Studio tools page"), "#{client_tools_help_url}")}.
+    //%p
+    //  The JBoss Developer Studio is a full featured IDE with OpenShift integration built in.
+    //  It gives you the ability to create, edit and deploy applications without having to leave the IDE.
+    //  Links to download, install and use the JBoss Developer Studio for Linux, Mac OS X, or Windows can be found on the #{link_to(_("JBoss Developer Studio tools page"), "#{client_tools_help_url}")}.
     -# tech specific

@@ -1298,7 +1298,7 @@ msgstr ""
 #: ../../app/views/applications/get_started.html.haml:11
 #: ../../app/views/layouts/_footer.html.haml:8
 msgid "Get Started"
-msgstr "Inicie"
+msgstr "Primeiros Passos"
 
 #: ../../app/views/applications/get_started.html.haml:8
 msgid "Your application has been created. %s."
@@ -1309,7 +1309,7 @@ msgid ""
 "Looking for tips on what to build or where to go next?  We've organized some helpful "
 "hints for you."
 msgstr ""
-"Procurando por dicas sobre o fazer ou onde ir depois? Nós organizamos algumas idéias "
+"Procurando por dicas sobre o que fazer ou onde ir depois? Nós organizamos algumas idéias "
 "para você."
 
 #: ../../app/views/applications/get_started.html.haml:20
@@ -1321,10 +1321,13 @@ msgid "You must %s before you can access application source code."
 msgstr "Você deve primeiro %s antes de acessar o código fonte da aplicação."
 
 #: ../../app/views/applications/get_started.html.haml:24
-msgid "Install the Git client for your operating system, and from your command line run"
+msgid "%s for your operating system, and from your command line run"
 msgstr ""
-"Instale o cliente Git para seu Sistema Operacional, e execute a partir da linha de "
+"%s para seu Sistema Operacional, e execute a partir da linha de "
 "comando"
+
+msgid "Install the Git client"
+msgstr "Instale o cliente Git"
 
 #: ../../app/views/applications/get_started.html.haml:31
 msgid ""
@@ -2745,7 +2748,7 @@ msgid "This domain is using %s and can use up to %s more"
 msgstr "Este domínio está usando %s e pode usar até %s mais"
 
 msgid "change"
-msgstr "mudar"
+msgstr "alterar"
 
 msgid "Allow %s gears"
 msgstr "Permite gears %s"
@@ -2918,7 +2921,7 @@ msgid "Created %s ago in domain %s"
 msgstr "Criado %s atras no domínio %s"
 
 msgid "change alias"
-msgstr "mudar alias"
+msgstr "alterar alias"
 
 msgid "For more information about scaling your applications see %s."
 msgstr "Para mais informações sobre como escalar suas aplicações veja %s."
@@ -2963,7 +2966,7 @@ msgid "Follow these steps to install the client"
 msgstr "Siga estes passos para instalar o cliente"
 
 msgid "%s on Linux, Mac OS X, or Windows."
-msgstr "no Linux, Mac OS X ou Windows."
+msgstr "%s no Linux, Mac OS X ou Windows."
 
 msgid "OpenShift is configured to scale this cartridge with %s."
 msgstr "OpenShift está configurado para escalar este cartucho com %s."
@@ -3516,3 +3519,48 @@ msgstr "Incluir uma chave ssh"
 
 msgid "%s to"
 msgstr "%s para"
+
+msgid "<p>OpenShift uses the Secure Shell protocol to protect direct access to your application.  In order to upload or download source code from Git or to remotely access the gears in your app, you'll need to create and upload a public SSH key.</p>"
+msgstr "<p>OpenShift usa o protocolo Secure Shell para protejer o acesso direto a sua aplicação. Para publicar ou baixar o código fonte do Git ou acessar remotamente os gears em sua aplicação, você precisa criar e adicionar um chave pública SSH.</p>"
+
+msgid "OpenShift uses the %s for your source code, and grants you access to it via the Secure Shell (SSH) protocol."
+msgstr "OpenShift usa o protocolo Secure Shell para protejer o acesso direto a sua aplicação."
+
+msgid "In order to upload and download code to your application you need to give us your %s."
+msgstr "Para publicar ou baixar o código fonte do Git ou acessar remotamente os gears em sua aplicação, você precisa criar e adicionar um chave pública SSH."
+
+msgid "Git version control system"
+msgstr "sistema de controle de vesão GIT"
+
+msgid "public SSH key"
+msgstr "chave pública SSH"
+
+msgid "Note: You can also %s and run <code>rhc setup</code> to generate and upload your key automatically."
+msgstr "Nota: Você também pode %s e executar <code>rhc setup</code> para gerar e subir sua chave ssh automaticamente."
+
+msgid "install the RHC command line tool"
+msgstr "instalar a ferramenta de linha de comando RHC"
+
+msgid "Add alias"
+msgstr "Incluir alias"
+
+msgid "If this is your first time creating a public key %s."
+msgstr "Se esta é sua primeira vez criando uma chave pública, %s."
+
+msgid "read more about SSH keys and remote access"
+msgstr "leia mais sobre chaves SSH e acesso remoto."
+
+msgid "YouTube Channel"
+msgstr "Canal YouTube"
+
+msgid "Sign Out"
+msgstr "Sair"
+
+msgid "Can't find what you're looking for? %s on our community, or %s"
+msgstr "Não encontra o que procura? %s em nossa comunidade, ou %s"
+
+msgid "create your own!"
+msgstr "crie você mesmo!"
+
+msgid "Browse the Quickstarts"
+msgstr "Navegue pelos Quickstarts"

@@ -36,7 +36,7 @@
           = link_to(@application.web_url, :class => 'url-default') do
             %span.name>= @application.name
             %span.url>= URI.parse(@application.web_url).hostname.gsub(/\A#{Regexp.escape(@application.name)}/, '')
-          = link_to "change", new_application_alias_path(@application), :class => 'url-alter'
+          = link_to _("change"), new_application_alias_path(@application), :class => 'url-alter'
 
         - types = @application.gear_ranges(max_gears).map{ |(profile, count, max)| "#{count} #{profile}" }
         - states = @gear_groups.map(&:states).flatten(1)
