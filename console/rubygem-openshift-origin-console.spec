@@ -10,7 +10,7 @@
 Summary:       OpenShift Origin Management Console
 Name:          rubygem-%{gem_name}
 Version:       1.26.3.2
-Release:       16%{?dist}
+Release:       22%{?dist}
 Group:         Development/Languages
 License:       ASL 2.0
 URL:           https://openshift.redhat.com
@@ -175,6 +175,31 @@ cp bin/man/*.8 %{buildroot}%{_mandir}/man8/
 %{gem_dir}/doc/%{gem_name}-%{version}
 
 %changelog
+* Fri Jul 10 2015 Builder <getup@getupcloud.com> 1.26.3.2-22
+- Merge branch 'getup-openshift-origin-release-4' of github.com:getupcloud
+  /origin-server into getup-openshift-origin-release-4 (getup@getupcloud.com)
+- Always show pricing page link (mateus.caruccio@getupcloud.com)
+
+* Fri Jul 10 2015 Builder <getup@getupcloud.com> 1.26.3.2-21
+- Merge branch 'getup-openshift-origin-release-4' of github.com:getupcloud
+  /origin-server into getup-openshift-origin-release-4 (getup@getupcloud.com)
+- force utf-8 gemspec (mateus.caruccio@getupcloud.com)
+
+* Fri Jul 10 2015 Builder <getup@getupcloud.com> 1.26.3.2-20
+- 
+
+* Fri Jul 10 2015 Builder <getup@getupcloud.com> 1.26.3.2-19
+- 
+
+* Fri Jul 10 2015 Builder <getup@getupcloud.com> 1.26.3.2-18
+- Rebuild
+
+* Fri Jul 10 2015 Builder <getup@getupcloud.com> 1.26.3.2-17
+- Merge branch 'getup-openshift-origin-release-4' of github.com:getupcloud
+  /origin-server into getup-openshift-origin-release-4
+  (mateus.caruccio@getupcloud.com)
+- Pagina de preços. (mateus.caruccio@getupcloud.com)
+
 * Thu Jul 09 2015 Builder <getup@getupcloud.com> 1.26.3.2-16
 - missing translations (mateus.caruccio@getupcloud.com)
 - fix haml syntax (mateus.caruccio@getupcloud.com)
