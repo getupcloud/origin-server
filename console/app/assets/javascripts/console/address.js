@@ -23,7 +23,7 @@ $(function($) {
 		}
 	};
 
-	$('#is_billing').change(function() {
+	$('#use_primary_address').change(function() {
 		toggle_controls('.inputs .controls input',  !this.checked);
 		toggle_controls('.inputs .controls select', !this.checked);
 		if (!this.checked) {
@@ -35,8 +35,8 @@ $(function($) {
 		}
 	});
 
-	var is_billing = $('#is_billing');
-	if (is_billing.length > 0 && is_billing[0].checked) {
+	var use_primary_address = $('#use_primary_address');
+	if (use_primary_address.length > 0 && use_primary_address[0].checked) {
 		toggle_controls('.inputs .controls input',  false);
 		toggle_controls('.inputs .controls select', false);
 	}
