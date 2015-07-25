@@ -16,7 +16,7 @@
       .string.required.control-group
         %label.control-label Use Primary Contact
         .controls
-          = check_box_tag :use_primary_address, @address[:use_primary_address], @address[:use_primary_address]
+          = check_box_tag :use_primary_address, true, @address[:use_primary_address]
 
   %fieldset.inputs
     .string.required.control-group
