@@ -3564,3 +3564,9 @@ msgstr "crie você mesmo!"
 
 msgid "Browse the Quickstarts"
 msgstr "Navegue pelos Quickstarts"
+
+msgid "Change Credit Card"
+msgstr "Trocar o Cartão de Crédito"
+
+msgid "Validate your account"
+msgstr "Valide sua conta"
