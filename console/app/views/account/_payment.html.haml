@@ -1,13 +1,14 @@
-%h2 Payment
 
 //%p.total-gears You have #{pluralize(capabilities.gears_free, _('gear available'), _('gears available'))} of #{capabilities.max_gears} total.
 
-- if plan[:status] == 'te' or plan[:status] == 'tf'
+- if plan[:is_trial]
   %p
     Your trial period has finished.
     Please validate your account below in order to have access to more resources.
 
 - if payment[:valid]
+
+  %h2 Payment
 
   %table.table.payment-data
     %body
@@ -65,15 +66,10 @@
 
   %p! For pricing consult #{link_to(_('our pricing page'), pricing_url, {:target => '_new'})}.
 
-  %button.btn.btn-primary{:type => 'button', 'data-toggle' => 'collapse', 'data-target' => "#collapsePayment", 'aria-expanded' => "false", 'aria-controls' => "collapsePayment"} Change Payment Method
-
-  .collapse{:id => 'collapsePayment'}
-    .well
-      = render :partial => 'payment_method'
+  = render :partial => 'payment_method', :locals => {:payment => payment}
 
 - else
   %p Please validate your account below in order to have access to more resources.
   %p! For pricing consult #{link_to(_('our pricing page'), pricing_url, {:target => '_new'})}.
 
-  = render :partial => 'payment_method'
-
+  = render :partial => 'payment_method', :locals => {:payment => payment}

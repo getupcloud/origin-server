@@ -1,13 +1,15 @@
-%h3 Choose Payment Method
+- if payment[:valid]
+  %h3 Change Credit Card
+- else
+  %h3 Validate your account
 
 .row
-  .span3
-    = link_to new_account_validate_paypal_path do
-      %div PayPal
-      = image_tag('paypal-button.png')
+  //.span3
+  //  = link_to new_account_validate_paypal_path do
+  //    %div PayPal
+  //    = image_tag('paypal-button.png')
 
   .span3
     = link_to new_account_validate_credit_card_path do
-      %div Credit Card
       = image_tag('credit-card-button.png')
 

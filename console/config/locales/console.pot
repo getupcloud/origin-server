@@ -3401,3 +3401,9 @@ msgstr ""
 
 msgid "Browse the Quickstarts"
 msgstr ""
+
+msgid "Change Credit Card"
+msgstr ""
+
+msgid "Validate your account"
+msgstr ""
