@@ -10,7 +10,7 @@
 Summary:       OpenShift Origin Management Console
 Name:          rubygem-%{gem_name}
 Version:       1.26.3.2
-Release:       26%{?dist}
+Release:       27%{?dist}
 Group:         Development/Languages
 License:       ASL 2.0
 URL:           https://openshift.redhat.com
@@ -175,6 +175,11 @@ cp bin/man/*.8 %{buildroot}%{_mandir}/man8/
 %{gem_dir}/doc/%{gem_name}-%{version}
 
 %changelog
+* Wed Aug 12 2015 Builder <getup@getupcloud.com> 1.26.3.2-27
+- Merge branch 'getup-openshift-origin-release-4' of github.com:getupcloud
+  /origin-server into getup-openshift-origin-release-4 (getup@getupcloud.com)
+- Fix create first app button (mateus.caruccio@getupcloud.com)
+
 * Mon Aug 03 2015 Builder <getup@getupcloud.com> 1.26.3.2-26
 - Merge branch 'getup-openshift-origin-release-4' of github.com:getupcloud
   /origin-server into getup-openshift-origin-release-4 (getup@getupcloud.com)
