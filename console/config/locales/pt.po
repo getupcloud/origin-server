@@ -3570,3 +3570,12 @@ msgstr "Trocar o Cartão de Crédito"
 
 msgid "Validate your account"
 msgstr "Valide sua conta"
+
+msgid "Create your first application now"
+msgstr "Crie sua primeira aplicação agora"
+
+msgid "For more about OpenShift, see the %s"
+msgstr "Para mais informações sobre OpenShift, veja a %s"
+
+msgid "How it Works page"
+msgstr "página Como Funciona"

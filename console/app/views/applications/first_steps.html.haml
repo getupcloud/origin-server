@@ -19,12 +19,13 @@
 
     %li
       %p Add cartridges like MySQL or MongoDB to your application
-      %p.smaller OpenShift lets you add services and tools to your application through <strong>cartridges</strong> - including databases, cache servers, management tools, and continuous integration servers.
+      %p.smaller= _("OpenShift lets you add services and tools to your application through <strong>cartridges</strong> - including databases, cache servers, management tools, and continuous integration servers.").html_safe
     %li
       %p Upload your code to OpenShift via Git
       %p.smaller Your source code is stored with your application in a Git version control repository.
 
-  %p.lead= link_to "Create your first application now", application_types_path, :class => 'action-more'
+  .btn-toolbar.base
+    = link_to _("Create your first application now"), application_types_path, :class => 'btn btn-primary'
 %section
   %p.light
     For more about OpenShift, see the #{link_to(_("How it Works page"), product_architecture_url)}
