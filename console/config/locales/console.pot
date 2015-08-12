@@ -3407,3 +3407,12 @@ msgstr ""
 
 msgid "Validate your account"
 msgstr ""
+
+msgid "Create your first application now"
+msgstr ""
+
+msgid "For more about OpenShift, see the %s"
+msgstr ""
+
+msgid "How it Works page"
+msgstr ""
