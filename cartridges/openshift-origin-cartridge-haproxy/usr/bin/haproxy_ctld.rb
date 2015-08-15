@@ -491,6 +491,7 @@ class Haproxy
 
               if self.last_scale_up_time_seconds.to_i > FLAP_PROTECTION_TIME_SECONDS
                   if @remove_count >= @remove_count_threshold
+                      `#{ENV['OPENSHIFT_HAPROXY_DIR']}/usr/bin/update-scale-limits -n #{self.gear_namespace} -a #{ENV['OPENSHIFT_APP_NAME']} -u #{ENV['OPENSHIFT_GEAR_UUID']} 2>&1`
                       self.remove_gear if @gear_count > min
                       @remove_count = 0
                   else

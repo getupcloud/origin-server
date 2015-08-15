@@ -34,6 +34,8 @@ class GearScaleCtl
     }
     check_scalability(params, action, opts)
 
+    return if action == 'update-scale-limits'
+
     params['event'] = 'add-gear' == action ?  'scale-up' : 'scale-down'
 
     request = RestClient::Request.new(:method => :post, :url => base_url, :timeout => 600,
@@ -67,6 +69,9 @@ class GearScaleCtl
     scale_file = "#{data_dir}/scale_limits.txt"
     min = 1
     max = -1
+
+    File.delete(scale_file) if File.exists?(scale_file) and action == 'update-scale-limits'
+
     if not File.exists? scale_file
       gear_info_url = "#{$base_url % opts["server"]}#{$create_url % opts['namespace']}/#{opts['app']}"
       request = RestClient::Request.new(:method => :get, :url => gear_info_url, :timeout => 120,
