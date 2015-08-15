@@ -58,7 +58,7 @@ if action == 'gear-scale-ctl'
   exit 255
 end
 
-if not ['add-gear', 'remove-gear'].include? action
+if not ['add-gear', 'remove-gear', 'update-scale-limits'].include? action
   usage
 end
 
