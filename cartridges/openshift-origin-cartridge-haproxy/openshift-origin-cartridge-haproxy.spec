@@ -48,6 +48,11 @@ HAProxy cartridge for OpenShift. (Cartridge Format V2)
 %doc %{cartridgedir}/LICENSE
 
 %changelog
+* Fri Aug 14 2015 Builder <getup@getupcloud.com> 1.25.1.1-2
+- bump version (getup@getupcloud.com)
+- Update scale_limits.txt after flap_time expires
+  (mateus.caruccio@getupcloud.com)
+
 * Thu Jul 10 2014 Adam Miller <admiller@redhat.com> 1.25.1.1-1
 - 
 
