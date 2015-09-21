@@ -3579,3 +3579,9 @@ msgstr "Para mais informações sobre OpenShift, veja a %s"
 
 msgid "How it Works page"
 msgstr "página Como Funciona"
+
+msgid "Can't find the gear you're looking for? Check if it's %s"
+msgstr "Não encontra o gear que procura? Certifique-se que esteja %s"
+
+msgid "enabled for this namespace."
+msgstr "habilitado para este namespace."
