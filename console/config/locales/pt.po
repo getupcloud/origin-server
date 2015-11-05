@@ -1512,7 +1512,7 @@ msgstr "Conecte diretamente a serviços internos"
 
 #: ../../app/views/applications/show.html.haml:51
 msgid "%s started /"
-msgstr "% inciado /"
+msgstr "%i inciado /"
 
 #: ../../app/views/applications/show.html.haml:96
 msgid "Scales"
